@@ -11,7 +11,7 @@ namespace Artemisa.UI.Widgets
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class WorkbenchWidget : Gtk.Bin
 	{
-		private MoviePlayer _movie_player;
+		//private MoviePlayer _movie_player;
 
 		protected virtual void OnQuitActionActivated (object sender, System.EventArgs e)
 		{
@@ -22,11 +22,14 @@ namespace Artemisa.UI.Widgets
 		{
 			this.Build();
 			
-			_movie_player = new MoviePlayer ();
+			/*_movie_player = new MoviePlayer ();
 			_movieplayer_container.Add (_movie_player);
 			_movieplayer_container.ShowAll ();
+			*/
+			_movieplayer_container.Add (new MoviePreviewWidget ());
+			_movieplayer_container.ShowAll ();
 			
-			statusbar.ModifyBg (StateType.Normal, new Gdk.Color (255, 0, 0));
+			//statusbar.ModifyBg (StateType.Normal, new Gdk.Color (255, 0, 0));
 		}
 
 		protected virtual void OnAboutActionActivated (object sender, System.EventArgs e)

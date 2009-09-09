@@ -11,7 +11,6 @@ namespace Artemisa.GStreamer.Widgets
 		
 		public MoviePlayer ()
 		{
-			ModifyBg (StateType.Normal, new Gdk.Color (255, 0, 0));
 		}
 		
 		public void Play ()
