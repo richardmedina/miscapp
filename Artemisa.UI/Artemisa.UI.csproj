@@ -61,8 +61,8 @@
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5">
         <Policies>
-          <StandardHeader inheritsSet="LGPLv2License" />
           <DotNetNamingPolicy DirectoryNamespaceAssociation="Flat" ResourceNamePolicy="FileName" />
+          <StandardHeader inheritsSet="LGPLv2License" />
         </Policies>
       </Properties>
     </MonoDevelop>

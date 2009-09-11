@@ -27,6 +27,11 @@ namespace Artemisa.UI.Widgets
 		Stop
 	}
 	
+	public enum MoviePreviewAnimationType {
+		Rotate 		= 1 << 0,
+		Translate 	= 2 << 1
+	}
+	
 	public class MoviePreviewCanvas : Gtk.DrawingArea
 	{
 		private Gdk.Pixbuf _pixbuf_icon;
@@ -39,6 +44,7 @@ namespace Artemisa.UI.Widgets
 		private bool y_inc=  true;
 		
 		private MoviePreviewState _moviepreview_state;
+		private MoviePreviewAnimationType _animation_type;
 		
 		public MoviePreviewCanvas()
 		{
@@ -71,36 +77,8 @@ namespace Artemisa.UI.Widgets
 			using (Cairo.Context context = 
 			       Gdk.CairoHelper.Create (evnt.Window)) {
   
-				/*
-   cr = cairo_create (image2);
-   cairo_translate (cr, h * 0.5, w * 0.5);
-   cairo_rotate (cr, M_PI / 2.0);
-   cairo_translate (cr, -w * 0.5, -h * 0.5);
-   cairo_set_source_surface (cr, image, 0, 0);
-   cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-   cairo_paint (cr);
-   cairo_surface_write_to_png (image2, "Flag-rotate.png");
-   cairo_surface_destroy (image);
-   cairo_surface_destroy (image2);
-
-				*/
-				
-				/*Cairo.ImageSurface image = 
-						new Cairo.ImageSurface (
-					                        _pixbuf_icon.Pixels,
-					                        Cairo.Format.Argb32,
-					                        _pixbuf_icon.Width, 
-					                        _pixbuf_icon.Height,
-					                        _pixbuf_icon.Rowstride);
-				*/
 				Cairo.ImageSurface image = 
 					new Cairo.ImageSurface ("/home/richard/Desktop/artemisa_icon.png");
-				
-				
-				//image.Show (context, x, y);
-				
-				//context.Translate (image.Width*0.5, image.Height*0.5);
-				//context.Rotate (Math.PI / 2);
 				
 				if (x_inc) {
 					if (_x < Allocation.Width - image.Width)
@@ -119,11 +97,25 @@ namespace Artemisa.UI.Widgets
 					if (_y > 0) _y-=5;
 					else y_inc = true;
 				}
-					
 				
-				context.SetSource (image, _x, _y);
-				//context.Operator =  Cairo.Operator.Source;
+				double x = (_x + image.Width) * 0.5;
+				double y = (_y + image.Height) * 0.5;
+				
+				double x1 = (_x + image.Width) * -0.5;
+				double y1 = (_y + image.Height) * -0.5;
+				
+				
+				context.Save ();
+				context.Translate (x, y);
+				context.Rotate (((_angle++ % 360) * Math.PI) / 180);
+				context.Translate (x1, y1);
+				
+				//image.Show (context, _x, _y);
+				
+				context.SetSource (image);
 				context.Paint ();
+				context.Restore ();
+				
 				((IDisposable)image).Dispose ();
 			}
 			
@@ -149,6 +141,11 @@ namespace Artemisa.UI.Widgets
 		public MoviePreviewState PreviewState {
 			get { return _moviepreview_state; }
 			set { _moviepreview_state = value; }
+		}
+		
+		public MoviePreviewAnimationType AnimationType {
+			get { return _animation_type; }
+			set { _animation_type = value; }
 		}
 	}
 }
