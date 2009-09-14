@@ -38,5 +38,12 @@ namespace Artemisa.UI.Widgets
 			dialog.Run ();
 			dialog.Destroy ();
 		}
+
+		protected virtual void OnOpenProjectActionActivated (object sender, System.EventArgs e)
+		{
+			OpenProjectDialog dialog = new OpenProjectDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
 	}
 }

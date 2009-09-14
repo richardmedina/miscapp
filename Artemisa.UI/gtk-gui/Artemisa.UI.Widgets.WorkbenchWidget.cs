@@ -181,6 +181,7 @@ namespace Artemisa.UI.Widgets {
             }
             w1.SetUiManager(UIManager);
             this.Hide();
+            this.OpenProjectAction.Activated += new System.EventHandler(this.OnOpenProjectActionActivated);
             this.QuitAction.Activated += new System.EventHandler(this.OnQuitActionActivated);
             this.AboutAction.Activated += new System.EventHandler(this.OnAboutActionActivated);
         }
