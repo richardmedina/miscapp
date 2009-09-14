@@ -44,6 +44,8 @@
     <Compile Include="Widgets\MoviePreviewWidget.cs" />
     <Compile Include="Widgets\MoviePreviewToolbar.cs" />
     <Compile Include="Widgets\MoviePreviewCanvas.cs" />
+    <Compile Include="Dialogs\OpenProjectDialog.cs" />
+    <Compile Include="Dialogs\FileSelectionDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
@@ -61,8 +63,8 @@
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5">
         <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="Flat" ResourceNamePolicy="FileName" />
           <StandardHeader inheritsSet="LGPLv2License" />
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="Flat" ResourceNamePolicy="FileName" />
         </Policies>
       </Properties>
     </MonoDevelop>

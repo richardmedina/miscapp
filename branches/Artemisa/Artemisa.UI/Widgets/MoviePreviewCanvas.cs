@@ -64,16 +64,6 @@ namespace Artemisa.UI.Widgets
 		{
 			bool ret = base.OnExposeEvent (evnt);
 			
-			//int x = (Allocation.Width / 2) - (_pixbuf_icon.Width / 2);
-			//int y = (Allocation.Height / 2) - (_pixbuf_icon.Height / 2);
-			/*
-			evnt.Window.DrawPixbuf (Style.WhiteGC,
-			                        _pixbuf_icon,
-			                        0, 0, x, y, 
-			                        _pixbuf_icon.Width, _pixbuf_icon.Height,
-			                        Gdk.RgbDither.None, 0, 0);
-			*/
-			
 			using (Cairo.Context context = 
 			       Gdk.CairoHelper.Create (evnt.Window)) {
   
