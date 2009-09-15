@@ -46,6 +46,12 @@
     <Compile Include="Widgets\MoviePreviewCanvas.cs" />
     <Compile Include="Dialogs\OpenProjectDialog.cs" />
     <Compile Include="Dialogs\FileSelectionDialog.cs" />
+    <Compile Include="Widgets\ICategory.cs" />
+    <Compile Include="Widgets\Categorizer.cs" />
+    <Compile Include="Widgets\CategoryCollection.cs" />
+    <Compile Include="Widgets\CategorizerEvent.cs" />
+    <Compile Include="Dialogs\ProjectSettingsDialog.cs" />
+    <Compile Include="Dialogs\CustomDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
@@ -64,7 +70,7 @@
       <Properties InternalTargetFrameworkVersion="3.5">
         <Policies>
           <StandardHeader inheritsSet="LGPLv2License" />
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="Flat" ResourceNamePolicy="FileName" />
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileName" />
         </Policies>
       </Properties>
     </MonoDevelop>
