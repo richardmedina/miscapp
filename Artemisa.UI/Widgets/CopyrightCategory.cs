@@ -18,35 +18,43 @@
 using System;
 using Gtk;
 
-using Artemisa.UI.Widgets;
-
-namespace Artemisa.UI.Dialogs
+namespace Artemisa.UI.Widgets
 {
 	
 	
-	public class ProjectSettingsDialog : CustomDialog
+	public class CopyrightCategory : Gtk.VBox, ICategory
 	{
-		private Categorizer _categorizer;
+		private Gtk.Entry _entry_author;
+		private Gtk.Entry _entry_email;
+		private Gtk.Entry _entry_company;
+		private Gtk.Entry _entry_copying;
 		
-		public ProjectSettingsDialog ()
+		public CopyrightCategory()
 		{
-			Categorizer categorizer = new Categorizer ();
-			categorizer.Categories.Add (new CopyrightCategory ());
-			categorizer.CategoryActivated += onCategoryActivated;
+			_entry_author = new Entry ();
+			_entry_email = new Entry ();
+			_entry_company = new Entry ();
+			_entry_copying = new Entry ();
 			
-			VBox.PackStart (categorizer);
-			VBox.ShowAll ();
+			Gtk.HBox hbox = new Gtk.HBox(false, 0);
 			
-			AddButton (Stock.Apply, ResponseType.Apply);
-			AddButton (Stock.Cancel, ResponseType.Cancel);
-			AddButton (Stock.Ok, ResponseType.Ok);
+			hbox.PackStart (new Label ("Author"), false, false, 0);
+			hbox.PackStart (_entry_author);
+			PackStart (hbox, false, false, 0);
+			ShowAll ();
 		}
 		
-		private void onCategoryActivated (object sender,
-		                                  CategorizerEventArgs args)
+		public void Save ()
+		{	
+		}
+		
+		public Gtk.Widget GetWidget () 
 		{
-			/*Console.WriteLine ("Current Category: {0}", 
-			                   args.Category.Title);*/
+			return this;
+		}
+		
+		public string Title {
+			get { return "Copyright"; }
 		}
 	}
 }
