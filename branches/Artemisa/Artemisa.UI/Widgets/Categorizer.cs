@@ -28,24 +28,95 @@ namespace Artemisa.UI.Widgets
 		private CategoryCollection _categories;
 		private Gtk.ListStore _store;
 		
+		private event CategorizerEventHandler _category_activated;
+		
+		public Categorizer () : this (new CategoryCollection ())
+		{
+		}
+		
 		public Categorizer (CategoryCollection categories)
 		{
+			_category_activated = onCategoryActivated;
+			_categories = categories;
+			
 			_store = new Gtk.ListStore (typeof (ICategory),
 			                            typeof(string));
 			
 			
 			Model = _store;
 			
-			TreeViewColumn column = new TreeViewColumn ("Category", new CellRendererText (), "text", 1);
+			TreeViewColumn column = new TreeViewColumn ("Category", 
+			                                            new CellRendererText (), 
+			                                            "text", 
+			                                            1);
 			
 			AppendColumn (column);
 			HeadersVisible = true;
 			
-			_categories = categories;
+			Selection.Changed += onSelectionChanged;
+			
+			foreach (ICategory cat in Categories)
+					Append (cat);
 		}
 		
+		public void Append (ICategory category)
+		{
+			_store.AppendValues (category, 
+			                     category.Title);
+		}
+		
+		protected virtual void OnCategoryActivated (ICategory category)
+		{
+			_category_activated (this, 
+			                     new CategorizerEventArgs(category));
+		}
+		
+/*
+		protected override bool OnButtonPressEvent (Gdk.EventButton evnt)
+		{
+			TreePath path;
+			
+			if (GetPathAtPos ((int) evnt.X, (int) evnt.Y, out path)) {
+				TreeIter iter;
+				if (_store.GetIterFromString (out iter, path.ToString ())) {
+					ICategory cat = (ICategory) _store.GetValue (iter, 0);
+				    OnCategoryActivated (cat);
+				}
+			}
+			return base.OnButtonPressEvent (evnt);
+		}
+		
+		protected override void OnShown ()
+		{
+			foreach (ICategory category in Categories)
+				Append (category);
+			
+			base.OnShown ();
+		}
+*/
+		
+		private void onCategoryActivated (object sender,
+		                                  CategorizerEventArgs args)
+		{
+		}
+		
+		private void onSelectionChanged (object sender, EventArgs args)
+		{
+			Gtk.TreeIter iter;
+		
+			if (Selection.GetSelected (out iter)) {
+				ICategory cat = (ICategory) _store.GetValue (iter, 0);
+				OnCategoryActivated (cat);
+			}
+		}
+
 		public CategoryCollection Categories {
 			get { return _categories; }
+		}
+		
+		public event CategorizerEventHandler CategoryActivated {
+			add { _category_activated += value; }
+			remove { _category_activated -= value; }
 		}
 	}
 }

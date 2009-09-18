@@ -52,6 +52,7 @@
     <Compile Include="Widgets\CategorizerEvent.cs" />
     <Compile Include="Dialogs\ProjectSettingsDialog.cs" />
     <Compile Include="Dialogs\CustomDialog.cs" />
+    <Compile Include="Widgets\CopyrightCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
@@ -69,8 +70,8 @@
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5">
         <Policies>
-          <StandardHeader inheritsSet="LGPLv2License" />
           <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileName" />
+          <StandardHeader inheritsSet="LGPLv2License" />
         </Policies>
       </Properties>
     </MonoDevelop>
