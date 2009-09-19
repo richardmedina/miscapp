@@ -68,7 +68,7 @@ namespace Artemisa.UI.Widgets
 			       Gdk.CairoHelper.Create (evnt.Window)) {
   
 				Cairo.ImageSurface image = 
-					new Cairo.ImageSurface ("/home/richard/Desktop/artemisa_icon.png");
+					new Cairo.ImageSurface ("/home/ricki/Desktop/artemisa_icon.png");
 				
 				if (x_inc) {
 					if (_x < Allocation.Width - image.Width)
