@@ -25,7 +25,7 @@ namespace Reportero.UI.Widgets
 		
 		public void Append (Leadership leadership)
 		{
-			Gdk.Pixbuf buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_pickup.png");
+			Gdk.Pixbuf buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_lead.png");
 			_store.AppendValues (buf.ScaleSimple(54, 54, Gdk.InterpType.Bilinear), leadership, leadership.Name);
 		}
 		
