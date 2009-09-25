@@ -54,14 +54,17 @@ namespace Reportero.UI
 		{
 			base.OnShown ();
 			_database.Open ();
-			IDataReader reader = _database.Query ("select distinct (alias) from VehicleState where Alias<>''");
+			
+			foreach (Leadership leader in LeadershipCollection.FromDatabase (_database))
+				_chooser.Append (leader);
+			/*IDataReader reader = _database.Query ("select distinct (alias) from VehicleState where Alias<>''");
 			while (reader.Read ()) {
 				Leadership ls = new Leadership (_database);
 				ls.Name = reader ["Alias"] as string;
 				_chooser.Append (ls);
 			}
 			reader.Close ();
-
+			*/
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
