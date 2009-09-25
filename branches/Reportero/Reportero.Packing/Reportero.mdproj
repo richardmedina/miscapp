@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}</ProjectGuid>
+    <Packages>
+      <Packages xmlns="">
+        <Package name="Linux Binaries">
+          <Builder targetFile="..\Reportero-linux.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="..\Reportero\Reportero.csproj" />
+              <SolutionItemReference path="..\Reportero.UI\Reportero.UI.csproj" />
+              <SolutionItemReference path="..\Reportero.Reports\Reportero.Reports.csproj" />
+              <SolutionItemReference path="..\Reportero.Data\Reportero.Data.csproj" />
+            </ChildEntries>
+            <RootEntry path="..\Reportero.sln" id="{0B499D42-5C67-4F87-BDEC-1D3E048E12E7}" />
+          </Builder>
+        </Package>
+        <Package name="Microsoft Windows Binaries">
+          <Builder targetFile="..\Reportero-windows.tar.gz" platform="Windows" configuration="Debug" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="..\Reportero\Reportero.csproj" />
+              <SolutionItemReference path="..\Reportero.UI\Reportero.UI.csproj" />
+              <SolutionItemReference path="..\Reportero.Reports\Reportero.Reports.csproj" />
+              <SolutionItemReference path="..\Reportero.Data\Reportero.Data.csproj" />
+            </ChildEntries>
+            <RootEntry path="..\Reportero.sln" id="{0B499D42-5C67-4F87-BDEC-1D3E048E12E7}" />
+          </Builder>
+        </Package>
+        <Package name="Tarball">
+          <Builder TargetDirectory="/home/richard/Projects/Reportero" ctype="TarballDeployTarget">
+            <ChildEntries>
+              <SolutionItemReference path="..\Reportero\Reportero.csproj" />
+              <SolutionItemReference path="..\Reportero.UI\Reportero.UI.csproj" />
+              <SolutionItemReference path="..\Reportero.Reports\Reportero.Reports.csproj" />
+              <SolutionItemReference path="..\Reportero.Data\Reportero.Data.csproj" />
+            </ChildEntries>
+            <RootEntry path="..\Reportero.sln" id="{0B499D42-5C67-4F87-BDEC-1D3E048E12E7}" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>
