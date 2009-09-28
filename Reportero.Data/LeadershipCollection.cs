@@ -6,19 +6,17 @@ namespace Reportero.Data
 {
 	
 	
-	public class LeadershipCollection : System.Collections.Generic.List <Leadership>
+	public class LeadershipCollection : RecordCollection <Leadership>
 	{
-		private Database _database;
 		
-		public LeadershipCollection (Database database)
+		public LeadershipCollection (Database database) : base (database)
 		{
-			_database = database;
 		}
 		
 		public static LeadershipCollection FromDatabase (Database database)
 		{
 			LeadershipCollection leadcol = new LeadershipCollection (database);
-			IDataReader reader = database.Query ("select distinct substring(Alias, 0, charindex('-',Alias)) as leadership from VehicleState where Alias <> '';");
+			IDataReader reader = database.Query ("select distinct substring(Alias, 0, charindex('-',Alias)) as leadership from VehicleState where Alias <> '' order by Leadership;");
 			
 			while (reader.Read ()) {
 				Leadership leader = new Leadership (database);
@@ -29,10 +27,6 @@ namespace Reportero.Data
 			reader.Close ();
 			
 			return leadcol;
-		}
-		
-		public Database Database {
-			get { return _database; }
-		}
+		}		
 	}
 }
