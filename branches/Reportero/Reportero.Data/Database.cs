@@ -11,6 +11,19 @@ namespace Reportero.Data
 	{
 		private SqlConnection _connection;
 		
+		private string _hostname;
+		private string _source;
+		private string _userid;
+		private string _password;
+		
+		public Database (string hostname, string userid, string password, string source)
+		{
+			_hostname = hostname;
+			_userid = userid;
+			_password = password;
+			_source = source;
+		}
+		
 		public void Close ()
 		{
 			_connection.Close ();
@@ -18,11 +31,10 @@ namespace Reportero.Data
 		
 		public void Open ()
 		{
+			//string conn
+		
 			_connection = new SqlConnection  (//@"Driver={SQL Server};Server=142.125.145.25\SQLEXPRESS;UID=monitoreovehiculos;PWD=Qwerty;Database=MonitoreoVehiculos");
-				@"Server=142.125.145.25;" +
-          		"Database=MonitoreoVehiculos;" +
-          		"User ID=monitoreovehiculos;" +
-          		"Password=Qwerty;");
+				
 
 			Console.WriteLine ("Connecting to database..");
 			_connection.Open ();

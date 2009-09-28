@@ -5,13 +5,35 @@ namespace Reportero.Data
 {
 	
 	
-	public class Leadership
+	public class Leadership : IRecord
 	{
 		private string _name;
 		private Database _database;
-		public Leadership (Database db)
+		public Leadership (Database database)
 		{
-			_database = db;
+			_database = database;
+		}
+		
+		// in order its anatomy, IRecord interface
+		// can't be implemented. The internal system
+		// does not possible.
+		public void Save ()
+		{
+			
+		}
+		
+		public bool Update ()
+		{
+			return false;
+		}
+		
+		public bool Exists ()
+		{
+			return true;
+		}
+		
+		public RecordType Type {
+			get { return RecordType.Leadership; }
 		}
 		
 		public string Name {
@@ -19,7 +41,7 @@ namespace Reportero.Data
 			set { _name = value; }
 		}
 		
-		public Database Database {
+		public Database Db {
 			get { return _database; }
 		}
 	}

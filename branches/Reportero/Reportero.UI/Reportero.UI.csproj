@@ -40,6 +40,8 @@
     <Compile Include="Widgets\ReportToolbar.cs" />
     <Compile Include="Dialogs\VehicleAssignDialog.cs" />
     <Compile Include="Dialogs\CustomDialog.cs" />
+    <Compile Include="Dialogs\SettingsDialog.cs" />
+    <Compile Include="AppSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

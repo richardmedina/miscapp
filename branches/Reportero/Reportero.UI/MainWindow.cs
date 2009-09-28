@@ -25,19 +25,28 @@ namespace Reportero.UI
 			WindowPosition = WindowPosition.Center;
 			Resize (800, 600);
 			
-			_database = new Database ();
+			_database = new Database (
+				AppSettings.DbHostname, 
+				AppSettings.DbUserid, 
+				AppSettings.DbPasword, 
+				AppSettings.DbSource);
 			
 			_toolbar = new ReportToolbar ();
 			_toolbar.AssignButton.Clicked += delegate {
-				Leadership leader;
+				IRecord record;
 				
-				if (_chooser.GetSelected (out leader)) {
-				 	assignVehicle (leader);
+				if (_chooser.GetSelected (out record)) {
+					if (record.Type == RecordType.Leadership)
+				 		assignVehicle (record as Leadership);
 				 }
 			};
 			
+			_toolbar.HomeButton.Clicked += delegate {
+				_chooser.GoHome (_database);
+			};
+			
 			_chooser = new ReportChooser ();
-			_chooser.ButtonPressEvent += chooserButtonPressEvent;
+			//_chooser.ButtonPressEvent += chooserButtonPressEvent;
 			
 			
 			_vbox = new VBox (false, 5);
@@ -57,14 +66,7 @@ namespace Reportero.UI
 			
 			foreach (Leadership leader in LeadershipCollection.FromDatabase (_database))
 				_chooser.Append (leader);
-			/*IDataReader reader = _database.Query ("select distinct (alias) from VehicleState where Alias<>''");
-			while (reader.Read ()) {
-				Leadership ls = new Leadership (_database);
-				ls.Name = reader ["Alias"] as string;
-				_chooser.Append (ls);
-			}
-			reader.Close ();
-			*/
+
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -73,18 +75,20 @@ namespace Reportero.UI
 			return false;
 		}
 		
+		/*
 		[GLib.ConnectBefore]
 		private void chooserButtonPressEvent (object sender, ButtonPressEventArgs args)
 		{
 			if (args.Event.Type == Gdk.EventType.TwoButtonPress) {// &&
 				//args.Event.Button == 0) {
-					Leadership leader;
-					if (_chooser.GetLeadershipAtPointer (out leader, 
+					IRecord record;
+					if (_chooser.GetRecordAtPointer (out record, 
 						(int) args.Event.X, (int) args.Event.Y))
-					assignVehicle (leader);
+						if (record.Type == RecordType.Leadership)
+							assignVehicle (record as Leadership);
 			}
 		}
-		
+		*/
 		private void assignVehicle (Leadership leader)
 		{
 		 	VehicleAssignDialog dialog = new VehicleAssignDialog (leader);

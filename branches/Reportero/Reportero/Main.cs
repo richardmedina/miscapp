@@ -12,24 +12,30 @@ namespace Reportero
 	
 	public class MainClass
 	{
+		/*
+		static void Main ()
+		{
+			Database db = new Database ();
+			db.Open ();
+		
+			foreach (Leadership lead in LeadershipCollection.FromDatabase (db)) {
+				Console.WriteLine ("Usuarios dentro de Coordinacion '{0}'.", lead.Name);
+				foreach (VehicleUser user in VehicleUserCollection.FromLeadership (lead)) {
+					Console.WriteLine ("\t{0} -> {1}", user.Name, user.VehicleId);
+				}
+			}
+			db.Close ();
+		}
+		*/
 		
 		public static void Main ()
 		{
+		
 			Application.Init ();
 			MainWindow window = new MainWindow ();
 			window.ShowAll ();
-			
-			Database db = new Database ();
-			db.Open ();
-			IDataReader reader = db.Query ("select top 10 alias from VehicleState;");
-			Console.WriteLine ("End Query");
-			Console.WriteLine ("Reading..");
-			while (reader.Read ()) {
-				Console.WriteLine ("Value: {0}", reader.GetString (0));
-			}
-			Console.WriteLine ("End Reading");
-			
 			Application.Run ();
 		}
+		
 	}
 }

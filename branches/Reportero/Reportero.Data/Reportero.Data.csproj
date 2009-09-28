@@ -37,6 +37,10 @@
     <Compile Include="Leadership.cs" />
     <Compile Include="VehicleUser.cs" />
     <Compile Include="LeadershipCollection.cs" />
+    <Compile Include="VehicleUserCollection.cs" />
+    <Compile Include="RecordCollection.cs" />
+    <Compile Include="IRecord.cs" />
+    <Compile Include="RecordType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
