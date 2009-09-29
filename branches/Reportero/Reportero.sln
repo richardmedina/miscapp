@@ -9,18 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportero.Reports", "Report
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportero.Data", "Reportero.Data\Reportero.Data.csproj", "{93E4D801-66DC-44C1-86E6-FAA5A3ADBB89}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Reportero", "Reportero.Packing\Reportero.mdproj", "{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2367AA2D-05EF-4B9E-AF61-A1458EA4AA7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FF8C400-A469-463B-BAA4-33D3E50D9C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FF8C400-A469-463B-BAA4-33D3E50D9C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF8C400-A469-463B-BAA4-33D3E50D9C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU

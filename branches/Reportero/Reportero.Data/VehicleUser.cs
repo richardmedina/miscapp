@@ -38,7 +38,7 @@ namespace Reportero.Data
 				if (reader.Read ()) {
 					_id = (string) reader ["Ficha"];
 					_vehicle_id = (string) reader ["Vehiculo"];
-					_category = (string) reader ["CategorIA"];
+					_category = (string) reader ["Categoria"];
 					_name = (string) reader ["Nombre"];
 					updated = true;
 				}
@@ -51,9 +51,9 @@ namespace Reportero.Data
 		{
 			if (Exists ()) {
 				Db.NonQuery ("update Usuarios SET Ficha='{0}', Categoria='{1}', Nombre='{2}' where Vehiculo='{3}';",
-					_id, _category, _name, _vehicle_id);
+					Id, Category, Name, VehicleId);
 			} else {
-				Db.NonQuery ("insert into Usuarios (Ficha, Vehiculo, Categoria, Nombre) Values ('{0}', '{1}', '{2}', '{3}');", _id, _vehicle_id, _category, _name);
+				Db.NonQuery ("insert into Usuarios (Ficha, Vehiculo, Categoria, Nombre) Values ('{0}', '{1}', '{2}', '{3}');", Id, VehicleId, Category, Name);
 			}
 		}
 		

@@ -14,7 +14,7 @@ namespace Reportero.UI.Dialogs
 		
 		private Leadership _leadership;
 		
-		public VehicleAssignDialog (Leadership leadership)
+		public VehicleAssignDialog (VehicleUser user)
 		{
 			Resize (300, 170);
 			VBox.Spacing = 5;
@@ -25,7 +25,7 @@ namespace Reportero.UI.Dialogs
 			_entry_name.Changed += entry_changed;
 			_entry_pemexid.Changed += entry_changed;
 			
-			VBox.PackStart (new Gtk.Label (string.Format ("Asignación del vehículo:\n{0}",leadership.Name)), false, false, 10);
+			VBox.PackStart (new Gtk.Label (string.Format ("Asignación del vehículo:\n{0}",user.VehicleId)), false, false, 10);
 			
 			Gtk.HBox hbox = new HBox (false, 5);
 			
@@ -48,6 +48,7 @@ namespace Reportero.UI.Dialogs
 			
 			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Save, ResponseType.Ok);
+			
 			SetResponseSensitive (ResponseType.Ok, false);
 		}
 
