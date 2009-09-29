@@ -21,12 +21,12 @@ namespace Reportero.UI
 		
 		public MainWindow () : base (WindowType.Toplevel)
 		{
-			Title = "Reportero";
+			Title = AppSettings.GetFormatedTitle ("Principal");
 			WindowPosition = WindowPosition.Center;
 			Resize (800, 600);
 			
 			_database = new Database (
-				AppSettings.DbHostname, 
+				 AppSettings.DbHostname, 
 				AppSettings.DbUserid, 
 				AppSettings.DbPasword, 
 				AppSettings.DbSource);
@@ -36,8 +36,8 @@ namespace Reportero.UI
 				IRecord record;
 				
 				if (_chooser.GetSelected (out record)) {
-					if (record.Type == RecordType.Leadership)
-				 		assignVehicle (record as Leadership);
+					if (record.Type == RecordType.Leadership);
+				 		//assignVehicle (record as Leadership);
 				 }
 			};
 			
@@ -89,26 +89,6 @@ namespace Reportero.UI
 			}
 		}
 		*/
-		private void assignVehicle (Leadership leader)
-		{
-		 	VehicleAssignDialog dialog = new VehicleAssignDialog (leader);
-		 	VehicleUser user = new VehicleUser (Database);
-				 	
-			user.VehicleId = leader.Name;
-			if (user.Update ()) {
-				dialog.NameEntry.Text = user.Name;
-				dialog.IdEntry.Text = user.Id;
-			}
-				 	
-		 	ResponseType response = dialog.Run ();
-		 	user.Name = dialog.NameEntry.Text;
-		 	user.Id = dialog.IdEntry.Text;
-				 	
-		 	dialog.Destroy ();
-		 	if (response == ResponseType.Ok) {
-		 		user.Save ();
-		 	}
-		}
 		
 		public Database Database {
 			get { return _database; }

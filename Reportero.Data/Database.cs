@@ -33,7 +33,7 @@ namespace Reportero.Data
 		{
 			//string conn
 		
-			_connection = new SqlConnection  (//@"Driver={SQL Server};Server=142.125.145.25\SQLEXPRESS;UID=monitoreovehiculos;PWD=Qwerty;Database=MonitoreoVehiculos");
+			_connection = new SqlConnection  (@"Server=142.125.145.25;UID=monitoreovehiculos;PWD=Qwerty;Database=MonitoreoVehiculos");
 				
 
 			Console.WriteLine ("Connecting to database..");

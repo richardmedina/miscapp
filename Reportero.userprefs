@@ -1,19 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Data/Database.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/VehiclePopup.cs" ctype="Workbench">
     <Files>
       <File FileName="Reportero/Main.cs" Line="36" Column="22" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="29" Column="5" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="75" Column="20" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="39" Column="48" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="93" Column="45" />
       <File FileName="Reportero.UI/Widgets/ReportToolbar.cs" Line="18" Column="47" />
       <File FileName="Reportero.Data/RecordCollection.cs" Line="1" Column="1" />
       <File FileName="Reportero.Data/LeadershipCollection.cs" Line="19" Column="1" />
       <File FileName="Reportero.Data/RecordType.cs" Line="1" Column="1" />
       <File FileName="Reportero.Data/Leadership.cs" Line="1" Column="1" />
-      <File FileName="Reportero.Data/VehicleUser.cs" Line="26" Column="81" />
+      <File FileName="Reportero.Data/VehicleUser.cs" Line="79" Column="1" />
       <File FileName="Reportero.Data/VehicleUserCollection.cs" Line="21" Column="109" />
-      <File FileName="Reportero.UI/Dialogs/SettingsDialog.cs" Line="3" Column="1" />
-      <File FileName="Reportero.UI/AppSettings.cs" Line="10" Column="34" />
-      <File FileName="Reportero.Data/Database.cs" Line="34" Column="6" />
+      <File FileName="Reportero.UI/Dialogs/SettingsDialog.cs" Line="11" Column="11" />
+      <File FileName="Reportero.UI/AppSettings.cs" Line="19" Column="33" />
+      <File FileName="Reportero.Data/Database.cs" Line="36" Column="61" />
+      <File FileName="Reportero.UI/Dialogs/VehicleInfoDialog.cs" Line="14" Column="4" />
+      <File FileName="Reportero.UI/Dialogs/VehicleAssignDialog.cs" Line="16" Column="3" />
+      <File FileName="Reportero.UI/Widgets/VehiclePopup.cs" Line="23" Column="33" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,11 +24,13 @@
           <Node name="Reportero" expanded="True" />
           <Node name="Reportero.Data" expanded="True">
             <Node name="References" expanded="True" />
-            <Node name="Database.cs" selected="True" />
           </Node>
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
-            <Node name="Widgets" expanded="True" />
+            <Node name="Dialogs" expanded="True" />
+            <Node name="Widgets" expanded="True">
+              <Node name="VehiclePopup.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>

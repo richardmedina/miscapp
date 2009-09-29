@@ -42,6 +42,10 @@
     <Compile Include="Dialogs\CustomDialog.cs" />
     <Compile Include="Dialogs\SettingsDialog.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="Dialogs\VehicleInfoDialog.cs" />
+    <Compile Include="Widgets\VehicleMenuPopup.cs" />
+    <Compile Include="Dialogs\ReporteroAboutDialog.cs" />
+    <Compile Include="Dialogs\ActivityReportDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -53,9 +57,15 @@
       <Project>{93E4D801-66DC-44C1-86E6-FAA5A3ADBB89}</Project>
       <Name>Reportero.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Reportero.Reports\Reportero.Reports.csproj">
+      <Project>{98FCCBD7-5890-45F9-BDB9-3C835CADF6A3}</Project>
+      <Name>Reportero.Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="reportero_icon_lead.png" />
     <EmbeddedResource Include="reportero_icon_pickup.png" />
+    <EmbeddedResource Include="reportero_icon_statistics.png" />
+    <EmbeddedResource Include="reportero_icon_vehicle_assign.png" />
   </ItemGroup>
 </Project>
