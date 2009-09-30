@@ -46,6 +46,10 @@
     <Compile Include="Widgets\VehicleMenuPopup.cs" />
     <Compile Include="Dialogs\ReporteroAboutDialog.cs" />
     <Compile Include="Dialogs\ActivityReportDialog.cs" />
+    <Compile Include="Widgets\ReportMenubar.cs" />
+    <Compile Include="Widgets\FileReportMenu.cs" />
+    <Compile Include="Widgets\CustomMenu.cs" />
+    <Compile Include="Widgets\HelpReportMenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -67,5 +71,6 @@
     <EmbeddedResource Include="reportero_icon_pickup.png" />
     <EmbeddedResource Include="reportero_icon_statistics.png" />
     <EmbeddedResource Include="reportero_icon_vehicle_assign.png" />
+    <EmbeddedResource Include="reportero_icon_main.png" />
   </ItemGroup>
 </Project>

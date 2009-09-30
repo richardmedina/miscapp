@@ -10,6 +10,7 @@ namespace Reportero.UI.Dialogs
 		
 		public SettingsDialog ()
 		{
+			Title = AppSettings.GetFormatedTitle ("Configuración");
 		}
 	}
 }

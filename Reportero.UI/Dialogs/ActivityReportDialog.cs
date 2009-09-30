@@ -14,8 +14,16 @@ namespace Reportero.UI.Dialogs
 		
 		public ActivityReportDialog()
 		{
+			Title = AppSettings.GetFormatedTitle ("Reporte de Actividad");
+			Resize (800, 600);
+			
 			_canvas = new ActivityReport (DateTime.Now, DateTime.Now);
-			Add (_canvas);
+			
+			Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow ();
+			scroll.AddWithViewport (_canvas);
+			
+			VBox.PackStart (scroll);
+			VBox.ShowAll ();
 			
 			AddButton (Stock.Close, ResponseType.Close);
 		}

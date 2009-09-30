@@ -27,6 +27,8 @@ namespace Reportero.UI.Dialogs
 		public CustomDialog()
 		{
 			WindowPosition = WindowPosition.Center;
+			Icon = Gdk.Pixbuf.LoadFromResource ("reportero_icon_main.png");
+			
 			AddButton (Stock.Help, ResponseType.Help);
 		}
 		
