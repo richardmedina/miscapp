@@ -32,9 +32,11 @@ namespace Reportero.Data
 		public void Open ()
 		{
 			//string conn
+			
+			string connection_string = string.Format ("Server={0};UID={1};PWD={2};Database={3};",
+				Hostname, UserId, Password, Source);
 		
-			_connection = new SqlConnection  (@"Server=142.125.145.25;UID=monitoreovehiculos;PWD=Qwerty;Database=MonitoreoVehiculos");
-				
+			_connection = new SqlConnection  (connection_string);
 
 			Console.WriteLine ("Connecting to database..");
 			_connection.Open ();
@@ -54,6 +56,22 @@ namespace Reportero.Data
 			string query = string.Format (format, objs);
 			IDbCommand command = new SqlCommand (query, _connection);
 			command.ExecuteNonQuery ();
+		}
+		
+		public string Hostname {
+			get { return _hostname; }
+		}
+		
+		public string UserId {
+			get { return _userid; }
+		}
+		
+		public string Password {
+			get { return _password; }
+		}
+		
+		public string Source {
+			get { return _source; }
 		}
 	}
 }

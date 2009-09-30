@@ -14,8 +14,10 @@ namespace Reportero.UI
 	public class MainWindow : Gtk.Window
 	{
 		private Gtk.VBox _vbox;
-		private ReportChooser _chooser;
+		
+		private ReportMenubar _menubar;
 		private ReportToolbar _toolbar;
+		private ReportChooser _chooser;
 		
 		private Database _database;
 		
@@ -23,7 +25,8 @@ namespace Reportero.UI
 		{
 			Title = AppSettings.GetFormatedTitle ("Principal");
 			WindowPosition = WindowPosition.Center;
-			Resize (800, 600);
+			Icon = Gdk.Pixbuf.LoadFromResource ("reportero_icon_main.png");
+			Resize (1024, 768);
 			
 			_database = new Database (
 				 AppSettings.DbHostname, 
@@ -31,13 +34,17 @@ namespace Reportero.UI
 				AppSettings.DbPasword, 
 				AppSettings.DbSource);
 			
+			
+			_menubar = new ReportMenubar ();
+			
 			_toolbar = new ReportToolbar ();
 			_toolbar.AssignButton.Clicked += delegate {
 				IRecord record;
 				
 				if (_chooser.GetSelected (out record)) {
-					if (record.Type == RecordType.Leadership);
+					if (record.Type == RecordType.Leadership) {
 				 		//assignVehicle (record as Leadership);
+				 	}
 				 }
 			};
 			
@@ -49,7 +56,9 @@ namespace Reportero.UI
 			//_chooser.ButtonPressEvent += chooserButtonPressEvent;
 			
 			
-			_vbox = new VBox (false, 5);
+			_vbox = new VBox (false, 0);
+			
+			_vbox.PackStart (_menubar, false, false, 0);
 			_vbox.PackStart (_toolbar, false, false, 0);
 			
 			Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow ();

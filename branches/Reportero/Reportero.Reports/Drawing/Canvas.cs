@@ -13,6 +13,12 @@ namespace Reportero.Reports.Drawing
 		
 		public Canvas ()
 		{
+			SetSizeRequest (640, 480);
+			ModifyBg (StateType.Normal, new Gdk.Color (255, 255, 255));
+		}
+		
+		protected virtual void OnPaint (Cairo.Context context)
+		{
 		}
 		
 		protected override bool OnExposeEvent (Gdk.EventExpose evnt)
@@ -20,9 +26,7 @@ namespace Reportero.Reports.Drawing
 			bool ret = base.OnExposeEvent (evnt);
 			
 			using (Cairo.Context ctx = Gdk.CairoHelper.Create (evnt.Window)) {
-			
-				ctx.Rectangle (10, 10, 100, 100);
-				ctx.Stroke ();
+				OnPaint (ctx);
 			}
 			
 			return ret;

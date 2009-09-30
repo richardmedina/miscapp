@@ -39,5 +39,22 @@ Global
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$1.ResourceNamePolicy = FileName
+		$0.VersionControlPolicy = $2
+		$2.inheritsSet = Mono
+		$0.StandardHeader = $3
+		$3.Text = 
+		$3.inheritsSet = MITX11License
+		$0.ChangeLogPolicy = $4
+		$4.UpdateMode = None
+		$4.MessageStyle = $5
+		$5.LineAlign = 0
+		$4.inheritsSet = Mono
+		$0.TextStylePolicy = $6
+		$6.FileWidth = 120
+		$6.TabWidth = 4
+		$6.TabsToSpaces = False
+		$6.NoTabsAfterNonTabs = False
+		$6.RemoveTrailingWhitespace = False
+		$6.EolMarker = Native
 	EndGlobalSection
 EndGlobal
