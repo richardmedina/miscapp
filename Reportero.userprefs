@@ -1,19 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/MainWindow.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/ActivityReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero/Main.cs" Line="36" Column="22" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="46" Column="8" />
-      <File FileName="Reportero.UI/Widgets/ReportToolbar.cs" Line="21" Column="28" />
-      <File FileName="Reportero.Reports/ActivityReport.cs" Line="12" Column="33" />
-      <File FileName="Reportero.Reports/Drawing/Canvas.cs" Line="16" Column="20" />
-      <File FileName="Reportero.UI/Dialogs/ActivityReportDialog.cs" Line="18" Column="12" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="141" Column="22" />
-      <File FileName="Reportero.Data/Database.cs" Line="41" Column="2" />
-      <File FileName="Reportero.UI/AppSettings.cs" Line="12" Column="43" />
-      <File FileName="Reportero.Reports/Drawing/Bar.cs" Line="3" Column="7" />
-      <File FileName="Reportero.Reports/Drawing/CanvasPaintEventHandler.cs" Line="16" Column="46" />
-      <File FileName="Reportero.UI/Dialogs/VehicleAssignDialog.cs" Line="88" Column="1" />
-      <File FileName="Reportero.UI/Widgets/CustomMenu.cs" Line="20" Column="14" />
+      <File FileName="Reportero.Reports/ActivityReport.cs" Line="68" Column="26" />
+      <File FileName="Reportero.Reports/Drawing/CanvasPaintEvent.cs" Line="14" Column="35" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,11 +14,11 @@
           <Node name="Reportero.Reports" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="Drawing" expanded="True" />
+            <Node name="ActivityReport.cs" selected="True" />
           </Node>
           <Node name="Reportero.UI" expanded="True">
             <Node name="Dialogs" expanded="True" />
             <Node name="Widgets" expanded="True" />
-            <Node name="MainWindow.cs" selected="True" />
           </Node>
         </State>
       </Pad>
