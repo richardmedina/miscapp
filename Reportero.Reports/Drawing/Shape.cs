@@ -14,12 +14,16 @@ namespace Reportero.Reports.Drawing
 		
 		private IPattern _pattern;
 		
+		private bool _filled = false;
+		private bool _stroked = true;
+		
 		public Shape ()
 		{
 		}
 		
 		public virtual void Paint (CanvasPaintEventArgs args)
 		{
+			
 		}
 		
 		public double LineWidth {
@@ -40,6 +44,16 @@ namespace Reportero.Reports.Drawing
 		public IPattern Pattern {
 			get { return _pattern; }
 			set { _pattern = value; }
+		}
+		
+		public bool Stroked {	
+			get { return _stroked; }
+			set { _stroked = value; }
+		}
+		
+		public bool Filled {
+			get { return _filled; }
+			set { _filled = true; }
 		}
 	}
 }

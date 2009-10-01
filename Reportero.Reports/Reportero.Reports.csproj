@@ -45,6 +45,8 @@
     <Compile Include="Drawing\SolidColorPattern.cs" />
     <Compile Include="Drawing\Line.cs" />
     <Compile Include="Drawing\ShapeCollection.cs" />
+    <Compile Include="Drawing\LinearGradientPattern.cs" />
+    <Compile Include="ActivityReportBar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/ActivityReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/ActivityReport.cs" Line="68" Column="26" />
-      <File FileName="Reportero.Reports/Drawing/CanvasPaintEvent.cs" Line="14" Column="35" />
+      <File FileName="Reportero.Reports/ActivityReport.cs" Line="79" Column="5" />
+      <File FileName="Reportero.Reports/Drawing/Bar.cs" Line="19" Column="31" />
+      <File FileName="Reportero.Reports/Drawing/Canvas.cs" Line="1" Column="1" />
+      <File FileName="Reportero.Reports/ActivityReportBar.cs" Line="28" Column="16" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +14,6 @@
             <Node name="References" expanded="True" />
           </Node>
           <Node name="Reportero.Reports" expanded="True">
-            <Node name="References" expanded="True" />
             <Node name="Drawing" expanded="True" />
             <Node name="ActivityReport.cs" selected="True" />
           </Node>
