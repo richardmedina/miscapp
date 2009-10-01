@@ -35,8 +35,8 @@ namespace Reportero.Reports
 			foreach (Shape shape in Shapes)
 				shape.Paint (paint_args);
 			
-			//using (Cairo.Context ctx = Gdk.CairoHelper.Create (expose_args.Window))
-			//	ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
+			using (Cairo.Context ctx = Gdk.CairoHelper.Create (expose_args.Window))
+				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
 			/*
 			using (Cairo.Context context = Gdk.CairoHelper.Create (expose_args.Window)) {
 				//context.Rectangle (100, 10, Allocation.Width - 120, Allocation.Height - 20);
@@ -87,13 +87,32 @@ namespace Reportero.Reports
 		
 		private void create_graphic_structure ()
 		{
+			// vertical line
 			Line line = new Line (100, 20, 100, 510);
+			// horizontal line
 			Line line2 = new Line (100, 510, 700, 510);
 			
 			//((SolidColorPattern)line.Pattern).Color = new Cairo.Color (1, 0, 0, 0.5);
 			
 			_shapes.Add (line);
 			_shapes.Add (line2);
+			
+			
+			
+			_shapes.Add (new Bar (
+				new Cairo.Color (0.5, 0.5, 1), 
+				new Cairo.Color (0, 0, 0), 
+				110, 100, 30, 100));
+			/*	
+			_shapes.Add (new Bar (110, 200, 30, 310));
+			
+			_shapes.Add (new Bar (
+				new Cairo.Color (0.8, 0.8, 0.8), 
+				new Cairo.Color (0, 0, 0), 
+				150, 100, 30, 200));
+			*/
+			//_shapes.Add (new Bar (150, 300, 30, 210));
+			Shapes.Add (new ActivityReportBar (DateTime.Now, TimeSpan.FromMinutes (420)));
 		}
 
 		public DateTime StartingDate {
