@@ -22,7 +22,7 @@ namespace Reportero.UI.Dialogs
 			Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow ();
 			scroll.AddWithViewport (_canvas);
 			
-			VBox.PackStart (scroll);
+			VBox.PackStart (scroll); 
 			VBox.ShowAll ();
 			
 			AddButton (Stock.Close, ResponseType.Close);

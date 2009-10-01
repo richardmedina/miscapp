@@ -11,15 +11,15 @@ namespace Reportero.Reports.Drawing
 	
 	public class CanvasPaintEventArgs : System.EventArgs
 	{
-		private Canvas _canvas;
+		private Gdk.EventExpose _expose_args;
 		
-		public CanvasPaintEventArgs (Canvas canvas)
+		public CanvasPaintEventArgs (Gdk.EventExpose event_expose)
 		{
-			_canvas = canvas;
+			_expose_args = event_expose;
 		}
 		
-		public Canvas Canvas {
-			get {return _canvas; }
+		public Gdk.EventExpose ExposeArgs {
+			get { return _expose_args; }
 		}
 	}
 }

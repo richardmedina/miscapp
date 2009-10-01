@@ -38,7 +38,13 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Drawing\Canvas.cs" />
     <Compile Include="Drawing\Bar.cs" />
-    <Compile Include="Drawing\CanvasPaintEventHandler.cs" />
+    <Compile Include="Drawing\CanvasPaintEvent.cs" />
+    <Compile Include="Drawing\Shape.cs" />
+    <Compile Include="Drawing\IPattern.cs" />
+    <Compile Include="Drawing\PatternType.cs" />
+    <Compile Include="Drawing\SolidColorPattern.cs" />
+    <Compile Include="Drawing\Line.cs" />
+    <Compile Include="Drawing\ShapeCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
