@@ -35,7 +35,7 @@ namespace Reportero.Reports.Drawing
 			//gradient.AddColorStop (2, new Cairo.Color (0, 0, 1));
 			
 			Pattern = new LinearGradientPattern (gradient);
-			StrokeColor = new SolidColorPattern (new Color (1, 1, 1));
+			StrokeColor = new SolidColorPattern (new Color (0, 0, 0));
 			
 			Stroked = false;
 			Filled = true;

@@ -57,6 +57,21 @@ namespace Reportero.Data
 			}
 		}
 		
+		public int GetMinutesRunning (DateTime date)
+		{
+			int minutes_running = 0;
+			
+			IDataReader reader = Db.Query ("select Count (Date_Time) * 3 as minutes from VehicleState where PC_Date='{0:yyyy-MM-dd}' and alias='{1}' and Speed>0",
+				date, VehicleId);
+			
+			if (reader.Read ())
+				minutes_running = (int) reader ["minutes"];
+			
+			reader.Close ();
+			
+			return minutes_running;
+		}
+		
 		public string Id {
 			get { return _id; }
 			set { _id = value; }
