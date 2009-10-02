@@ -28,13 +28,14 @@ namespace Reportero.UI.Dialogs
 			_entry_name.Changed += entry_changed;
 			_entry_pemexid.Changed += entry_changed;
 			
-			VBox.PackStart (new Gtk.Label (string.Format ("Asignación del vehículo:\n{0}", 
-				vehicle.VehicleId)), false, false, 10);
+			Label label = new Gtk.Label (string.Format ("Asignación del vehículo:\n{0}", 
+				vehicle.VehicleId));
+			VBox.PackStart (label, false, false, 10);
 			
 			Gtk.HBox hbox = new HBox (false, 5);
 			
 			VBox.PackStart (hbox, false, false, 0);
-			Gtk.Label label = new Label ("Nombre");
+			label = new Label ("Nombre");
 			label.WidthRequest = 70;
 			
 			hbox.PackStart (label, false, false, 0);

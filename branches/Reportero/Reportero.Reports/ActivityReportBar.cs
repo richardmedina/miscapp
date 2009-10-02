@@ -13,24 +13,24 @@ namespace Reportero.Reports
 		private DateTime _date;
 		private TimeSpan _moving_time;
 		
-		private static double _rootx = 110;
-		private static double _rooty = 462;
-		private static double _topx = 150;
+		private static double _rootx = 50;
+		private static double _rooty = 510;
+		private static double _topx = 110;
 		private static double _topy = 48;
 		
 		public ActivityReportBar (DateTime date, TimeSpan moving_time) :
-			base (_rootx, _topy, _topx, _rooty)
+			base (_topx, _topy, _rootx, _rooty)
 		{
 			_date = date;
 			_moving_time = moving_time;
 			
 			double pixels = (moving_time.TotalMinutes*1.1);
 			
-			Y = pixels;
-			Height = Y;
-			Y = _rooty - pixels;
+			Y = Height - pixels;
+			Height -= (Height -pixels);
 			
-			Console.WriteLine ("({0},{1})({2},{3})", X, Y, Width, Height);
+			//StrokeColor = new SolidColorPattern (new Cairo.Color (0.0, 0.5, 0.0));
+			//Stroked = true;
 		}
 		
 		public DateTime Date {

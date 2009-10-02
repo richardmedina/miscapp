@@ -52,4 +52,7 @@
   <ItemGroup>
     <Folder Include="Drawing\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="reportero_icon_pep.png" />
+  </ItemGroup>
 </Project>

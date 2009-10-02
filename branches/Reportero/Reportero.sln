@@ -36,12 +36,11 @@ Global
 		version = 0.1
 		StartupItem = Reportero\Reportero.csproj
 		Policies = $0
-		$0.StandardHeader = $1
-		$1.Text = 
-		$1.inheritsSet = MITX11License
-		$0.DotNetNamingPolicy = $2
-		$2.DirectoryNamespaceAssociation = PrefixedHierarchical
-		$2.ResourceNamePolicy = FileName
+		$0.ChangeLogPolicy = $1
+		$1.UpdateMode = None
+		$1.MessageStyle = $2
+		$2.LineAlign = 0
+		$1.inheritsSet = Mono
 		$0.TextStylePolicy = $3
 		$3.FileWidth = 120
 		$3.TabWidth = 4
@@ -49,12 +48,13 @@ Global
 		$3.NoTabsAfterNonTabs = False
 		$3.RemoveTrailingWhitespace = False
 		$3.EolMarker = Native
-		$0.ChangeLogPolicy = $4
-		$4.UpdateMode = None
-		$4.MessageStyle = $5
-		$5.LineAlign = 0
-		$4.inheritsSet = Mono
-		$0.VersionControlPolicy = $6
-		$6.inheritsSet = Mono
+		$0.StandardHeader = $4
+		$4.Text = 
+		$4.inheritsSet = MITX11License
+		$0.VersionControlPolicy = $5
+		$5.inheritsSet = Mono
+		$0.DotNetNamingPolicy = $6
+		$6.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$6.ResourceNamePolicy = FileName
 	EndGlobalSection
 EndGlobal
