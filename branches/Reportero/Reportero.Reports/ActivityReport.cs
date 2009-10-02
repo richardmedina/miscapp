@@ -31,12 +31,22 @@ namespace Reportero.Reports
 			base.OnPaint (expose_args);
 			
 			CanvasPaintEventArgs paint_args = new CanvasPaintEventArgs (expose_args);
-			Console.WriteLine ("Before foreach");
+			
 			foreach (Shape shape in Shapes)
 				shape.Paint (paint_args);
 			
-			using (Cairo.Context ctx = Gdk.CairoHelper.Create (expose_args.Window))
+			using (Cairo.Context ctx = Gdk.CairoHelper.Create (expose_args.Window)) {
+				Gdk.Pixbuf buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_pep.png");
+				
+				Gdk.CairoHelper.SetSourcePixbuf (ctx, 
+					buf,
+					(Allocation.Width /2) - (buf.Width /2), 0);
+				
+				ctx.PaintWithAlpha (0.5);
+				
 				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
+				
+			}
 			/*
 			using (Cairo.Context context = Gdk.CairoHelper.Create (expose_args.Window)) {
 				//context.Rectangle (100, 10, Allocation.Width - 120, Allocation.Height - 20);
@@ -98,12 +108,12 @@ namespace Reportero.Reports
 			_shapes.Add (line2);
 			
 			
-			
+			/*
 			_shapes.Add (new Bar (
 				new Cairo.Color (0.5, 0.5, 1), 
 				new Cairo.Color (0, 0, 0), 
 				110, 100, 30, 100));
-			/*	
+				
 			_shapes.Add (new Bar (110, 200, 30, 310));
 			
 			_shapes.Add (new Bar (
@@ -112,7 +122,7 @@ namespace Reportero.Reports
 				150, 100, 30, 200));
 			*/
 			//_shapes.Add (new Bar (150, 300, 30, 210));
-			Shapes.Add (new ActivityReportBar (DateTime.Now, TimeSpan.FromMinutes (420)));
+			Shapes.Add (new ActivityReportBar (DateTime.Now, TimeSpan.FromMinutes (300)));
 		}
 
 		public DateTime StartingDate {

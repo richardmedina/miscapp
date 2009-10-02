@@ -50,6 +50,9 @@
     <Compile Include="Widgets\FileReportMenu.cs" />
     <Compile Include="Widgets\CustomMenu.cs" />
     <Compile Include="Widgets\HelpReportMenu.cs" />
+    <Compile Include="Dialogs\DateRangeSelectionDialog.cs" />
+    <Compile Include="Widgets\DateEntry.cs" />
+    <Compile Include="Widgets\DateSelectionDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -72,5 +75,6 @@
     <EmbeddedResource Include="reportero_icon_statistics.png" />
     <EmbeddedResource Include="reportero_icon_vehicle_assign.png" />
     <EmbeddedResource Include="reportero_icon_main.png" />
+    <EmbeddedResource Include="reportero_icon_calendar.png" />
   </ItemGroup>
 </Project>
