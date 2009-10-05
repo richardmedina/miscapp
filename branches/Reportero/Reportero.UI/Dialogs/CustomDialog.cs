@@ -32,14 +32,28 @@ namespace Reportero.UI.Dialogs
 			AddButton (Stock.Help, ResponseType.Help);
 		}
 		
-		public new ResponseType Run ()
+		public virtual new ResponseType Run ()
 		{
 			ResponseType response;
 			do {
-				response = (ResponseType) base.Run ();	
-			} while (response == ResponseType.Help);
+				response = (ResponseType) base.Run ();
+				if (response == ResponseType.Apply)
+					OnApply ();
+				if (response == ResponseType.Help)
+					OnHelp ();
+			} while (response == ResponseType.Help || response == ResponseType.Apply);
 			
 			return response;
+		}
+		
+		protected virtual bool OnApply ()
+		{
+			return true;
+		}
+		
+		protected virtual bool OnHelp ()
+		{
+			return true;
 		}
 	}
 }

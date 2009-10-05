@@ -10,7 +10,7 @@ namespace Reportero.UI
 	public class AppSettings
 	{
 		public string DbHostname = "142.125.145.25";
-		public string DbUserid = "monitoreovehiculos";
+		public string DbUsername = "monitoreovehiculos";
 		public string DbPasword = "Qwerty";
 		public string DbSource = "MonitoreoVehiculos";
 		
@@ -27,7 +27,8 @@ namespace Reportero.UI
 		public void Serialize (string filename)
 		{
 			XmlSerializer serializer = new XmlSerializer (GetType ());
-      		serializer.Serialize(new StreamWriter (filename), this);
+			using (StreamWriter writer = new StreamWriter (filename))
+      			serializer.Serialize(writer, this);
 		}
 		
 		public void Deserialize (string filename)
@@ -35,9 +36,11 @@ namespace Reportero.UI
 			XmlSerializer serializer = new XmlSerializer (GetType ());
 			AppSettings settings = new AppSettings ();
 			try {
-				settings = (AppSettings) serializer.Deserialize (new StreamReader (filename));
-			} catch (Exception exception) {
-				Console.WriteLine ("Settings File not found. It will be created..");
+				using (StreamReader reader = new StreamReader (filename))
+					settings = (AppSettings) serializer.Deserialize (reader);
+			} catch (FileNotFoundException exception) {
+				Console.WriteLine ("Settings File '{0}' not found. It will be created..",
+					exception.FileName);
 			}
 			Instance.CopyFrom (settings);
 		}
@@ -45,7 +48,7 @@ namespace Reportero.UI
 		public void CopyFrom (AppSettings settings)
 		{
 			DbHostname = settings.DbHostname;
-			DbUserid = settings.DbUserid;
+			DbUsername = settings.DbUsername;
 			DbPasword = settings.DbPasword;
 			DbSource = settings.DbSource;
 		}
@@ -61,5 +64,8 @@ namespace Reportero.UI
 			}
 		}
 		
+		public static string Filename {
+			get { return "settings.xml"; }
+		}
 	}
 }

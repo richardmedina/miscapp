@@ -18,8 +18,9 @@ namespace Reportero.UI.Widgets
 			_itm_prefs.Image = new Image (Stock.Preferences, IconSize.Menu);
 			_itm_prefs.Activated += itm_prefsActivated;
 			
-			_itm_Quit = new ImageMenuItem (Stock.Quit, null);
+			_itm_Quit = new ImageMenuItem ("Salir");
 			_itm_Quit.Activated += _itm_QuitActivated;
+			_itm_Quit.Image = new Image (Stock.Quit, IconSize.Menu);
 			
 			Append (_itm_prefs);
 			Append (new SeparatorMenuItem ());
