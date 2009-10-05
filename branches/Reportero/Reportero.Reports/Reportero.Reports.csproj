@@ -32,6 +32,7 @@
     <Reference Include="Mono.Cairo" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityReport.cs" />
@@ -54,5 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="reportero_icon_pep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reportero.Data\Reportero.Data.csproj">
+      <Project>{93E4D801-66DC-44C1-86E6-FAA5A3ADBB89}</Project>
+      <Name>Reportero.Data</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -27,5 +27,13 @@ namespace Reportero.UI.Dialogs
 			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
+		
+		public DateEntry StartingDateEntry {
+			get { return _de_start; }
+		}
+		
+		public DateEntry EndingDateEntry {
+			get { return _de_end; }
+		}
 	}
 }

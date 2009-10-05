@@ -94,7 +94,7 @@ namespace Reportero.UI.Widgets
 						return false;
 					} 
 					else if (record.Type == RecordType.VehicleUser) {
-						assignVehicle (record as VehicleUser);
+						AssignVehicle (record as VehicleUser);
 					}
 				}
 			} else if (evnt.Button == 3) {
@@ -106,7 +106,7 @@ namespace Reportero.UI.Widgets
 			return base.OnButtonPressEvent (evnt);
 		}
 		
-		private void assignVehicle (VehicleUser user)
+		public void AssignVehicle (VehicleUser user)
 		{
 		 	VehicleAssignDialog dialog = new VehicleAssignDialog (user);
 			
@@ -115,7 +115,7 @@ namespace Reportero.UI.Widgets
 				dialog.IdEntry.Text = user.Id;
 			}
 			
-			Console.WriteLine (user.GetMinutesRunning (DateTime.Now));
+			//Console.WriteLine (user.GetMinutesRunning (DateTime.Now));
 				 	
 		 	ResponseType response = dialog.Run ();
 		 	
@@ -133,18 +133,25 @@ namespace Reportero.UI.Widgets
 			
 			if (GetSelected (out record))
 				if (record.Type == RecordType.VehicleUser)
-					assignVehicle (record as VehicleUser);
+					AssignVehicle (record as VehicleUser);
 			}
 		
 		private void vehicle_popupStatisticsActivated (object sender, EventArgs args)
 		{
 			DateRangeSelectionDialog dlg = new DateRangeSelectionDialog ();
 			ResponseType response = (ResponseType) dlg.Run ();
+			DateTime startdate = dlg.StartingDateEntry.Date;
+			DateTime enddate = dlg.EndingDateEntry.Date;
 			dlg.Destroy ();
 			if (response == ResponseType.Ok) {
-				ActivityReportDialog dialog = new ActivityReportDialog ();
-				dialog.Run ();
-				dialog.Destroy ();
+				IRecord record;
+				if (GetSelected (out record)) {
+					ActivityReportDialog dialog = new ActivityReportDialog (
+						record as VehicleUser,
+						startdate, enddate);
+					dialog.Run ();
+					dialog.Destroy ();
+				}
 			}
 		}
 	}

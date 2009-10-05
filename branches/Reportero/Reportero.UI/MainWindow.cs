@@ -30,26 +30,15 @@ namespace Reportero.UI
 			
 			_database = new Database (
 				AppSettings.Instance.DbHostname, 
-				AppSettings.Instance.DbUserid, 
+				AppSettings.Instance.DbUsername, 
 				AppSettings.Instance.DbPasword, 
 				AppSettings.Instance.DbSource);
 			
 			_menubar = new ReportMenubar ();
 			
 			_toolbar = new ReportToolbar ();
-			_toolbar.AssignButton.Clicked += delegate {
-				IRecord record;
-				
-				if (_chooser.GetSelected (out record)) {
-					if (record.Type == RecordType.Leadership) {
-				 		//assignVehicle (record as Leadership);
-				 	}
-				 }
-			};
-			
-			_toolbar.HomeButton.Clicked += delegate {
-				_chooser.GoHome (_database);
-			};
+			_toolbar.AssignButton.Clicked += toolbarAssignButtonClicked;
+			_toolbar.HomeButton.Clicked += toolbarHomeButtonActivated;
 			
 			_chooser = new ReportChooser ();
 			//_chooser.ButtonPressEvent += chooserButtonPressEvent;
@@ -70,17 +59,31 @@ namespace Reportero.UI
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			//_database.Open ();
-			
-			//foreach (Leadership leader in LeadershipCollection.FromDatabase (_database))
-			//	_chooser.Append (leader);
-
+			_database.Open ();
+			_chooser.GoHome (_database);
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
 		{
 			Application.Quit ();
 			return false;
+		}
+		
+		private void toolbarHomeButtonActivated (object sender, EventArgs args)
+		{
+			_chooser.GoHome (_database);
+		}
+		
+		private void toolbarAssignButtonClicked (object sender, EventArgs args)
+		{
+			IRecord record;
+				
+			if (_chooser.GetSelected (out record)) {
+				if (record.Type == RecordType.Leadership) {
+			 		//assignVehicle (record as Leadership);
+			 		_chooser.AssignVehicle (record as VehicleUser);
+			 	}
+			 }
 		}
 		
 		/*

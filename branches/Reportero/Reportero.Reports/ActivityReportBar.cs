@@ -18,16 +18,18 @@ namespace Reportero.Reports
 		private static double _topx = 110;
 		private static double _topy = 48;
 		
-		public ActivityReportBar (DateTime date, TimeSpan moving_time) :
-			base (_topx, _topy, _rootx, _rooty)
+		public ActivityReportBar (int position, DateTime date, TimeSpan moving_time) :
+			base (_topx + ((_rootx + 10) * (position)), _topy, _rootx, _rooty)
 		{
 			_date = date;
 			_moving_time = moving_time;
 			
-			double pixels = (moving_time.TotalMinutes*1.1);
+			double pixels = (moving_time.TotalMinutes * 1.1);
 			
-			Y = Height - pixels;
-			Height -= (Height -pixels);
+			//X = (_topx + _rootx + 10) * (position + 1);
+			
+			Y = Height - pixels; 
+			Height -= (Height - pixels);
 			
 			//StrokeColor = new SolidColorPattern (new Cairo.Color (0.0, 0.5, 0.0));
 			//Stroked = true;
