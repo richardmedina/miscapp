@@ -23,17 +23,16 @@ namespace Reportero.UI
 		
 		public MainWindow () : base (WindowType.Toplevel)
 		{
-			Title = AppSettings.GetFormatedTitle ("Principal");
+			Title = AppSettings.Instance.GetFormatedTitle ("Principal");
 			WindowPosition = WindowPosition.Center;
 			Icon = Gdk.Pixbuf.LoadFromResource ("reportero_icon_main.png");
 			Resize (1024, 768);
 			
 			_database = new Database (
-				 AppSettings.DbHostname, 
-				AppSettings.DbUserid, 
-				AppSettings.DbPasword, 
-				AppSettings.DbSource);
-			
+				AppSettings.Instance.DbHostname, 
+				AppSettings.Instance.DbUserid, 
+				AppSettings.Instance.DbPasword, 
+				AppSettings.Instance.DbSource);
 			
 			_menubar = new ReportMenubar ();
 			
@@ -71,10 +70,10 @@ namespace Reportero.UI
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			_database.Open ();
+			//_database.Open ();
 			
-			foreach (Leadership leader in LeadershipCollection.FromDatabase (_database))
-				_chooser.Append (leader);
+			//foreach (Leadership leader in LeadershipCollection.FromDatabase (_database))
+			//	_chooser.Append (leader);
 
 		}
 		

@@ -1,30 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/DateEntry.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/SettingsPanel.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/ActivityReport.cs" Line="92" Column="1" />
-      <File FileName="Reportero.UI/Widgets/DateEntry.cs" Line="59" Column="5" />
-      <File FileName="Reportero.UI/Dialogs/DateRangeSelectionDialog.cs" Line="40" Column="74" />
-      <File FileName="Reportero.UI/Widgets/DateSelectionDialog.cs" Line="21" Column="32" />
+      <File FileName="Reportero.UI/Widgets/SettingsPanel.cs" Line="2" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Reportero" expanded="True" />
-          <Node name="Reportero.Data" expanded="True" />
-          <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Dialogs" expanded="True" />
             <Node name="Widgets" expanded="True">
-              <Node name="DateEntry.cs" selected="True" />
+              <Node name="PanelCollection.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="ConnectionManagerPad">
-        <State selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

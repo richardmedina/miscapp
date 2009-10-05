@@ -14,7 +14,7 @@ namespace Reportero.UI.Dialogs
 		
 		public ActivityReportDialog()
 		{
-			Title = AppSettings.GetFormatedTitle ("Reporte de Actividad");
+			Title = AppSettings.Instance.GetFormatedTitle ("Reporte de Actividad");
 			Resize (800, 600);
 			
 			_canvas = new ActivityReport (DateTime.Now, DateTime.Now);
