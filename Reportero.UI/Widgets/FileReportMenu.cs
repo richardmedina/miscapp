@@ -1,6 +1,7 @@
 
 using System;
 using Gtk;
+using Reportero.UI.Dialogs;
 
 namespace Reportero.UI.Widgets
 {
@@ -15,6 +16,7 @@ namespace Reportero.UI.Widgets
 		{
 			_itm_prefs = new ImageMenuItem ("Preferencias...");
 			_itm_prefs.Image = new Image (Stock.Preferences, IconSize.Menu);
+			_itm_prefs.Activated += itm_prefsActivated;
 			
 			_itm_Quit = new ImageMenuItem (Stock.Quit, null);
 			_itm_Quit.Activated += _itm_QuitActivated;
@@ -27,6 +29,13 @@ namespace Reportero.UI.Widgets
 		private void _itm_QuitActivated (object sender, EventArgs args)
 		{
 			Application.Quit ();
+		}
+		
+		private void itm_prefsActivated (object sender, EventArgs args)
+		{
+			SettingsDialog dialog = new SettingsDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
 		}
 	}
 }
