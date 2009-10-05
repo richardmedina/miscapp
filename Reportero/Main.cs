@@ -32,11 +32,11 @@ namespace Reportero
 		{
 		
 			Application.Init ();
-			AppSettings.Instance.Deserialize ("settings.xml");
+			AppSettings.Instance.Deserialize (AppSettings.Filename);
 			MainWindow window = new MainWindow ();
 			window.ShowAll ();
 			Application.Run ();
-			AppSettings.Instance.Serialize ("settings.xml");
+			AppSettings.Instance.Serialize (AppSettings.Filename);
 		}
 		
 	}

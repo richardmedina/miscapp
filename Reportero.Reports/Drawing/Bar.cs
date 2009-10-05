@@ -28,10 +28,10 @@ namespace Reportero.Reports.Drawing
 			Width = width;
 			Height = height;
 			
-			Gradient gradient = new Cairo.LinearGradient (X, Y, X+ Width, Y);
+			LinearGradient gradient = new Cairo.LinearGradient (X, Y, X + Width, Y);
 			gradient.AddColorStop (0, color1);
 			gradient.AddColorStop (1, color2);
-			
+						
 			//gradient.AddColorStop (2, new Cairo.Color (0, 0, 1));
 			
 			Pattern = new LinearGradientPattern (gradient);

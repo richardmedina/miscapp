@@ -24,19 +24,27 @@ namespace Reportero.UI.Widgets
 			_btn_assign.Label = "Asignar";
 			
 			_btn_home = new ToolButton (Stock.Home);
+			_btn_home.Label = "Inicio";
+			
 			_btn_about = new ToolButton (Stock.About);
+			_btn_about.Label = "Acerca de...";
 			_btn_about.Clicked += delegate {
 				ReporteroAboutDialog dialog = new ReporteroAboutDialog ();
 				dialog.Run ();
 				dialog.Destroy ();
 			};
 			
+			
+			Insert (_btn_home, -1);
+			Insert (new SeparatorToolItem (), -1);
+			
 			Insert (_btn_report, -1);
 			Insert (_btn_assign, -1);
 			Insert (new SeparatorToolItem (), -1);
-			Insert (_btn_home, -1);
-			Insert (new SeparatorToolItem (), -1);
+			
 			Insert (_btn_about, -1);
+			
+			ToolbarStyle = ToolbarStyle.Icons;
 		}
 		
 		public ToolButton ReportButton {

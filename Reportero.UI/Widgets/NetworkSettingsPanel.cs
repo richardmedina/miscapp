@@ -15,11 +15,11 @@ namespace Reportero.UI.Widgets
 		
 		public NetworkSettingsPanel()
 		{
-			Title = "Base de datos";
+			Title = "Red";
 			ResetRequire = true;
 			
 			_entry_hostname = new Gtk.Entry (AppSettings.Instance.DbHostname);
-			_entry_username = new Gtk.Entry (AppSettings.Instance.DbUserid);
+			_entry_username = new Gtk.Entry (AppSettings.Instance.DbUsername);
 			_entry_password = new Gtk.Entry (AppSettings.Instance.DbPasword);
 			_entry_password.Visibility = false;
 			_entry_source = new Gtk.Entry (AppSettings.Instance.DbSource);
@@ -59,7 +59,34 @@ namespace Reportero.UI.Widgets
 		
 		public override bool Save ()
 		{
-			return false;
+			if (DbHostname.Trim ().Length == 0 ||
+				DbUsername.Trim ().Length == 0 ||
+				DbPassword.Trim ().Length == 0 ||
+				DbSource.Trim ().Length == 0)
+				return false;
+			
+			AppSettings.Instance.DbHostname = DbHostname;
+			AppSettings.Instance.DbUsername = DbUsername;
+			AppSettings.Instance.DbPasword = DbPassword;
+			AppSettings.Instance.DbSource = DbSource;
+			 
+			return true;
+		}
+		
+		public string DbHostname {
+			get { return _entry_hostname.Text; }
+		}
+		
+		public string DbUsername {
+			get { return _entry_username.Text; }
+		}
+		
+		public string DbPassword {
+			get { return _entry_password.Text; }
+		}
+		
+		public string DbSource {
+			get { return _entry_source.Text; }
 		}
 	}
 }
