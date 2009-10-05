@@ -18,7 +18,7 @@ namespace Reportero.UI.Dialogs
 		{
 			_vehicle = vehicle;
 		
-			Title = AppSettings.GetFormatedTitle ("Asignación de vehículo");
+			Title = AppSettings.Instance.GetFormatedTitle ("Asignación de vehículo");
 			Resize (300, 170);
 			VBox.Spacing = 5;
 			_entry_pemexid = new Entry ();

@@ -32,6 +32,7 @@
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.cs" />
@@ -53,6 +54,12 @@
     <Compile Include="Dialogs\DateRangeSelectionDialog.cs" />
     <Compile Include="Widgets\DateEntry.cs" />
     <Compile Include="Widgets\DateSelectionDialog.cs" />
+    <Compile Include="Widgets\NetworkSettingsPanel.cs" />
+    <Compile Include="Widgets\SettingsPanel.cs" />
+    <Compile Include="Widgets\PanelTabulator.cs" />
+    <Compile Include="Widgets\PanelCollection.cs" />
+    <Compile Include="Widgets\AppearanceSettingsPanel.cs" />
+    <Compile Include="Widgets\PlottingSettingsPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
