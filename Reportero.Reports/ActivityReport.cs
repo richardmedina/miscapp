@@ -31,16 +31,16 @@ namespace Reportero.Reports
 			create_graphic_structure ();
 		}
 		
-		protected override void OnPaint (Gdk.EventExpose expose_args)
+		protected override void OnPaint (Gdk.Pixmap pixmap)
 		{
-			base.OnPaint (expose_args);
+			base.OnPaint (pixmap);
 			
-			CanvasPaintEventArgs paint_args = new CanvasPaintEventArgs (expose_args);
+			CanvasPaintEventArgs paint_args = new CanvasPaintEventArgs (pixmap);
 			
 			foreach (Shape shape in Shapes)
 				shape.Paint (paint_args);
 			
-			using (Cairo.Context ctx = Gdk.CairoHelper.Create (expose_args.Window)) {
+			using (Cairo.Context ctx = Gdk.CairoHelper.Create (pixmap)) {
 				Gdk.Pixbuf buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_pep.png");
 				
 				Gdk.CairoHelper.SetSourcePixbuf (ctx, 
@@ -52,12 +52,6 @@ namespace Reportero.Reports
 				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
 			}
 		}
-		
-		protected override void OnShown ()
-		{
-			base.OnShown ();
-		}
-
 		
 		private void create_graphic_structure ()
 		{
@@ -73,21 +67,23 @@ namespace Reportero.Reports
 			ActivityReportBar bar = null;
 			for (int i = 0; i < days; i ++) {
 				DateTime date = StartingDate.AddDays (i);
-				//date.AddDays (i);
 				int minutes = Vehicle.GetMinutesRunning (date);
-			//	Console.WriteLine ("Minutes at {0} -> {1}", date.ToString ("dd-MM-yyyy"), minutes);
 				
-				bar = new ActivityReportBar (i, DateTime.Now, TimeSpan.FromMinutes (minutes));
+				bar = new ActivityReportBar (i, date, TimeSpan.FromMinutes (minutes));
 				Shapes.Add (bar);
 			}
 			
 			if (bar != null) {
-				SetSizeRequest ((int) (bar.X + bar.Width), Allocation.Height);
+				SetSizeRequest ((int) (bar.X + bar.Width + 50), Allocation.Height);
 				line2.X2 = (int) (bar.X + bar.Width);
 			}
 			
 			_shapes.Add (line);
 			_shapes.Add (line2);
+			
+			for (int i = 1; i < 11; i ++)
+				_shapes.Add (new Line (95, 510 - (46.2 * i), 105, 510- (46.2 * i)));
+			
 		}
 
 		public DateTime StartingDate {

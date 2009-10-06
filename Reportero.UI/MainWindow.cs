@@ -60,7 +60,7 @@ namespace Reportero.UI
 		{
 			base.OnShown ();
 			_database.Open ();
-			_chooser.GoHome (_database);
+			_chooser.GoHome (Db);
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -79,29 +79,12 @@ namespace Reportero.UI
 			IRecord record;
 				
 			if (_chooser.GetSelected (out record)) {
-				if (record.Type == RecordType.Leadership) {
-			 		//assignVehicle (record as Leadership);
+				if (record.Type == RecordType.VehicleUser)
 			 		_chooser.AssignVehicle (record as VehicleUser);
-			 	}
 			 }
 		}
 		
-		/*
-		[GLib.ConnectBefore]
-		private void chooserButtonPressEvent (object sender, ButtonPressEventArgs args)
-		{
-			if (args.Event.Type == Gdk.EventType.TwoButtonPress) {// &&
-				//args.Event.Button == 0) {
-					IRecord record;
-					if (_chooser.GetRecordAtPointer (out record, 
-						(int) args.Event.X, (int) args.Event.Y))
-						if (record.Type == RecordType.Leadership)
-							assignVehicle (record as Leadership);
-			}
-		}
-		*/
-		
-		public Database Database {
+		public Database Db {
 			get { return _database; }
 		}
 	}
