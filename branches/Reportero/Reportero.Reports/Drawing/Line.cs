@@ -27,7 +27,7 @@ namespace Reportero.Reports.Drawing
 		
 		public override void Paint (CanvasPaintEventArgs args)
 		{
-			using (Cairo.Context context = Gdk.CairoHelper.Create (args.ExposeArgs.Window))
+			using (Cairo.Context context = Gdk.CairoHelper.Create (args.Pixmap))
 			{
 				context.MoveTo (X, Y);
 				context.LineTo (X2, Y2);

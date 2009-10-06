@@ -45,7 +45,7 @@ namespace Reportero.Reports.Drawing
 		{
 			base.Paint (args);
 			
-			using (Cairo.Context context = Gdk.CairoHelper.Create (args.ExposeArgs.Window))
+			using (Cairo.Context context = Gdk.CairoHelper.Create (args.Pixmap))
 			{
 				context.MoveTo (X, Y);
 				context.Rectangle (X, Y, Width, Height);
