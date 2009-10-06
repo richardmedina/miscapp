@@ -14,7 +14,12 @@ namespace Reportero.UI
 		public string DbPasword = "Qwerty";
 		public string DbSource = "MonitoreoVehiculos";
 		
+		public int RpBarText = 8;
+		
 		private string title_format = "Reportero";
+		
+		
+		
 		
 		private static AppSettings _instance;
 		private static object _obj = new object ();

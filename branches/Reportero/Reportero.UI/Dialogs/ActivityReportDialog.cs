@@ -20,7 +20,7 @@ namespace Reportero.UI.Dialogs
 		{
 			_vehicle = vehicle;
 			Title = AppSettings.Instance.GetFormatedTitle ("Reporte de Actividad");
-			Resize (800, 600);
+			Resize (800, 650);
 			
 			_canvas = new ActivityReport (Vehicle, start, end);
 			
