@@ -13,7 +13,7 @@ namespace Reportero.UI.Widgets
 		private Gtk.ImageMenuItem _itm_home;
 		private Gtk.ImageMenuItem _itm_about;
 		
-		public HelpReportMenu () : base ("_Ayuda")
+		public HelpReportMenu () : base ("A_yuda")
 		{
 			_itm_themes = new Gtk.ImageMenuItem ("_Temas de ayuda...");
 			_itm_themes.Image = new Image (Stock.Help, IconSize.Menu);

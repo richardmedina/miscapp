@@ -40,7 +40,7 @@ namespace Reportero.UI
 			_toolbar.AssignButton.Clicked += toolbarAssignButtonClicked;
 			_toolbar.HomeButton.Clicked += toolbarHomeButtonActivated;
 			
-			_chooser = new ReportChooser ();
+			_chooser = new ReportChooser (Db);
 			//_chooser.ButtonPressEvent += chooserButtonPressEvent;
 			
 			
@@ -53,6 +53,8 @@ namespace Reportero.UI
 			scroll.Add (_chooser);
 			_vbox.PackStart (scroll);
 			
+			_chooser.GrabFocus ();
+			
 			Add (_vbox);			
 		}
 		
@@ -60,7 +62,7 @@ namespace Reportero.UI
 		{
 			base.OnShown ();
 			_database.Open ();
-			_chooser.GoHome (Db);
+			_chooser.GoHome ();
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -71,7 +73,7 @@ namespace Reportero.UI
 		
 		private void toolbarHomeButtonActivated (object sender, EventArgs args)
 		{
-			_chooser.GoHome (_database);
+			_chooser.GoHome ();
 		}
 		
 		private void toolbarAssignButtonClicked (object sender, EventArgs args)

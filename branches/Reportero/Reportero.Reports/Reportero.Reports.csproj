@@ -49,6 +49,9 @@
     <Compile Include="Drawing\ShapeCollection.cs" />
     <Compile Include="Drawing\LinearGradientPattern.cs" />
     <Compile Include="ActivityReportBar.cs" />
+    <Compile Include="Drawing\DrawingMisc.cs" />
+    <Compile Include="Drawing\Rectangle.cs" />
+    <Compile Include="Drawing\Text.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

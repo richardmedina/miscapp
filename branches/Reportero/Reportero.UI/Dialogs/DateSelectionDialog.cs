@@ -3,7 +3,7 @@ using System;
 using Gtk;
 using Reportero.UI.Dialogs;
 
-namespace Reportero.UI.Widgets
+namespace Reportero.UI.Dialogs
 {
 	
 	

@@ -53,13 +53,13 @@
     <Compile Include="Widgets\HelpReportMenu.cs" />
     <Compile Include="Dialogs\DateRangeSelectionDialog.cs" />
     <Compile Include="Widgets\DateEntry.cs" />
-    <Compile Include="Widgets\DateSelectionDialog.cs" />
     <Compile Include="Widgets\NetworkSettingsPanel.cs" />
     <Compile Include="Widgets\SettingsPanel.cs" />
     <Compile Include="Widgets\PanelTabulator.cs" />
     <Compile Include="Widgets\PanelCollection.cs" />
     <Compile Include="Widgets\AppearanceSettingsPanel.cs" />
     <Compile Include="Widgets\PlottingSettingsPanel.cs" />
+    <Compile Include="Dialogs\DateSelectionDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

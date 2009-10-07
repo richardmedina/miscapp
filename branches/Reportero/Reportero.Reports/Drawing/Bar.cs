@@ -9,9 +9,6 @@ namespace Reportero.Reports.Drawing
 	public class Bar : Shape
 	{
 		
-		private double _width;
-		private double _height;
-		
 		private SolidColorPattern _stroke_color;
 		
 		public Bar (double x, double y, double width, double height) : 
@@ -34,8 +31,8 @@ namespace Reportero.Reports.Drawing
 						
 			//gradient.AddColorStop (2, new Cairo.Color (0, 0, 1));
 			
-			Pattern = new LinearGradientPattern (gradient);
-			StrokeColor = new SolidColorPattern (new Color (0, 0, 0));
+			Background = new LinearGradientPattern (gradient);
+			Foreground = new SolidColorPattern (new Color (0, 0, 0));
 			
 			Stroked = false;
 			Filled = true;
@@ -51,10 +48,10 @@ namespace Reportero.Reports.Drawing
 				context.Rectangle (X, Y, Width, Height);
 				
 				if (Filled) {
-					if (Pattern.Type == PatternType.SolidColor)
-						context.Color = (Pattern as SolidColorPattern).Color;
-					if (Pattern.Type == PatternType.SolidGradient)
-						context.Pattern = (Pattern as LinearGradientPattern).Gradient;
+					if (Background.Type == PatternType.SolidColor)
+						context.Color = (Background as SolidColorPattern).Color;
+					if (Background.Type == PatternType.SolidGradient)
+						context.Pattern = (Background as LinearGradientPattern).Gradient;
 					
 					if (Stroked)
 						context.FillPreserve ();
@@ -67,16 +64,6 @@ namespace Reportero.Reports.Drawing
 				}
 				
 			}
-		}
-		
-		public double Width {
-			get { return _width; }
-			set { _width = value; }
-		}
-		
-		public double Height {
-			get { return _height; }
-			set { _height = value; }
 		}
 		
 		public SolidColorPattern StrokeColor {
