@@ -1,6 +1,7 @@
 
 using System;
 using Gtk;
+using Reportero.UI.Dialogs;
 
 namespace Reportero.UI.Widgets
 {
@@ -29,6 +30,7 @@ namespace Reportero.UI.Widgets
 			
 			_button = new Button ();
 			_button.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_calendar.png"));
+			_button.Relief = ReliefStyle.None;
 			_button.Clicked += buttonClicked;
 			
 			MinimunDate = new DateTime (_date.Year, _date.Month, _date.Day);
@@ -46,37 +48,6 @@ namespace Reportero.UI.Widgets
 			DateSelectionDialog dialog = new DateSelectionDialog (Date);
 			ResponseType response;
 			response = dialog.Run ();
-			/*while (response == ResponseType.Ok){
-			
-				if (dialog.Date <= MinimunDate) {
-					MessageDialog dlg = new MessageDialog (
-						null, 
-						DialogFlags.Modal, 
-						MessageType.Error,
-						ButtonsType.Ok,
-						"Por favor seleccione una fecha mayor a '{0}'", dialog.Date.ToString ("dd.MM.yyyy"));
-					dlg.Run ();
-					dlg.Destroy ();
-					Console.WriteLine ("Running other");
-					response = dialog.Run ();
-				}
-				else if (dialog.Date >= MaximunDate) {
-					MessageDialog dlg = new MessageDialog (
-						null, 
-						DialogFlags.Modal, 
-						MessageType.Error,
-						ButtonsType.Ok,	
-						"Por favor seleccione una fecha menor a '{0}'", dialog.Date.ToString ("dd.MM.yyyy"));
-					dlg.Run ();
-					dlg.Destroy ();
-					Console.WriteLine ("Running other2");
-					response = dialog.Run ();
-				}
-				else
-					break;
-					
-			}*/
-			
 			
 			DateTime date = dialog.Date;
 			dialog.Destroy ();

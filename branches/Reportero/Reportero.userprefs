@@ -1,12 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/ActivityReportBar.cs" ctype="Workbench">
-    <Files>
-      <File FileName="Reportero.Reports/ActivityReport.cs" Line="78" Column="6" />
-      <File FileName="Reportero.UI/Dialogs/ActivityReportDialog.cs" Line="25" Column="53" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="149" Column="37" />
-      <File FileName="Reportero.UI/Dialogs/DateRangeSelectionDialog.cs" Line="36" Column="10" />
-      <File FileName="Reportero.Reports/ActivityReportBar.cs" Line="47" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True" selected="True">

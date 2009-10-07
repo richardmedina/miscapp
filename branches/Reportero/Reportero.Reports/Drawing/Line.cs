@@ -22,7 +22,7 @@ namespace Reportero.Reports.Drawing
 			Y = y1;
 			X2 = x2;
 			Y2 = y2;
-			Pattern = new SolidColorPattern (new Cairo.Color (0.5, 0.5, 0.5, 0.5));
+			Foreground = new SolidColorPattern (new Cairo.Color (0.5, 0.5, 0.5, 0.5));
 		}
 		
 		public override void Paint (CanvasPaintEventArgs args)
@@ -31,8 +31,8 @@ namespace Reportero.Reports.Drawing
 			{
 				context.MoveTo (X, Y);
 				context.LineTo (X2, Y2);
-				if (Pattern.Type == PatternType.SolidColor)
-					context.Color = (this.Pattern as SolidColorPattern).Color;
+				if (Foreground.Type == PatternType.SolidColor)
+					context.Color = (Foreground as SolidColorPattern).Color;
 				context.Stroke ();
 			}
 		}

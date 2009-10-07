@@ -61,7 +61,7 @@ namespace Reportero.Data
 		{
 			int minutes_running = 0;
 			
-			IDataReader reader = Db.Query ("select Count (Date_Time) * 3 as minutes from VehicleState where PC_Date='{0}' and alias='{1}' and Speed>0",
+			IDataReader reader = Db.Query ("select Count (Date_Time) * 3 as minutes from VehicleState where PC_Date='{0}' and alias='{1}' and Speed>0;",
 				date.ToString ("yyyy-MM-dd"), VehicleId);
 			
 			if (reader.Read ())
