@@ -14,6 +14,7 @@ namespace Reportero.UI.Dialogs
 		
 		public DateRangeSelectionDialog()
 		{
+			Title = AppSettings.Instance.GetFormatedTitle ("Seleccionar rango de fechas");
 			_de_start = new DateEntry ("Fecha Inicio");
 			_de_start.Label.WidthRequest = 100;
 			

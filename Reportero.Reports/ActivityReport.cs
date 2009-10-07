@@ -49,6 +49,16 @@ namespace Reportero.Reports
 				
 				ctx.PaintWithAlpha (0.5);
 				
+			// Let's draw the reference values..
+				for (int i = 0; i < 8; i ++) {
+					DrawingMisc.ShowLayout (ctx,
+						new Cairo.Color (0.5, 0.5, 0.5, 0.5),
+						Pango.FontDescription.FromString ("8"),
+						60, 510 - (66 * (i)) - 9, 0,
+						"{0} hrs", i);
+						
+					
+				}
 				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
 			}
 		}
@@ -60,12 +70,14 @@ namespace Reportero.Reports
 			// horizontal line
 			Line line2 = new Line (100, 510, 700, 510);
 			
-			//((SolidColorPattern)line.Pattern).Color = new Cairo.Color (1, 0, 0, 0.5);
+			for (int i = 0; i < 7; i ++) {
+				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
+			}
 			
 			int days = (EndingDate - StartingDate).Days;
 			
 			ActivityReportBar bar = null;
-			for (int i = 0; i < days; i ++) {
+			for (int i = 0; i <= days; i ++) {
 				DateTime date = StartingDate.AddDays (i);
 				int minutes = Vehicle.GetMinutesRunning (date);
 				
@@ -78,12 +90,17 @@ namespace Reportero.Reports
 				line2.X2 = (int) (bar.X + bar.Width);
 			}
 			
-			_shapes.Add (line);
-			_shapes.Add (line2);
+			line2.X2 += 50;
 			
-			for (int i = 1; i < 11; i ++)
-				_shapes.Add (new Line (95, 510 - (46.2 * i), 105, 510- (46.2 * i)));
-			
+			Shapes.Add (line);
+			Shapes.Add (line2);
+		/*	
+			Shapes.Add (new Rectangle (10, 10, 100, 100));
+			Text text = new Text ("Hello", 10, 10);
+			text.X = 100;
+			text.Y = 50;
+			text.RotationAngle = 270;
+			Shapes.Add (text);*/
 		}
 
 		public DateTime StartingDate {

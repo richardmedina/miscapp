@@ -14,11 +14,15 @@ namespace Reportero.UI.Widgets
 		
 		private VehicleMenuPopup _vehicle_popup;
 		
-		public ReportChooser()
+		private Database _database;
+		
+		public ReportChooser (Database database)
 		{
 			_store = new ListStore (typeof (Gdk.Pixbuf),
 				typeof (IRecord), 
 				typeof (string));
+			
+			_database = database;
 			
 			Model = _store;
 			TextColumn = 2;
@@ -74,10 +78,10 @@ namespace Reportero.UI.Widgets
 			return false;
 		}
 		
-		public void GoHome (Database database)
+		public void GoHome ()
 		{
 			_store.Clear ();
-			foreach (Leadership lead in LeadershipCollection.FromDatabase (database))
+			foreach (Leadership lead in LeadershipCollection.FromDatabase (Db))
 				Append (lead);
 		}
 		
@@ -88,9 +92,7 @@ namespace Reportero.UI.Widgets
 			if (evnt.Type == Gdk.EventType.TwoButtonPress && evnt.Button == 1) {
 				if (GetRecordAtPointer (out record, (int) evnt.X, (int) evnt.Y)) {
 					if (record.Type == RecordType.Leadership) {
-						_store.Clear ();
-						foreach (VehicleUser user in VehicleUserCollection.FromLeadership (record as Leadership))
-							Append (user);
+						LoadVehicles (record as Leadership);
 						return false;
 					} 
 					else if (record.Type == RecordType.VehicleUser) {
@@ -104,6 +106,38 @@ namespace Reportero.UI.Widgets
 			}
 			
 			return base.OnButtonPressEvent (evnt);
+		}
+		
+		protected override bool OnKeyPressEvent (Gdk.EventKey evnt)
+		{
+			if (evnt.Key == Gdk.Key.Return||evnt.Key == Gdk.Key.KP_Enter) {
+				IRecord record;
+				if (GetSelected (out record)) {
+					if (record.Type == RecordType.Leadership)
+						LoadVehicles (record as Leadership);
+					if (record.Type == RecordType.VehicleUser)
+						AssignVehicle (record as VehicleUser);
+				}
+			}
+			
+			if (evnt.Key == Gdk.Key.Escape)
+				GoHome ();
+			if (evnt.Key == Gdk.Key.Menu) {
+				IRecord record;
+				if (GetSelected (out record)) {
+					if (record.Type == RecordType.VehicleUser)
+						_vehicle_popup.Popup ();
+				}
+			}
+		
+			return base.OnKeyPressEvent (evnt);
+		}
+
+		public void LoadVehicles (Leadership leadership)
+		{
+			_store.Clear ();
+			foreach (VehicleUser user in VehicleUserCollection.FromLeadership (leadership))
+				Append (user);
 		}
 		
 		public void AssignVehicle (VehicleUser user)
@@ -153,6 +187,10 @@ namespace Reportero.UI.Widgets
 					dialog.Destroy ();
 				}
 			}
+		}
+		
+		public Database Db {
+			get { return _database; }
 		}
 	}
 }
