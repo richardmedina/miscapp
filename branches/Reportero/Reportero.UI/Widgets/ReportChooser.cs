@@ -13,6 +13,7 @@ namespace Reportero.UI.Widgets
 		private Gtk.ListStore _store;
 		
 		private VehicleMenuPopup _vehicle_popup;
+		private LeadershipMenuPopup _leadership_popup;
 		
 		private Database _database;
 		
@@ -27,9 +28,17 @@ namespace Reportero.UI.Widgets
 			Model = _store;
 			TextColumn = 2;
 			PixbufColumn = 0;
+			
 			_vehicle_popup = new VehicleMenuPopup ();
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
-			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;	
+			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;
+			_vehicle_popup.AboutItem.Activated += aboutdialog_show;
+			
+			_leadership_popup = new LeadershipMenuPopup ();
+			_leadership_popup.ExploreItem.Activated += leadershipExploreActivated;
+			_leadership_popup.StatisticsItem.Activated += leadershipStatisticsActivated;
+			_leadership_popup.AboutItem.Activated += aboutdialog_show;
+			
 		}
 		public void Append (IRecord record)
 		{
@@ -103,6 +112,8 @@ namespace Reportero.UI.Widgets
 				if (GetRecordAtPointer (out record, (int) evnt.X, (int) evnt.Y))
 					if (record.Type == RecordType.VehicleUser)
 						_vehicle_popup.Popup ();
+					else if (record.Type == RecordType.Leadership)
+						_leadership_popup.Popup ();
 			}
 			
 			return base.OnButtonPressEvent (evnt);
@@ -127,6 +138,8 @@ namespace Reportero.UI.Widgets
 				if (GetSelected (out record)) {
 					if (record.Type == RecordType.VehicleUser)
 						_vehicle_popup.Popup ();
+					else if (record.Type == RecordType.Leadership)
+						_leadership_popup.Popup ();
 				}
 			}
 		
@@ -188,6 +201,36 @@ namespace Reportero.UI.Widgets
 				}
 			}
 		}
+		
+		
+		private void leadershipExploreActivated (object sender, EventArgs args)
+		{
+			IRecord record;
+			
+			if (GetSelected (out record)) {
+				if (record.Type == RecordType.Leadership)
+					LoadVehicles (record as Leadership);
+			}
+		}
+		
+		private void leadershipStatisticsActivated (object sender, EventArgs args)
+		{
+			IRecord record;
+			
+			if (GetSelected (out record)) {
+				if (record.Type == RecordType.Leadership) {
+					// Logic to load statistics dialog
+				}
+			}
+		}
+		
+		private void aboutdialog_show (object sender, EventArgs args)
+		{
+			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
+		
 		
 		public Database Db {
 			get { return _database; }

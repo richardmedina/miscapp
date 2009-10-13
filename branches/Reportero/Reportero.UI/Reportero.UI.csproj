@@ -33,6 +33,7 @@
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mono.Cairo" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Widgets\AppearanceSettingsPanel.cs" />
     <Compile Include="Widgets\PlottingSettingsPanel.cs" />
     <Compile Include="Dialogs\DateSelectionDialog.cs" />
+    <Compile Include="Widgets\LeadershipMenuPopup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
