@@ -20,7 +20,7 @@ namespace Reportero.UI.Widgets
 			_itm_home = new Gtk.ImageMenuItem ("_Website del proyecto...");
 			_itm_home.Image = new Image (Stock.Home, IconSize.Menu);
 			
-			_itm_about = new Gtk.ImageMenuItem ("Acerca de...", null);
+			_itm_about = new Gtk.ImageMenuItem ("Créditos...", null);
 			_itm_about.Image = new Image (Stock.About, IconSize.Menu);
 			_itm_about.Activated += itm_aboutActivated;
 			

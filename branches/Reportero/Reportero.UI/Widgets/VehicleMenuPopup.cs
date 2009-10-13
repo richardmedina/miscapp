@@ -23,8 +23,8 @@ namespace Reportero.UI.Widgets
 			_itm_statistics.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
 				
-			_itm_about = new ImageMenuItem (Stock.About, null);
-			_itm_about.Activated += itm_AboutActivated;
+			_itm_about = new ImageMenuItem ("Créditos");
+			_itm_about.Image = new Image (Stock.About, IconSize.Menu);
 			
 			Append (_itm_assign);
 			Append (new SeparatorMenuItem ());
@@ -33,13 +33,6 @@ namespace Reportero.UI.Widgets
 			Append (_itm_about);
 			
 			ShowAll ();
-		}
-		
-		private void itm_AboutActivated (object sender, EventArgs args)
-		{
-			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();
-			dialog.Run ();
-			dialog.Destroy ();
 		}
 		
 		public ImageMenuItem AssignItem {
