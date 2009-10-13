@@ -1,5 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/ActivityReport.cs" ctype="Workbench">
+    <Files>
+      <File FileName="Reportero.Reports/Drawing/Rectangle.cs" Line="20" Column="24" />
+      <File FileName="Reportero.Reports/Drawing/Text.cs" Line="25" Column="20" />
+      <File FileName="Reportero.Reports/Drawing/DrawingMisc.cs" Line="33" Column="60" />
+      <File FileName="Reportero.Reports/ActivityReport.cs" Line="103" Column="24" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="112" Column="4" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="56" Column="26" />
+      <File FileName="Reportero.UI/Widgets/HelpReportMenu.cs" Line="16" Column="39" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True" selected="True">
