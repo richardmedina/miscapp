@@ -11,6 +11,8 @@ namespace Reportero.UI.Widgets
 		public PlottingSettingsPanel()
 		{
 			Title = "Gráficos";
+			
+			
 		}
 	}
 }
