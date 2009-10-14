@@ -47,6 +47,7 @@ namespace Reportero.UI.Dialogs
 		private void printingBeginPrint (object sender, BeginPrintArgs args)
 		{
 			(sender as PrintOperation).NPages = 3;
+			(sender as PrintOperation).PrintSettings.
 		}
 		
 		private void printingDrawPage (object sender, DrawPageArgs args)
