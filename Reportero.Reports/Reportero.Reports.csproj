@@ -56,7 +56,7 @@
     <Compile Include="Drawing\DrawingMisc.cs" />
     <Compile Include="Drawing\Rectangle.cs" />
     <Compile Include="Drawing\Text.cs" />
-    <Compile Include="Printer.cs" />
+    <Compile Include="ReportPrinter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
