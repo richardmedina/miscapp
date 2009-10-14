@@ -14,7 +14,8 @@ namespace Reportero.UI.Dialogs
 		private ActivityReport _canvas;
 		
 		private VehicleUser _vehicle;
-		private Gtk.PrintOperation printing;
+		//private ReportPrinter printer;
+		private PrintOperation _printing;
 		
 		public ActivityReportDialog (VehicleUser vehicle, DateTime start, DateTime end)
 		{
@@ -32,34 +33,37 @@ namespace Reportero.UI.Dialogs
 			
 			AddButton (Stock.Close, ResponseType.Close);
 			
-			printing = new PrintOperation ();
-			printing.BeginPrint += printingBeginPrint;
-			printing.DrawPage += printingDrawPage;
+			_printing = new PrintOperation ();
+			_printing.BeginPrint += printingBeginPrint;
+			_printing.DrawPage += printingDrawPage;
 		}
 		
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			//printing.Run (PrintOperationAction.PrintDialog, this);
+			_printing.Run (PrintOperationAction.PrintDialog, this);
 		}
 		
-		private void printingBeginPrint (object o, BeginPrintArgs args)
+		private void printingBeginPrint (object sender, BeginPrintArgs args)
 		{
-			printing.NPages = 1;
+			(sender as PrintOperation).NPages = 3;
 		}
 		
 		private void printingDrawPage (object sender, DrawPageArgs args)
 		{
-			using (Cairo.Context ctx = Gdk.CairoHelper.Create (_canvas.Pixmap)) {
-				//args.Context.SetCairoContext (ctx, args.Context.DpiX, args.Context.DpiY);
-				
-				
+			using (Cairo.Context cr = args.Context.CairoContext) {
+				using (Cairo.Context ctx = Gdk.CairoHelper.Create (Canvas.Pixmap)) {
+					ctx.Target.Show (cr, 0 ,0);
+				}
 			}
-			//args.Context.
 		}
-		
+				
 		public VehicleUser Vehicle {
 			get{ return _vehicle; }
+		}
+		
+		public ActivityReport Canvas {
+			get { return _canvas; }
 		}
 	}
 }

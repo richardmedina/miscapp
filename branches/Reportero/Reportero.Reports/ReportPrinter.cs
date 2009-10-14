@@ -7,11 +7,11 @@ namespace Reportero.Reports
 {
 	
 	
-	public class Printer : Gtk.PrintOperation
+	public class ReportPrinter : Gtk.PrintOperation
 	{
 		private Cairo.Surface _surface;
 		
-		public Printer (Cairo.Surface surface)
+		public ReportPrinter (Cairo.Surface surface)
 		{
 			_surface = surface;
 		}
