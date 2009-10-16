@@ -15,7 +15,7 @@ namespace Reportero.UI.Dialogs
 		
 		private VehicleUser _vehicle;
 		//private ReportPrinter printer;
-		private PrintOperation _printing;
+		//private PrintOperation _printing;
 		
 		public ActivityReportDialog (VehicleUser vehicle, DateTime start, DateTime end)
 		{
@@ -33,15 +33,15 @@ namespace Reportero.UI.Dialogs
 			
 			AddButton (Stock.Close, ResponseType.Close);
 			
-			_printing = new PrintOperation ();
-			_printing.BeginPrint += printingBeginPrint;
-			_printing.DrawPage += printingDrawPage;
+			//_printing = new PrintOperation ();
+			//_printing.BeginPrint += printingBeginPrint;
+			//_printing.DrawPage += printingDrawPage;
 		}
 		
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			_printing.Run (PrintOperationAction.PrintDialog, this);
+			//_printing.Run (PrintOperationAction.PrintDialog, this);
 		}
 		
 		private void printingBeginPrint (object sender, BeginPrintArgs args)
