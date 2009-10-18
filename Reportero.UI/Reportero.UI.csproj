@@ -47,7 +47,7 @@
     <Compile Include="Dialogs\VehicleInfoDialog.cs" />
     <Compile Include="Widgets\VehicleMenuPopup.cs" />
     <Compile Include="Dialogs\ReporteroAboutDialog.cs" />
-    <Compile Include="Dialogs\ActivityReportDialog.cs" />
+    <Compile Include="Dialogs\ActivityGraphicReportDialog.cs" />
     <Compile Include="Widgets\ReportMenubar.cs" />
     <Compile Include="Widgets\FileReportMenu.cs" />
     <Compile Include="Widgets\CustomMenu.cs" />
