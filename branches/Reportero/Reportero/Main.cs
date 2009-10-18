@@ -37,7 +37,6 @@ namespace Reportero
 			window.ShowAll ();
 			Application.Run ();
 			AppSettings.Instance.Serialize (AppSettings.Filename);
-		}
-		
+		}		
 	}
 }
