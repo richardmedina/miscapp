@@ -18,7 +18,7 @@ namespace Reportero.UI.Widgets
 			_itm_explore = new ImageMenuItem ("Ver Vehículos");
 			_itm_explore.Image = new Image (Stock.Find, IconSize.Menu);
 			
-			_itm_statistics = new ImageMenuItem ("Indicadores de velocidad...");
+			_itm_statistics = new ImageMenuItem ("Actividad de vehiculos...");
 			_itm_statistics.Image = new Image (
 				Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));

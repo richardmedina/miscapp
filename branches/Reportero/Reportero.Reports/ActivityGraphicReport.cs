@@ -13,18 +13,16 @@ namespace Reportero.Reports
 		
 		private VehicleUser _vehicle;
 		
-		public ActivityGraphicReport (VehicleUser vehicle) : this (vehicle, DateTime.Now, DateTime.Now)
+		public ActivityGraphicReport (VehicleUser vehicle) : 
+			this (vehicle, DateTime.Now, DateTime.Now)
 		{
 		}
 		
-		public ActivityGraphicReport (VehicleUser vehicle, DateTime starting_date, DateTime ending_date)
+		public ActivityGraphicReport (VehicleUser vehicle, DateTime starting_date, DateTime ending_date) :
+			base (starting_date, ending_date)
 		{
-			StartingDate = starting_date;
-			EndingDate = ending_date;
+			Vehicle = vehicle;
 			_shapes = new ShapeCollection ();
-			
-			_vehicle = vehicle;
-			
 			create_graphic_structure ();
 		}
 		
@@ -103,9 +101,11 @@ namespace Reportero.Reports
 		public ShapeCollection Shapes {
 			get { return _shapes; }
 		}
-		
+
 		public VehicleUser Vehicle {
 			get { return _vehicle; }
-		}		
+			set { _vehicle = value; }
+		}
+
 	}
 }
