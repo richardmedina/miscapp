@@ -34,13 +34,9 @@
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Data" />
     <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="itextsharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\ordenar\itextsharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityReport.cs" />
+    <Compile Include="ActivityGraphicReport.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Drawing\Canvas.cs" />
     <Compile Include="Drawing\Bar.cs" />
@@ -57,6 +53,8 @@
     <Compile Include="Drawing\Rectangle.cs" />
     <Compile Include="Drawing\Text.cs" />
     <Compile Include="ReportPrinter.cs" />
+    <Compile Include="ActivityListReport.cs" />
+    <Compile Include="ActivityReport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -70,5 +68,8 @@
       <Project>{93E4D801-66DC-44C1-86E6-FAA5A3ADBB89}</Project>
       <Name>Reportero.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="itextsharp.dll" />
   </ItemGroup>
 </Project>
