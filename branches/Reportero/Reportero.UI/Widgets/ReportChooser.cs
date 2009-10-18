@@ -3,6 +3,7 @@ using System;
 using Gtk;
 using Reportero.Data;
 using Reportero.UI.Dialogs;
+using Reportero.Reports;
 
 namespace Reportero.UI.Widgets
 {
@@ -90,7 +91,7 @@ namespace Reportero.UI.Widgets
 		public void GoHome ()
 		{
 			_store.Clear ();
-			foreach (Leadership lead in LeadershipCollection.FromDatabase (Db))
+			foreach (Leadership lead in Leadership.FromDatabase (Db))
 				Append (lead);
 		}
 		
@@ -149,8 +150,8 @@ namespace Reportero.UI.Widgets
 		public void LoadVehicles (Leadership leadership)
 		{
 			_store.Clear ();
-			foreach (VehicleUser user in VehicleUserCollection.FromLeadership (leadership))
-				Append (user);
+			foreach (VehicleUser vehicle in leadership.GetVehicles ())
+				Append (vehicle);
 		}
 		
 		public void AssignVehicle (VehicleUser user)
@@ -185,17 +186,17 @@ namespace Reportero.UI.Widgets
 		
 		private void vehicle_popupStatisticsActivated (object sender, EventArgs args)
 		{
-			DateRangeSelectionDialog dlg = new DateRangeSelectionDialog ();
-			ResponseType response = (ResponseType) dlg.Run ();
-			DateTime startdate = dlg.StartingDateEntry.Date;
-			DateTime enddate = dlg.EndingDateEntry.Date;
-			dlg.Destroy ();
-			if (response == ResponseType.Ok) {
+			DateTime startdate;
+			DateTime enddate;
+			
+			if (getDateRange (out startdate, out enddate)) {
 				IRecord record;
 				if (GetSelected (out record)) {
-					ActivityReportDialog dialog = new ActivityReportDialog (
-						record as VehicleUser,
-						startdate, enddate);
+					ActivityGraphicReport report = new ActivityGraphicReport (record as VehicleUser, startdate, enddate);
+					
+					ReportDialog dialog = new ReportDialog (report);
+					
+					dialog.Title = AppSettings.Instance.GetFormatedTitle ("Reporte de Actividad");
 					dialog.Run ();
 					dialog.Destroy ();
 				}
@@ -217,9 +218,17 @@ namespace Reportero.UI.Widgets
 		{
 			IRecord record;
 			
-			if (GetSelected (out record)) {
-				if (record.Type == RecordType.Leadership) {
-					// Logic to load statistics dialog
+			DateTime start;
+			DateTime end;
+			
+			if (getDateRange (out start, out end)) {
+				if (GetSelected (out record)) {
+					if (record.Type == RecordType.Leadership) {
+						ActivityListReport report = new ActivityListReport (record as Leadership, start, end);
+						ReportDialog dialog = new ReportDialog (report);
+						dialog.Run ();
+						dialog.Destroy ();
+					}
 				}
 			}
 		}
@@ -229,6 +238,20 @@ namespace Reportero.UI.Widgets
 			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();
 			dialog.Run ();
 			dialog.Destroy ();
+		}
+		
+		private bool getDateRange (out DateTime date1, out DateTime date2)
+		{
+			DateRangeSelectionDialog dlg = new DateRangeSelectionDialog ();
+			ResponseType response = (ResponseType) dlg.Run ();
+			date1 = dlg.StartingDateEntry.Date;
+			date2 = dlg.EndingDateEntry.Date;
+			dlg.Destroy ();
+			
+			if (response == ResponseType.Ok)
+				return true;
+			
+			return false;
 		}
 		
 		

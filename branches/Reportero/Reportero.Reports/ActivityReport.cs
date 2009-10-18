@@ -1,6 +1,7 @@
 
 using System;
 using Reportero.Reports.Drawing;
+using Reportero.Data;
 
 namespace Reportero.Reports
 {
@@ -10,9 +11,11 @@ namespace Reportero.Reports
 	{
 		private DateTime _date_starting;
 		private DateTime _date_ending;
-						
-		public ActivityReport()
+		
+		public ActivityReport (DateTime start, DateTime end)
 		{
+			StartingDate = start;
+			EndingDate = end;
 		}
 		
 		public DateTime StartingDate {
@@ -24,6 +27,5 @@ namespace Reportero.Reports
 			get { return _date_ending; }
 			protected set { _date_ending = value; }
 		}
-
 	}
 }
