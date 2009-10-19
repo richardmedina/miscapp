@@ -30,7 +30,6 @@ namespace Reportero
 		
 		public static void Main ()
 		{
-		
 			Application.Init ();
 			AppSettings.Instance.Deserialize (AppSettings.Filename);
 			MainWindow window = new MainWindow ();

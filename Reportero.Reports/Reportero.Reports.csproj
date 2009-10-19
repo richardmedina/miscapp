@@ -59,6 +59,7 @@
     <Compile Include="ReportPrinter.cs" />
     <Compile Include="ActivityListReport.cs" />
     <Compile Include="ActivityReport.cs" />
+    <Compile Include="LoadingWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
