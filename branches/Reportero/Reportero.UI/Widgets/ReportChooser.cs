@@ -224,10 +224,26 @@ namespace Reportero.UI.Widgets
 			if (getDateRange (out start, out end)) {
 				if (GetSelected (out record)) {
 					if (record.Type == RecordType.Leadership) {
-						ActivityListReport report = new ActivityListReport (record as Leadership, start, end);
-						ReportDialog dialog = new ReportDialog (report);
-						dialog.Run ();
+						FileChooserDialog dialog = new FileChooserDialog (
+							AppSettings.Instance.GetFormatedTitle ("Crear  y guardar reporte..."),
+							null,
+							FileChooserAction.Save);
+						
+						dialog.CurrentName = 
+							string.Format ("Reporte de Actividad Vehicular ({0} al {1}).pdf",
+								start.ToString ("dd.MM.yy"), end.ToString ("dd.MM.yyyy"));
+						
+						dialog.AddButton (Stock.Cancel, ResponseType.Cancel);
+						dialog.AddButton (Stock.Save, ResponseType.Ok);
+						
+						ResponseType response = (ResponseType) dialog.Run ();
+						string filename = dialog.Filename;
 						dialog.Destroy ();
+						
+						if (response == ResponseType.Ok) {
+							ActivityListReport report = new ActivityListReport (record as Leadership, start, end);
+							report.CreatePdf (filename);
+						}
 					}
 				}
 			}
