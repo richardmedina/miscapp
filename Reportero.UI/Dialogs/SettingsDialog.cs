@@ -20,6 +20,7 @@ namespace Reportero.UI.Dialogs
 			_tabulator.Panels.Add (new NetworkSettingsPanel ());
 			_tabulator.Panels.Add (new AppearanceSettingsPanel ());
 			_tabulator.Panels.Add (new PlottingSettingsPanel ());
+			_tabulator.Panels.Add (new ReportSettingsPanel ());
 			
 			_tabulator.ReloadPanels ();
 			

@@ -14,7 +14,7 @@ namespace Reportero.UI.Widgets
 		
 		public SettingsPanel()
 		{
-			//Spacing = 3;
+			Spacing = 5;
 			Label label = new Label (
 				string.Format ("<big><b>{0}</b></big>",	Title));
 			label.UseMarkup = true;
