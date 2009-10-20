@@ -62,6 +62,7 @@
     <Compile Include="Widgets\PlottingSettingsPanel.cs" />
     <Compile Include="Dialogs\DateSelectionDialog.cs" />
     <Compile Include="Widgets\LeadershipMenuPopup.cs" />
+    <Compile Include="Widgets\ReportSettingsPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

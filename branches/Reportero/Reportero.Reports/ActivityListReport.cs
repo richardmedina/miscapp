@@ -1,5 +1,6 @@
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -30,23 +31,31 @@ namespace Reportero.Reports
 			_loader = new LoadingWindow ();
 		}
 				
-		public void CreatePdf (string filename)
+		public void CreatePdf (string appfilename, string filename, bool run)
 		{
 			Thread thread = new Thread ((ThreadStart) delegate {
 				update (0);
-				createPdf (filename);
+				createPdf (appfilename, filename, run);
 			});
 			
 			thread.Start ();
 		}
 		
-		private void createPdf (string filename) 
+		public void RunPdfOnExternalApp (string appfilename, string filename)
+		{
+			Process process = new Process ();
+			process.StartInfo.FileName = appfilename;
+			process.StartInfo.Arguments = string.Format ("\"{0}\"", filename);
+			process.Start ();
+		}
+		
+		private void createPdf (string appfilename, string filename, bool run) 
 		{
 			Document doc = new Document (PageSize.LETTER);
 			PdfWriter writer = PdfWriter.GetInstance (doc,
 				new FileStream (filename, FileMode.Create));
 
-			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 0, new Color (0x44, 0x44, 0x44));
+			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
 			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
 			Font font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
 			Font font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
@@ -59,7 +68,7 @@ namespace Reportero.Reports
 
 			Paragraph head_para = new Paragraph ();
 			
-			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_sub1));
+			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
 			head_para.Add (new Paragraph ("Tecnología de Información", font_sub2));
@@ -82,8 +91,8 @@ namespace Reportero.Reports
 			foreach (VehicleUser vehicle in vehicles) {
 				counter ++;
 				//update ("", (100 / vehicles.Count) * counter);
-				Console.WriteLine (((double)100 / (double)vehicles.Count) * (double)counter);
-				update ((100 / vehicles.Count) * counter);
+				double percent = ((double) 100 / (double) vehicles.Count) * (double)counter;
+				update ((int) percent);
 				
 				Paragraph para = new Paragraph ();						
 				para.Add (new Phrase ("Vehículo. ", font_sub2));
@@ -127,6 +136,10 @@ namespace Reportero.Reports
 			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
 			doc.Close ();
 			writer.Close ();
+			_loader.Hide ();
+			_loader.Destroy ();
+			if (run)
+				RunPdfOnExternalApp (appfilename, filename);
 		}
 		
 		private void update (double percent)
