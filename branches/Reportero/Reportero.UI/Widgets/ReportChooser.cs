@@ -242,7 +242,10 @@ namespace Reportero.UI.Widgets
 						
 						if (response == ResponseType.Ok) {
 							ActivityListReport report = new ActivityListReport (record as Leadership, start, end);
-							report.CreatePdf (filename);
+							report.CreatePdf (
+								AppSettings.Instance.PdfAppLoader, 
+								filename, 
+								AppSettings.Instance.PdfRunOnGenerated);
 						}
 					}
 				}

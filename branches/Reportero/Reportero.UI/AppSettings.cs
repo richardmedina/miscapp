@@ -16,10 +16,11 @@ namespace Reportero.UI
 		
 		public int RpBarText = 8;
 		
+		// Reports.
+		public bool PdfRunOnGenerated = true;
+		public string PdfAppLoader = "/usr/bin/evince";
+		
 		private string title_format = "Reportero";
-		
-		
-		
 		
 		private static AppSettings _instance;
 		private static object _obj = new object ();

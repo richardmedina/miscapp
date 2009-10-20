@@ -11,20 +11,28 @@ namespace Reportero.Reports
 		private Gtk.ProgressBar _progressbar;
 		private Gtk.Label _label;
 		
+		private bool _canceled = false;
+		
 		public LoadingWindow ()
 		{
+			Modal = true;
+			
 			_label = new Gtk.Label ();
 			_label.Text = "Generando reporte...";
 			
 			_progressbar = new ProgressBar ();
-			//_progressbar.Fraction = 0.5;
-			//_progressbar.Text = "Running 98 %";
 			
 			VBox.PackStart (_label, false, false, 0);
 			VBox.PackStart (_progressbar, false, false, 0);
 			
 			AddButton (Stock.Cancel, ResponseType.Cancel);
 		}
+		
+		protected override void OnResponse (Gtk.ResponseType response_id)
+		{
+			base.OnResponse (response_id);
+		}
+
 		
 		public string ProgressText {
 			get { return _progressbar.Text; }
@@ -39,6 +47,11 @@ namespace Reportero.Reports
 		public double Fraction {
 			get { return _progressbar.Fraction; }
 			set { _progressbar.Fraction = value; }
+		}
+		
+		public bool canceled {
+			get { return _canceled; }
+			set { _canceled = value; }
 		}
 	}
 }
