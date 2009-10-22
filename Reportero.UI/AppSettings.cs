@@ -44,9 +44,9 @@ namespace Reportero.UI
 			try {
 				using (StreamReader reader = new StreamReader (filename))
 					settings = (AppSettings) serializer.Deserialize (reader);
-			} catch (FileNotFoundException exception) {
-				Console.WriteLine ("Settings File '{0}' not found. It will be created..",
-					exception.FileName);
+			} catch (Exception exception) {
+				Console.WriteLine ("Exception. {0}",
+					exception.Message);
 			}
 			Instance.CopyFrom (settings);
 		}
@@ -57,6 +57,9 @@ namespace Reportero.UI
 			DbUsername = settings.DbUsername;
 			DbPasword = settings.DbPasword;
 			DbSource = settings.DbSource;
+			
+			PdfRunOnGenerated = settings.PdfRunOnGenerated;
+			PdfAppLoader = settings.PdfAppLoader;
 		}
 		
 		public static AppSettings Instance {

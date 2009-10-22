@@ -1,22 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/ReportChooser.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/AppSettings.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="245" Column="37" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="1" Column="1" />
       <File FileName="Reportero/Main.cs" Line="38" Column="12" />
-      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="48" Column="60" />
+      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="48" Column="52" />
+      <File FileName="Reportero.UI/AppSettings.cs" Line="61" Column="51" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Reportero" expanded="True" />
+          <Node name="Reportero" expanded="True" selected="True" />
           <Node name="Reportero.Data" expanded="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="Dialogs" expanded="True" />
-            <Node name="Widgets" expanded="True">
-              <Node name="ReportChooser.cs" selected="True" />
-            </Node>
+            <Node name="Widgets" expanded="True" />
           </Node>
         </State>
       </Pad>
