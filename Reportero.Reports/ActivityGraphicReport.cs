@@ -15,6 +15,8 @@ namespace Reportero.Reports
 		private VehicleUser _vehicle;
 		private LoadingWindow _loader;
 		
+		private bool _canceled = false;
+		
 		public ActivityGraphicReport (VehicleUser vehicle) : 
 			this (vehicle, DateTime.Now, DateTime.Now)
 		{
@@ -26,6 +28,7 @@ namespace Reportero.Reports
 			Vehicle = vehicle;
 			_shapes = new ShapeCollection ();
 			_loader = new LoadingWindow ();
+			_loader.Cancel += loaderCancel;
 			//create_graphic_structure ();
 		}
 		
@@ -72,10 +75,24 @@ namespace Reportero.Reports
 		
 		private void create_graphic_structure ()
 		{			
+		
+			// vertical line
+			Line line = new Line (100, 20, 100, 510);
+			// horizontal line
+			Line line2 = new Line (100, 510, 700, 510);
+			
+			for (int i = 0; i < 7; i ++) {
+				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
+			}
+			
 			int days = (EndingDate - StartingDate).Days;
 			
 			ActivityReportBar bar = null;
 			for (int i = 0; i <= days; i ++) {
+				if (_canceled) {
+					Shapes.Clear ();
+					break;
+				}
 				double percent = ((double) 100 / (double) days) * (double) i;
 				_loader.AsyncUpdate ((int)percent);
 				DateTime date = StartingDate.AddDays (i);
@@ -85,15 +102,6 @@ namespace Reportero.Reports
 				Shapes.Add (bar);
 			}
 			//_loader.AsyncUpdate (100);
-
-			// vertical line
-			Line line = new Line (100, 20, 100, 510);
-			// horizontal line
-			Line line2 = new Line (100, 510, 700, 510);
-			
-			for (int i = 0; i < 7; i ++) {
-				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
-			}
 
 			
 			if (bar != null) {
@@ -114,6 +122,10 @@ namespace Reportero.Reports
 			Shapes.Add (text);*/
 			_loader.Hide ();
 			_loader.Destroy ();
+		}
+		
+		private void loaderCancel (object sender, EventArgs args)
+		{
 		}
 		
 		public ShapeCollection Shapes {
