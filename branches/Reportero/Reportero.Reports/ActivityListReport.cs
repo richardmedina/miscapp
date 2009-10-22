@@ -34,7 +34,7 @@ namespace Reportero.Reports
 		public void CreatePdf (string appfilename, string filename, bool run)
 		{
 			Thread thread = new Thread ((ThreadStart) delegate {
-				update (0);
+				_loader.AsyncUpdate (0);
 				createPdf (appfilename, filename, run);
 			});
 			
@@ -92,7 +92,7 @@ namespace Reportero.Reports
 				counter ++;
 				//update ("", (100 / vehicles.Count) * counter);
 				double percent = ((double) 100 / (double) vehicles.Count) * (double)counter;
-				update ((int) percent);
+				_loader.AsyncUpdate ((int) percent);
 				
 				Paragraph para = new Paragraph ();						
 				para.Add (new Phrase ("Vehículo. ", font_sub2));
@@ -114,7 +114,6 @@ namespace Reportero.Reports
 					para = new Paragraph ();
 					int minutes = vehicle.GetMinutesRunning (current_date);
 					minutes_total += minutes;
-					
 					
 					TimeSpan time = TimeSpan.FromMinutes (minutes);
 					string detail = string.Format ("     {0}. {1} ", 
@@ -140,22 +139,6 @@ namespace Reportero.Reports
 			_loader.Destroy ();
 			if (run)
 				RunPdfOnExternalApp (appfilename, filename);
-		}
-		
-		private void update (double percent)
-		{
-			update (string.Format ("{0}%", percent), percent);
-		}
-		
-		private void update (string progress_text, double percent)
-		{
-			Gtk.ThreadNotify notify = new Gtk.ThreadNotify (delegate {
-				_loader.ShowAll ();
-				_loader.ProgressText = progress_text;
-				_loader.Fraction = percent / 100;
-			});
-			
-			notify.WakeupMain ();
 		}
 		
 		private void createPdfTest ()

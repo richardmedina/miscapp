@@ -33,6 +33,26 @@ namespace Reportero.Reports
 			base.OnResponse (response_id);
 		}
 
+		public void AsyncUpdate (double percent)
+		{
+			AsyncUpdate (string.Format ("{0}%", percent), percent);
+		}
+		
+		public void AsyncUpdate (string progress_text, double percent)
+		{
+			Gtk.ThreadNotify notify = new Gtk.ThreadNotify (delegate {
+				Update (progress_text, percent);
+			});
+			
+			notify.WakeupMain ();
+		}
+		
+		public void Update (string progress_text, double percent)
+		{
+			ShowAll ();
+			ProgressText = progress_text;
+			Fraction = percent / 100;
+		}
 		
 		public string ProgressText {
 			get { return _progressbar.Text; }
@@ -49,7 +69,7 @@ namespace Reportero.Reports
 			set { _progressbar.Fraction = value; }
 		}
 		
-		public bool canceled {
+		public bool Canceled {
 			get { return _canceled; }
 			set { _canceled = value; }
 		}
