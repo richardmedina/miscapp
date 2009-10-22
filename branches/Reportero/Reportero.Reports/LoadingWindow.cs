@@ -13,6 +13,8 @@ namespace Reportero.Reports
 		
 		private bool _canceled = false;
 		
+		private event EventHandler _cancel;
+		
 		public LoadingWindow ()
 		{
 			Modal = true;
@@ -22,17 +24,14 @@ namespace Reportero.Reports
 			
 			_progressbar = new ProgressBar ();
 			
+			_cancel = onCancel;
+			
 			VBox.PackStart (_label, false, false, 0);
 			VBox.PackStart (_progressbar, false, false, 0);
 			
 			AddButton (Stock.Cancel, ResponseType.Cancel);
 		}
 		
-		protected override void OnResponse (Gtk.ResponseType response_id)
-		{
-			base.OnResponse (response_id);
-		}
-
 		public void AsyncUpdate (double percent)
 		{
 			AsyncUpdate (string.Format ("{0}%", percent), percent);
@@ -45,6 +44,27 @@ namespace Reportero.Reports
 			});
 			
 			notify.WakeupMain ();
+		}
+
+		protected override void OnRealized ()
+		{
+			base.OnRealized ();
+			GdkWindow.Functions = Gdk.WMFunction.Move |
+				Gdk.WMFunction.Resize;
+		}
+		
+		protected virtual void OnCancel ()
+		{
+			_cancel (this, EventArgs.Empty);
+		}
+		
+		protected override void OnResponse (Gtk.ResponseType response_id)
+		{
+			base.OnResponse (response_id);
+		}
+
+		private void onCancel (object sender, EventArgs args)
+		{
 		}
 		
 		public void Update (string progress_text, double percent)
@@ -72,6 +92,11 @@ namespace Reportero.Reports
 		public bool Canceled {
 			get { return _canceled; }
 			set { _canceled = value; }
+		}
+		
+		public event EventHandler Cancel {
+			add { _cancel += value; }
+			remove { _cancel -= value; }
 		}
 	}
 }
