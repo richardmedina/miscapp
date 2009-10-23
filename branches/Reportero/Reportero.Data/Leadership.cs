@@ -10,6 +10,7 @@ namespace Reportero.Data
 	{
 		private string _name;
 		private Database _database;
+		
 		public Leadership (Database database)
 		{
 			_database = database;
@@ -47,6 +48,18 @@ namespace Reportero.Data
 			reader.Close ();
 			
 			return leadcol;
+		}
+		
+		public string GetFullname () 
+		{
+			switch (Name) {
+				case "MEDYSA":
+					return "Mantenimiento a Equipo Dinámico y Sistemas Auxiliares";
+				break;
+				default:
+					return "Sin equivalencia";
+				break;
+			}
 		}
 		
 		public VehicleUserCollection GetVehicles ()
