@@ -11,6 +11,8 @@ namespace Reportero.Reports
 		private Gtk.ProgressBar _progressbar;
 		private Gtk.Label _label;
 		
+		private Gtk.Button _btn_cancel;
+		
 		private bool _canceled = false;
 		
 		private event EventHandler _cancel;
@@ -29,7 +31,10 @@ namespace Reportero.Reports
 			VBox.PackStart (_label, false, false, 0);
 			VBox.PackStart (_progressbar, false, false, 0);
 			
-			AddButton (Stock.Cancel, ResponseType.Cancel);
+			_btn_cancel = (Gtk.Button) AddButton (Stock.Cancel, ResponseType.Cancel);
+			_btn_cancel.Clicked += delegate {
+				OnCancel ();
+			};
 		}
 		
 		public void AsyncUpdate (double percent)
@@ -45,12 +50,17 @@ namespace Reportero.Reports
 			
 			notify.WakeupMain ();
 		}
-
-		protected override void OnRealized ()
+		
+		public void Update (string progress_text, double percent)
 		{
-			base.OnRealized ();
-			GdkWindow.Functions = Gdk.WMFunction.Move |
-				Gdk.WMFunction.Resize;
+			ShowAll ();
+			ProgressText = progress_text;
+			Fraction = percent / 100;
+		}
+		
+		public void Update (double percent)
+		{
+			Update (string.Format ("{0}%", percent), percent);
 		}
 		
 		protected virtual void OnCancel ()
@@ -58,20 +68,21 @@ namespace Reportero.Reports
 			_cancel (this, EventArgs.Empty);
 		}
 		
+		protected override void OnRealized ()
+		{
+			base.OnRealized ();
+			GdkWindow.Functions = Gdk.WMFunction.Move |
+				Gdk.WMFunction.Resize;
+		}
+		
 		protected override void OnResponse (Gtk.ResponseType response_id)
 		{
+			OnCancel ();
 			base.OnResponse (response_id);
 		}
 
 		private void onCancel (object sender, EventArgs args)
 		{
-		}
-		
-		public void Update (string progress_text, double percent)
-		{
-			ShowAll ();
-			ProgressText = progress_text;
-			Fraction = percent / 100;
 		}
 		
 		public string ProgressText {
@@ -97,6 +108,10 @@ namespace Reportero.Reports
 		public event EventHandler Cancel {
 			add { _cancel += value; }
 			remove { _cancel -= value; }
+		}
+		
+		public Gtk.Button CancelButton {
+			get { return _btn_cancel; }
 		}
 	}
 }
