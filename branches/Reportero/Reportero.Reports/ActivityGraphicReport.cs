@@ -28,8 +28,7 @@ namespace Reportero.Reports
 			Vehicle = vehicle;
 			_shapes = new ShapeCollection ();
 			_loader = new LoadingWindow ();
-			_loader.Cancel += loaderCancel;
-			//create_graphic_structure ();
+			_loader.CancelButton.Clicked += delegate { _canceled = true; };
 		}
 		
 		protected override void OnPaint (Gdk.Pixmap pixmap)
@@ -57,8 +56,6 @@ namespace Reportero.Reports
 						Pango.FontDescription.FromString ("8"),
 						60, 510 - (66 * (i)) - 9, 0,
 						"{0} hrs", i);
-						
-					
 				}
 				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
 			}
@@ -67,7 +64,9 @@ namespace Reportero.Reports
 		protected override void OnShown ()
 		{
 			base.OnShown ();
+			
 			Thread thread = new Thread ((ThreadStart) delegate {
+				_loader.AsyncUpdate (0);
 				create_graphic_structure ();
 			});
 			thread.Start ();
@@ -81,28 +80,26 @@ namespace Reportero.Reports
 			// horizontal line
 			Line line2 = new Line (100, 510, 700, 510);
 			
-			for (int i = 0; i < 7; i ++) {
-				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
-			}
-			
 			int days = (EndingDate - StartingDate).Days;
 			
 			ActivityReportBar bar = null;
 			for (int i = 0; i <= days; i ++) {
 				if (_canceled) {
 					Shapes.Clear ();
+					runOnMainThread (delegate {
+						_loader.Hide ();
+					});
 					break;
 				}
-				double percent = ((double) 100 / (double) days) * (double) i;
+				double percent = (((double) 100 / ((double) days+1)) * (double) i);
 				_loader.AsyncUpdate ((int)percent);
+				
 				DateTime date = StartingDate.AddDays (i);
 				int minutes = Vehicle.GetMinutesRunning (date);
 				
 				bar = new ActivityReportBar (i, date, TimeSpan.FromMinutes (minutes));
 				Shapes.Add (bar);
 			}
-			//_loader.AsyncUpdate (100);
-
 			
 			if (bar != null) {
 				SetSizeRequest ((int) (bar.X + bar.Width + 50), Allocation.Height);
@@ -113,21 +110,23 @@ namespace Reportero.Reports
 			
 			Shapes.Add (line);
 			Shapes.Add (line2);
-		/*	
-			Shapes.Add (new Rectangle (10, 10, 100, 100));
-			Text text = new Text ("Hello", 10, 10);
-			text.X = 100;
-			text.Y = 50;
-			text.RotationAngle = 270;
-			Shapes.Add (text);*/
-			_loader.Hide ();
-			_loader.Destroy ();
+			
+			for (int i = 0; i < 7; i ++) {
+				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
+			}
+			
+			runOnMainThread (delegate {
+				_loader.Hide ();
+				_loader.Destroy ();
+			});
 		}
 		
-		private void loaderCancel (object sender, EventArgs args)
+		private void runOnMainThread (Gtk.ReadyEvent callback)
 		{
+			Gtk.ThreadNotify notify = new Gtk.ThreadNotify (callback);
+			notify.WakeupMain ();
 		}
-		
+				
 		public ShapeCollection Shapes {
 			get { return _shapes; }
 		}

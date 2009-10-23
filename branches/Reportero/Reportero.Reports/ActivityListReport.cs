@@ -19,6 +19,8 @@ namespace Reportero.Reports
 		private Leadership _leadership;
 		private LoadingWindow _loader;
 		
+		private bool _canceled = false;
+		
 		public ActivityListReport (Leadership leadership)
 			: this (leadership, DateTime.Now, DateTime.Now)
 		{
@@ -29,6 +31,7 @@ namespace Reportero.Reports
 		{
 			Leader = leadership;
 			_loader = new LoadingWindow ();
+			_loader.Cancel += delegate { _canceled = true; };
 		}
 				
 		public void CreatePdf (string appfilename, string filename, bool run)
@@ -52,9 +55,10 @@ namespace Reportero.Reports
 		private void createPdf (string appfilename, string filename, bool run) 
 		{
 			Document doc = new Document (PageSize.LETTER);
+
 			PdfWriter writer = PdfWriter.GetInstance (doc,
 				new FileStream (filename, FileMode.Create));
-
+			
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
 			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
 			Font font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
@@ -71,8 +75,8 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
-			head_para.Add (new Paragraph ("Tecnología de Información", font_sub2));
-			head_para.Add (new Paragraph ("Reporte de Actividad Vehicular por Coordinación", font_sub2));
+			//head_para.Add (new Paragraph ("Tecnología de Información", font_sub2));
+			head_para.Add (new Paragraph ("Reporte de Actividad Vehicular por Día", font_sub2));
 			
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
@@ -82,19 +86,22 @@ namespace Reportero.Reports
 			
 			doc.AddAuthor ("Software Reportero desarrollado por Ricardo Medina <rmedinalor@pep.pemex.com>");
 			doc.AddCreator ("Software Reportero desarrollado por Ricardo Medina <rmedinalo@pep.pemex.com>");						
-			
-			doc.Add (new Paragraph (Leader.Name, font_sub1));
+			Paragraph para = new Paragraph (
+				string.Format ("{0}. {1}", Leader.Name, Leader.GetFullname ()), font_sub1);
+			doc.Add (para);
 			
 			VehicleUserCollection vehicles = Leader.GetVehicles ();
 			
 			int counter = 0;
 			foreach (VehicleUser vehicle in vehicles) {
+				if (_canceled)
+					break;
 				counter ++;
 				//update ("", (100 / vehicles.Count) * counter);
 				double percent = ((double) 100 / (double) vehicles.Count) * (double)counter;
 				_loader.AsyncUpdate ((int) percent);
 				
-				Paragraph para = new Paragraph ();						
+				para = new Paragraph ();						
 				para.Add (new Phrase ("Vehículo. ", font_sub2));
 				para.Add (new Phrase (vehicle.VehicleId, font_sub3));
 				doc.Add (para);
@@ -110,6 +117,9 @@ namespace Reportero.Reports
 				int minutes_total = 0;
 				int totaldays = (EndingDate - StartingDate).Days;
 				for (int i = 0; i <= totaldays; i ++) {
+					if (_canceled)
+						break;
+						
 					DateTime current_date = StartingDate.AddDays (i);
 					para = new Paragraph ();
 					int minutes = vehicle.GetMinutesRunning (current_date);
@@ -133,11 +143,13 @@ namespace Reportero.Reports
 				doc.Add (new Paragraph (" ", font_sub2));
 			}
 			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
+			
 			doc.Close ();
 			writer.Close ();
+			
 			_loader.Hide ();
 			_loader.Destroy ();
-			if (run)
+			if (run && !_canceled)
 				RunPdfOnExternalApp (appfilename, filename);
 		}
 		
