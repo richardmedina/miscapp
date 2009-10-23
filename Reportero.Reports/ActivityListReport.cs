@@ -97,13 +97,21 @@ namespace Reportero.Reports
 				if (_canceled)
 					break;
 				counter ++;
-				//update ("", (100 / vehicles.Count) * counter);
-				double percent = ((double) 100 / (double) vehicles.Count) * (double)counter;
+				double percent = ((double) 100 / (double) vehicles.Count) * (double) counter;
 				_loader.AsyncUpdate ((int) percent);
+				/*
+				Table table = new Table (6, 5);
+				Cell cell = new Cell ("Vehículo");
+				cell.UseAscender = true;
+				cell.VerticalAlignment = Cell.ALIGN_MIDDLE | Cell.ALIGN_CENTER;
+				table.AddCell (cell);
 				
+				//table.AddCell ("Vehículo");
+				doc.Add (table);
+				*/
 				para = new Paragraph ();						
 				para.Add (new Phrase ("Vehículo. ", font_sub2));
-				para.Add (new Phrase (vehicle.VehicleId, font_sub3));
+				para.Add (new Phrase (vehicle.VehicleId, font_sub3)); 
 				doc.Add (para);
 				
 				para= new Paragraph ();
