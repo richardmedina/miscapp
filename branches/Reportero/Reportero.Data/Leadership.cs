@@ -56,6 +56,9 @@ namespace Reportero.Data
 				case "MEDYSA":
 					return "Mantenimiento a Equipo Dinámico y Sistemas Auxiliares";
 				break;
+				case "CTI":
+					return "Coordinación de Tecnología de Información";
+				break;
 				default:
 					return "Sin equivalencia";
 				break;
