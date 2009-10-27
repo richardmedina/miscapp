@@ -162,8 +162,6 @@ namespace Reportero.UI.Widgets
 				dialog.NameEntry.Text = user.Name;
 				dialog.IdEntry.Text = user.Id;
 			}
-			
-			//Console.WriteLine (user.GetMinutesRunning (DateTime.Now));
 				 	
 		 	ResponseType response = dialog.Run ();
 		 	
@@ -230,7 +228,8 @@ namespace Reportero.UI.Widgets
 							FileChooserAction.Save);
 						
 						dialog.CurrentName = 
-							string.Format ("Reporte de Actividad Vehicular ({0} al {1}).pdf",
+							string.Format ("{0} ({1} al {2}).pdf",
+								(record as Leadership).Name,
 								start.ToString ("dd.MM.yy"), end.ToString ("dd.MM.yyyy"));
 						
 						dialog.AddButton (Stock.Cancel, ResponseType.Cancel);
