@@ -55,10 +55,28 @@ namespace Reportero.Data
 			switch (Name) {
 				case "MEDYSA":
 					return "Mantenimiento a Equipo Dinámico y Sistemas Auxiliares";
-				break;
+				
+				case "CAEC":
+					return "Coordinación de Asuntos Externos y Comunicaciones";
+					
+				case "CCYM":
+					return "Coordinación de Construcción y Mantenimiento";
+				
+				case "CDE":
+					return "Coordinación de Diseños y Explotación";
+				
+				case "COPIE":
+						return "Coordinación de Operación de Pozos e Instalaciones de Explotación";
+				
 				case "CTI":
-					return "Coordinación de Tecnología de Información";
-				break;
+					return "Coordinación de Tecnología de la Información";
+				 				
+ 				case "RTDH":
+ 					return "Representación de Transporte y Distribución de Hidrocarburos";
+ 				
+ 				case "SIPAC":
+					return "Coordinación de Seguridad  Industrial  y Protección Ambiental";
+				
 				default:
 					return "Sin equivalencia";
 				break;
