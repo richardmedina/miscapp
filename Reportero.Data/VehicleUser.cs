@@ -72,6 +72,13 @@ namespace Reportero.Data
 			return minutes_running;
 		}
 		
+		public int GetMinutesAtSpeedExceeded (DateTime date)
+		{
+			int minutes = 0;
+			
+			//IDataReader reader = Db.Query ("select * from VehicleStateAdapatacion"
+		}
+		
 		public string Id {
 			get { return _id; }
 			set { _id = value; }

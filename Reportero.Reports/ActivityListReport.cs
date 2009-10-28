@@ -106,7 +106,7 @@ namespace Reportero.Reports
 			foreach (VehicleUser vehicle in vehicles) {
 				if (_canceled)
 					break;
-				counter ++;
+				//counter ++;
 				double percent = ((double) 100 / (double) vehicles.Count) * (double) counter;
 				_loader.AsyncUpdate ((int) percent);
 			
