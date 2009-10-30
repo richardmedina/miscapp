@@ -8,32 +8,29 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Reportero.Data;
 
-//using Gtk;
-
 namespace Reportero.Reports
 {
 	
 	
-	public class ActivityListReport : ActivityReport
+	public class SpeedListReport : ActivityReport
 	{
 		private Leadership _leadership;
 		private LoadingWindow _loader;
 		
 		private bool _canceled = false;
 		
-		public ActivityListReport (Leadership leadership)
-			: this (leadership, DateTime.Now, DateTime.Now)
+		public SpeedListReport (DateTime start, DateTime end) : base (start, end)
 		{
 		}
 		
-		public ActivityListReport (Leadership leadership, DateTime start, DateTime end)
+		public SpeedListReport (Leadership leadership, DateTime start, DateTime end)
 			: base (start, end)
 		{
 			Leader = leadership;
 			_loader = new LoadingWindow ();
 			_loader.Cancel += delegate { _canceled = true; };
 		}
-				
+
 		public void CreatePdf (string appfilename, string filename, bool run)
 		{
 			Thread thread = new Thread ((ThreadStart) delegate {
@@ -75,7 +72,7 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
-			head_para.Add (new Paragraph ("Reporte de Actividad Vehicular por Día", font_sub2));
+			head_para.Add (new Paragraph ("Reporte de Excesos de Velocidad Vehicular por Día", font_sub2));
 			
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
@@ -131,7 +128,7 @@ namespace Reportero.Reports
 				int x = 0;
 				for (x = 0; x < 3 && x < totaldays + 1; x ++) {
 					table.AddCell (createCell ("Fecha"), row, (x * 2));
-					table.AddCell (createCell ("Actividad"), row, (x * 2) + 1);
+					table.AddCell (createCell ("Excesos"), row, (x * 2) + 1);
 				}
 				
 				for (int i = 0; i <= totaldays; i ++) {
@@ -145,17 +142,20 @@ namespace Reportero.Reports
 					if (col == 0)
 						row ++;
 					
+					Console.WriteLine ("{0},{1}", row, col);
 					DateTime current_date = StartingDate.AddDays (i);
 					
-					int minutes = vehicle.GetMinutesRunning (current_date);
+					int minutes = vehicle.GetTimesSpeedOvertaken (current_date);
 					minutes_total += minutes;
-					
-					TimeSpan time = TimeSpan.FromMinutes (minutes);
 					
 					cell = createCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
-					cell = createCell (time.ToString());
+					cell = createCell (minutes.ToString());
+					cell.HorizontalAlignment |= Cell.ALIGN_CENTER;
+					cell.SetHorizontalAlignment ("CENTER");
+					cell.UseAscender = true;
+
 					table.AddCell (cell, row, (col * 2) + 1);
 				}
 				row ++;
@@ -163,18 +163,22 @@ namespace Reportero.Reports
 				cell.Colspan = 6;
 				table.AddCell (cell, row ++, 0);
 				
-				int seconds_avrg = (minutes_total * 60) / (totaldays+1);
+				double seconds_avrg = (minutes_total) / (totaldays+1);
 				TimeSpan total = TimeSpan.FromMinutes (minutes_total);
 				
-				cell = createCell ("Actividad Total del Vehiculo");
+				cell = createCell ("Cantidad de excesos del Vehiculo");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				table.AddCell (createCell (total.ToString ()), row ++, 5);
+				cell = createCell (minutes_total.ToString ());
+				cell.SetHorizontalAlignment ("CENTER");
+				table.AddCell (cell, row ++, 5);
 				
-				cell = createCell ("Actividad Promedio por Día");
+				cell = createCell ("Excesos Promedio por Día");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				table.AddCell (createCell (TimeSpan.FromSeconds (seconds_avrg).ToString ()), row ++, 5);
+				cell = createCell (seconds_avrg.ToString ("0.00"));
+				cell.SetHorizontalAlignment ("CENTER");
+				table.AddCell (cell, row ++, 5);
 			}
 			doc.Add (table);
 			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
@@ -202,4 +206,5 @@ namespace Reportero.Reports
 			protected set { _leadership = value; }
 		}
 	}
+
 }

@@ -33,11 +33,13 @@ namespace Reportero.UI.Widgets
 			_vehicle_popup = new VehicleMenuPopup ();
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
 			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;
+			_vehicle_popup.StatisticsSpeedItem.Activated += vehicle_popupStatisticsSpeedActivated;
 			_vehicle_popup.AboutItem.Activated += aboutdialog_show;
 			
 			_leadership_popup = new LeadershipMenuPopup ();
 			_leadership_popup.ExploreItem.Activated += leadershipExploreActivated;
 			_leadership_popup.StatisticsItem.Activated += leadershipStatisticsActivated;
+			_leadership_popup.StatisticsSpeedItem.Activated += leadershipStatisticsSpeedActivated;
 			_leadership_popup.AboutItem.Activated += aboutdialog_show;
 			
 		}
@@ -249,6 +251,81 @@ namespace Reportero.UI.Widgets
 					}
 				}
 			}
+		}
+		
+		private void vehicle_popupStatisticsSpeedActivated (object sender, EventArgs args)
+		{
+			IRecord record;
+			
+			if (GetSelected (out record)) {
+				if (record.Type == RecordType.VehicleUser) {
+					DateRangeSelectionDialog dialog = new DateRangeSelectionDialog ();
+					ResponseType response = dialog.Run ();
+					DateTime start = dialog.StartingDateEntry.Date;
+					DateTime end = dialog.EndingDateEntry.Date;
+					dialog.Destroy ();
+					if (response == ResponseType.Ok)
+					do {
+						string str = string.Format (
+							"{0} rebasó {1} veces el {2}.",
+							(record as VehicleUser).VehicleId,
+							(record as VehicleUser).GetTimesSpeedOvertaken (start).ToString (),
+							start.ToString ("dd-MM-yyyy")
+						);
+						MessageDialog msg = new MessageDialog (null, 
+						DialogFlags.Modal, 
+						MessageType.Info,
+						ButtonsType.Ok,
+						str
+						);
+					
+						msg.Run  ();
+						msg.Destroy ();
+						start = start.AddDays (1);
+					}while (start < end);
+					
+				}
+			}
+		}
+		
+		private void leadershipStatisticsSpeedActivated (object sender, EventArgs args)
+		{
+			IRecord record;
+			
+			DateTime start;
+			DateTime end;
+			
+			if (getDateRange (out start, out end)) {
+				if (GetSelected (out record)) {
+					if (record.Type == RecordType.Leadership) {
+						FileChooserDialog dialog = new FileChooserDialog (
+							AppSettings.Instance.GetFormatedTitle ("Crear  y guardar reporte..."),
+							null,
+							FileChooserAction.Save);
+						
+						dialog.CurrentName = 
+							string.Format ("{0} ({1} al {2}).pdf",
+								(record as Leadership).Name,
+								start.ToString ("dd.MM.yy"), end.ToString ("dd.MM.yyyy"));
+						
+						dialog.AddButton (Stock.Cancel, ResponseType.Cancel);
+						dialog.AddButton (Stock.Save, ResponseType.Ok);
+						
+						ResponseType response = (ResponseType) dialog.Run ();
+						string filename = dialog.Filename;
+						dialog.Destroy ();
+						
+						if (response == ResponseType.Ok) {
+							SpeedListReport report = new SpeedListReport (record as Leadership, start, end);
+							report.CreatePdf (
+								AppSettings.Instance.PdfAppLoader, 
+								filename, 
+								AppSettings.Instance.PdfRunOnGenerated);
+						}
+					}
+				}
+			}
+
 		}
 		
 		private void aboutdialog_show (object sender, EventArgs args)

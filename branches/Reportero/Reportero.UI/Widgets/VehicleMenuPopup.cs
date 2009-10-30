@@ -11,6 +11,7 @@ namespace Reportero.UI.Widgets
 	{
 		private Gtk.ImageMenuItem _itm_assign;
 		private Gtk.ImageMenuItem _itm_statistics;
+		private Gtk.ImageMenuItem _itm_statistics_speed;
 		private Gtk.ImageMenuItem _itm_about;
 		
 		public VehicleMenuPopup ()
@@ -22,6 +23,10 @@ namespace Reportero.UI.Widgets
 			_itm_statistics = new ImageMenuItem ("Gráfica de Actividad...");
 			_itm_statistics.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
+			
+			_itm_statistics_speed = new ImageMenuItem ("Historial de Exceso de velocidad");
+			_itm_statistics_speed.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_80km.png").ScaleSimple (
+					18, 18, Gdk.InterpType.Bilinear));
 				
 			_itm_about = new ImageMenuItem ("Créditos");
 			_itm_about.Image = new Image (Stock.About, IconSize.Menu);
@@ -29,6 +34,7 @@ namespace Reportero.UI.Widgets
 			Append (_itm_assign);
 			Append (new SeparatorMenuItem ());
 			Append (_itm_statistics);
+			Append (_itm_statistics_speed);
 			Append (new SeparatorMenuItem ());
 			Append (_itm_about);
 			
@@ -41,6 +47,10 @@ namespace Reportero.UI.Widgets
 		
 		public ImageMenuItem StatisticsItem {
 			get { return _itm_statistics; }
+		}
+		
+		public ImageMenuItem StatisticsSpeedItem {
+			get { return _itm_statistics_speed; }
 		}
 		
 		public ImageMenuItem AboutItem {
