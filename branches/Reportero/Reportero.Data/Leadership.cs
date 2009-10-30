@@ -79,7 +79,6 @@ namespace Reportero.Data
 				
 				default:
 					return "Sin equivalencia";
-				break;
 			}
 		}
 		

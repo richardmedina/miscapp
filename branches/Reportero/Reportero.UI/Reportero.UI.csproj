@@ -87,5 +87,6 @@
     <EmbeddedResource Include="reportero_icon_vehicle_assign.png" />
     <EmbeddedResource Include="reportero_icon_main.png" />
     <EmbeddedResource Include="reportero_icon_calendar.png" />
+    <EmbeddedResource Include="reportero_icon_80km.png" />
   </ItemGroup>
 </Project>
