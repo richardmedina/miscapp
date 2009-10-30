@@ -122,7 +122,7 @@ namespace Reportero.Reports
 				cell.Colspan = 3;
 				table.AddCell (cell, row++, 1);
 																										
-				int minutes_total = 0;
+				int total_times = 0;
 				int totaldays = (EndingDate - StartingDate).Days;
 				
 				int x = 0;
@@ -130,28 +130,40 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Fecha"), row, (x * 2));
 					table.AddCell (createCell ("Excesos"), row, (x * 2) + 1);
 				}
-				
+				int cells_ingnored = 0;
 				for (int i = 0; i <= totaldays; i ++) {
 					if (_canceled)
 						break;
-					
+					DateTime current_date = StartingDate.AddDays (i);
+					int times = vehicle.GetTimesSpeedOvertaken (current_date);
+			//		if (times == 0) {
+			//			cells_ingnored ++;
+			//			continue;
+			//		}
 					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
-					col = i % 3;
+					col = (i- cells_ingnored) % 3;
 					if (col == 0)
 						row ++;
 					
 					Console.WriteLine ("{0},{1}", row, col);
-					DateTime current_date = StartingDate.AddDays (i);
 					
-					int minutes = vehicle.GetTimesSpeedOvertaken (current_date);
-					minutes_total += minutes;
 					
+					
+					total_times += times;
+					/*
+					if (times == 0) {
+						total_times -= times;
+						if (col == 0)
+							row --;
+						continue;
+					}
+					*/
 					cell = createCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
-					cell = createCell (minutes.ToString());
+					cell = createCell (times.ToString());
 					cell.HorizontalAlignment |= Cell.ALIGN_CENTER;
 					cell.SetHorizontalAlignment ("CENTER");
 					cell.UseAscender = true;
@@ -163,20 +175,19 @@ namespace Reportero.Reports
 				cell.Colspan = 6;
 				table.AddCell (cell, row ++, 0);
 				
-				double seconds_avrg = (minutes_total) / (totaldays+1);
-				TimeSpan total = TimeSpan.FromMinutes (minutes_total);
+				double avrg = (double) (total_times) / (double) (totaldays+1);
 				
 				cell = createCell ("Cantidad de excesos del Vehiculo");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				cell = createCell (minutes_total.ToString ());
+				cell = createCell (total_times.ToString ());
 				cell.SetHorizontalAlignment ("CENTER");
 				table.AddCell (cell, row ++, 5);
 				
 				cell = createCell ("Excesos Promedio por Día");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				cell = createCell (seconds_avrg.ToString ("0.00"));
+				cell = createCell (avrg.ToString ("0.00"));
 				cell.SetHorizontalAlignment ("CENTER");
 				table.AddCell (cell, row ++, 5);
 			}

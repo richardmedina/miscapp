@@ -48,7 +48,7 @@ namespace Reportero.UI
 				Console.WriteLine ("Exception. {0}",
 					exception.Message);
 			}
-			Instance.CopyFrom (settings);
+			CopyFrom (settings);
 		}
 		
 		public void CopyFrom (AppSettings settings)
@@ -61,7 +61,7 @@ namespace Reportero.UI
 			PdfRunOnGenerated = settings.PdfRunOnGenerated;
 			PdfAppLoader = settings.PdfAppLoader;
 		}
-		
+		/* Lets make singleton pattern */
 		public static AppSettings Instance {
 			get {
 					lock (_obj) {
@@ -74,7 +74,11 @@ namespace Reportero.UI
 		}
 		
 		public static string Filename {
-			get { return "settings.xml"; }
+			get { 
+				return System.IO.Path.Combine (
+					System.Environment.GetFolderPath (System.Environment.SpecialFolder.ApplicationData),
+					"reportero_settings.xml"); 
+			}
 		}
 	}
 }
