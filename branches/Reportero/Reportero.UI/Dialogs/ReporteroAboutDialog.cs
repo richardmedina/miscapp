@@ -13,7 +13,8 @@ namespace Reportero.UI.Dialogs
 		{
 			Authors = new string [] {"Ricardo Medina López <rmedinalo@pep.pemex.com>"};
 			Artists = Authors;
-			Version = "1.0";
+			Version = "1.0prev";
+			Comments = "Version preliminar.\nTodos los derechos reservados\nRicardo Medina López\nrmedinalo@pep.pemex.com";
 			
 			WindowPosition = Gtk.WindowPosition.Center;
 			
