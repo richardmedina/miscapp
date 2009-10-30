@@ -22,13 +22,16 @@ namespace Reportero.UI.Widgets
 		{
 			_store = new ListStore (typeof (Gdk.Pixbuf),
 				typeof (IRecord), 
+				typeof (string),
 				typeof (string));
 			
 			_database = database;
 			
 			Model = _store;
+			
 			TextColumn = 2;
 			PixbufColumn = 0;
+			TooltipColumn = 3;
 			
 			_vehicle_popup = new VehicleMenuPopup ();
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
@@ -43,21 +46,32 @@ namespace Reportero.UI.Widgets
 			_leadership_popup.AboutItem.Activated += aboutdialog_show;
 			
 		}
+		
 		public void Append (IRecord record)
 		{
 			Gdk.Pixbuf buf = null;
 			string text =  string.Empty;
-			
+			string tooltip = string.Empty;
 			if (record.Type == RecordType.Leadership) {
 				text = ((Leadership)record).Name;
 				buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_lead.png");
+				tooltip = string.Format ("<b>{0}</b> ({1} Vehiculos)\n{2}",
+					(record as Leadership).Name,
+					(record as Leadership).GetVehicles ().Count,
+					(record as Leadership).GetFullname ());
 			} 
 			else if (record.Type == RecordType.VehicleUser) { 
 				text = ((VehicleUser)record).VehicleId;
 				buf = Gdk.Pixbuf.LoadFromResource ("reportero_icon_pickup.png");
+				tooltip = string.Format ("<b>Vehiculo.</b> {0}\n" +
+					"<b>Resguardo.</b> {1}\n" +
+					"<b>Ficha.</b> {2}",
+					(record as VehicleUser).VehicleId,
+					(record as VehicleUser).Name,
+					(record as VehicleUser).Id);
 			}
 			
-			_store.AppendValues (buf.ScaleSimple(54, 54, Gdk.InterpType.Bilinear), record, text);
+			_store.AppendValues (buf.ScaleSimple(54, 54, Gdk.InterpType.Bilinear), record, text, tooltip);
 		}
 		
 		public bool GetSelected (out IRecord record)
@@ -148,6 +162,12 @@ namespace Reportero.UI.Widgets
 		
 			return base.OnKeyPressEvent (evnt);
 		}
+		
+		protected override bool OnMotionNotifyEvent (Gdk.EventMotion evnt)
+		{
+			return base.OnMotionNotifyEvent (evnt);
+		}
+
 
 		public void LoadVehicles (Leadership leadership)
 		{
