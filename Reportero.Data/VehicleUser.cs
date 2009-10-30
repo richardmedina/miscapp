@@ -72,11 +72,26 @@ namespace Reportero.Data
 			return minutes_running;
 		}
 		
-		public int GetMinutesAtSpeedExceeded (DateTime date)
+		public int GetTimesSpeedOvertaken (DateTime date)
 		{
-			int minutes = 0;
+			int times = 0;
 			
-			//IDataReader reader = Db.Query ("select * from VehicleStateAdapatacion"
+			IDataReader reader = Db.Query (
+			@"
+			select count(ID) as times
+			from VehicleStateAdaptacion 
+			where 
+			Alias = '{0}' 
+			and Event = 17 
+			and FlagAlarmed=0 
+			and TiempoDifAnt=0
+			and convert(varchar, InsertDate, 105) = '{1}';", VehicleId, date.ToString ("dd-MM-yyyy"));
+			
+			if (reader.Read ())
+				times = (int) reader ["times"];
+			reader.Close ();
+
+			return times;
 		}
 		
 		public string Id {
