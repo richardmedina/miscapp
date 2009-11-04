@@ -58,7 +58,7 @@
     <Compile Include="Drawing\Text.cs" />
     <Compile Include="ReportPrinter.cs" />
     <Compile Include="ActivityListReport.cs" />
-    <Compile Include="ActivityReport.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="LoadingWindow.cs" />
     <Compile Include="SpeedListReport.cs" />
     <Compile Include="DateRangedReport.cs" />
