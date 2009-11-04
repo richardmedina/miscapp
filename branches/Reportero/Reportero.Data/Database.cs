@@ -29,7 +29,7 @@ namespace Reportero.Data
 			_connection.Close ();
 		}
 		
-		public void Open ()
+		public bool Open ()
 		{
 			//string conn
 			
@@ -39,8 +39,15 @@ namespace Reportero.Data
 			_connection = new SqlConnection  (connection_string);
 
 			Console.WriteLine ("Connecting to database..");
-			_connection.Open ();
+			try {
+				_connection.Open ();
+			} catch (Exception exception) {
+				Console.WriteLine ("ERROR Connecting + {0}", exception);
+				return false;
+			}
+				
 			Console.WriteLine ("Done");
+			return true;
 		}
 
 		public IDataReader Query (string format, params object [] objs)
@@ -55,7 +62,13 @@ namespace Reportero.Data
 		{
 			string query = string.Format (format, objs);
 			IDbCommand command = new SqlCommand (query, _connection);
-			command.ExecuteNonQuery ();
+			try {
+				command.ExecuteNonQuery ();
+			} catch (SqlException) {
+				if (Open ()) {
+					command.ExecuteNonQuery ();
+				}
+			}
 		}
 		
 		public string Hostname {

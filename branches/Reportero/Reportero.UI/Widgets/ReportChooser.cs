@@ -348,6 +348,30 @@ namespace Reportero.UI.Widgets
 
 		}
 		
+		private bool selectFilename (out string filename, string dialog_title)
+		{
+		
+			filename = string.Empty;
+			
+			FileChooserDialog dialog = 
+				new FileChooserDialog (dialog_title, 
+					null, 
+					FileChooserAction.Save);
+			
+			dialog.AddButton (Stock.Cancel, ResponseType.Cancel);
+			dialog.AddButton (Stock.Save, ResponseType.Ok);
+			
+			ResponseType response = dialog.Run () as ResponseType;
+			filename = dialog.Filename;
+			dialog.Destroy ();
+			
+			if (response == ResponseType.Ok)
+				return true;
+				
+			return false;
+		//	dialog
+		}
+		
 		private void aboutdialog_show (object sender, EventArgs args)
 		{
 			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();

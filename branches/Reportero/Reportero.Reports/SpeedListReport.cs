@@ -12,7 +12,7 @@ namespace Reportero.Reports
 {
 	
 	
-	public class SpeedListReport : ActivityReport
+	public class SpeedListReport : Report
 	{
 		private Leadership _leadership;
 		private LoadingWindow _loader;
@@ -119,7 +119,7 @@ namespace Reportero.Reports
 
 				table.AddCell (createCell ("Detalles"), row, 0);
 				cell = createCell ("");
-				cell.Colspan = 3;
+				cell.Colspan = 5;
 				table.AddCell (cell, row++, 1);
 																										
 				int total_times = 0;
@@ -136,10 +136,10 @@ namespace Reportero.Reports
 						break;
 					DateTime current_date = StartingDate.AddDays (i);
 					int times = vehicle.GetTimesSpeedOvertaken (current_date);
-			//		if (times == 0) {
-			//			cells_ingnored ++;
-			//			continue;
-			//		}
+					if (times == 0) {
+						cells_ingnored ++;
+						continue;
+					}
 					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
@@ -152,14 +152,7 @@ namespace Reportero.Reports
 					
 					
 					total_times += times;
-					/*
-					if (times == 0) {
-						total_times -= times;
-						if (col == 0)
-							row --;
-						continue;
-					}
-					*/
+					
 					cell = createCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
@@ -175,7 +168,7 @@ namespace Reportero.Reports
 				cell.Colspan = 6;
 				table.AddCell (cell, row ++, 0);
 				
-				double avrg = (double) (total_times) / (double) (totaldays+1);
+				double avrg = (double) (total_times) / (double) ((totaldays - cells_ingnored)+1);
 				
 				cell = createCell ("Cantidad de excesos del Vehiculo");
 				cell.Colspan = 5;

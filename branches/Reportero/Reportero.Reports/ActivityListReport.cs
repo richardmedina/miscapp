@@ -14,7 +14,7 @@ namespace Reportero.Reports
 {
 	
 	
-	public class ActivityListReport : ActivityReport
+	public class ActivityListReport : Report
 	{
 		private Leadership _leadership;
 		private LoadingWindow _loader;
@@ -122,7 +122,7 @@ namespace Reportero.Reports
 
 				table.AddCell (createCell ("Detalles"), row, 0);
 				cell = createCell ("");
-				cell.Colspan = 3;
+				cell.Colspan = 5;
 				table.AddCell (cell, row++, 1);
 																										
 				int minutes_total = 0;
@@ -134,10 +134,20 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Actividad"), row, (x * 2) + 1);
 				}
 				
+				//int cells_ingnored = 0;
 				for (int i = 0; i <= totaldays; i ++) {
 					if (_canceled)
 						break;
+					DateTime current_date = StartingDate.AddDays (i);
 					
+					int minutes = vehicle.GetMinutesRunning (current_date);
+					minutes_total += minutes;
+					/*
+					if (minutes == 0) {
+						cells_ingnored ++;
+						continue;
+					}
+					*/
 					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
@@ -145,10 +155,7 @@ namespace Reportero.Reports
 					if (col == 0)
 						row ++;
 					
-					DateTime current_date = StartingDate.AddDays (i);
 					
-					int minutes = vehicle.GetMinutesRunning (current_date);
-					minutes_total += minutes;
 					
 					TimeSpan time = TimeSpan.FromMinutes (minutes);
 					
