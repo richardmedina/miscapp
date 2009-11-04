@@ -7,12 +7,12 @@ namespace Reportero.Reports
 {
 	
 	
-	public class ActivityReport : Canvas
+	public class Report : Canvas
 	{
 		private DateTime _date_starting;
 		private DateTime _date_ending;
 		
-		public ActivityReport (DateTime start, DateTime end)
+		public Report (DateTime start, DateTime end)
 		{
 			StartingDate = start;
 			EndingDate = end;

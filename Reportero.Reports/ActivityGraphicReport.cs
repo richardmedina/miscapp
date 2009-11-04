@@ -8,7 +8,7 @@ namespace Reportero.Reports
 {
 	
 	
-	public class ActivityGraphicReport : ActivityReport
+	public class ActivityGraphicReport : Report
 	{		
 		private ShapeCollection _shapes;
 		

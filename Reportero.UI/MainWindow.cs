@@ -62,7 +62,7 @@ namespace Reportero.UI
 		{
 			base.OnShown ();
 			_database.Open ();
-			_chooser.GoHome ();
+			//_chooser.GoHome ();
 		}
 		
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
