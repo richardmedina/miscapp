@@ -24,7 +24,7 @@ namespace Reportero.UI.Dialogs
 			
 			_tabulator.ReloadPanels ();
 			
-			//VBox.PackStart (_tabulator);
+			VBox.PackStart (_tabulator);
 			
 			VBox.ShowAll ();
 			

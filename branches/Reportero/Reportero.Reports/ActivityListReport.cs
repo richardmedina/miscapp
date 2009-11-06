@@ -34,30 +34,9 @@ namespace Reportero.Reports
 			_loader.Cancel += delegate { _canceled = true; };
 		}
 				
-		public void CreatePdf (string appfilename, string filename, bool run)
+		protected override bool BodyCreate (Document document)
 		{
-			Thread thread = new Thread ((ThreadStart) delegate {
-				_loader.AsyncUpdate (0);
-				createPdf (appfilename, filename, run);
-			});
-			
-			thread.Start ();
-		}
-		
-		public void RunPdfOnExternalApp (string appfilename, string filename)
-		{
-			Process process = new Process ();
-			process.StartInfo.FileName = appfilename;
-			process.StartInfo.Arguments = string.Format ("\"{0}\"", filename);
-			process.Start ();
-		}
-		
-		private void createPdf (string appfilename, string filename, bool run) 
-		{
-			Document doc = new Document (PageSize.LETTER);
-
-			PdfWriter writer = PdfWriter.GetInstance (doc,
-				new FileStream (filename, FileMode.Create));
+			Document doc = document;//new Document (PageSize.LETTER);
 			
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
 			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
@@ -134,7 +113,6 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Actividad"), row, (x * 2) + 1);
 				}
 				
-				//int cells_ingnored = 0;
 				for (int i = 0; i <= totaldays; i ++) {
 					if (_canceled)
 						break;
@@ -142,21 +120,14 @@ namespace Reportero.Reports
 					
 					int minutes = vehicle.GetMinutesRunning (current_date);
 					minutes_total += minutes;
-					/*
-					if (minutes == 0) {
-						cells_ingnored ++;
-						continue;
-					}
-					*/
+
 					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
 					col = i % 3;
 					if (col == 0)
 						row ++;
-					
-					
-					
+
 					TimeSpan time = TimeSpan.FromMinutes (minutes);
 					
 					cell = createCell (current_date.ToString ("dd-MM-yyyy"));
@@ -186,13 +157,9 @@ namespace Reportero.Reports
 			doc.Add (table);
 			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
 			
-			doc.Close ();
-			writer.Close ();
-			
 			_loader.Hide ();
 			_loader.Destroy ();
-			if (run && !_canceled)
-				RunPdfOnExternalApp (appfilename, filename);
+			return true;
 		}
 		
 		private Cell createCell (string format, params object [] objs)

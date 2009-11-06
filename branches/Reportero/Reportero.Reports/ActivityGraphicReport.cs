@@ -86,7 +86,7 @@ namespace Reportero.Reports
 			for (int i = 0; i <= days; i ++) {
 				if (_canceled) {
 					Shapes.Clear ();
-					runOnMainThread (delegate {
+					RunOnMainThread (delegate {
 						_loader.Hide ();
 					});
 					break;
@@ -115,16 +115,10 @@ namespace Reportero.Reports
 				Shapes.Add (new Line (95, 510 - (66 * (i+1)), 105, 510- (66 * (i+1))));
 			}
 			
-			runOnMainThread (delegate {
+			RunOnMainThread (delegate {
 				_loader.Hide ();
 				_loader.Destroy ();
 			});
-		}
-		
-		private void runOnMainThread (Gtk.ReadyEvent callback)
-		{
-			Gtk.ThreadNotify notify = new Gtk.ThreadNotify (callback);
-			notify.WakeupMain ();
 		}
 				
 		public ShapeCollection Shapes {
