@@ -22,8 +22,8 @@ namespace Reportero.UI.Widgets
 			_itm_Quit.Activated += _itm_QuitActivated;
 			_itm_Quit.Image = new Image (Stock.Quit, IconSize.Menu);
 			
-			Append (_itm_prefs);
-			Append (new SeparatorMenuItem ());
+			//Append (_itm_prefs);
+			//Append (new SeparatorMenuItem ());
 			Append (_itm_Quit);
 		}
 		

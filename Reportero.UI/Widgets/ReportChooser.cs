@@ -361,7 +361,7 @@ namespace Reportero.UI.Widgets
 			dialog.AddButton (Stock.Cancel, ResponseType.Cancel);
 			dialog.AddButton (Stock.Save, ResponseType.Ok);
 			
-			ResponseType response = dialog.Run () as ResponseType;
+			ResponseType response = (ResponseType) dialog.Run ();
 			filename = dialog.Filename;
 			dialog.Destroy ();
 			

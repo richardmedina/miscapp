@@ -30,31 +30,10 @@ namespace Reportero.Reports
 			_loader = new LoadingWindow ();
 			_loader.Cancel += delegate { _canceled = true; };
 		}
-
-		public void CreatePdf (string appfilename, string filename, bool run)
-		{
-			Thread thread = new Thread ((ThreadStart) delegate {
-				_loader.AsyncUpdate (0);
-				createPdf (appfilename, filename, run);
-			});
-			
-			thread.Start ();
-		}
 		
-		public void RunPdfOnExternalApp (string appfilename, string filename)
+		protected override bool BodyCreate (Document document)
 		{
-			Process process = new Process ();
-			process.StartInfo.FileName = appfilename;
-			process.StartInfo.Arguments = string.Format ("\"{0}\"", filename);
-			process.Start ();
-		}
-		
-		private void createPdf (string appfilename, string filename, bool run) 
-		{
-			Document doc = new Document (PageSize.LETTER);
-
-			PdfWriter writer = PdfWriter.GetInstance (doc,
-				new FileStream (filename, FileMode.Create));
+			Document doc = document;//new Document (PageSize.LETTER);
 			
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
 			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
@@ -100,11 +79,15 @@ namespace Reportero.Reports
 			
 			
 			int counter = 0;
+			double fraction = (double) 100 / (double) vehicles.Count;
+			
+			double percent = 0;
 			foreach (VehicleUser vehicle in vehicles) {
 				if (_canceled)
 					break;
-				
-				double percent = ((double) 100 / (double) vehicles.Count) * (double) counter;
+					
+				double current_fraction = fraction * counter;
+				percent = current_fraction;
 				_loader.AsyncUpdate ((int) percent);
 			
 				table.AddCell (createCell ("Vehículo"), row, 0);
@@ -131,25 +114,26 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Excesos"), row, (x * 2) + 1);
 				}
 				int cells_ingnored = 0;
+				double subfraction = fraction / (totaldays + 1);
+				
+				//current_fraction += subfraction * i;
+				
 				for (int i = 0; i <= totaldays; i ++) {
+					percent = current_fraction + (subfraction * (i+1));
 					if (_canceled)
 						break;
 					DateTime current_date = StartingDate.AddDays (i);
 					int times = vehicle.GetTimesSpeedOvertaken (current_date);
+					_loader.AsyncUpdate ((int) percent);
+					
 					if (times == 0) {
 						cells_ingnored ++;
 						continue;
 					}
-					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
-					_loader.AsyncUpdate ((int) percent);
-					
+										
 					col = (i- cells_ingnored) % 3;
 					if (col == 0)
 						row ++;
-					
-					Console.WriteLine ("{0},{1}", row, col);
-					
-					
 					
 					total_times += times;
 					
@@ -162,7 +146,13 @@ namespace Reportero.Reports
 					cell.UseAscender = true;
 
 					table.AddCell (cell, row, (col * 2) + 1);
+					
+					_loader.AsyncUpdate ((int) percent);
 				}
+				
+				if (_canceled)
+					break;
+				
 				row ++;
 				cell = createCell (" ");
 				cell.Colspan = 6;
@@ -183,17 +173,17 @@ namespace Reportero.Reports
 				cell = createCell (avrg.ToString ("0.00"));
 				cell.SetHorizontalAlignment ("CENTER");
 				table.AddCell (cell, row ++, 5);
+				counter ++;
 			}
+			if (!_canceled)
+				_loader.AsyncUpdate (100);
 			doc.Add (table);
 			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
-			
-			doc.Close ();
-			writer.Close ();
-			
-			_loader.Hide ();
-			_loader.Destroy ();
-			if (run && !_canceled)
-				RunPdfOnExternalApp (appfilename, filename);
+			RunOnMainThread (delegate {
+				_loader.Hide ();
+				_loader.Destroy ();
+			});
+			return true;
 		}
 		
 		private Cell createCell (string format, params object [] objs)
