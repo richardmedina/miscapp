@@ -61,7 +61,14 @@ namespace Reportero.UI
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			_database.Open ();
+			if (!_database.Open ()) {
+				MessageDialog dialog = new MessageDialog ( this,
+					DialogFlags.Modal, MessageType.Error, ButtonsType.Ok,
+					"<b>Error al iniciar</b>.\nLa aplicación terminará ahora.");
+			
+				dialog.Run ();
+				dialog.Destroy ();
+			}
 			//_chooser.GoHome ();
 		}
 		
