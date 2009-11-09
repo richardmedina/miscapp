@@ -82,11 +82,15 @@ namespace Reportero.Reports
 			
 			
 			int counter = 0;
+			double fraction = (double) 100 / (double) vehicles.Count;
+			
 			foreach (VehicleUser vehicle in vehicles) {
 				if (_canceled)
 					break;
 				
-				double percent = ((double) 100 / (double) vehicles.Count) * (double) counter;
+				double current_fraction = fraction * counter;
+				double percent = current_fraction;
+				
 				_loader.AsyncUpdate ((int) percent);
 			
 				table.AddCell (createCell ("Vehículo"), row, 0);
@@ -113,7 +117,10 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Actividad"), row, (x * 2) + 1);
 				}
 				
+				double subfraction = fraction / (totaldays + 1);
+				
 				for (int i = 0; i <= totaldays; i ++) {
+					percent = current_fraction + (subfraction * (i+1));
 					if (_canceled)
 						break;
 					DateTime current_date = StartingDate.AddDays (i);
@@ -121,7 +128,7 @@ namespace Reportero.Reports
 					int minutes = vehicle.GetMinutesRunning (current_date);
 					minutes_total += minutes;
 
-					percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
+					//percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
 					col = i % 3;
@@ -142,6 +149,7 @@ namespace Reportero.Reports
 				table.AddCell (cell, row ++, 0);
 				
 				int seconds_avrg = (minutes_total * 60) / (totaldays+1);
+				
 				TimeSpan total = TimeSpan.FromMinutes (minutes_total);
 				
 				cell = createCell ("Actividad Total del Vehiculo");
@@ -153,13 +161,22 @@ namespace Reportero.Reports
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
 				table.AddCell (createCell (TimeSpan.FromSeconds (seconds_avrg).ToString ()), row ++, 5);
+				counter ++;
 			}
-			doc.Add (table);
-			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
 			
-			_loader.Hide ();
-			_loader.Destroy ();
-			return true;
+			if (!_canceled) {
+				_loader.AsyncUpdate (100);
+			
+				doc.Add (table);
+				doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
+			}
+			
+			RunOnMainThread (delegate {
+				_loader.Hide ();
+				_loader.Destroy ();
+			});
+			
+			return !_canceled;
 		}
 		
 		private Cell createCell (string format, params object [] objs)

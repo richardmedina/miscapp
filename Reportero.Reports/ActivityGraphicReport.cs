@@ -57,7 +57,7 @@ namespace Reportero.Reports
 						60, 510 - (66 * (i)) - 9, 0,
 						"{0} hrs", i);
 				}
-				ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
+				//ctx.Target.WriteToPng ("/home/richard/Desktop/png.png");
 			}
 		}
 		
