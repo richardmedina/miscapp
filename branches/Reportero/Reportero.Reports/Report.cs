@@ -46,7 +46,7 @@ namespace Reportero.Reports
 			Document document = new Document (PageSize.LETTER);
 
 			PdfWriter writer = PdfWriter.GetInstance (document,
-				new FileStream (filename, FileMode.Create));
+					new FileStream (filename, FileMode.Create));
 			
 			bool cancel = false;
 			
@@ -57,10 +57,17 @@ namespace Reportero.Reports
 			if (!FooterCreate (document))
 				cancel = true;
 			
-			document.Close ();
-			writer.Close ();
 			
-			if (run && !cancel)
+			
+			if (cancel) {
+				System.IO.File.Delete (filename);
+				return;
+			} else {
+				document.Close ();
+				writer.Close ();
+			}
+			
+			if (run)
 				RunPdfOnExternalApp (appfilename, filename);
 		}
 		

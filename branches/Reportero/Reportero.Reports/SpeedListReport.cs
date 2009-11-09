@@ -116,8 +116,6 @@ namespace Reportero.Reports
 				int cells_ingnored = 0;
 				double subfraction = fraction / (totaldays + 1);
 				
-				//current_fraction += subfraction * i;
-				
 				for (int i = 0; i <= totaldays; i ++) {
 					percent = current_fraction + (subfraction * (i+1));
 					if (_canceled)
@@ -160,6 +158,8 @@ namespace Reportero.Reports
 				
 				double avrg = (double) (total_times) / (double) ((totaldays - cells_ingnored)+1);
 				
+				if (double.IsNaN (avrg))
+					avrg = 0;
 				cell = createCell ("Cantidad de excesos del Vehiculo");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
@@ -175,15 +175,19 @@ namespace Reportero.Reports
 				table.AddCell (cell, row ++, 5);
 				counter ++;
 			}
-			if (!_canceled)
+			if (!_canceled) {
 				_loader.AsyncUpdate (100);
-			doc.Add (table);
-			doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
+			
+				doc.Add (table);
+				doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
+			}
+			
 			RunOnMainThread (delegate {
 				_loader.Hide ();
 				_loader.Destroy ();
 			});
-			return true;
+			
+			return !_canceled;
 		}
 		
 		private Cell createCell (string format, params object [] objs)
