@@ -1,15 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/SpeedListReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="17" Column="42" />
-      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="91" Column="48" />
+      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="179" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Reportero.Reports" expanded="True">
-            <Node name="SpeedListReport.cs" selected="True" />
-          </Node>
+        <State expanded="True" selected="True">
+          <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Widgets" expanded="True" />
           </Node>
@@ -19,9 +16,9 @@
         <State expanded="True" selected="True">
           <Option id="ShowProjects" value="True" />
           <Option id="NestedNamespaces" value="True" />
-          <Option id="GroupByAccess" value="True" />
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
+          <Option id="GroupByAccess" value="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">

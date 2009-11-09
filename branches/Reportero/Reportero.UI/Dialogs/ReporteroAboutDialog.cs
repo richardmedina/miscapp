@@ -9,12 +9,16 @@ namespace Reportero.UI.Dialogs
 	public class ReporteroAboutDialog : Gtk.AboutDialog
 	{
 		
-		public ReporteroAboutDialog()
+		public ReporteroAboutDialog ()
 		{
 			Authors = new string [] {"Ricardo Medina López <rmedinalo@pep.pemex.com>"};
 			Artists = Authors;
 			Version = "1.0prev";
-			Comments = "Version preliminar.\nTodos los derechos reservados\nRicardo Medina López\nrmedinalo@pep.pemex.com";
+			Comments = "Version preliminar.\n" +
+				"Todos los derechos reservados\n" +
+				"Comentarios, sugerencias o reporte de errores:\n" +
+				"Lic. Ricardo Medina López\n" +
+				"rmedinalo@pep.pemex.com";
 			
 			WindowPosition = Gtk.WindowPosition.Center;
 			
