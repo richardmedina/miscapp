@@ -41,6 +41,12 @@
     <Compile Include="RecordCollection.cs" />
     <Compile Include="IRecord.cs" />
     <Compile Include="RecordType.cs" />
+    <Compile Include="MinutesRunningCollection.cs" />
+    <Compile Include="MinutesRunningItem.cs" />
+    <Compile Include="SpeedExceedCollection.cs" />
+    <Compile Include="SpeedExceedItem.cs" />
+    <Compile Include="DataCollection.cs" />
+    <Compile Include="ProgressCallback.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
