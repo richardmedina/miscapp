@@ -363,7 +363,7 @@ namespace Reportero.UI.Widgets
 			}
 
 		}
-		
+		/*
 		private bool selectFilename (out string filename, string dialog_title)
 		{
 		
@@ -387,7 +387,7 @@ namespace Reportero.UI.Widgets
 			return false;
 		//	dialog
 		}
-		
+		*/
 		private void aboutdialog_show (object sender, EventArgs args)
 		{
 			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();

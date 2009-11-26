@@ -94,6 +94,26 @@ namespace Reportero.Data
 			return times;
 		}
 		
+		public SpeedExceedCollection GetSpeedOvertakenFromRange (DateTime date1, DateTime date2, ProgressCallback progress_callback)
+		{
+			SpeedExceedCollection exceeds = new SpeedExceedCollection (this);
+			DateTime current_date = date1;
+			int progress = 0;
+			int total = (date2 - date1).Days + 1;
+			
+			while (current_date <= date2) {
+				progress ++;
+				if (progress_callback != null)
+					progress_callback (progress, total);
+				int times = GetTimesSpeedOvertaken (current_date);
+				if (times > 0) {
+					exceeds.Add (new SpeedExceedItem (this, current_date, times));
+				}
+				current_date = current_date.AddDays (1);
+			}
+			return exceeds;
+		}
+		
 		public string Id {
 			get { return _id; }
 			set { _id = value; }
