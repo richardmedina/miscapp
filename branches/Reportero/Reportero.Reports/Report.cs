@@ -41,6 +41,8 @@ namespace Reportero.Reports
 			thread.Start ();
 		}
 		
+		
+		
 		protected virtual void AsyncCreatePdf (string appfilename, string filename, bool run) 
 		{
 			Document document = new Document (PageSize.LETTER);
