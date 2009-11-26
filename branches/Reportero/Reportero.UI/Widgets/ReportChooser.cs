@@ -275,8 +275,24 @@ namespace Reportero.UI.Widgets
 		
 		private void vehicle_popupStatisticsSpeedActivated (object sender, EventArgs args)
 		{
-			IRecord record;
+//			IRecord record;
 			
+			DateTime startdate;
+			DateTime enddate;
+			
+			if (getDateRange (out startdate, out enddate)) {
+				IRecord record;
+				if (GetSelected (out record)) {
+					SpeedGraphicReport report = new SpeedGraphicReport (record as VehicleUser, startdate, enddate);
+					
+					ReportDialog dialog = new ReportDialog (report);
+					
+					dialog.Title = AppSettings.Instance.GetFormatedTitle ("Reporte de Actividad");
+					dialog.Run ();
+					dialog.Destroy ();
+				}
+			}
+			/*
 			if (GetSelected (out record)) {
 				if (record.Type == RecordType.VehicleUser) {
 					DateRangeSelectionDialog dialog = new DateRangeSelectionDialog ();
@@ -305,7 +321,7 @@ namespace Reportero.UI.Widgets
 					}while (start < end);
 					
 				}
-			}
+			}*/
 		}
 		
 		private void leadershipStatisticsSpeedActivated (object sender, EventArgs args)
