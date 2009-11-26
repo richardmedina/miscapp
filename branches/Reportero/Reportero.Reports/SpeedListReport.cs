@@ -66,6 +66,13 @@ namespace Reportero.Reports
 			int row = 0;
 			
 			VehicleUserCollection vehicles = Leader.GetVehicles ();
+			
+			foreach (VehicleUser vehicle in vehicles) {
+				SpeedExceedCollection exceeds = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, null);
+				// Implement the logic of your graph
+				
+			}
+			
 
 			Table table = new Table (6);
 			table.Padding = 5;

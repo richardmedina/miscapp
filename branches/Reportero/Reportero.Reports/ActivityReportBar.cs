@@ -13,7 +13,10 @@ namespace Reportero.Reports
 	public class ActivityReportBar : Bar
 	{
 		private DateTime _date;
-		private TimeSpan _moving_time;
+		private int _moving_time;
+		
+		//private int _minutes;
+		private string _bartext;
 		
 		private static double _rootx = 50;
 		private static double _rooty = 510;
@@ -28,12 +31,14 @@ namespace Reportero.Reports
 		
 		private string [] dayofweek = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
 		
-		public ActivityReportBar (int position, DateTime date, TimeSpan moving_time) :
+		public ActivityReportBar (int position, DateTime date, int moving_time, string text) :
 			base (_topx + ((_rootx + 10) * (position)), _topy, _rootx, _rooty)
 		{
 			_date = date;
 			_moving_time = moving_time;
-			double pixels = (moving_time.TotalMinutes * 1.1);
+			_bartext = text;
+			
+			double pixels = (_moving_time * 1.1);
 			
 			Y = Height - pixels; 
 			Height -= (Height - pixels);
@@ -49,8 +54,9 @@ namespace Reportero.Reports
 					FontDescription.FromString (DateFontSize.ToString ()),
 					X + 10, Y - 15, 
 					270,
-					"Actividad\n{0:00}:{1:00} hrs", 
-					MovingTime.Hours, MovingTime.Minutes);
+					_bartext);
+					//"Actividad\n{0:00}:{1:00} hrs", 
+					//MovingTime.Hours, MovingTime.Minutes);
 				
 				DrawingMisc.ShowLayout (context,
 					LayoutForeground,
@@ -65,11 +71,11 @@ namespace Reportero.Reports
 		public DateTime Date {
 			get { return _date; }
 		}
-		
+		/*
 		public TimeSpan MovingTime {
 			get { return _moving_time; }
 		}
-		
+		*/
 		public Cairo.Color LayoutForeground {
 			get { return _layout_foreground; }
 			set { _layout_foreground = value; }

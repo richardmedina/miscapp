@@ -96,8 +96,11 @@ namespace Reportero.Reports
 				
 				DateTime date = StartingDate.AddDays (i);
 				int minutes = Vehicle.GetMinutesRunning (date);
-				
-				bar = new ActivityReportBar (i, date, TimeSpan.FromMinutes (minutes));
+				TimeSpan span = TimeSpan.FromMinutes (minutes);
+				string str = string.Format ("Actividad\n{0:00}:{1:00} hrs", 
+					span.Hours, span.Minutes);
+					
+				bar = new ActivityReportBar (i, date, minutes, str);
 				Shapes.Add (bar);
 			}
 			
