@@ -26,6 +26,7 @@ namespace Reportero.UI.Widgets
 		{
 			_label = new Label (text);
 			_entry = new Entry ();
+			_entry.KeyPressEvent += entryKeyPressEvent;
 			_entry.IsEditable = false;
 			
 			_button = new Button ();
@@ -42,6 +43,17 @@ namespace Reportero.UI.Widgets
 			PackStart (_entry);
 			PackStart (_button, false, false, 0);
 		}
+		
+		[GLib.ConnectBefore]
+		private void entryKeyPressEvent (object sender, KeyPressEventArgs args)
+		{
+			if (args.Event.Key == Gdk.Key.Page_Up) {
+				Date = Date.AddDays (-1);
+			} else if (args.Event.Key == Gdk.Key.Next) {
+				Date = Date.AddDays (1);
+			}
+		}
+
 		
 		private void buttonClicked (object sender, EventArgs args)
 		{

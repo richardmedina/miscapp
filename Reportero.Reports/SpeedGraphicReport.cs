@@ -76,7 +76,7 @@ namespace Reportero.Reports
 		
 		private bool creating_progress (int current, int total) {
 			double unit = (double) 100 / (double) total;
-			bool retval = false;
+			bool retval = true;
 			
 			RunOnMainThread (delegate {
 				double percent = unit * (double) current;
@@ -85,7 +85,7 @@ namespace Reportero.Reports
 				if (_canceled) {
 					Shapes.Clear ();
 					_loader.Hide ();
-					retval = true;
+					retval = false;
 				}
 			});
 			return retval;

@@ -104,8 +104,11 @@ namespace Reportero.Data
 			while (current_date <= date2) {
 				progress ++;
 				if (progress_callback != null)
-					progress_callback (progress, total);
+					if (!progress_callback (progress, total))
+						break;
+				
 				int times = GetTimesSpeedOvertaken (current_date);
+				
 				if (times > 0) {
 					exceeds.Add (new SpeedExceedItem (this, current_date, times));
 				}
