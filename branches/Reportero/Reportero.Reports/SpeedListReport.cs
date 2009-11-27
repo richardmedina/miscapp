@@ -31,8 +31,21 @@ namespace Reportero.Reports
 			_loader.Cancel += delegate { _canceled = true; };
 		}
 		
-		protected override bool BodyCreate (Document document)
+		private double _current_loader_progress = 0;
+		private double _progress_unit = 0;
+		private int _current_vehicle = 0;
+		private int _vehicle_totals = 0;
+		
+		private bool update_loader (int current, int max)
 		{
+			double current_value = _current_loader_progress + ((_progress_unit / max) * current);
+				
+			_loader.AsyncUpdate (string.Format ("{0}%. ({1}/{2})", (int) current_value, _current_vehicle, _vehicle_totals), (int) current_value);
+			return !_canceled;
+		}
+		
+		protected override bool BodyCreate (Document document)
+		{ 
 			Document doc = document;//new Document (PageSize.LETTER);
 			
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
@@ -62,18 +75,28 @@ namespace Reportero.Reports
 			doc.AddAuthor ("Software Reportero desarrollado por Ricardo Medina <rmedinalor@pep.pemex.com>");
 			doc.AddCreator ("Software Reportero desarrollado por Ricardo Medina <rmedinalo@pep.pemex.com>");						
 			
-			int col = 0;
-			int row = 0;
 			
 			VehicleUserCollection vehicles = Leader.GetVehicles ();
 			
+			SpeedExceedCollection [] collections = new SpeedExceedCollection[vehicles.Count];
+			int index = 0;
+			
+			_progress_unit = (double) 100 / (double) vehicles.Count;
+			_vehicle_totals = vehicles.Count;
+			
 			foreach (VehicleUser vehicle in vehicles) {
-				SpeedExceedCollection exceeds = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, null);
+				_current_vehicle = index;	
+				_current_loader_progress = _progress_unit * index;
+				collections [index ++] = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, update_loader);
+				
 				// Implement the logic of your graph
 				
 			}
 			
-
+			
+			int col = 0;
+			int row = 0;
+			
 			Table table = new Table (6);
 			table.Padding = 5;
 			
@@ -87,16 +110,53 @@ namespace Reportero.Reports
 			
 			int counter = 0;
 			double fraction = (double) 100 / (double) vehicles.Count;
+
+			foreach  (SpeedExceedCollection exceeds in collections) {
+				int total_times = 0;
+				foreach (SpeedExceedItem item in exceeds)
+					total_times += item.Times;
+				
+				if (total_times > 0) {
+					table.AddCell (createCell ("Vehículo"), row, 0);
+					cell = createCell (exceeds.Vehicle.VehicleId);
+					cell.Colspan = 2;
+					table.AddCell (cell, row, 1);
+				
+					table.AddCell (createCell ("Asignado a"), row, 3);
+					cell = createCell (exceeds.Vehicle.Name);
+					cell.Colspan = 2;
+					table.AddCell (cell, row ++, 4);
+
+					table.AddCell (createCell ("Detalles"), row, 0);
+					cell = createCell ("");
+					cell.Colspan = 5;
+					table.AddCell (cell, row++, 1);
+					
+					for (int i = 0; i < exceeds.Count; i ++) {
+						if (i == 3)
+							break;
+						table.AddCell (createCell ("Fecha"), row, (i * 2));
+						table.AddCell (createCell ("Excesos"), row, (i * 2) + 1);
+					}
+					
+					row ++;
+					int tmp = row;
+					for (int i = 0; i < exceeds.Count; i ++) {
+						int mod = i % 3;
+						if (mod == 0)
+							row ++;
+						table.AddCell (createCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
+						table.AddCell (createCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
+					}
+				}
+				doc.Add (table);
+			}
+/*
 			
-			double percent = 0;
 			foreach (VehicleUser vehicle in vehicles) {
 				if (_canceled)
 					break;
-					
-				double current_fraction = fraction * counter;
-				percent = current_fraction;
-				_loader.AsyncUpdate ((int) percent);
-			
+								
 				table.AddCell (createCell ("Vehículo"), row, 0);
 				cell = createCell (vehicle.VehicleId);
 				cell.Colspan = 2;
@@ -188,7 +248,7 @@ namespace Reportero.Reports
 				doc.Add (table);
 				doc.Add (new Paragraph (string.Format ("{0} Vehiculos contabilizados.", vehicles.Count), font_sub2));
 			}
-			
+*/			
 			RunOnMainThread (delegate {
 				_loader.Hide ();
 				_loader.Destroy ();

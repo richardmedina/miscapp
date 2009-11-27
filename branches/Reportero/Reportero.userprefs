@@ -1,23 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/ReportChooser.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/SpeedListReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/Report.cs" Line="64" Column="12" />
-      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="152" Column="5" />
-      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="162" Column="15" />
-      <File FileName="Reportero.Reports/ActivityGraphicReport.cs" Line="132" Column="1" />
-      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="12" Column="42" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="1" Column="1" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="281" Column="21" />
+      <File FileName="Reportero.Reports/Report.cs" Line="44" Column="3" />
+      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="128" Column="45" />
+      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="77" Column="32" />
+      <File FileName="Reportero.Reports/ActivityGraphicReport.cs" Line="101" Column="22" />
+      <File FileName="Reportero.Data/VehicleUser.cs" Line="107" Column="42" />
+      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="83" Column="23" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="20" Column="34" />
+      <File FileName="Reportero.Reports/ActivityReportBar.cs" Line="18" Column="5" />
+      <File FileName="Reportero.Reports/SpeedReportBar.cs" Line="13" Column="39" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="390" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
+          <Node name="Reportero.Data" expanded="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Dialogs" expanded="True" />
-            <Node name="Widgets" expanded="True">
-              <Node name="ReportChooser.cs" selected="True" />
-            </Node>
+            <Node name="Widgets" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -25,9 +27,9 @@
         <State expanded="True" selected="True">
           <Option id="ShowProjects" value="True" />
           <Option id="NestedNamespaces" value="True" />
+          <Option id="GroupByAccess" value="True" />
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
-          <Option id="GroupByAccess" value="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
