@@ -1,20 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/SpeedListReport.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/SpeedGraphicReport.cs" ctype="Workbench">
     <Files>
       <File FileName="Reportero.Reports/Report.cs" Line="44" Column="3" />
-      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="128" Column="45" />
-      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="77" Column="32" />
-      <File FileName="Reportero.Reports/ActivityGraphicReport.cs" Line="101" Column="22" />
-      <File FileName="Reportero.Data/VehicleUser.cs" Line="107" Column="42" />
-      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="83" Column="23" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="20" Column="34" />
-      <File FileName="Reportero.Reports/ActivityReportBar.cs" Line="18" Column="5" />
-      <File FileName="Reportero.Reports/SpeedReportBar.cs" Line="13" Column="39" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="390" Column="5" />
+      <File FileName="Reportero.Data/VehicleUser.cs" Line="113" Column="16" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="56" Column="26" />
+      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="150" Column="9" />
+      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="121" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
+          <Node name="Reportero" selected="True" />
           <Node name="Reportero.Data" expanded="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
@@ -25,11 +21,19 @@
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True">
-          <Option id="ShowProjects" value="True" />
-          <Option id="NestedNamespaces" value="True" />
+          <Option id="ShowProjects" value="False" />
+          <Option id="NestedNamespaces" value="False" />
           <Option id="GroupByAccess" value="True" />
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
+          <Node name="Reportero.UI" expanded="True">
+            <Node name="Reportero.UI.Dialogs">
+              <Node name="Reportero.UI.Dialogs.SettingsDialog">
+                <Option id="ShowProjects" value="True" />
+                <Option id="NestedNamespaces" value="True" />
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
@@ -40,5 +44,5 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" ctype="Workspace" />
 </Properties>

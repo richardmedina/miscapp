@@ -116,6 +116,9 @@ namespace Reportero.Reports
 				foreach (SpeedExceedItem item in exceeds)
 					total_times += item.Times;
 				
+				//if (exceeds.Count == 0)
+				//	continue;
+				
 				if (total_times > 0) {
 					table.AddCell (createCell ("Vehículo"), row, 0);
 					cell = createCell (exceeds.Vehicle.VehicleId);
@@ -130,7 +133,7 @@ namespace Reportero.Reports
 					table.AddCell (createCell ("Detalles"), row, 0);
 					cell = createCell ("");
 					cell.Colspan = 5;
-					table.AddCell (cell, row++, 1);
+					table.AddCell (cell, row ++, 1);
 					
 					for (int i = 0; i < exceeds.Count; i ++) {
 						if (i == 3)
@@ -138,19 +141,25 @@ namespace Reportero.Reports
 						table.AddCell (createCell ("Fecha"), row, (i * 2));
 						table.AddCell (createCell ("Excesos"), row, (i * 2) + 1);
 					}
+					//Console.WriteLine ("Value of current row is {0} and Count is {1}", row, exceeds.Count);
 					
-					row ++;
-					int tmp = row;
 					for (int i = 0; i < exceeds.Count; i ++) {
 						int mod = i % 3;
-						if (mod == 0)
+						if (mod == 0) {
 							row ++;
+						//	Console.WriteLine ("Increasing row to {0}", row, mod);
+						}
+					//	Console.WriteLine ("adding cell to {0},{1}.Mod is {2}, i = {3}", row, (mod * 2), mod, i);
 						table.AddCell (createCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
+					//	Console.WriteLine ("adding cell to {0},{1}.Mod is {2}, i = {3}", row, (mod * 2) + 1, mod, i);
 						table.AddCell (createCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
 					}
+					row ++;
 				}
-				doc.Add (table);
 			}
+			
+			doc.Add (table);
+			doc.Add (new Paragraph (string.Format ("{0} Vehiculos Contabilizados", vehicles.Count)));
 /*
 			
 			foreach (VehicleUser vehicle in vehicles) {
