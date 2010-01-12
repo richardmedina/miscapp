@@ -24,7 +24,7 @@ namespace Reportero.UI.Widgets
 				Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
 				
-			_itm_statistics_speed = new ImageMenuItem ("Listado de excesos de velocidad");
+			_itm_statistics_speed = new ImageMenuItem ("Listado de excesos de velocidad...");
 			_itm_statistics_speed.Image = new Image (
 				Gdk.Pixbuf.LoadFromResource ("reportero_icon_80km.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
