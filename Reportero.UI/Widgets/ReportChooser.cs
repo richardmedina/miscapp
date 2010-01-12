@@ -37,6 +37,7 @@ namespace Reportero.UI.Widgets
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
 			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;
 			_vehicle_popup.StatisticsSpeedItem.Activated += vehicle_popupStatisticsSpeedActivated;
+			_vehicle_popup.StatisticsNoSpeedItem.Activated += vehicle_popupStatisticsNoSpeedActivated;
 			_vehicle_popup.AboutItem.Activated += aboutdialog_show;
 			
 			_leadership_popup = new LeadershipMenuPopup ();
@@ -292,36 +293,26 @@ namespace Reportero.UI.Widgets
 					dialog.Destroy ();
 				}
 			}
-			/*
-			if (GetSelected (out record)) {
-				if (record.Type == RecordType.VehicleUser) {
-					DateRangeSelectionDialog dialog = new DateRangeSelectionDialog ();
-					ResponseType response = dialog.Run ();
-					DateTime start = dialog.StartingDateEntry.Date;
-					DateTime end = dialog.EndingDateEntry.Date;
-					dialog.Destroy ();
-					if (response == ResponseType.Ok)
-					do {
-						string str = string.Format (
-							"{0} rebasó {1} veces el {2}.",
-							(record as VehicleUser).VehicleId,
-							(record as VehicleUser).GetTimesSpeedOvertaken (start).ToString (),
-							start.ToString ("dd-MM-yyyy")
-						);
-						MessageDialog msg = new MessageDialog (null, 
-						DialogFlags.Modal, 
-						MessageType.Info,
-						ButtonsType.Ok,
-						str
-						);
-					
-						msg.Run  ();
-						msg.Destroy ();
-						start = start.AddDays (1);
-					}while (start < end);
-					
+		}
+		
+		private void vehicle_popupStatisticsNoSpeedActivated (object sender, EventArgs args)
+		{
+			DateTime date1;
+			DateTime date2;
+			IRecord record;
+			string filename;
+			
+			if (getDateRange (out date1, out date2)) {
+				if (GetSelected (out record)) {
+					if (SaveAsDialog (out filename, "Guardar como...")) {
+						Report report = new NoSpeedListReport (date1, date2);
+						report.CreatePdf (AppSettings.Instance.PdfAppLoader, 
+							filename, 
+							AppSettings.Instance.PdfRunOnGenerated);
+					}
 				}
-			}*/
+			}
+			
 		}
 		
 		private void leadershipStatisticsSpeedActivated (object sender, EventArgs args)
@@ -363,8 +354,8 @@ namespace Reportero.UI.Widgets
 			}
 
 		}
-		/*
-		private bool selectFilename (out string filename, string dialog_title)
+		
+		private bool SaveAsDialog (out string filename, string dialog_title)
 		{
 		
 			filename = string.Empty;
@@ -385,9 +376,8 @@ namespace Reportero.UI.Widgets
 				return true;
 				
 			return false;
-		//	dialog
 		}
-		*/
+		
 		private void aboutdialog_show (object sender, EventArgs args)
 		{
 			ReporteroAboutDialog dialog = new ReporteroAboutDialog ();
