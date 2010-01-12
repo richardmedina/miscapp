@@ -109,12 +109,17 @@ namespace Reportero.Data
 				
 				int times = GetTimesSpeedOvertaken (current_date);
 				
-				if (times > 0) {
+				//if (times > 0) {
 					exceeds.Add (new SpeedExceedItem (this, current_date, times));
-				}
+				//}
 				current_date = current_date.AddDays (1);
 			}
 			return exceeds;
+		}
+		
+		public SpeedExceedCollection GetSpeedOvertakenFromRangeWithNulls (DateTime date1, DateTime date2, ProgressCallback progress_callback)
+		{
+			throw new NotImplementedException ();
 		}
 		
 		public string Id {

@@ -51,18 +51,22 @@ namespace Reportero.Reports
 					new FileStream (filename, FileMode.Create));
 			
 			bool cancel = false;
-			
+			// FIXME. this might return on any failed validation?
 			if (!HeaderCreate (document))
 				cancel = true;
-			if (!BodyCreate (document))
+			// TODO. If empty will thrown and Exception and the applicaction will falls..
+			else {
+				document.Open ();
+				if (!BodyCreate (document)) {
+					cancel = true;
+				} else if (!FooterCreate (document))
 				cancel = true;
-			if (!FooterCreate (document))
-				cancel = true;
-			
-			
+			}
 			
 			if (cancel) {
-				System.IO.File.Delete (filename);
+				// FIXME. Permissions must be retreived before do that..
+				if (System.IO.File.Exists (filename))
+					System.IO.File.Delete (filename);
 				return;
 			} else {
 				document.Close ();
