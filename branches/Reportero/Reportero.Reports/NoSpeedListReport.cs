@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Reportero.Data;
 
 namespace Reportero.Reports
 {
@@ -11,9 +12,17 @@ namespace Reportero.Reports
 	
 	public class NoSpeedListReport : Report
 	{
+		private Leadership _leadership;
 		
-		public NoSpeedListReport (DateTime date1, DateTime date2) : base (date1, date2)
+		private LoadingWindow _loader;
+		
+		private bool _canceled = false;
+
+		public NoSpeedListReport (Leadership leadership, DateTime date1, DateTime date2) : base (date1, date2)
 		{
+			_leadership = leadership;
+			_loader = new LoadingWindow ();
+			_loader.Cancel += delegate { _canceled = true; };
 		}
 		
 		protected override bool HeaderCreate (iTextSharp.text.Document document)
@@ -37,20 +46,161 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
-			head_para.Add (new Paragraph ("Reporte de Excesos de Velocidad Vehicular por Día", font_sub2));
-			
+			head_para.Add (new Paragraph ("Reporte de Vehiculos sin excesos de velocidad por día", font_sub2));
+			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
 			doc.Header = header;
 			
 			return true;
 		}
+		
+		private double _current_loader_progress = 0;
+		private double _progress_unit = 0;
+		private int _current_vehicle = 0;
+		private int _vehicle_totals = 0;
+		
+		private bool update_loader (int current, int max)
+		{
+			double current_value = _current_loader_progress + ((_progress_unit / max) * current);
+				
+			_loader.AsyncUpdate (string.Format ("{0}%. ({1}/{2})", (int) current_value, _current_vehicle, _vehicle_totals), (int) current_value);
+			return !_canceled;
+		}
 
 		protected override bool BodyCreate (iTextSharp.text.Document document)
 		{
 			//document.Open ();
-			document.Add (new Paragraph ("HELLO WORLD"));
-			return true;
+			//document.Add (new Paragraph ("HELLO WORLD"));
+			/*
+			VehicleUserCollection vehicles = _leadership.GetVehicles ();
+			
+			int row = 0;
+			
+			Table table = new Table (6);
+			table.Padding = 5;
+			
+			Cell cell = CreateCell (Leader.Name);
+			table.AddCell (cell, row, 0);
+			
+			cell = CreateCell (Leader.GetFullname ());
+			cell.Colspan = 5;
+			table.AddCell (cell, row++, 1);
+			
+			for (DateTime index = StartingDate; index <= EndingDate; index = index.AddDays (1)) {
+				cell = CreateCell (index.ToString ("dd.MM.yyyy"));
+				table.AddCell (cell, row ++, 0);
+			}
+			
+			SpeedExceedCollection [] collections =
+				new SpeedExceedCollection [(EndingDate - StartingDate).Days];
+			
+			for (int i = 0; i < collections.Length; i ++) {
+				collections [i] = vehicles [i].GetSpeedOvertakenFromRange (StartingDate, EndingDate, null);
+			}
+			
+			document.Add (table);
+			*/
+			Document doc = document;
+			
+		
+
+			//doc.Open ();
+			
+			doc.AddAuthor ("Software Reportero desarrollado por Ricardo Medina <rmedinalor@pep.pemex.com>");
+			doc.AddCreator ("Software Reportero desarrollado por Ricardo Medina <rmedinalo@pep.pemex.com>");						
+			
+			
+			VehicleUserCollection vehicles = Leader.GetVehicles ();
+			
+			SpeedExceedCollection [] collections = new SpeedExceedCollection[vehicles.Count];
+			int index = 0;
+			
+			_progress_unit = (double) 100 / (double) vehicles.Count;
+			_vehicle_totals = vehicles.Count;
+			
+			foreach (VehicleUser vehicle in vehicles) {
+				_current_vehicle = index;	
+				_current_loader_progress = _progress_unit * index;
+				collections [index ++] = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, update_loader);
+				
+				// Implement the logic of your chart
+				
+			}
+			
+			int row = 0;
+			
+			Table table = new Table (6);
+			table.Padding = 5;
+			
+			Cell cell = CreateCell (Leader.Name);
+			table.AddCell (cell, row, 0);
+			
+			cell = CreateCell (Leader.GetFullname ());
+			cell.Colspan = 5;
+			table.AddCell (cell, row++, 1);
+
+			foreach  (SpeedExceedCollection exceeds in collections) {
+				int total_times = 0;
+				foreach (SpeedExceedItem item in exceeds)
+					total_times += item.Times;
+				
+				//if (exceeds.Count == 0)
+				//	continue;
+				
+				if (true) {
+					table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
+					cell = CreateFilledCell (exceeds.Vehicle.VehicleId);
+					cell.Colspan = 2;
+					table.AddCell (cell, row, 1);
+				
+					table.AddCell (CreateFilledCell ("Asignado a"), row, 3);
+					cell = CreateFilledCell (exceeds.Vehicle.Name);
+					cell.Colspan = 2;
+					table.AddCell (cell, row ++, 4);
+
+					table.AddCell (CreateCell ("Detalles"), row, 0);
+					cell = CreateCell ("");
+					cell.Colspan = 5;
+					table.AddCell (cell, row ++, 1);
+					
+					for (int i = 0; i < exceeds.Count; i ++) {
+						if (i == 3)
+							break;
+						table.AddCell (CreateCell ("Fecha"), row, (i * 2));
+						table.AddCell (CreateCell ("Excesos"), row, (i * 2) + 1);
+					}
+					int novalid = 0;
+					for (int i = 0; i < exceeds.Count; i ++) {
+/*						if (exceeds [i].Times == 0) {
+							novalid ++;
+							continue;
+						}*/
+						int mod = (i - novalid) % 3;
+						if (mod == 0) {
+							row ++;
+						}
+					
+						table.AddCell (CreateCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
+						table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
+					}
+					row ++;
+				}
+			}
+			
+			doc.Add (table);
+			doc.Add (new Paragraph (string.Format ("{0} Vehiculos Contabilizados", vehicles.Count)));
+	
+			RunOnMainThread (delegate {
+				_loader.Hide ();
+				_loader.Destroy ();
+			});
+			
+			return !_canceled;
+		}
+		
+		public Leadership Leader {
+			get { return _leadership; }
 		}
 
 	}

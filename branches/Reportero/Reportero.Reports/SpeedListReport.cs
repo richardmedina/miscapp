@@ -65,6 +65,7 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
 			head_para.Add (new Paragraph ("Reporte de Excesos de Velocidad Vehicular por Día", font_sub2));
+			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
@@ -89,27 +90,21 @@ namespace Reportero.Reports
 				_current_loader_progress = _progress_unit * index;
 				collections [index ++] = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, update_loader);
 				
-				// Implement the logic of your graph
+				// Implement the logic of your chart
 				
 			}
 			
-			
-			int col = 0;
 			int row = 0;
 			
 			Table table = new Table (6);
 			table.Padding = 5;
 			
-			Cell cell = createCell (Leader.Name);
+			Cell cell = CreateCell (Leader.Name);
 			table.AddCell (cell, row, 0);
 			
-			cell = createCell (Leader.GetFullname ());
+			cell = CreateCell (Leader.GetFullname ());
 			cell.Colspan = 5;
 			table.AddCell (cell, row++, 1);
-			
-			
-			int counter = 0;
-			double fraction = (double) 100 / (double) vehicles.Count;
 
 			foreach  (SpeedExceedCollection exceeds in collections) {
 				int total_times = 0;
@@ -120,40 +115,40 @@ namespace Reportero.Reports
 				//	continue;
 				
 				if (total_times > 0) {
-					table.AddCell (createCell ("Vehículo"), row, 0);
-					cell = createCell (exceeds.Vehicle.VehicleId);
+					table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
+					cell = CreateFilledCell (exceeds.Vehicle.VehicleId);
 					cell.Colspan = 2;
 					table.AddCell (cell, row, 1);
 				
-					table.AddCell (createCell ("Asignado a"), row, 3);
-					cell = createCell (exceeds.Vehicle.Name);
+					table.AddCell (CreateFilledCell ("Asignado a"), row, 3);
+					cell = CreateFilledCell (exceeds.Vehicle.Name);
 					cell.Colspan = 2;
 					table.AddCell (cell, row ++, 4);
 
-					table.AddCell (createCell ("Detalles"), row, 0);
-					cell = createCell ("");
+					table.AddCell (CreateCell ("Detalles"), row, 0);
+					cell = CreateCell ("");
 					cell.Colspan = 5;
 					table.AddCell (cell, row ++, 1);
 					
 					for (int i = 0; i < exceeds.Count; i ++) {
 						if (i == 3)
 							break;
-						table.AddCell (createCell ("Fecha"), row, (i * 2));
-						table.AddCell (createCell ("Excesos"), row, (i * 2) + 1);
+						table.AddCell (CreateCell ("Fecha"), row, (i * 2));
+						table.AddCell (CreateCell ("Excesos"), row, (i * 2) + 1);
 					}
 					int novalid = 0;
 					for (int i = 0; i < exceeds.Count; i ++) {
-						if (exceeds [i].Times == 0)
+						if (exceeds [i].Times == 0) {
 							novalid ++;
+							continue;
+						}
 						int mod = (i - novalid) % 3;
 						if (mod == 0) {
 							row ++;
-						//	Console.WriteLine ("Increasing row to {0}", row, mod);
 						}
-					//	Console.WriteLine ("adding cell to {0},{1}.Mod is {2}, i = {3}", row, (mod * 2), mod, i);
-						table.AddCell (createCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
-					//	Console.WriteLine ("adding cell to {0},{1}.Mod is {2}, i = {3}", row, (mod * 2) + 1, mod, i);
-						table.AddCell (createCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
+					
+						table.AddCell (CreateCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
+						table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
 					}
 					row ++;
 				}
@@ -168,15 +163,6 @@ namespace Reportero.Reports
 			});
 			
 			return !_canceled;
-		}
-		
-		private Cell createCell (string format, params object [] objs)
-		{
-			string str = string.Format (format, objs);
-			Cell cell = new Cell (str);
-			cell.VerticalAlignment = Cell.ALIGN_MIDDLE;
-			cell.UseAscender = true;
-			return cell;
 		}
 		
 		public Leadership Leader {

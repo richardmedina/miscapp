@@ -20,7 +20,7 @@ namespace Reportero.UI.Widgets
 			_btn_report = new ToolButton (Stock.Print);
 			_btn_report.Label = "Reporte";
 			
-			_btn_assign = new ToolButton (Stock.Add);
+			_btn_assign = new ToolButton (Stock.Edit);
 			_btn_assign.Label = "Asignar";
 			
 			_btn_home = new ToolButton (Stock.Home);
@@ -38,7 +38,7 @@ namespace Reportero.UI.Widgets
 			Insert (_btn_home, -1);
 			Insert (new SeparatorToolItem (), -1);
 			
-			Insert (_btn_report, -1);
+			//Insert (_btn_report, -1);
 			Insert (_btn_assign, -1);
 			Insert (new SeparatorToolItem (), -1);
 			
