@@ -55,6 +55,7 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
 			head_para.Add (new Paragraph ("Reporte de Actividad Vehicular por Día", font_sub2));
+			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
@@ -73,10 +74,10 @@ namespace Reportero.Reports
 			Table table = new Table (6);
 			table.Padding = 5;
 			
-			Cell cell = createCell (Leader.Name);
+			Cell cell = CreateCell (Leader.Name);
 			table.AddCell (cell, row, 0);
 			
-			cell = createCell (Leader.GetFullname ());
+			cell = CreateCell (Leader.GetFullname ());
 			cell.Colspan = 5;
 			table.AddCell (cell, row++, 1);
 			
@@ -93,18 +94,18 @@ namespace Reportero.Reports
 				
 				_loader.AsyncUpdate ((int) percent);
 			
-				table.AddCell (createCell ("Vehículo"), row, 0);
-				cell = createCell (vehicle.VehicleId);
+				table.AddCell (CreateCell ("Vehículo"), row, 0);
+				cell = CreateCell (vehicle.VehicleId);
 				cell.Colspan = 2;
 				table.AddCell (cell, row, 1);
 				
-				table.AddCell (createCell ("Asignado a"), row, 3);
-				cell = createCell (vehicle.Name);
+				table.AddCell (CreateCell ("Asignado a"), row, 3);
+				cell = CreateCell (vehicle.Name);
 				cell.Colspan = 2;
 				table.AddCell (cell, row ++, 4);
 
-				table.AddCell (createCell ("Detalles"), row, 0);
-				cell = createCell ("");
+				table.AddCell (CreateCell ("Detalles"), row, 0);
+				cell = CreateCell ("");
 				cell.Colspan = 5;
 				table.AddCell (cell, row++, 1);
 																										
@@ -113,8 +114,8 @@ namespace Reportero.Reports
 				
 				int x = 0;
 				for (x = 0; x < 3 && x < totaldays + 1; x ++) {
-					table.AddCell (createCell ("Fecha"), row, (x * 2));
-					table.AddCell (createCell ("Actividad"), row, (x * 2) + 1);
+					table.AddCell (CreateCell ("Fecha"), row, (x * 2));
+					table.AddCell (CreateCell ("Actividad"), row, (x * 2) + 1);
 				}
 				
 				double subfraction = fraction / (totaldays + 1);
@@ -137,14 +138,14 @@ namespace Reportero.Reports
 
 					TimeSpan time = TimeSpan.FromMinutes (minutes);
 					
-					cell = createCell (current_date.ToString ("dd-MM-yyyy"));
+					cell = CreateCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
-					cell = createCell (time.ToString());
+					cell = CreateCell (time.ToString());
 					table.AddCell (cell, row, (col * 2) + 1);
 				}
 				row ++;
-				cell = createCell (" ");
+				cell = CreateCell (" ");
 				cell.Colspan = 6;
 				table.AddCell (cell, row ++, 0);
 				
@@ -152,15 +153,15 @@ namespace Reportero.Reports
 				
 				TimeSpan total = TimeSpan.FromMinutes (minutes_total);
 				
-				cell = createCell ("Actividad Total del Vehiculo");
+				cell = CreateCell ("Actividad Total del Vehiculo");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				table.AddCell (createCell (total.ToString ()), row ++, 5);
+				table.AddCell (CreateCell (total.ToString ()), row ++, 5);
 				
-				cell = createCell ("Actividad Promedio por Día");
+				cell = CreateCell ("Actividad Promedio por Día");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
-				table.AddCell (createCell (TimeSpan.FromSeconds (seconds_avrg).ToString ()), row ++, 5);
+				table.AddCell (CreateCell (TimeSpan.FromSeconds (seconds_avrg).ToString ()), row ++, 5);
 				counter ++;
 			}
 			
@@ -178,8 +179,8 @@ namespace Reportero.Reports
 			
 			return !_canceled;
 		}
-		
-		private Cell createCell (string format, params object [] objs)
+		/*
+		private Cell CreateCell (string format, params object [] objs)
 		{
 			string str = string.Format (format, objs);
 			Cell cell = new Cell (str);
@@ -187,7 +188,7 @@ namespace Reportero.Reports
 			cell.UseAscender = true;
 			return cell;
 		}
-		
+		*/
 		public Leadership Leader {
 			get { return _leadership; }
 			protected set { _leadership = value; }

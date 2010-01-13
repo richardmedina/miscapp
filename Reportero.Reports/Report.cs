@@ -92,6 +92,22 @@ namespace Reportero.Reports
 			return true;
 		}
 		
+		protected Cell CreateCell (string format, params object [] objs)
+		{
+			string str = string.Format (format, objs);
+			Cell cell = new Cell (str);
+			cell.VerticalAlignment = Cell.ALIGN_MIDDLE;
+			cell.UseAscender = true;
+			return cell;
+		}
+		
+		protected Cell CreateFilledCell (string format, params object [] objs)
+		{
+			Cell cell = CreateCell (format, objs);
+			cell.BackgroundColor = new Color (0xCC, 0xCC, 0xCC);
+			return cell;
+		}
+		
 		protected void RunOnMainThread (Gtk.ReadyEvent callback)
 		{
 			Gtk.ThreadNotify notify = new Gtk.ThreadNotify (callback);
