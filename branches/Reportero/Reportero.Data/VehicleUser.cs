@@ -110,7 +110,7 @@ namespace Reportero.Data
 				int times = GetTimesSpeedOvertaken (current_date);
 				
 				//if (times > 0) {
-					exceeds.Add (new SpeedExceedItem (this, current_date, times));
+				exceeds.Add (new SpeedExceedItem (this, current_date, times));
 				//}
 				current_date = current_date.AddDays (1);
 			}

@@ -37,13 +37,14 @@ namespace Reportero.UI.Widgets
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
 			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;
 			_vehicle_popup.StatisticsSpeedItem.Activated += vehicle_popupStatisticsSpeedActivated;
-			_vehicle_popup.StatisticsNoSpeedItem.Activated += vehicle_popupStatisticsNoSpeedActivated;
+			//_vehicle_popup.StatisticsNoSpeedItem.Activated += vehicle_popupStatisticsNoSpeedActivated;
 			_vehicle_popup.AboutItem.Activated += aboutdialog_show;
 			
 			_leadership_popup = new LeadershipMenuPopup ();
 			_leadership_popup.ExploreItem.Activated += leadershipExploreActivated;
 			_leadership_popup.StatisticsItem.Activated += leadershipStatisticsActivated;
 			_leadership_popup.StatisticsSpeedItem.Activated += leadershipStatisticsSpeedActivated;
+			_leadership_popup.StatisticsNoSpeedItem.Activated += leadershipStatisticsNoSpeedActivated;
 			_leadership_popup.AboutItem.Activated += aboutdialog_show;
 			
 		}
@@ -295,7 +296,7 @@ namespace Reportero.UI.Widgets
 			}
 		}
 		
-		private void vehicle_popupStatisticsNoSpeedActivated (object sender, EventArgs args)
+		private void leadershipStatisticsNoSpeedActivated (object sender, EventArgs args)
 		{
 			DateTime date1;
 			DateTime date2;
@@ -305,7 +306,7 @@ namespace Reportero.UI.Widgets
 			if (getDateRange (out date1, out date2)) {
 				if (GetSelected (out record)) {
 					if (SaveAsDialog (out filename, "Guardar como...")) {
-						Report report = new NoSpeedListReport (date1, date2);
+						Report report = new NoSpeedListReport (record as Leadership, date1, date2);
 						report.CreatePdf (AppSettings.Instance.PdfAppLoader, 
 							filename, 
 							AppSettings.Instance.PdfRunOnGenerated);
