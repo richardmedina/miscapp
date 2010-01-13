@@ -30,7 +30,7 @@ namespace Reportero.UI.Widgets
 				Gdk.Pixbuf.LoadFromResource ("reportero_icon_80km.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
 			
-			_itm_statistics_nospeed = new ImageMenuItem ("Listado de vehiculos sin excesos de velocidad");
+			_itm_statistics_nospeed = new ImageMenuItem ("Listado general de velocidad vehicular");
 			
 			_itm_about = new ImageMenuItem ("Créditos...");
 			_itm_about.Image = new Image (Stock.About, IconSize.Menu);

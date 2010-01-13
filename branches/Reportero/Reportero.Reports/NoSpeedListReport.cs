@@ -70,42 +70,7 @@ namespace Reportero.Reports
 
 		protected override bool BodyCreate (iTextSharp.text.Document document)
 		{
-			//document.Open ();
-			//document.Add (new Paragraph ("HELLO WORLD"));
-			/*
-			VehicleUserCollection vehicles = _leadership.GetVehicles ();
-			
-			int row = 0;
-			
-			Table table = new Table (6);
-			table.Padding = 5;
-			
-			Cell cell = CreateCell (Leader.Name);
-			table.AddCell (cell, row, 0);
-			
-			cell = CreateCell (Leader.GetFullname ());
-			cell.Colspan = 5;
-			table.AddCell (cell, row++, 1);
-			
-			for (DateTime index = StartingDate; index <= EndingDate; index = index.AddDays (1)) {
-				cell = CreateCell (index.ToString ("dd.MM.yyyy"));
-				table.AddCell (cell, row ++, 0);
-			}
-			
-			SpeedExceedCollection [] collections =
-				new SpeedExceedCollection [(EndingDate - StartingDate).Days];
-			
-			for (int i = 0; i < collections.Length; i ++) {
-				collections [i] = vehicles [i].GetSpeedOvertakenFromRange (StartingDate, EndingDate, null);
-			}
-			
-			document.Add (table);
-			*/
 			Document doc = document;
-			
-		
-
-			//doc.Open ();
 			
 			doc.AddAuthor ("Software Reportero desarrollado por Ricardo Medina <rmedinalor@pep.pemex.com>");
 			doc.AddCreator ("Software Reportero desarrollado por Ricardo Medina <rmedinalo@pep.pemex.com>");						
@@ -123,9 +88,6 @@ namespace Reportero.Reports
 				_current_vehicle = index;	
 				_current_loader_progress = _progress_unit * index;
 				collections [index ++] = vehicle.GetSpeedOvertakenFromRange (StartingDate, EndingDate, update_loader);
-				
-				// Implement the logic of your chart
-				
 			}
 			
 			int row = 0;
@@ -148,44 +110,38 @@ namespace Reportero.Reports
 				//if (exceeds.Count == 0)
 				//	continue;
 				
-				if (true) {
-					table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
-					cell = CreateFilledCell (exceeds.Vehicle.VehicleId);
-					cell.Colspan = 2;
-					table.AddCell (cell, row, 1);
 				
-					table.AddCell (CreateFilledCell ("Asignado a"), row, 3);
-					cell = CreateFilledCell (exceeds.Vehicle.Name);
-					cell.Colspan = 2;
-					table.AddCell (cell, row ++, 4);
+				table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
+				cell = CreateFilledCell (exceeds.Vehicle.VehicleId);
+				cell.Colspan = 2;
+				table.AddCell (cell, row, 1);
+				
+				table.AddCell (CreateFilledCell ("Asignado a"), row, 3);
+				cell = CreateFilledCell (exceeds.Vehicle.Name);
+				cell.Colspan = 2;
+				table.AddCell (cell, row ++, 4);
 
-					table.AddCell (CreateCell ("Detalles"), row, 0);
-					cell = CreateCell ("");
-					cell.Colspan = 5;
-					table.AddCell (cell, row ++, 1);
+				table.AddCell (CreateCell ("Detalles"), row, 0);
+				cell = CreateCell ("");
+				cell.Colspan = 5;
+				table.AddCell (cell, row ++, 1);
 					
-					for (int i = 0; i < exceeds.Count; i ++) {
-						if (i == 3)
-							break;
-						table.AddCell (CreateCell ("Fecha"), row, (i * 2));
-						table.AddCell (CreateCell ("Excesos"), row, (i * 2) + 1);
-					}
-					int novalid = 0;
-					for (int i = 0; i < exceeds.Count; i ++) {
-/*						if (exceeds [i].Times == 0) {
-							novalid ++;
-							continue;
-						}*/
-						int mod = (i - novalid) % 3;
-						if (mod == 0) {
-							row ++;
-						}
-					
-						table.AddCell (CreateCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
-						table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
-					}
-					row ++;
+				for (int i = 0; i < exceeds.Count; i ++) {
+					if (i == 3)
+						break;
+					table.AddCell (CreateCell ("Fecha"), row, (i * 2));
+					table.AddCell (CreateCell ("Excesos"), row, (i * 2) + 1);
 				}
+				int novalid = 0;
+				for (int i = 0; i < exceeds.Count; i ++) {
+					int mod = (i - novalid) % 3;
+					if (mod == 0)
+						row ++;
+					
+					table.AddCell (CreateCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
+					table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
+				}
+					row ++;
 			}
 			
 			doc.Add (table);
