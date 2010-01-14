@@ -1,25 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/LeadershipMenuPopup.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/ActivityListReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/NoSpeedListReport.cs" Line="146" Column="4" />
-      <File FileName="Reportero.Reports/Report.cs" Line="107" Column="42" />
-      <File FileName="Reportero.Data/Leadership.cs" Line="1" Column="1" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="33" Column="1" />
-      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="31" Column="53" />
-      <File FileName="Reportero.Data/VehicleUser.cs" Line="113" Column="45" />
-      <File FileName="Reportero.Data/SpeedExceedCollection.cs" Line="23" Column="35" />
-      <File FileName="Reportero.UI/Widgets/LeadershipMenuPopup.cs" Line="26" Column="24" />
+      <File FileName="Reportero.Reports/NoSpeedListReport.cs" Line="1" Column="1" />
+      <File FileName="Reportero.Reports/ActivityListReport.cs" Line="144" Column="1" />
+      <File FileName="Reportero.Reports/ActivityGraphicReport.cs" Line="29" Column="22" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="38" Column="31" />
+      <File FileName="Reportero.UI/Widgets/LeadershipMenuPopup.cs" Line="1" Column="1" />
+      <File FileName="Reportero.UI/Widgets/VehicleMenuPopup.cs" Line="47" Column="38" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="Reportero.Data" expanded="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Dialogs" expanded="True" />
-            <Node name="Widgets" expanded="True">
-              <Node name="LeadershipMenuPopup.cs" selected="True" />
-            </Node>
+            <Node name="Widgets" expanded="True" />
           </Node>
         </State>
       </Pad>
