@@ -17,15 +17,17 @@ namespace Reportero.Reports
 		
 		private bool _canceled = false;
 		
-		public ActivityGraphicReport (VehicleUser vehicle) : 
-			this (vehicle, DateTime.Now, DateTime.Now)
+		
+		public ActivityGraphicReport (VehicleUser vehicle, ReportType report_type) : 
+			this (vehicle, DateTime.Now, DateTime.Now, report_type)
 		{
 		}
 		
-		public ActivityGraphicReport (VehicleUser vehicle, DateTime starting_date, DateTime ending_date) :
+		public ActivityGraphicReport (VehicleUser vehicle, DateTime starting_date, DateTime ending_date, ReportType report_type) :
 			base (starting_date, ending_date)
 		{
 			Vehicle = vehicle;
+			ReportType = report_type;
 			_shapes = new ShapeCollection ();
 			_loader = new LoadingWindow ();
 			_loader.CancelButton.Clicked += delegate { _canceled = true; };
@@ -96,7 +98,12 @@ namespace Reportero.Reports
 				
 				DateTime date = StartingDate.AddDays (i);
 				int minutes = Vehicle.GetMinutesRunning (date);
-				TimeSpan span = TimeSpan.FromMinutes (minutes);
+				TimeSpan span = TimeSpan.FromHours (8);
+				if (ReportType == ReportType.InactivityChart)
+					span -= TimeSpan.FromMinutes (minutes);
+				else if (ReportType == ReportType.ActivityChart)
+					span = TimeSpan.FromMinutes (minutes);
+					
 				string str = string.Format ("Actividad\n{0:00}:{1:00} hrs", 
 					span.Hours, span.Minutes);
 					
@@ -132,6 +139,5 @@ namespace Reportero.Reports
 			get { return _vehicle; }
 			set { _vehicle = value; }
 		}
-
 	}
 }

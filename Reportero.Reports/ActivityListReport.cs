@@ -141,7 +141,7 @@ namespace Reportero.Reports
 					cell = CreateCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
-					cell = CreateCell (time.ToString());
+					cell = CreateCell ((TimeSpan.FromHours (8) - time).ToString());
 					table.AddCell (cell, row, (col * 2) + 1);
 				}
 				row ++;
