@@ -65,6 +65,7 @@
     <Compile Include="SpeedGraphicReport.cs" />
     <Compile Include="SpeedReportBar.cs" />
     <Compile Include="NoSpeedListReport.cs" />
+    <Compile Include="ReportType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -36,6 +36,9 @@ namespace Reportero.UI.Widgets
 			_vehicle_popup = new VehicleMenuPopup ();
 			_vehicle_popup.AssignItem.Activated += vehicle_popupAssignActivated;
 			_vehicle_popup.StatisticsItem.Activated += vehicle_popupStatisticsActivated;
+			_vehicle_popup.StatisticsInacItem.Activated += delegate {
+				showActivityReport (ReportType.InactivityChart);
+			};
 			_vehicle_popup.StatisticsSpeedItem.Activated += vehicle_popupStatisticsSpeedActivated;
 			//_vehicle_popup.StatisticsNoSpeedItem.Activated += vehicle_popupStatisticsNoSpeedActivated;
 			_vehicle_popup.AboutItem.Activated += aboutdialog_show;
@@ -208,13 +211,18 @@ namespace Reportero.UI.Widgets
 		
 		private void vehicle_popupStatisticsActivated (object sender, EventArgs args)
 		{
+			showActivityReport (ReportType.ActivityChart);
+		}
+		
+		private void showActivityReport (ReportType type)
+		{
 			DateTime startdate;
 			DateTime enddate;
 			
 			if (getDateRange (out startdate, out enddate)) {
 				IRecord record;
 				if (GetSelected (out record)) {
-					ActivityGraphicReport report = new ActivityGraphicReport (record as VehicleUser, startdate, enddate);
+					ActivityGraphicReport report = new ActivityGraphicReport (record as VehicleUser, startdate, enddate, type);
 					
 					ReportDialog dialog = new ReportDialog (report);
 					
@@ -223,6 +231,7 @@ namespace Reportero.UI.Widgets
 					dialog.Destroy ();
 				}
 			}
+		
 		}
 		
 		
