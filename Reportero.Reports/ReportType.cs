@@ -8,6 +8,8 @@ namespace Reportero.Reports
 	public enum ReportType
 	{
 		ActivityChart,
-		InactivityChart
+		InactivityChart,
+		ActivityList,
+		InactivityList
 	}
 }
