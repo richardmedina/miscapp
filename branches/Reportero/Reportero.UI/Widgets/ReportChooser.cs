@@ -46,6 +46,7 @@ namespace Reportero.UI.Widgets
 			_leadership_popup = new LeadershipMenuPopup ();
 			_leadership_popup.ExploreItem.Activated += leadershipExploreActivated;
 			_leadership_popup.StatisticsItem.Activated += leadershipStatisticsActivated;
+			_leadership_popup.StatisticsInacItem.Activated += leadershipStatisticsInacActivated;
 			_leadership_popup.StatisticsSpeedItem.Activated += leadershipStatisticsSpeedActivated;
 			_leadership_popup.StatisticsNoSpeedItem.Activated += leadershipStatisticsNoSpeedActivated;
 			_leadership_popup.AboutItem.Activated += aboutdialog_show;
@@ -245,7 +246,17 @@ namespace Reportero.UI.Widgets
 			}
 		}
 		
+		private void leadershipStatisticsInacActivated (object sender, EventArgs args)
+		{
+			showActivityListReport (ReportType.InactivityList);
+		}
+		
 		private void leadershipStatisticsActivated (object sender, EventArgs args)
+		{
+			showActivityListReport (ReportType.ActivityList);
+		}
+		
+		private void showActivityListReport (ReportType type)
 		{
 			IRecord record;
 			
@@ -273,7 +284,7 @@ namespace Reportero.UI.Widgets
 						dialog.Destroy ();
 						
 						if (response == ResponseType.Ok) {
-							ActivityListReport report = new ActivityListReport (record as Leadership, start, end);
+							ActivityListReport report = new ActivityListReport (record as Leadership, start, end, type);
 							report.CreatePdf (
 								AppSettings.Instance.PdfAppLoader, 
 								filename, 

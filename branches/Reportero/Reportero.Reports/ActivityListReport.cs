@@ -21,17 +21,18 @@ namespace Reportero.Reports
 		
 		private bool _canceled = false;
 		
-		public ActivityListReport (Leadership leadership)
-			: this (leadership, DateTime.Now, DateTime.Now)
+		public ActivityListReport (Leadership leadership, ReportType type)
+			: this (leadership, DateTime.Now, DateTime.Now, type)
 		{
 		}
 		
-		public ActivityListReport (Leadership leadership, DateTime start, DateTime end)
+		public ActivityListReport (Leadership leadership, DateTime start, DateTime end, ReportType type)
 			: base (start, end)
 		{
 			Leader = leadership;
 			_loader = new LoadingWindow ();
 			_loader.Cancel += delegate { _canceled = true; };
+			ReportType = type;
 		}
 				
 		protected override bool BodyCreate (Document document)
@@ -54,7 +55,10 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
-			head_para.Add (new Paragraph ("Reporte de Actividad Vehicular por Día", font_sub2));
+			string rtypestr = "Actividad";
+			if (ReportType == ReportType.InactivityList)
+				rtypestr = "Inactividad";
+			head_para.Add (new Paragraph ("Reporte de " + rtypestr + " Vehicular por Día", font_sub2));
 			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			
 			HeaderFooter header = new HeaderFooter (head_para, false);
@@ -115,7 +119,7 @@ namespace Reportero.Reports
 				int x = 0;
 				for (x = 0; x < 3 && x < totaldays + 1; x ++) {
 					table.AddCell (CreateCell ("Fecha"), row, (x * 2));
-					table.AddCell (CreateCell ("Actividad"), row, (x * 2) + 1);
+					table.AddCell (CreateCell (rtypestr), row, (x * 2) + 1);
 				}
 				
 				double subfraction = fraction / (totaldays + 1);
@@ -125,8 +129,11 @@ namespace Reportero.Reports
 					if (_canceled)
 						break;
 					DateTime current_date = StartingDate.AddDays (i);
-					
+					int minutes_8hours = 8 * 60;
 					int minutes = vehicle.GetMinutesRunning (current_date);
+					if (ReportType == ReportType.InactivityList)
+						minutes = minutes_8hours - minutes;
+					
 					minutes_total += minutes;
 
 					//percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
@@ -141,7 +148,7 @@ namespace Reportero.Reports
 					cell = CreateCell (current_date.ToString ("dd-MM-yyyy"));
 					table.AddCell (cell, row, col * 2);
 					
-					cell = CreateCell ((TimeSpan.FromHours (8) - time).ToString());
+					cell = CreateCell (time.ToString());
 					table.AddCell (cell, row, (col * 2) + 1);
 				}
 				row ++;
@@ -153,12 +160,12 @@ namespace Reportero.Reports
 				
 				TimeSpan total = TimeSpan.FromMinutes (minutes_total);
 				
-				cell = CreateCell ("Actividad Total del Vehiculo");
+				cell = CreateCell (rtypestr + " Total del Vehiculo");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
 				table.AddCell (CreateCell (total.ToString ()), row ++, 5);
 				
-				cell = CreateCell ("Actividad Promedio por Día");
+				cell = CreateCell (rtypestr + " Promedio por Día");
 				cell.Colspan = 5;
 				table.AddCell (cell, row, 0);
 				table.AddCell (CreateCell (TimeSpan.FromSeconds (seconds_avrg).ToString ()), row ++, 5);
