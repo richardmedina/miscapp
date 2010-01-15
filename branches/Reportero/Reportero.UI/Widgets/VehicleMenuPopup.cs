@@ -30,12 +30,13 @@ namespace Reportero.UI.Widgets
 			_itm_statistics_inac.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
 			
-			_itm_statistics_speed = new ImageMenuItem ("Historial de Exceso de velocidad...");
+			_itm_statistics_speed = new ImageMenuItem ("Excesos de velocidad...");
 			_itm_statistics_speed.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_80km.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
 			
-			_itm_statistics_nospeed = new ImageMenuItem ("Historial de comportamiento adecuado en velocidad...");
-			
+			_itm_statistics_nospeed = new ImageMenuItem ("Historial de excesos de velocidad...");
+			_itm_statistics_nospeed.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_80k.png").ScaleSimple (
+					18, 18, Gdk.InterpType.Bilinear));
 				
 			_itm_about = new ImageMenuItem ("Créditos");
 			_itm_about.Image = new Image (Stock.About, IconSize.Menu);

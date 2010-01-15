@@ -30,7 +30,7 @@ namespace Reportero.UI.Widgets
 			_entry.IsEditable = false;
 			
 			_button = new Button ();
-			_button.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_calendar.png"));
+			_button.Image = new Image (Gdk.Pixbuf.LoadFromResource ("reportero_icon_calendar.png").ScaleSimple (18, 18, Gdk.InterpType.Bilinear));
 			_button.Relief = ReliefStyle.None;
 			_button.Clicked += buttonClicked;
 			
