@@ -33,7 +33,7 @@ namespace Reportero.Reports
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
 			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
 			Font font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
-			//Font font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
+			Font font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
 
 			Assembly a = Assembly.GetExecutingAssembly ();
 			Stream stream = a.GetManifestResourceStream ("reportero_icon_pep.png");
@@ -46,7 +46,8 @@ namespace Reportero.Reports
 			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
 			head_para.Add (new Paragraph ("Región Sur", font_sub1));
 			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
-			head_para.Add (new Paragraph ("Reporte de Vehiculos sin excesos de velocidad por día", font_sub2));
+			head_para.Add (new Paragraph ("Reporte de Historia de Excesos de Velocidad Vehicular por Día", font_sub2));
+			head_para.Add (new Paragraph ("(Días limpios de excesos de velocidad incluídos)", font_sub2));
 			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			HeaderFooter header = new HeaderFooter (head_para, false);
 			header.Alignment = HeaderFooter.ALIGN_CENTER;
@@ -83,6 +84,7 @@ namespace Reportero.Reports
 			
 			_progress_unit = (double) 100 / (double) vehicles.Count;
 			_vehicle_totals = vehicles.Count;
+			
 			
 			foreach (VehicleUser vehicle in vehicles) {
 				_current_vehicle = index;	
