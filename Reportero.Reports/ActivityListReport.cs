@@ -136,7 +136,6 @@ namespace Reportero.Reports
 					
 					minutes_total += minutes;
 
-					//percent += ((double) 100 / (double) vehicles.Count) * (double) (((double)counter/(double)totaldays) * (double)i);
 					_loader.AsyncUpdate ((int) percent);
 					
 					col = i % 3;
