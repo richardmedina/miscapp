@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.UI", "Artemis.UI\Artemis.UI.csproj", "{E1FB3944-225C-4441-A496-56937C050DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Core", "Artemis.Core\Artemis.Core.csproj", "{974D0CEB-6EFD-43BD-946B-E3859C19410E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Core.GStreamer", "Artemis.Core.GStreamer\Artemis.Core.GStreamer.csproj", "{CD0E3EE8-01B9-4636-88AE-D51B1758FC69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Addins", "Artemis.Addins\Artemis.Addins.csproj", "{395E9383-80ED-4694-9391-3845BE94069B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis", "Artemis\Artemis.csproj", "{A56D255B-E620-45DF-83C1-3426931C3B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Addins.Samples", "Artemis.Addins.SamplePlugins\Artemis.Addins.Samples.csproj", "{8F051E0D-8488-4D54-AEA7-90373C552191}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{395E9383-80ED-4694-9391-3845BE94069B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395E9383-80ED-4694-9391-3845BE94069B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395E9383-80ED-4694-9391-3845BE94069B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395E9383-80ED-4694-9391-3845BE94069B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F051E0D-8488-4D54-AEA7-90373C552191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F051E0D-8488-4D54-AEA7-90373C552191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F051E0D-8488-4D54-AEA7-90373C552191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F051E0D-8488-4D54-AEA7-90373C552191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974D0CEB-6EFD-43BD-946B-E3859C19410E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974D0CEB-6EFD-43BD-946B-E3859C19410E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974D0CEB-6EFD-43BD-946B-E3859C19410E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974D0CEB-6EFD-43BD-946B-E3859C19410E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56D255B-E620-45DF-83C1-3426931C3B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56D255B-E620-45DF-83C1-3426931C3B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56D255B-E620-45DF-83C1-3426931C3B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56D255B-E620-45DF-83C1-3426931C3B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0E3EE8-01B9-4636-88AE-D51B1758FC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0E3EE8-01B9-4636-88AE-D51B1758FC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0E3EE8-01B9-4636-88AE-D51B1758FC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0E3EE8-01B9-4636-88AE-D51B1758FC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1FB3944-225C-4441-A496-56937C050DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1FB3944-225C-4441-A496-56937C050DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1FB3944-225C-4441-A496-56937C050DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1FB3944-225C-4441-A496-56937C050DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		version = 0.1
+		StartupItem = Artemis\Artemis.csproj
+		Policies = $0
+		$0.ChangeLogPolicy = $1
+		$1.UpdateMode = None
+		$1.MessageStyle = $2
+		$2.LineAlign = 0
+		$1.inheritsSet = Mono
+		$0.VersionControlPolicy = $3
+		$3.inheritsSet = Mono
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabWidth = 4
+		$4.TabsToSpaces = False
+		$4.NoTabsAfterNonTabs = False
+		$4.RemoveTrailingWhitespace = False
+		$4.EolMarker = Native
+		$0.DotNetNamingPolicy = $5
+		$5.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$5.ResourceNamePolicy = FileFormatDefault
+		$0.StandardHeader = $6
+		$6.Text = 
+		$6.inheritsSet = MITX11License
+	EndGlobalSection
+EndGlobal

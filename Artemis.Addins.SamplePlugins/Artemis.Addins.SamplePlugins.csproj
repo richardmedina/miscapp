@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8F051E0D-8488-4D54-AEA7-90373C552191}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Artemis.Addins.SamplePlugins</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Notification\NotificationIcon.cs" />
+    <Compile Include="Notification\NotificationPlugin.cs" />
+    <Compile Include="SongChangeAdvice\SongChangeAdvicePlugin.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="SongChangeAdvice\" />
+    <Folder Include="AddinManager\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Artemis.UI\Artemis.UI.csproj">
+      <Project>{E1FB3944-225C-4441-A496-56937C050DA5}</Project>
+      <Name>Artemis.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Artemis.Addins\Artemis.Addins.csproj">
+      <Project>{395E9383-80ED-4694-9391-3845BE94069B}</Project>
+      <Name>Artemis.Addins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Artemis.Core\Artemis.Core.csproj">
+      <Project>{974D0CEB-6EFD-43BD-946B-E3859C19410E}</Project>
+      <Name>Artemis.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="3.5" />
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
