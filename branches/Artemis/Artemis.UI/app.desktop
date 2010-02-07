@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Artemis Music Player
+Exec=artemis.ui
+Terminal=false
+GenericName=Multimedia Player
+Comment=Play and organize your favorite music..
+MimeType=Mp3;
+Categories=Audio;AudioVideo;

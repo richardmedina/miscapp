@@ -31,7 +31,7 @@ namespace Artemisa.UI.Dialogs
 		public ProjectSettingsDialog ()
 		{
 			Categorizer categorizer = new Categorizer ();
-			categorizer.Categories.Add (new CopyrightCategory ());
+			//categorizer.Categories.Add (new CopyrightCategory ());
 			categorizer.CategoryActivated += onCategoryActivated;
 			
 			VBox.PackStart (categorizer);
@@ -45,8 +45,8 @@ namespace Artemisa.UI.Dialogs
 		private void onCategoryActivated (object sender,
 		                                  CategorizerEventArgs args)
 		{
-			/*Console.WriteLine ("Current Category: {0}", 
-			                   args.Category.Title);*/
+			Console.WriteLine ("Current Category: {0}", 
+			                   args.Category.Title);
 		}
 	}
 }
