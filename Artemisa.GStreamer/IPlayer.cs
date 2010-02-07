@@ -26,5 +26,7 @@ namespace Artemisa.GStreamer
 		void Pause ();
 		void Stop ();
 		void Seek (long position);
+		
+		MediaStream Current { get; }
 	}
 }

@@ -96,7 +96,6 @@ namespace Artemisa.GStreamer
            return (GstStateChangeReturn)gst_element_set_state(element, state);
        }
 
-
        public void ObjectUnref(IntPtr obj)
        {
            gst_object_unref(obj);
@@ -221,8 +220,6 @@ namespace Artemisa.GStreamer
 
        public  bool Init(string progname, ref string[] args)
        {
-
-
            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
            {
                string path = Environment.GetEnvironmentVariable("PATH");

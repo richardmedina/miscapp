@@ -12,7 +12,7 @@ namespace Artemisa.GStreamer
 		private string _filename;
 		private bool _initialized = false;
 
-		private static IntPtr pipeline = IntPtr.Zero;
+		private static GstPipeline pipeline;
 		private static IntPtr filesrc;
 		private static IntPtr mad;
 		private static IntPtr audioConv;
@@ -98,9 +98,9 @@ namespace Artemisa.GStreamer
 			bool resState2 = _engine.ElementLinksMany (filesrc, mad, audioConv, audioResampl, audioOut);
 
 			if (!resState)
-				throw new MediaPlayerException ("Init Failed. Exception merging elements");
+				throw new MediaPlayerException ("Init Failed. Exception adding elements to pipeline");
 			if (!resState2)
-				throw new MediaPlayerException ("Init Failed. Exception Linking elements");
+				throw new MediaPlayerException ("Init Failed. Exception Linking elements in pipeline");
 			
 			_initialized = true;
 			return pipeline;
@@ -110,5 +110,10 @@ namespace Artemisa.GStreamer
 			get { return _filename; }
 			set { _filename = value; }
 		}
+		
+		public MediaStream Current {
+			get { return _currrent; }
+			set { _current = value; }	
+		}	
 	}
 }

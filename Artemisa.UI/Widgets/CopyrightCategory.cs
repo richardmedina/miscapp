@@ -29,7 +29,7 @@ namespace Artemisa.UI.Widgets
 		private Gtk.Entry _entry_company;
 		private Gtk.Entry _entry_copying;
 		
-		public CopyrightCategory()
+		public CopyrightCategory () : base (false, 5)
 		{
 			_entry_author = new Entry ();
 			_entry_email = new Entry ();
