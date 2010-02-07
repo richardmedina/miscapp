@@ -55,14 +55,18 @@ namespace Artemisa.UI.Widgets
 			
 			Selection.Changed += onSelectionChanged;
 			
-			foreach (ICategory cat in Categories)
-					Append (cat);
+			Append (cat);
 		}
+		
+		private CopyrightCategory cat = new CopyrightCategory ();
 		
 		public void Append (ICategory category)
 		{
-			_store.AppendValues (category, 
-			                     category.Title);
+			//_store.AppendValues (category, 
+			//                   category.Title);
+			Gtk.TreeIter iter = _store.Append ();
+			_store.SetValue (iter, 0, category);
+			_store.SetValue (iter, 1, category.Title);
 		}
 		
 		protected virtual void OnCategoryActivated (ICategory category)
@@ -85,7 +89,7 @@ namespace Artemisa.UI.Widgets
 			}
 			return base.OnButtonPressEvent (evnt);
 		}
-		
+*/		
 		protected override void OnShown ()
 		{
 			foreach (ICategory category in Categories)
@@ -93,7 +97,7 @@ namespace Artemisa.UI.Widgets
 			
 			base.OnShown ();
 		}
-*/
+
 		
 		private void onCategoryActivated (object sender,
 		                                  CategorizerEventArgs args)
