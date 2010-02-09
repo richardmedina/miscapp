@@ -137,11 +137,13 @@ namespace Reportero.Reports
 						table.AddCell (CreateCell ("Excesos"), row, (i * 2) + 1);
 					}
 					int novalid = 0;
+					int total_exceeds = 0;
 					for (int i = 0; i < exceeds.Count; i ++) {
 						if (exceeds [i].Times == 0) {
 							novalid ++;
 							continue;
 						}
+						total_exceeds += exceeds [i].Times;
 						int mod = (i - novalid) % 3;
 						if (mod == 0) {
 							row ++;
@@ -150,6 +152,12 @@ namespace Reportero.Reports
 						table.AddCell (CreateCell (exceeds [i].Date.ToString ("dd-MM-yyyy")), row, (mod * 2));
 						table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
 					}
+					
+					if (total_exceeds == 0) {
+						cell = CreateCell ("No se encontró registro de esceso de veolidad para este usuario"); 
+						table.AddCell (cell, ++ row, 0);
+					}
+					
 					row ++;
 				}
 			}
