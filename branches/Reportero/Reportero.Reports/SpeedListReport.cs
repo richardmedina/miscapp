@@ -114,7 +114,7 @@ namespace Reportero.Reports
 				//if (exceeds.Count == 0)
 				//	continue;
 				
-				if (total_times > 0) {
+				
 					table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
 					cell = CreateFilledCell (exceeds.Vehicle.VehicleId);
 					cell.Colspan = 2;
@@ -126,11 +126,12 @@ namespace Reportero.Reports
 					table.AddCell (cell, row ++, 4);
 
 					table.AddCell (CreateCell ("Detalles"), row, 0);
+				if (total_times > 0) {
 					cell = CreateCell ("");
 					cell.Colspan = 5;
 					table.AddCell (cell, row ++, 1);
 					
-					for (int i = 0; i < exceeds.Count; i ++) {
+					for (int i = 0; i < exceeds.Count && total_times > 0; i ++) {
 						if (i == 3)
 							break;
 						table.AddCell (CreateCell ("Fecha"), row, (i * 2));
@@ -153,12 +154,11 @@ namespace Reportero.Reports
 						table.AddCell (CreateCell (exceeds [i].Times.ToString ()), row, (mod * 2) + 1);
 					}
 					
-					if (total_exceeds == 0) {
-						cell = CreateCell ("No se encontró registro de esceso de veolidad para este usuario"); 
-						table.AddCell (cell, ++ row, 0);
-					}
-					
 					row ++;
+				} else {
+						cell = CreateCell ("No se encontró registro de exceso de velocidad para este usuario"); 
+						cell.Colspan = 5;
+						table.AddCell (cell, row ++, 1);
 				}
 			}
 			
