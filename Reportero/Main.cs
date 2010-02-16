@@ -28,8 +28,12 @@ namespace Reportero
 		}
 		*/
 		
-		public static void Main ()
+		public static void Main (string [] args)
 		{
+			foreach (string arg in args)
+				if (arg == "-configure")
+					AppSettings.Instance.EnableConfiguration = true;
+		
 			Application.Init ();
 			AppSettings.Instance.Deserialize (AppSettings.Filename);
 			MainWindow window = new MainWindow ();
