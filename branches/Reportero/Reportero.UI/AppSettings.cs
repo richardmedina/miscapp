@@ -25,6 +25,8 @@ namespace Reportero.UI
 		private static AppSettings _instance;
 		private static object _obj = new object ();
 		
+		public bool EnableConfiguration = false;
+		
 		public string GetFormatedTitle (string window_title)
 		{
 			return string.Format ("{0} - {1}", window_title, title_format);
