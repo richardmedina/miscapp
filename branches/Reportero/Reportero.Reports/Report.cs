@@ -19,6 +19,10 @@ namespace Reportero.Reports
 		
 		private ReportType _report_type;
 		
+		public static string HeaderCompany;
+		public static string HeaderRegion;
+		public static string HeaderPlace;
+		
 		public Report (DateTime start, DateTime end)
 		{
 			StartingDate = start;
@@ -56,7 +60,7 @@ namespace Reportero.Reports
 			// FIXME. this might return on any failed validation?
 			if (!HeaderCreate (document))
 				cancel = true;
-			// TODO. If empty will thrown and Exception and the applicaction will falls..
+			// TODO. If empty will thrown an Exception and the applicaction will falls..
 			else {
 				document.Open ();
 				if (!BodyCreate (document)) {

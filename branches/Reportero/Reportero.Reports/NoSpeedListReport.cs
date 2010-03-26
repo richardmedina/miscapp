@@ -43,9 +43,9 @@ namespace Reportero.Reports
 
 			Paragraph head_para = new Paragraph ();
 			
-			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
-			head_para.Add (new Paragraph ("Región Sur", font_sub1));
-			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
+			head_para.Add (new Paragraph (HeaderCompany, font_title));
+			head_para.Add (new Paragraph (HeaderRegion, font_sub1));
+			head_para.Add (new Paragraph (HeaderPlace, font_sub2));
 			head_para.Add (new Paragraph ("Reporte de Historia de Excesos de Velocidad Vehicular por Día", font_sub2));
 			head_para.Add (new Paragraph ("(Días limpios de excesos de velocidad incluídos)", font_sub2));
 			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));

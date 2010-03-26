@@ -20,6 +20,11 @@ namespace Reportero.UI
 		public bool PdfRunOnGenerated = true;
 		public string PdfAppLoader = "/usr/bin/evince";
 		
+		public string ReportHeaderCompany = "PEMEX EXPLORACION Y PRODUCCIÓN";
+		public string ReportHeaderRegion = "Región Sur";
+		public string ReportHeaderPlace = "Activo Integral Samaria-Luna";
+		
+		
 		private string title_format = "Reportero";
 		
 		private static AppSettings _instance;
@@ -60,10 +65,14 @@ namespace Reportero.UI
 			DbPasword = settings.DbPasword;
 			DbSource = settings.DbSource;
 			
+			ReportHeaderCompany = settings.ReportHeaderCompany;
+			ReportHeaderRegion = settings.ReportHeaderRegion;
+			ReportHeaderPlace = settings.ReportHeaderPlace;
+			
 			PdfRunOnGenerated = settings.PdfRunOnGenerated;
 			PdfAppLoader = settings.PdfAppLoader;
 		}
-		/* Lets make singleton pattern */
+		/* Lets implement singleton pattern */
 		public static AppSettings Instance {
 			get {
 					lock (_obj) {

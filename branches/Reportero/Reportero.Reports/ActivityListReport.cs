@@ -52,12 +52,13 @@ namespace Reportero.Reports
 
 			Paragraph head_para = new Paragraph ();
 			
-			head_para.Add (new Paragraph ("PEMEX EXPLORACION Y PRODUCCION", font_title));
-			head_para.Add (new Paragraph ("Región Sur", font_sub1));
-			head_para.Add (new Paragraph ("Activo Integral Samaria-Luna", font_sub2));
+			head_para.Add (new Paragraph (HeaderCompany, font_title));
+			head_para.Add (new Paragraph (HeaderRegion, font_sub1));
+			head_para.Add (new Paragraph (HeaderPlace, font_sub2));
 			string rtypestr = "Actividad";
 			if (ReportType == ReportType.InactivityList)
 				rtypestr = "Inactividad";
+			
 			head_para.Add (new Paragraph ("Reporte de " + rtypestr + " Vehicular por Día", font_sub2));
 			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy"))));
 			
@@ -98,13 +99,13 @@ namespace Reportero.Reports
 				
 				_loader.AsyncUpdate ((int) percent);
 			
-				table.AddCell (CreateCell ("Vehículo"), row, 0);
-				cell = CreateCell (vehicle.VehicleId);
+				table.AddCell (CreateFilledCell ("Vehículo"), row, 0);
+				cell = CreateFilledCell (vehicle.VehicleId);
 				cell.Colspan = 2;
 				table.AddCell (cell, row, 1);
 				
-				table.AddCell (CreateCell ("Asignado a"), row, 3);
-				cell = CreateCell (vehicle.Name);
+				table.AddCell (CreateFilledCell ("Asignado a"), row, 3);
+				cell = CreateFilledCell (vehicle.Name);
 				cell.Colspan = 2;
 				table.AddCell (cell, row ++, 4);
 
