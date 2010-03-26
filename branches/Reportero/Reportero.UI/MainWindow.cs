@@ -5,6 +5,7 @@ using Gtk;
 using Reportero.UI.Dialogs;
 using Reportero.UI.Widgets;
 using Reportero.Data;
+using Reportero.Reports;
 
 
 namespace Reportero.UI
@@ -23,6 +24,10 @@ namespace Reportero.UI
 		
 		public MainWindow () : base (WindowType.Toplevel)
 		{
+			Report.HeaderCompany = AppSettings.Instance.ReportHeaderCompany;
+			Report.HeaderRegion = AppSettings.Instance.ReportHeaderRegion;
+			Report.HeaderPlace = AppSettings.Instance.ReportHeaderPlace;
+		
 			Title = AppSettings.Instance.GetFormatedTitle ("Principal");
 			WindowPosition = WindowPosition.Center;
 			Icon = Gdk.Pixbuf.LoadFromResource ("reportero_icon_main.png");
@@ -61,7 +66,14 @@ namespace Reportero.UI
 		protected override void OnShown ()
 		{
 			base.OnShown ();
-			if (!_database.Open ()) {
+			if (AppSettings.Instance.EnableConfiguration) {
+				MessageDialog dialog = new MessageDialog (this,
+					DialogFlags.Modal, MessageType.Info, ButtonsType.Ok,
+					"<b>Información</b>.\nLa aplicacion ha iniciado en <b>modo desconectado</b>"
+				);
+				dialog.Run ();
+				dialog.Destroy ();
+			} else if (!_database.Open ()) {
 				MessageDialog dialog = new MessageDialog ( this,
 					DialogFlags.Modal, MessageType.Error, ButtonsType.Ok,
 					"<b>Error al iniciar</b>.\nLa aplicación terminará ahora.");

@@ -12,21 +12,6 @@ namespace Reportero
 	
 	public class MainClass
 	{
-		/*
-		static void Main ()
-		{
-			Database db = new Database ();
-			db.Open ();
-		
-			foreach (Leadership lead in LeadershipCollection.FromDatabase (db)) {
-				Console.WriteLine ("Usuarios dentro de Coordinacion '{0}'.", lead.Name);
-				foreach (VehicleUser user in VehicleUserCollection.FromLeadership (lead)) {
-					Console.WriteLine ("\t{0} -> {1}", user.Name, user.VehicleId);
-				}
-			}
-			db.Close ();
-		}
-		*/
 		
 		public static void Main (string [] args)
 		{

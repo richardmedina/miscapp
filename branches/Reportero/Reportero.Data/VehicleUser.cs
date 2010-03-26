@@ -128,7 +128,11 @@ namespace Reportero.Data
 		}
 		
 		public string Name {
-			get { return _name; }
+			get { 
+				if (_name == null)
+					return string.Empty;
+				return _name; 
+			}
 			set { _name = value; }
 		}
 		
