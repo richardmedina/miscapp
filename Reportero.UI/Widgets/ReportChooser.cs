@@ -226,8 +226,8 @@ namespace Reportero.UI.Widgets
 					ActivityGraphicReport report = new ActivityGraphicReport (record as VehicleUser, startdate, enddate, type);
 					
 					ReportDialog dialog = new ReportDialog (report);
-					
-					dialog.Title = AppSettings.Instance.GetFormatedTitle ("Reporte de Actividad");
+					string rtypestr = report.ReportType == ReportType.ActivityChart?"Actividad":"Inactividad";
+					dialog.Title = AppSettings.Instance.GetFormatedTitle ("Reporte de " + rtypestr);
 					dialog.Run ();
 					dialog.Destroy ();
 				}

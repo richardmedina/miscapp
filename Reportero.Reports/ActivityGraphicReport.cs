@@ -103,8 +103,10 @@ namespace Reportero.Reports
 					span -= TimeSpan.FromMinutes (minutes);
 				else if (ReportType == ReportType.ActivityChart)
 					span = TimeSpan.FromMinutes (minutes);
-					
-				string str = string.Format ("Actividad\n{0:00}:{1:00} hrs", 
+				
+				string rtypestr = ReportType==ReportType.ActivityChart?"Actividad":"Inactividad";
+				
+				string str = string.Format (rtypestr + "\n{0:00}:{1:00} hrs", 
 					span.Hours, span.Minutes);
 					
 				bar = new ActivityReportBar (i, date, minutes, str);

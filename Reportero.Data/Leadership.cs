@@ -86,15 +86,19 @@ namespace Reportero.Data
 		{
 			VehicleUserCollection vehicles = new VehicleUserCollection (Db);
 			
-			IDataReader reader = Db.Query ("select * from Usuarios where Vehiculo like '{0}%' order by Vehiculo;",
+			
+			 IDataReader reader = Db.Query ("select distinct Vehicle_ID, alias from VehicleState where alias like '{0}%'",
 				Name);
+			//IDataReader reader = Db.Query ("select * from V where Vehiculo like '{0}%' order by Vehiculo;",
+			//	Name);
 			
 			while (reader.Read ()) {
 				VehicleUser vehicle = new VehicleUser (Db);
-				vehicle.Id = (string) reader ["Ficha"];
-				vehicle.Category = (string) reader ["Categoria"];
-				vehicle.Name = (string) reader ["Nombre"];
-				vehicle.VehicleId = (string) reader ["Vehiculo"];
+				//vehicle.Id = (string) reader ["Ficha"];
+				//vehicle.Category = (string) reader ["Categoria"];
+				//vehicle.Name = (string) reader ["Nombre"];
+				vehicle.VehicleId = (string) reader ["alias"];
+				//vehicle.Update ();
 				vehicles.Add (vehicle);
 			}
 			

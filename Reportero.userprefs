@@ -1,20 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero/Main.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/ReportChooser.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/SpeedListReport.cs" Line="161" Column="7" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="1" Column="1" />
-      <File FileName="Reportero.UI/AppSettings.cs" Line="7" Column="2" />
-      <File FileName="Reportero.UI/Widgets/NetworkSettingsPanel.cs" Line="35" Column="3" />
-      <File FileName="Reportero.UI/Widgets/ReportSettingsPanel.cs" Line="1" Column="1" />
-      <File FileName="Reportero.UI/Widgets/ReportMenubar.cs" Line="11" Column="20" />
-      <File FileName="Reportero.UI/Widgets/FileReportMenu.cs" Line="29" Column="4" />
-      <File FileName="Reportero/Main.cs" Line="35" Column="54" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="230" Column="84" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Reportero" expanded="True">
-            <Node name="Main.cs" selected="True" />
+          <Node name="Reportero" expanded="True" />
+          <Node name="Reportero.Data" expanded="True" />
+          <Node name="Reportero.Reports" expanded="True" />
+          <Node name="Reportero.UI" expanded="True">
+            <Node name="Widgets" expanded="True">
+              <Node name="ReportChooser.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -43,5 +41,5 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" ctype="Workspace" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
 </Properties>
