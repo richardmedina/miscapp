@@ -47,6 +47,7 @@
     <Compile Include="SpeedExceedItem.cs" />
     <Compile Include="DataCollection.cs" />
     <Compile Include="ProgressCallback.cs" />
+    <Compile Include="StringDesc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

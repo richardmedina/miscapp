@@ -98,11 +98,13 @@ namespace Reportero.Data
 				//vehicle.Category = (string) reader ["Categoria"];
 				//vehicle.Name = (string) reader ["Nombre"];
 				vehicle.VehicleId = (string) reader ["alias"];
-				//vehicle.Update ();
 				vehicles.Add (vehicle);
 			}
 			
 			reader.Close ();
+			
+			foreach (VehicleUser vehicle in vehicles)
+				vehicle.Update ();
 			
 			return vehicles;
 		}

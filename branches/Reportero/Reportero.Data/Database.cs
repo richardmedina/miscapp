@@ -26,13 +26,12 @@ namespace Reportero.Data
 		
 		public void Close ()
 		{
+			Console.WriteLine ("Closing Database Connection..");
 			_connection.Close ();
 		}
 		
 		public bool Open ()
 		{
-			//string conn
-			
 			string connection_string = string.Format ("Server={0};UID={1};PWD={2};Database={3};",
 				Hostname, UserId, Password, Source);
 		
@@ -42,11 +41,11 @@ namespace Reportero.Data
 			try {
 				_connection.Open ();
 			} catch (Exception exception) {
-				Console.WriteLine ("ERROR Connecting + {0}", exception);
+				Console.WriteLine ("Exception Connecting: {0}", exception);
 				return false;
 			}
 				
-			Console.WriteLine ("Done");
+			Console.WriteLine ("Done with timeout {0}", _connection.ConnectionTimeout);
 			return true;
 		}
 
@@ -55,7 +54,14 @@ namespace Reportero.Data
 			string query = string.Format (format, objs);
 			IDbCommand command = new SqlCommand (query, _connection);
 			
-			return command.ExecuteReader ();
+			IDataReader reader = null; 
+			try {
+				reader  = command.ExecuteReader ();
+			} catch (Exception e) {
+				Console.WriteLine ("Exception. {0}", e.Message);	
+			}
+			
+			return reader;
 		}
 		
 		public void NonQuery (string format, params object [] objs)
@@ -64,10 +70,8 @@ namespace Reportero.Data
 			IDbCommand command = new SqlCommand (query, _connection);
 			try {
 				command.ExecuteNonQuery ();
-			} catch (SqlException) {
-				if (Open ()) {
-					command.ExecuteNonQuery ();
-				}
+			} catch (Exception e) {
+				Console.WriteLine ("Exception. {0}", e.Message);
 			}
 		}
 		
