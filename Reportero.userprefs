@@ -1,19 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.UI/Widgets/ReportChooser.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Data/Database.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="230" Column="84" />
+      <File FileName="Reportero.Reports/NoSpeedListReport.cs" Line="81" Column="48" />
+      <File FileName="Reportero.Reports/Report.cs" Line="119" Column="91" />
+      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="123" Column="13" />
+      <File FileName="Reportero.Data/Database.cs" Line="69" Column="62" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="15" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Reportero" expanded="True" />
-          <Node name="Reportero.Data" expanded="True" />
-          <Node name="Reportero.Reports" expanded="True" />
-          <Node name="Reportero.UI" expanded="True">
-            <Node name="Widgets" expanded="True">
-              <Node name="ReportChooser.cs" selected="True" />
-            </Node>
+          <Node name="Reportero.Data" expanded="True">
+            <Node name="Database.cs" selected="True" />
           </Node>
+          <Node name="Reportero.UI" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -23,6 +23,7 @@
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
           <Option id="GroupByAccess" value="True" />
+          <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Reportero.UI.Dialogs">
               <Node name="Reportero.UI.Dialogs.SettingsDialog">

@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Reflection;
 using Reportero.Reports.Drawing;
 using Reportero.Data;
 using iTextSharp.text;
@@ -22,6 +23,12 @@ namespace Reportero.Reports
 		public static string HeaderCompany;
 		public static string HeaderRegion;
 		public static string HeaderPlace;
+		
+		private Font _font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
+		private Font _font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
+		private Font _font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
+		private Font _font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
+
 		
 		public Report (DateTime start, DateTime end)
 		{
@@ -90,6 +97,31 @@ namespace Reportero.Reports
 		
 		protected virtual bool HeaderCreate (Document document)
 		{
+			Document doc = document;
+			/*
+			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
+			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
+			Font font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
+			Font font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
+			*/
+			Assembly a = Assembly.GetExecutingAssembly ();
+			Stream stream = a.GetManifestResourceStream ("reportero_icon_pep.png");
+			Image img = Image.GetInstance (stream);
+			img.Alignment = Image.LEFT_BORDER | Image.TEXTWRAP;
+			img.ScalePercent (70);
+
+			Paragraph head_para = new Paragraph ();
+			
+			head_para.Add (new Paragraph (HeaderCompany, FontTitle));
+			head_para.Add (new Paragraph (HeaderRegion, FontSub1));
+			head_para.Add (new Paragraph (HeaderPlace, FontSub2));
+			head_para.Add (new Paragraph ("Reporte de Historia de Excesos de Velocidad Vehicular por Día", FontSub2));
+			head_para.Add (new Paragraph ("(Días limpios de excesos de velocidad incluídos)", FontSub2));
+			head_para.Add (new Paragraph (string.Format ("{0} al {1}", StartingDate.ToString ("dd-MM-yyyy"), EndingDate.ToString ("dd-MM-yyyy")), FontSub3));
+			HeaderFooter header = new HeaderFooter (head_para, false);
+			header.Alignment = HeaderFooter.ALIGN_CENTER;
+			doc.Header = header;
+			
 			return true;
 		}
 		
@@ -133,6 +165,22 @@ namespace Reportero.Reports
 		public ReportType ReportType {
 			get { return _report_type; }
 			set { _report_type = value; }
+		}
+		
+		protected Font FontTitle {
+			get { return  _font_title; }
+		}
+		
+		protected Font FontSub1  {
+			get { return _font_sub1; }
+		}
+		
+		protected Font FontSub2 {
+			get { return _font_sub2; }
+		}
+		
+		protected Font FontSub3 {
+			get { return _font_sub3; }
 		}
 	}
 }
