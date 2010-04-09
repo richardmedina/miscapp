@@ -24,10 +24,9 @@ namespace Reportero.Reports
 			_loader = new LoadingWindow ();
 			_loader.Cancel += delegate { _canceled = true; };
 		}
-		
+		/*
 		protected override bool HeaderCreate (iTextSharp.text.Document document)
 		{
-			
 			Document doc = document;
 			
 			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
@@ -55,7 +54,7 @@ namespace Reportero.Reports
 			
 			return true;
 		}
-		
+		*/
 		private double _current_loader_progress = 0;
 		private double _progress_unit = 0;
 		private int _current_vehicle = 0;
@@ -68,6 +67,12 @@ namespace Reportero.Reports
 			_loader.AsyncUpdate (string.Format ("{0}%. ({1}/{2})", (int) current_value, _current_vehicle, _vehicle_totals), (int) current_value);
 			return !_canceled;
 		}
+		
+		protected override bool HeaderCreate (iTextSharp.text.Document document)
+		{
+			return base.HeaderCreate (document);
+		}
+
 
 		protected override bool BodyCreate (iTextSharp.text.Document document)
 		{

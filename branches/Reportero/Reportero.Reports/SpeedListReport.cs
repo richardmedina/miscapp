@@ -108,6 +108,7 @@ namespace Reportero.Reports
 
 			foreach  (SpeedExceedCollection exceeds in collections) {
 				int total_times = 0;
+				//exceeds.Vehicle.Update ();
 				foreach (SpeedExceedItem item in exceeds)
 					total_times += item.Times;
 				
