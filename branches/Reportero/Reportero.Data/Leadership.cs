@@ -1,6 +1,7 @@
 
 using System;
 using System.Data;
+using System.IO;
 
 namespace Reportero.Data
 {
@@ -10,6 +11,8 @@ namespace Reportero.Data
 	{
 		private string _name;
 		private Database _database;
+		
+		private static readonly string equivs_filename = "equivs.txt";
 		
 		public Leadership (Database database)
 		{
@@ -52,6 +55,13 @@ namespace Reportero.Data
 		
 		public string GetFullname () 
 		{
+			string fullname = GetFullname (equivs_filename, Name);
+			
+			if (fullname.Trim ().Length > 0) 
+				return fullname;
+			
+			return "Sin Equivalencia";
+			/*	
 			switch (Name) {
 				case "MEDYSA":
 					return "Mantenimiento a Equipo Dinámico y Sistemas Auxiliares";
@@ -78,9 +88,27 @@ namespace Reportero.Data
 					return "Coordinación de Seguridad  Industrial  y Protección Ambiental";
 				
 				default:
-					return "Sin equivalencia";
-			}
+					return string.Format ("Sin equivalencia");
+			}*/
 		}
+		
+		public static string GetFullname (string filename, string shortname)
+		{
+			if (File.Exists (filename)) {
+				using (StreamReader reader = new StreamReader (filename)) {
+					string [] args = new string [0];
+					for (string line = reader.ReadLine ();
+						line != null; line = reader.ReadLine ()) {
+						args = line.Split (":".ToCharArray ());
+						if (args [0] == shortname)
+							return args [1];
+					}
+				}
+			}
+			
+			return string.Empty;
+		}
+
 		
 		public VehicleUserCollection GetVehicles ()
 		{
