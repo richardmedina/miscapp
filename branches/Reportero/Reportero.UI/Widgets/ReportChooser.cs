@@ -45,6 +45,7 @@ namespace Reportero.UI.Widgets
 			
 			_leadership_popup = new LeadershipMenuPopup ();
 			_leadership_popup.ExploreItem.Activated += leadershipExploreActivated;
+			_leadership_popup.StatsItem.Activated += leadershipStatsactivated;
 			_leadership_popup.StatisticsItem.Activated += leadershipStatisticsActivated;
 			_leadership_popup.StatisticsInacItem.Activated += leadershipStatisticsInacActivated;
 			_leadership_popup.StatisticsSpeedItem.Activated += leadershipStatisticsSpeedActivated;
@@ -199,6 +200,21 @@ namespace Reportero.UI.Widgets
 		 	
 		 	if (response == ResponseType.Ok)
 		 		user.Save ();
+		}
+		
+		private void StatsActivated (Leadership leadership)
+		{
+			Report report = new StatisticsReport ();
+			
+			
+		}
+		
+		private void leadershipStatsactivated (object sender, EventArgs args)
+		{
+			IRecord record;
+			if (GetSelected (out record))
+				if (record.Type == RecordType.Leadership)
+					StatsActivated (record as Leadership);
 		}
 		
 		private void vehicle_popupAssignActivated (object sender, EventArgs args)
