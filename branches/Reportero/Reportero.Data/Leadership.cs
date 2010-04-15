@@ -115,7 +115,7 @@ namespace Reportero.Data
 			VehicleUserCollection vehicles = new VehicleUserCollection (Db);
 			
 			
-			 IDataReader reader = Db.Query ("select distinct Vehicle_ID, alias from VehicleState where alias like '{0}%'",
+			 IDataReader reader = Db.Query ("select distinct Vehicle_ID, alias from VehicleState where alias like '{0}-%'",
 				Name);
 			//IDataReader reader = Db.Query ("select * from V where Vehiculo like '{0}%' order by Vehiculo;",
 			//	Name);
