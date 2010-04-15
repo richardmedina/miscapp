@@ -204,7 +204,9 @@ namespace Reportero.UI.Widgets
 		
 		private void StatsActivated (Leadership leadership)
 		{
-			Report report = new StatisticsReport ();
+			//Report report = new StatisticsReport ();
+			
+			//string filename = GtkMisc.SaveFileSelect (string.Empty, "Guardar Reporte");
 			
 			
 		}

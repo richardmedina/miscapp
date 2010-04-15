@@ -27,6 +27,7 @@ namespace Reportero.UI.Widgets
 			_itm_stats.Image = new Image (
 				Gdk.Pixbuf.LoadFromResource ("reportero_icon_statistics.png").ScaleSimple (
 					18, 18, Gdk.InterpType.Bilinear));
+			_itm_stats.Sensitive = false;
 			
 			_itm_statistics = new ImageMenuItem ("Actividad de vehiculos...");
 			_itm_statistics.Image = new Image (
