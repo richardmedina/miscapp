@@ -1,17 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Data/Database.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/StatisticsReport.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/NoSpeedListReport.cs" Line="81" Column="48" />
-      <File FileName="Reportero.Reports/Report.cs" Line="119" Column="91" />
-      <File FileName="Reportero.Reports/SpeedGraphicReport.cs" Line="123" Column="13" />
-      <File FileName="Reportero.Data/Database.cs" Line="69" Column="48" />
+      <File FileName="Reportero.Reports/Report.cs" Line="79" Column="17" />
       <File FileName="Reportero.UI/MainWindow.cs" Line="15" Column="2" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="216" Column="6" />
+      <File FileName="Reportero.UI/Widgets/LeadershipMenuPopup.cs" Line="30" Column="6" />
+      <File FileName="Reportero.Reports/StatisticsReport.cs" Line="29" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="Reportero.Data" expanded="True" />
-          <Node name="Reportero.UI" expanded="True" />
+          <Node name="Reportero.Reports" expanded="True">
+            <Node name="StatisticsReport.cs" selected="True" />
+          </Node>
+          <Node name="Reportero.UI" expanded="True">
+            <Node name="Widgets" expanded="True" />
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">

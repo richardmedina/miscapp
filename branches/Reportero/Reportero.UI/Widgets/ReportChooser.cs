@@ -206,9 +206,14 @@ namespace Reportero.UI.Widgets
 		{
 			//Report report = new StatisticsReport ();
 			
-			//string filename = GtkMisc.SaveFileSelect (string.Empty, "Guardar Reporte");
+			string filename = GtkMisc.FileSelect ("", "Guardar archivo..", FileChooserAction.Save);
 			
-			
+				if (filename.Trim ().Length > 0) {
+					Report report = new StatisticsReport ();
+					report.CreatePdf (AppSettings.Instance.PdfAppLoader,
+						filename,
+						AppSettings.Instance.PdfRunOnGenerated);
+				}
 		}
 		
 		private void leadershipStatsactivated (object sender, EventArgs args)
