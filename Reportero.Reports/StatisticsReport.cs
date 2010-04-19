@@ -14,15 +14,20 @@ namespace Reportero.Reports
 		{
 		}
 		
+		protected override bool HeaderCreate (iTextSharp.text.Document document)
+		{
+			
+			return base.HeaderCreate (document);
+		}
+
+		
 		protected override bool BodyCreate (iTextSharp.text.Document document)
 		{
-			document.SetPageSize (iTextSharp.text.PageSize.A4.Rotate ());
+			//document.SetPageSize (PageSize.A4.);
 			
 			Table table = new Table (3, 13);
-			table.AddCell (new Phrase ("Descripción", 
-			
-			
-			
+			table.AddCell (new Phrase ("Descripción", FontSub1));
+			document.Add (table);
 		
 			return true;
 		}
