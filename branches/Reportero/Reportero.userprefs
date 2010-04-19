@@ -5,15 +5,13 @@
       <File FileName="Reportero.UI/MainWindow.cs" Line="15" Column="2" />
       <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="216" Column="6" />
       <File FileName="Reportero.UI/Widgets/LeadershipMenuPopup.cs" Line="30" Column="6" />
-      <File FileName="Reportero.Reports/StatisticsReport.cs" Line="29" Column="3" />
+      <File FileName="Reportero.Reports/StatisticsReport.cs" Line="14" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
           <Node name="Reportero.Data" expanded="True" />
-          <Node name="Reportero.Reports" expanded="True">
-            <Node name="StatisticsReport.cs" selected="True" />
-          </Node>
+          <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Widgets" expanded="True" />
           </Node>
@@ -23,9 +21,9 @@
         <State expanded="True" selected="True">
           <Option id="ShowProjects" value="False" />
           <Option id="NestedNamespaces" value="False" />
-          <Option id="GroupByAccess" value="True" />
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
+          <Option id="GroupByAccess" value="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Reportero.UI.Dialogs">
