@@ -38,8 +38,8 @@ Desarrollador de la aplicación
 			Comments = "Version preliminar.\n" +
 				"Todos los derechos reservados\n" +
 				"Comentarios, sugerencias o reporte de errores:\n" +
-				"Ing. Ricardo Medina López\n" +
-				"rmedinalo@pep.pemex.com";
+				"Lic. Ricardo Medina López\n" +
+				"ricardo.medina@pemex.com";
 			
 			License = license;
 			
