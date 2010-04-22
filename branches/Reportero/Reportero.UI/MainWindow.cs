@@ -74,7 +74,7 @@ namespace Reportero.UI
 				dialog.Run ();
 				dialog.Destroy ();
 			} else if (!_database.Open ()) {
-				MessageDialog dialog = new MessageDialog ( this,
+				MessageDialog dialog = new MessageDialog (this,
 					DialogFlags.Modal, MessageType.Error, ButtonsType.Ok,
 					"<b>Error al iniciar</b>.\nLa aplicación terminará ahora.");
 			

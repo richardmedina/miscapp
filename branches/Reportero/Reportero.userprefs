@@ -1,18 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Reports/StatisticsReport.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Reportero.Data/VehicleUser.cs" ctype="Workbench">
     <Files>
-      <File FileName="Reportero.Reports/Report.cs" Line="79" Column="17" />
-      <File FileName="Reportero.UI/MainWindow.cs" Line="15" Column="2" />
-      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="216" Column="6" />
+      <File FileName="Reportero.Reports/Report.cs" Line="107" Column="6" />
+      <File FileName="Reportero.UI/MainWindow.cs" Line="95" Column="17" />
+      <File FileName="Reportero.UI/Widgets/ReportChooser.cs" Line="69" Column="8" />
       <File FileName="Reportero.UI/Widgets/LeadershipMenuPopup.cs" Line="30" Column="6" />
-      <File FileName="Reportero.Reports/StatisticsReport.cs" Line="14" Column="4" />
+      <File FileName="Reportero.Reports/StatisticsReport.cs" Line="54" Column="4" />
+      <File FileName="Reportero.Data/VehicleUser.cs" Line="17" Column="70" />
+      <File FileName="Reportero.Data/Leadership.cs" Line="15" Column="61" />
+      <File FileName="Reportero.UI/Widgets/ReportToolbar.cs" Line="1" Column="1" />
+      <File FileName="Reportero.Data/Database.cs" Line="35" Column="110" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
-          <Node name="Reportero.Data" expanded="True" />
+        <State expanded="True">
+          <Node name="Reportero.Data" expanded="True">
+            <Node name="VehicleUser.cs" selected="True" />
+          </Node>
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
+            <Node name="Dialogs" expanded="True" />
             <Node name="Widgets" expanded="True" />
           </Node>
         </State>
@@ -21,9 +28,9 @@
         <State expanded="True" selected="True">
           <Option id="ShowProjects" value="False" />
           <Option id="NestedNamespaces" value="False" />
+          <Option id="GroupByAccess" value="True" />
           <Option id="PublicApiOnly" value="True" />
           <Option id="GroupByType" value="True" />
-          <Option id="GroupByAccess" value="True" />
           <Node name="Reportero.Reports" expanded="True" />
           <Node name="Reportero.UI" expanded="True">
             <Node name="Reportero.UI.Dialogs">

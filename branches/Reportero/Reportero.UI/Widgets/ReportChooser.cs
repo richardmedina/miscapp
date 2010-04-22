@@ -66,6 +66,7 @@ namespace Reportero.UI.Widgets
 					(record as Leadership).Name,
 					(record as Leadership).GetVehicles ().Count,
 					(record as Leadership).GetFullname ());
+					//tooltip = string.Empty;
 			} 
 			else if (record.Type == RecordType.VehicleUser) { 
 				text = ((VehicleUser)record).VehicleId;
@@ -209,7 +210,7 @@ namespace Reportero.UI.Widgets
 			string filename = GtkMisc.FileSelect ("", "Guardar archivo..", FileChooserAction.Save);
 			
 				if (filename.Trim ().Length > 0) {
-					Report report = new StatisticsReport ();
+					Report report = new StatisticsReport (3);
 					report.CreatePdf (AppSettings.Instance.PdfAppLoader,
 						filename,
 						AppSettings.Instance.PdfRunOnGenerated);
