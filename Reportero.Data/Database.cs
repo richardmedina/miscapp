@@ -32,10 +32,11 @@ namespace Reportero.Data
 		
 		public bool Open ()
 		{
-			string connection_string = string.Format ("Server={0};UID={1};PWD={2};Database={3};",
+			string connection_string = string.Format ("Server={0};UID={1};PWD={2};Database={3}; Connection Timeout=900;",
 				Hostname, UserId, Password, Source);
 		
 			_connection = new SqlConnection  (connection_string);
+			
 
 			Console.WriteLine ("Connecting to database..");
 			try {
@@ -52,27 +53,26 @@ namespace Reportero.Data
 		public IDataReader Query (string format, params object [] objs)
 		{
 			string query = string.Format (format, objs);
+			Console.WriteLine ("Will Run: {0}", query);
 			IDbCommand command = new SqlCommand (query, _connection);
 			
 			IDataReader reader = null; 
-			try {
-				reader  = command.ExecuteReader ();
-			} catch (Exception e) {
-				Console.WriteLine ("Exception. {0}", e.Message);	
-			}
 			
+			reader  = command.ExecuteReader ();
+			Console.WriteLine ("End Run");
 			return reader;
 		}
 		
 		public void NonQuery (string format, params object [] objs)
 		{
 			string query = string.Format (format, objs);
+			
+			Console.WriteLine ("Will Run NON: {0}", query);
 			IDbCommand command = new SqlCommand (query, _connection);
-			try {
-				command.ExecuteNonQuery ();
-			} catch (Exception e) {
-				Console.WriteLine ("Exception. {0}", e.Message);
-			}
+			
+			command.ExecuteNonQuery ();
+			Console.WriteLine ("End Run");
+			
 		}
 		
 		public string Hostname {
