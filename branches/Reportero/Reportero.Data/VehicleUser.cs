@@ -14,6 +14,13 @@ namespace Reportero.Data
 		private string _category;
 		private Database _database;
 		
+		private static readonly string _table_name_vehicles = "VehicleState";
+		private static readonly string _table_name_users = "Usuarios";
+		
+		// These value must be an integer that means "seconds" between each data received;
+		// IMPORTANT. These value is used for exceeding time calculation
+		private int _pooling_time = 3;
+		
 		public VehicleUser (Database db)
 		{
 			_database = db;
@@ -23,7 +30,7 @@ namespace Reportero.Data
 		{
 			if (_vehicle_id.Trim ().Length == 0)
 				return false;
-			IDataReader reader = Db.Query ("select ficha from Usuarios where Vehiculo='{0}';", _vehicle_id);
+			IDataReader reader = Db.Query ("select ficha from {0} where Vehiculo='{1}';", _table_name_users, _vehicle_id);
 			
 			bool exists = reader.Read ();
 			reader.Close ();
@@ -34,7 +41,7 @@ namespace Reportero.Data
 		{
 			bool updated = false;
 			if (Exists ()) {
-				IDataReader reader = Db.Query ("select * from usuarios where Vehiculo='{0}';", _vehicle_id);
+				IDataReader reader = Db.Query ("select * from {0} where Vehiculo='{1}';", _table_name_users, _vehicle_id);
 				if (reader.Read ()) {
 					_id = (string) reader ["Ficha"];
 					_vehicle_id = (string) reader ["Vehiculo"];
@@ -50,10 +57,10 @@ namespace Reportero.Data
 		public void Save ()
 		{
 			if (Exists ()) {
-				Db.NonQuery ("update Usuarios SET Ficha='{0}', Categoria='{1}', Nombre='{2}' where Vehiculo='{3}';",
-					Id, Category, Name, VehicleId);
+				Db.NonQuery ("update {0} SET Ficha='{1}', Categoria='{2}', Nombre='{3}' where Vehiculo='{4}';",
+					_table_name_users, Id, Category, Name, VehicleId);
 			} else {
-				Db.NonQuery ("insert into Usuarios (Ficha, Vehiculo, Categoria, Nombre) Values ('{0}', '{1}', '{2}', '{3}');", Id, VehicleId, Category, Name);
+				Db.NonQuery ("insert into {0} (Ficha, Vehiculo, Categoria, Nombre) Values ('{1}', '{2}', '{3}', '{4}');", _table_name_users, Id, VehicleId, Category, Name);
 			}
 		}
 		
@@ -61,8 +68,8 @@ namespace Reportero.Data
 		{
 			int minutes_running = 0;
 			
-			IDataReader reader = Db.Query ("select Count (Date_Time) * 3 as minutes from VehicleState where PC_Date='{0}' and alias='{1}' and Speed>0;",
-				date.ToString ("yyyy-MM-dd"), VehicleId);
+			IDataReader reader = Db.Query ("select Count (Date_Time) * {0} as minutes from {1} where PC_Date='{2}' and alias='{3}' and Speed>0;",
+				PoolingTime, _table_name_vehicles, date.ToString ("yyyy-MM-dd"), VehicleId);
 			
 			if (reader.Read ())
 				minutes_running = (int) reader ["minutes"];
@@ -152,6 +159,11 @@ namespace Reportero.Data
 		
 		public RecordType Type {
 			get { return RecordType.VehicleUser; }
+		}
+		
+		public int PoolingTime {
+			get { return _pooling_time; }
+			set { _pooling_time = value; }
 		}
 	}
 }

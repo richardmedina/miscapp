@@ -12,6 +12,8 @@ namespace Reportero.Data
 		private string _name;
 		private Database _database;
 		
+		private static readonly string _table_name_vehicles = "VehicleState_Feb2010";
+		
 		private static readonly string equivs_filename = "equivs.txt";
 		
 		public Leadership (Database database)
@@ -40,7 +42,7 @@ namespace Reportero.Data
 		public static LeadershipCollection FromDatabase (Database database)
 		{
 			LeadershipCollection leadcol = new LeadershipCollection (database);
-			IDataReader reader = database.Query ("select distinct substring(Alias, 0, charindex('-',Alias)) as leadership from VehicleState where Alias <> '' order by Leadership;");
+			IDataReader reader = database.Query ("select distinct substring(Alias, 0, charindex('-',Alias)) as leadership from {0} where Alias <> '' order by Leadership;", _table_name_vehicles);
 			
 			while (reader.Read ()) {
 				Leadership leader = new Leadership (database);
@@ -115,8 +117,8 @@ namespace Reportero.Data
 			VehicleUserCollection vehicles = new VehicleUserCollection (Db);
 			
 			
-			 IDataReader reader = Db.Query ("select distinct Vehicle_ID, alias from VehicleState where alias like '{0}-%'",
-				Name);
+			 IDataReader reader = Db.Query ("select distinct Vehicle_ID, alias from {0} where alias like '{1}-%'",
+				_table_name_vehicles, Name);
 			//IDataReader reader = Db.Query ("select * from V where Vehiculo like '{0}%' order by Vehiculo;",
 			//	Name);
 			

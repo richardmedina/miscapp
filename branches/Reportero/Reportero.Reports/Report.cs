@@ -99,16 +99,12 @@ namespace Reportero.Reports
 		{
 			Document doc = document;
 			/*
-			Font font_title = FontFactory.GetFont ("Comic sans ms", "UTF8", false, 16, 1, new Color (0x44, 0x44, 0x44));
-			Font font_sub1 = FontFactory.GetFont ("Arial", "UTF8", false, 14, 1, new Color (0x00, 0, 0));
-			Font font_sub2 = FontFactory.GetFont ("Arial", "UTF8", false, 12, 1, new Color (0, 0x00, 0));
-			Font font_sub3 = FontFactory.GetFont ("Arial", "UTF8", false, 10, 0, new Color (0, 0x00, 0));
-			*/
 			Assembly a = Assembly.GetExecutingAssembly ();
-			Stream stream = a.GetManifestResourceStream ("reportero_icon_pep.png");
+			Stream stream = a.GetManifestResourceStream ("reportero_icon_pickup.png");
 			Image img = Image.GetInstance (stream);
 			img.Alignment = Image.LEFT_BORDER | Image.TEXTWRAP;
 			img.ScalePercent (70);
+			*/
 
 			Paragraph head_para = new Paragraph ();
 			
