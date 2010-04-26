@@ -12,7 +12,7 @@ namespace Reportero.Data
 		private string _name;
 		private Database _database;
 		
-		private static readonly string _table_name_vehicles = "VehicleState_Feb2010";
+		private static readonly string _table_name_vehicles = "VehicleState";
 		
 		private static readonly string equivs_filename = "equivs.txt";
 		
