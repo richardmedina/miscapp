@@ -19,7 +19,7 @@ namespace Reportero.Data
 		
 		// These value must be an integer that means "seconds" between each data received;
 		// IMPORTANT. These value is used for exceeding time calculation
-		private int _pooling_time = 3;
+		private float _pooling_time = 1.5f;
 		
 		public VehicleUser (Database db)
 		{
@@ -66,17 +66,17 @@ namespace Reportero.Data
 		
 		public int GetMinutesRunning (DateTime date)
 		{
-			int minutes_running = 0;
+			float minutes_running = 0;
 			
-			IDataReader reader = Db.Query ("select Count (Date_Time) * {0} as minutes from {1} where PC_Date='{2}' and alias='{3}' and Speed>0;",
-				PoolingTime, _table_name_vehicles, date.ToString ("yyyy-MM-dd"), VehicleId);
+			IDataReader reader = Db.Query ("select Count (Date_Time) as minutes from {0} where PC_Date='{1}' and alias='{2}' and Speed>0;",
+				_table_name_vehicles, date.ToString ("yyyy-MM-dd"), VehicleId);
 			
 			if (reader.Read ())
-				minutes_running = (int) reader ["minutes"];
+				minutes_running = ((int) reader ["minutes"]) * (PoolingTime);
 			
 			reader.Close ();
 			
-			return minutes_running;
+			return (int) minutes_running;
 		}
 		
 		public int GetTimesSpeedOvertaken (DateTime date)
@@ -161,7 +161,7 @@ namespace Reportero.Data
 			get { return RecordType.VehicleUser; }
 		}
 		
-		public int PoolingTime {
+		public float PoolingTime {
 			get { return _pooling_time; }
 			set { _pooling_time = value; }
 		}

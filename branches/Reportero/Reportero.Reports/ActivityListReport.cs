@@ -130,7 +130,7 @@ namespace Reportero.Reports
 					if (_canceled)
 						break;
 					DateTime current_date = StartingDate.AddDays (i);
-					int minutes_8hours = 8 * 600;
+					int minutes_8hours = 8 * 60;
 					int minutes = vehicle.GetMinutesRunning (current_date);
 					if (ReportType == ReportType.InactivityList)
 						minutes = minutes_8hours - minutes;
