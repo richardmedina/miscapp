@@ -14,7 +14,12 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public EmployeeListView ()
 		{
-			_store = new ListStore (typeof (string)); // Name
+			_store = new ListStore (typeof (string), // ficha
+			                        typeof(string) // Nombre
+			                        );
+			
+			Model = _store;
+			
 		}
 	}
 }
