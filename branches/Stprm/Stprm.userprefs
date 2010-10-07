@@ -1,14 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" ctype="Workbench">
-    <Files>
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="19" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench ctype="Workbench">
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Stprm.CajaFinanciera" expanded="True" selected="True">
+        <State expanded="True" selected="True">
+          <Node name="Stprm.CajaFinanciera" expanded="True">
+            <Node name="Stprm.CajaFinanciera.Data" expanded="True" />
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
               <Node name="Widgets" expanded="True" />
             </Node>
