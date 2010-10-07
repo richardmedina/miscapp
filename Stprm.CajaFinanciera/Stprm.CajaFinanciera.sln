@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stprm.CajaFinanciera.UI", "Stprm.CajaFinanciera.UI\Stprm.CajaFinanciera.UI.csproj", "{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stprm.CajaFinanciera.Data", "Stprm.CajaFinanciera.Data\Stprm.CajaFinanciera.Data.csproj", "{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Debug|x86.Build.0 = Debug|x86
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Release|x86.ActiveCfg = Release|x86
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Release|x86.Build.0 = Release|x86
+		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Stprm.CajaFinanciera.UI\Stprm.CajaFinanciera.UI.csproj
