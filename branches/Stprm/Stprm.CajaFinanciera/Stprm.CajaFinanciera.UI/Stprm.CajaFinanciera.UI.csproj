@@ -74,4 +74,10 @@
     <Folder Include="Widgets\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Stprm.CajaFinanciera.Data\Stprm.CajaFinanciera.Data.csproj">
+      <Project>{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}</Project>
+      <Name>Stprm.CajaFinanciera.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
