@@ -8,11 +8,11 @@ namespace Stprm.CajaFinanciera.Data
 {
 	public class Employee : Record
 	{
-		public string Ficha;
-		public string FirstName;
-		public string MiddleName;
-		public string LastName;
-		
+		private string _id;
+		private string _firstname;
+		private string _middlename;
+		private string _lastname;
+
 		public Employee (Database db) : base (db, RecordType.Employee)
 		{
 		}
@@ -44,7 +44,7 @@ namespace Stprm.CajaFinanciera.Data
 			bool result = false;
 			
 			IDataReader reader = Db.Query ("SELECT * FROM {0} WHERE tra_ficha='{1}'",
-			                               TableEmployees, Ficha);
+			                               TableEmployees, Id);
 			
 			if (reader.Read ()) {
 				fill_from_reader (reader);
@@ -57,9 +57,42 @@ namespace Stprm.CajaFinanciera.Data
 		
 		protected void fill_from_reader (IDataReader reader)
 		{
+				Id = reader ["tra_ficha"].ToString ();
 				FirstName = reader ["tra_nombre"].ToString ();
 				MiddleName = reader ["tra_apepaterno"].ToString ();
 				LastName = reader ["tra_apematerno"].ToString ();
+		}
+		
+		public string Id {
+			get { return _id; }
+			internal set { 
+				_id = value; 
+				OnModified ();
+			}
+		}
+		
+		public string FirstName {
+			get { return _firstname; }
+			set { 
+				_firstname = value; 
+				OnModified ();
+			}
+		}
+		
+		public string MiddleName {
+			get { return _middlename; }
+			set { 
+				_middlename = value; 
+				OnModified ();
+			}
+		}
+		
+		public string LastName {
+				get { return _lastname; }
+				set { 
+					_lastname = value; 
+					OnModified ();
+			}
 		}
 	}
 }

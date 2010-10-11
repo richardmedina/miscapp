@@ -69,9 +69,12 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Widgets\EmployeeListView.cs" />
+    <Compile Include="Dialogs\CFAboutDialog.cs" />
+    <Compile Include="Dialogs\EmployeeDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

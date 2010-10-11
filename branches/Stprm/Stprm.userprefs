@@ -1,12 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/EmployeeDialog.cs" ctype="Workbench">
+    <Files>
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Employee.cs" Line="94" Column="6" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Database.cs" Line="27" Column="35" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="36" Column="47" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Record.cs" Line="48" Column="20" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/IRecord.cs" Line="20" Column="31" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="75" Column="3" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/CFAboutDialog.cs" Line="20" Column="2" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/EmployeeDialog.cs" Line="17" Column="4" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="Stprm.CajaFinanciera" expanded="True">
             <Node name="Stprm.CajaFinanciera.Data" expanded="True" />
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
+              <Node name="Dialogs" expanded="True" selected="True" />
               <Node name="Widgets" expanded="True" />
             </Node>
           </Node>

@@ -18,10 +18,13 @@ namespace Stprm.CajaFinanciera.Data
 
 		private RecordType _recordtype;
 		
+		private event EventHandler _modified;
+		
 		public Record (Database database, RecordType recordtype)
 		{
 			Db = database;
 			Type = recordtype;
+			_modified = onModified;
 		}
 		
 		#region IRecord Members
@@ -41,6 +44,15 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			throw new NotImplementedException();
 		}
+		
+		protected virtual void OnModified ()
+		{
+			_modified (this, EventArgs.Empty);	
+		}
+		
+		private void onModified (object sender, EventArgs args)
+		{
+		}
 
 		public Database Db
 		{
@@ -52,6 +64,11 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			get { return _recordtype; }
 			protected set { _recordtype = value; }
+		}
+		
+		public event EventHandler Modified {
+			add { _modified += value; }
+			remove { _modified -= value; }
 		}
 
 		#endregion
