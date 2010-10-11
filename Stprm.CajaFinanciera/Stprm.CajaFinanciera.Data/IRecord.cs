@@ -17,5 +17,6 @@ namespace Stprm.CajaFinanciera.Data
 
 		Database Db { get; }
 		RecordType Type { get; }
+		event EventHandler Modified;
 	}
 }
