@@ -19,21 +19,32 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			_store = new ListStore (typeof (Employee),
 			                        typeof (string), // ficha
-			                        typeof (string) // Nombre
+			                        typeof (string), // Nombre
+			                        typeof (string), //saldo
+			                        typeof (string), //ult.fecha.pago.
+			                        typeof (string) //cat
 			                        );
 			
 			Model = _store;
 			RulesHint = true;
 			
-			columns = new TreeViewColumn [2];
+			columns = new TreeViewColumn [5];
 			columns [0] = AppendColumn ("Ficha", new CellRendererText (), "text", 1);
 			columns [1] = AppendColumn ("Nombre", new CellRendererText (), "text", 2);
+			columns [2] = AppendColumn ("Saldo", new CellRendererText (), "text", 3);
+			columns [3] = AppendColumn ("Ult.Fecha.Pago", new CellRendererText (), "text", 4);
+			columns [4] = AppendColumn ("Cat", new CellRendererText (), "text", 5);
 		}
 		
 		public void Add (Employee employee)
 		{
 			if (!Exists (employee)) {
-				_store.AppendValues (employee, employee.Id, employee.GetFullName ());	
+				_store.AppendValues (employee, 
+				                     employee.Id, 
+				                     employee.GetFullName (),
+				                     employee.Saldo.ToString (),
+				                     employee.LastPayDate.ToShortDateString (),
+				                     employee.Category);	
 			}
 		}
 		
