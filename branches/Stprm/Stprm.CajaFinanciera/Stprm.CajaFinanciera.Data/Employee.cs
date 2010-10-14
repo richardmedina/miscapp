@@ -12,6 +12,10 @@ namespace Stprm.CajaFinanciera.Data
 		private string _firstname;
 		private string _middlename;
 		private string _lastname;
+		
+		private double _saldo;
+		private DateTime _last_pay_date;
+		private string _category;
 
 		public Employee (Database db) : base (db, RecordType.Employee)
 		{
@@ -61,6 +65,12 @@ namespace Stprm.CajaFinanciera.Data
 				FirstName = reader ["tra_nombre"].ToString ();
 				MiddleName = reader ["tra_apepaterno"].ToString ();
 				LastName = reader ["tra_apematerno"].ToString ();
+				if (!double.TryParse (reader ["tra_saldo"].ToString (), out _saldo))
+					Saldo = 0;
+				if (!DateTime.TryParse (reader ["tra_fechaultimopago"].ToString (), out _last_pay_date))
+					LastPayDate = DateTime.MinValue;
+			
+				Category = (string) reader ["cat_id"];
 		}
 		
 		public string Id {
@@ -92,6 +102,30 @@ namespace Stprm.CajaFinanciera.Data
 				set { 
 					_lastname = value; 
 					OnModified ();
+			}
+		}
+		
+		public double Saldo {
+			get { return _saldo; }
+			set { 
+				_saldo = value; 
+				OnModified ();
+			}
+		}
+		
+		public DateTime LastPayDate {
+			get { return _last_pay_date; }
+			set {
+				_last_pay_date = value;
+				OnModified ();
+			}
+		}
+		
+		public string Category {
+			get { return _category; }
+			set { 
+				_category = value; 
+				OnModified (); 
 			}
 		}
 	}
