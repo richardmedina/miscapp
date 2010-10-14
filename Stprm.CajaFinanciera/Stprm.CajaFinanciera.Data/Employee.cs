@@ -67,6 +67,7 @@ namespace Stprm.CajaFinanciera.Data
 				LastName = reader ["tra_apematerno"].ToString ();
 				if (!double.TryParse (reader ["tra_saldo"].ToString (), out _saldo))
 					Saldo = 0;
+				
 				if (!DateTime.TryParse (reader ["tra_fechaultimopago"].ToString (), out _last_pay_date))
 					LastPayDate = DateTime.MinValue;
 			
