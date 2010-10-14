@@ -38,7 +38,7 @@ namespace Stprm.CajaFinanciera.Data
 
 		public bool Open()
 		{
-			string connection_string = string.Format("Server={0};UID={1};PWD={2};Database={3}; Connection Timeout=15;",
+			string connection_string = string.Format("Server={0};UID={1};PWD={2};Database={3}; Connection Timeout=15;Allow Zero Datetime=true",
 				Hostname, UserId, Password, Source);
 
 			_connection = new MySqlConnection(connection_string);

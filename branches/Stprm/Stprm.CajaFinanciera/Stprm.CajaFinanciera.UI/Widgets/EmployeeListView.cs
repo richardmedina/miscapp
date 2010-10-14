@@ -3,6 +3,7 @@ using System;
 using Gtk;
 
 using Stprm.CajaFinanciera.Data;
+using Stprm.CajaFinanciera.UI.Dialogs;
 
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
@@ -65,5 +66,23 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			return result;
 		}
+		
+		protected override bool OnButtonPressEvent (Gdk.EventButton evnt)
+		{
+			bool result = base.OnButtonPressEvent (evnt);
+			
+			Gtk.TreeIter iter;
+			
+			if (evnt.Type == Gdk.EventType.TwoButtonPress && evnt.Button == 1)
+				if (Selection.GetSelected (out iter)) {
+					Employee employee =  (Employee) _store.GetValue (iter, 0);
+					EmployeeDialog dialog = new EmployeeDialog ();
+					dialog.Run ();
+					dialog.Destroy ();
+				}
+				
+			return result;
+		}
+
 	}
 }
