@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stprm.CajaFinanciera.UI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stprm.CajaFinanciera.Data", "Stprm.CajaFinanciera.Data\Stprm.CajaFinanciera.Data.csproj", "{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RickiLib.Types", "RickiLib\RickiLib.Types\RickiLib.Types.csproj", "{6C176B13-0937-4211-9E9D-EA94DBAC0240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RickiLib.Widgets", "RickiLib\RickiLib.Widgets\RickiLib.Widgets.csproj", "{8900B410-4A5E-440D-9FE3-3453F516CC5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RickiLib.Widgets", "RickiLib\RickiLib.Widgets\RickiLib.Widgets.csproj", "{B6B36961-0009-4801-A4BD-9F938DA6F696}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RickiLib.Types", "RickiLib\RickiLib.Types\RickiLib.Types.csproj", "{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,18 +19,18 @@ Global
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Debug|x86.Build.0 = Debug|x86
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Release|x86.ActiveCfg = Release|x86
 		{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}.Release|x86.Build.0 = Release|x86
-		{6C176B13-0937-4211-9E9D-EA94DBAC0240}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6C176B13-0937-4211-9E9D-EA94DBAC0240}.Debug|x86.Build.0 = Debug|Any CPU
-		{6C176B13-0937-4211-9E9D-EA94DBAC0240}.Release|x86.ActiveCfg = Release|Any CPU
-		{6C176B13-0937-4211-9E9D-EA94DBAC0240}.Release|x86.Build.0 = Release|Any CPU
+		{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}.Debug|x86.Build.0 = Debug|Any CPU
+		{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}.Release|x86.ActiveCfg = Release|Any CPU
+		{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}.Release|x86.Build.0 = Release|Any CPU
 		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Debug|x86.Build.0 = Debug|Any CPU
 		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Release|x86.ActiveCfg = Release|Any CPU
 		{7D59ED7A-272E-4AEB-BE85-3898DDC82A7E}.Release|x86.Build.0 = Release|Any CPU
-		{B6B36961-0009-4801-A4BD-9F938DA6F696}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B6B36961-0009-4801-A4BD-9F938DA6F696}.Debug|x86.Build.0 = Debug|Any CPU
-		{B6B36961-0009-4801-A4BD-9F938DA6F696}.Release|x86.ActiveCfg = Release|Any CPU
-		{B6B36961-0009-4801-A4BD-9F938DA6F696}.Release|x86.Build.0 = Release|Any CPU
+		{8900B410-4A5E-440D-9FE3-3453F516CC5C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8900B410-4A5E-440D-9FE3-3453F516CC5C}.Debug|x86.Build.0 = Debug|Any CPU
+		{8900B410-4A5E-440D-9FE3-3453F516CC5C}.Release|x86.ActiveCfg = Release|Any CPU
+		{8900B410-4A5E-440D-9FE3-3453F516CC5C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Stprm.CajaFinanciera.UI\Stprm.CajaFinanciera.UI.csproj
