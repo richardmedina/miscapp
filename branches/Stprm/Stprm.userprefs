@@ -2,13 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" ctype="Workbench">
     <Files>
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanListView.cs" Line="11" Column="3" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanListView.cs" Line="1" Column="1" />
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="49" Column="30" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="13" Column="2" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="Stprm.CajaFinanciera" expanded="True">
             <Node name="Stprm.CajaFinanciera.Data" expanded="True">
               <Node name="References" expanded="True" />
@@ -16,6 +16,7 @@
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
               <Node name="Dialogs" expanded="True" />
               <Node name="Widgets" expanded="True" />
+              <Node name="MainWindow.cs" selected="True" />
             </Node>
           </Node>
         </State>
