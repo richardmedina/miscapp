@@ -27,7 +27,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			_entry_firstname = new EditableLabelButton ();
 			_entry_middlename = new EditableLabelButton ();
 			_entry_lastname = new EditableLabelButton ();
-			_button_borndate = new DateTimeButton (new DateTime (1970, 1, 1));
+			_button_borndate = new DateTimeButton (new DateTime (0001, 1, 1));
 			
 			hbox.PackStart (Factory.Label ("Nombre(s) :", 100, Justification.Right), false, false, 0);
 			hbox.PackStart (_entry_firstname);
@@ -48,7 +48,6 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			hbox.PackStart (_button_borndate);
 			VBox.PackStart (hbox, false, false, 0);
 			
-			
 			VBox.ShowAll ();
 			
 			AddButton (Stock.Cancel, ResponseType.Cancel);
@@ -57,6 +56,11 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		public void UpdateFromEmployee (Employee employee)
 		{
+			Console.WriteLine (employee);
+			_entry_id.EditableLabel.Text = employee.Id;
+			_entry_firstname.EditableLabel.Text = employee.FirstName;
+			_entry_middlename.EditableLabel.Text = employee.MiddleName;
+			_entry_lastname.EditableLabel.Text = employee.LastName;
 		}
 	}
 }

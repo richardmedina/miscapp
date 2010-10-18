@@ -6,18 +6,32 @@ using Stprm.CajaFinanciera.UI.Dialogs;
 
 public partial class MainWindow : Gtk.Window
 {
-	private EmployeeListView view;
+	private EmployeeListView _view_employees;
+	private LoanListView _view_loans;
+	
+	private Gtk.Notebook _notebook;
 	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
-		view = new EmployeeListView ();
+		_view_employees = new EmployeeListView ();
+		_view_loans = new  LoanListView ();
+		
 		WindowPosition = Gtk.WindowPosition.Center;
+		
 		Build ();
 			
 		Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow ();
-		scroll.Add (view);
+		scroll.Add (_view_employees);
 		
-		_main_container.Add (scroll);
+		_notebook = new Notebook ();
+		_notebook.AppendPage (scroll,  new Label ("Trabajadores"));
+		
+		scroll = new ScrolledWindow ();
+		scroll.Add (_view_loans);
+		
+		_notebook.AppendPage (scroll, new Label ("Préstamos"));
+		
+		_main_container.Add (_notebook);
 		
 		Resize (640, 480);
 		ShowAll ();
@@ -38,7 +52,7 @@ public partial class MainWindow : Gtk.Window
 		using (Database db = Database.CreateStprmConnection ())
 		{
 			foreach (Employee emp in Employee.GetStartingWith (db, string.Empty))
-			         view.Add (emp);
+			         _view_employees.Add (emp);
 		}
 	}
 

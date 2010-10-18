@@ -9,6 +9,8 @@ namespace Stprm.CajaFinanciera.Data
 	public class Employee : Record
 	{
 		private string _id;
+		private int _internalid;
+		
 		private string _firstname;
 		private string _middlename;
 		private string _lastname;
@@ -61,6 +63,8 @@ namespace Stprm.CajaFinanciera.Data
 		
 		protected void fill_from_reader (IDataReader reader)
 		{
+				if (!int.TryParse (reader ["tra_id"].ToString (), out _internalid))
+			    	InternalId = 0;
 				Id = reader ["tra_ficha"].ToString ();
 				FirstName = reader ["tra_nombre"].ToString ();
 				MiddleName = reader ["tra_apepaterno"].ToString ();
@@ -72,6 +76,20 @@ namespace Stprm.CajaFinanciera.Data
 					LastPayDate = DateTime.MinValue;
 			
 				Category = (string) reader ["cat_id"];
+		}
+		
+		public override string ToString ()
+		{
+			return string.Format("[EmployeeDialog].InternalId = {0}, FirstName = {1}, MiddleName = {2}, LastName = {3}",
+			                     InternalId, FirstName, MiddleName, LastName);
+		}
+		
+		public int InternalId {
+			get { return _internalid; }
+			set { 
+				_internalid = value; 
+				OnModified ();
+			}
 		}
 		
 		public string Id {

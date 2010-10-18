@@ -73,6 +73,7 @@
     <Compile Include="Dialogs\EmployeeDialog.cs" />
     <Compile Include="Dialogs\CustomDialog.cs" />
     <Compile Include="Widgets\DateTimeButton.cs" />
+    <Compile Include="Widgets\LoanListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
@@ -85,11 +86,11 @@
       <Name>Stprm.CajaFinanciera.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\RickiLib\RickiLib.Types\RickiLib.Types.csproj">
-      <Project>{6C176B13-0937-4211-9E9D-EA94DBAC0240}</Project>
+      <Project>{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}</Project>
       <Name>RickiLib.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\RickiLib\RickiLib.Widgets\RickiLib.Widgets.csproj">
-      <Project>{B6B36961-0009-4801-A4BD-9F938DA6F696}</Project>
+      <Project>{8900B410-4A5E-440D-9FE3-3453F516CC5C}</Project>
       <Name>RickiLib.Widgets</Name>
     </ProjectReference>
   </ItemGroup>

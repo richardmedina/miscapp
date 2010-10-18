@@ -57,7 +57,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			set { 
 				_datetime = value;
 				Label = string.Format ("{0} de {1} de {2}",
-				                       Date.Day, _months [Date.Month], Date.Year);
+				                       Date.Day, _months [Date.Month -1], Date.Year);
 			}
 		}
 	}

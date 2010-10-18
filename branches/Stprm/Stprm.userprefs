@@ -1,22 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/EmployeeDialog.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" ctype="Workbench">
     <Files>
-      <File FileName="Stprm.CajaFinanciera/RickiLib/RickiLib.Types/ModuleChooser.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/RickiLib/RickiLib.Widgets/IconModuleChooser.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/RickiLib/RickiLib.Widgets/EditableLabel.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="79" Column="30" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Employee.cs" Line="71" Column="71" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/EmployeeDialog.cs" Line="48" Column="38" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/CustomDialog.cs" Line="14" Column="21" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/DateTimeButton.cs" Line="40" Column="3" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanListView.cs" Line="11" Column="3" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="49" Column="30" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="13" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True" selected="True">
           <Node name="Stprm.CajaFinanciera" expanded="True">
-            <Node name="RickiLib.Widgets" expanded="True" />
-            <Node name="Stprm.CajaFinanciera.Data" expanded="True" />
+            <Node name="Stprm.CajaFinanciera.Data" expanded="True">
+              <Node name="References" expanded="True" />
+            </Node>
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
               <Node name="Dialogs" expanded="True" />
               <Node name="Widgets" expanded="True" />
@@ -31,9 +27,6 @@
         <State>
           <Value>reader ["tra_fechaultimopago"].ToString ()</Value>
         </State>
-      </Pad>
-      <Pad Id="ConnectionManagerPad">
-        <State selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
