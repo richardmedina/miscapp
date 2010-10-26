@@ -1,0 +1,7 @@
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\bin\Debug\Stprm.DataEx.dll
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\bin\Debug\Stprm.DataEx.pdb
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\bin\Debug\Stprm.Data.dll
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\bin\Debug\Stprm.Data.pdb
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\obj\Debug\Stprm.DataEx.dll
+C:\Users\Richard\Documents\svn\Stprm\Stprm.DataEx\obj\Debug\Stprm.DataEx.pdb
