@@ -15,6 +15,8 @@ namespace Stprm.CajaFinanciera.Data
 		private string _source;
 		private string _userid;
 		private string _password;
+		
+		private UserCredential _user_credential;
 
 		public Database(string hostname, string userid, string password, string source)
 		{
@@ -38,6 +40,7 @@ namespace Stprm.CajaFinanciera.Data
 
 		public bool Open()
 		{
+			Console.WriteLine ("Connecting...");
 			string connection_string = string.Format("Server={0};UID={1};PWD={2};Database={3}; Connection Timeout=15;Allow Zero Datetime=true",
 				Hostname, UserId, Password, Source);
 
@@ -50,6 +53,8 @@ namespace Stprm.CajaFinanciera.Data
 				Console.WriteLine("Exception Connecting: {0}", exception);
 				return false;
 			}
+			
+			Console.WriteLine ("Connected!");
 
 			return true;
 		}
@@ -101,6 +106,11 @@ namespace Stprm.CajaFinanciera.Data
 		public string Source
 		{
 			get { return _source; }
+		}
+		
+		public UserCredential UserCredential {
+			get { return _user_credential; }
+			set { _user_credential = value; }
 		}
 
 		#region IDisposable Members

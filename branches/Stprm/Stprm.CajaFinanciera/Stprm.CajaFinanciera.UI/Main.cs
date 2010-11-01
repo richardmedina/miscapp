@@ -9,8 +9,10 @@ namespace Stprm.CajaFinanciera.UI
 		public static void Main (string[] args)
 		{
 			Application.Init ();
+			Globals.Db = Database.CreateStprmConnection ();
 			MainWindow win = new MainWindow ();
-			win.Show ();
+			Globals.MainWindow = win;
+			win.ShowAll ();
 			Application.Run ();
 		}
 	}
