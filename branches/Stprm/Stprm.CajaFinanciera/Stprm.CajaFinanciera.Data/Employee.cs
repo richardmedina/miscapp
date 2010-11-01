@@ -146,6 +146,6 @@ namespace Stprm.CajaFinanciera.Data
 				_category = value; 
 				OnModified (); 
 			}
-		}
+		}		
 	}
 }

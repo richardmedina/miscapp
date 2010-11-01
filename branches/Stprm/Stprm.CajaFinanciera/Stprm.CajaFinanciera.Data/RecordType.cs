@@ -7,6 +7,10 @@ namespace Stprm.CajaFinanciera.Data
 
 	public enum RecordType
 	{
-		Employee
+		Employee,
+		Country,
+		Category,
+		Loan,
+		UserCredential
 	}
 }

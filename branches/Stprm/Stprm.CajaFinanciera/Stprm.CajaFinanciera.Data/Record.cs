@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,6 +44,39 @@ namespace Stprm.CajaFinanciera.Data
 		public virtual bool Exists()
 		{
 			throw new NotImplementedException();
+		}
+		
+		public virtual void FillFromReader (IDataReader reader)
+		{
+		}
+		
+		
+		// gets an array for special fields of each record
+		public string [] GetRecordUpdateFields ()
+		{
+			string [] fields = new string [0];
+			
+			switch (Type) {
+				case RecordType.Category:
+					fields = new string [] {"categorias", "cat_creadopor", "cat_creadofec", "cat_modifipor", "cat_modififec"};
+				break;
+				
+				case RecordType.Employee:
+					fields =new string [] {"trabajadores", "tra_creadopor", "tra_creadofec", "tra_modifipor", "tra_modififec"};
+				break;
+			}
+			
+			return fields;
+		}
+		
+		public virtual void SaveSpecialRecordInfo (int createdby_id, DateTime createdby_date, int modifyby_id, DateTime modifyby_date)
+		{
+			string [] fields = GetRecordUpdateFields ();
+			
+			if (createdby_id != 0) {
+				/*Db.NonQuery ("UPDATE {0} SET {1}={2}, {3}={4}",
+				             fields [0], fields[1], */
+			}
 		}
 		
 		protected virtual void OnModified ()

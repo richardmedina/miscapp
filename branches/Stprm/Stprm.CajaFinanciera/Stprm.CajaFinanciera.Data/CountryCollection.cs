@@ -1,16 +1,17 @@
 
 using System;
+using System.Data;
 using System.Collections.Generic;
 
 namespace Stprm.CajaFinanciera.Data
 {
 
 
-	public class EmployeeCollection : List<Employee>
+	public class CountryCollection : List <Country>
 	{
 
-		public EmployeeCollection ()
+		public CountryCollection ()
 		{
-		}		
+		}
 	}
 }

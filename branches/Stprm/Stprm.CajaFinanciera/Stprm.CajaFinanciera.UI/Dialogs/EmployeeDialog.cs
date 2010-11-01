@@ -12,42 +12,26 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 
 	public class EmployeeDialog : CustomDialog
 	{
-		private EditableLabelButton _entry_id;
-		private EditableLabelButton _entry_firstname;
-		private EditableLabelButton _entry_middlename;
-		private EditableLabelButton _entry_lastname;
-		private DateTimeButton _button_borndate;
+		private Gtk.Notebook _notebook;
+		private EmployeePersonalDataWidget _emp_personaldata;
+		private EmployeeAddressDataWidget _emp_addrdata;
+		private EmployeeLoanWidget _emp_loans;
 		
 		
 		public EmployeeDialog ()
 		{
-			Gtk.HBox hbox = new Gtk.HBox (false, 5);
+			Title = "Información de Empleado";
 			
-			_entry_id = new EditableLabelButton ();
-			_entry_firstname = new EditableLabelButton ();
-			_entry_middlename = new EditableLabelButton ();
-			_entry_lastname = new EditableLabelButton ();
-			_button_borndate = new DateTimeButton (new DateTime (0001, 1, 1));
+			_notebook = new Notebook ();
+			_emp_personaldata = new EmployeePersonalDataWidget ();
+			_emp_addrdata = new EmployeeAddressDataWidget ();
+			_emp_loans = new EmployeeLoanWidget ();
 			
-			hbox.PackStart (Factory.Label ("Nombre(s) :", 100, Justification.Right), false, false, 0);
-			hbox.PackStart (_entry_firstname);
-			VBox.PackStart (hbox, false, false, 0);
+			_notebook.AppendPage (_emp_personaldata, new Label ("Datos Personales"));
+			_notebook.AppendPage (_emp_addrdata, new Label ("Dirección"));
+			_notebook.AppendPage (_emp_loans, new Label ("Préstamos"));
 			
-			hbox = new HBox (false, 5);
-			hbox.PackStart (Factory.Label ("Ap.Paterno :", 100, Justification.Right), false, false, 0);
-			hbox.PackStart (_entry_middlename);
-			VBox.PackStart (hbox, false, false, 0);
-			
-			hbox = new HBox (false, 5);
-			hbox.PackStart (Factory.Label ("Ap.Materno :", 100, Justification.Right), false, false, 0);
-			hbox.PackStart (_entry_lastname);
-			VBox.PackStart (hbox, false, false, 0);
-			
-			hbox = new HBox (false, 5);
-			hbox.PackStart (Factory.Label ("Fec.Nac :", 100, Justification.Right), false, false, 0);
-			hbox.PackStart (_button_borndate);
-			VBox.PackStart (hbox, false, false, 0);
-			
+			VBox.PackStart (_notebook);
 			VBox.ShowAll ();
 			
 			AddButton (Stock.Cancel, ResponseType.Cancel);
@@ -56,11 +40,8 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		public void UpdateFromEmployee (Employee employee)
 		{
-			Console.WriteLine (employee);
-			_entry_id.EditableLabel.Text = employee.Id;
-			_entry_firstname.EditableLabel.Text = employee.FirstName;
-			_entry_middlename.EditableLabel.Text = employee.MiddleName;
-			_entry_lastname.EditableLabel.Text = employee.LastName;
+			_emp_personaldata.UpdateFromEmployee (employee);	
+			_emp_loans.UpdateFromEmployee (employee);
 		}
 	}
 }
