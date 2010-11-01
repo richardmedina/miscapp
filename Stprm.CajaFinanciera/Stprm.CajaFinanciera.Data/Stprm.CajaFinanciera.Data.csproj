@@ -45,6 +45,11 @@
     <Compile Include="Record.cs" />
     <Compile Include="DatabaseUser.cs" />
     <Compile Include="EmployeeCollection.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="CountryCollection.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="UserCredential.cs" />
+    <Compile Include="Loan.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

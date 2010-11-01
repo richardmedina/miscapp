@@ -36,6 +36,12 @@ public partial class MainWindow {
     
     private Gtk.Statusbar statusbar;
     
+    private Gtk.EventBox _eb_msg;
+    
+    private Gtk.Label _lbl_msg;
+    
+    private Gtk.ProgressBar _prg_progress;
+    
     protected virtual void Build() {
         Stetic.Gui.Initialize(this);
         // Widget MainWindow
@@ -90,17 +96,37 @@ public partial class MainWindow {
         this.statusbar = new Gtk.Statusbar();
         this.statusbar.Name = "statusbar";
         this.statusbar.Spacing = 6;
+        // Container child statusbar.Gtk.Box+BoxChild
+        this._eb_msg = new Gtk.EventBox();
+        this._eb_msg.Name = "_eb_msg";
+        // Container child _eb_msg.Gtk.Container+ContainerChild
+        this._lbl_msg = new Gtk.Label();
+        this._lbl_msg.Name = "_lbl_msg";
+        this._eb_msg.Add(this._lbl_msg);
+        this.statusbar.Add(this._eb_msg);
+        Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.statusbar[this._eb_msg]));
+        w5.PackType = ((Gtk.PackType)(1));
+        w5.Position = 1;
+        w5.Expand = false;
+        // Container child statusbar.Gtk.Box+BoxChild
+        this._prg_progress = new Gtk.ProgressBar();
+        this._prg_progress.Name = "_prg_progress";
+        this.statusbar.Add(this._prg_progress);
+        Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.statusbar[this._prg_progress]));
+        w6.PackType = ((Gtk.PackType)(1));
+        w6.Position = 2;
+        w6.Expand = false;
         this.vbox1.Add(this.statusbar);
-        Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.vbox1[this.statusbar]));
-        w4.Position = 2;
-        w4.Expand = false;
-        w4.Fill = false;
+        Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox1[this.statusbar]));
+        w7.Position = 2;
+        w7.Expand = false;
+        w7.Fill = false;
         this.Add(this.vbox1);
         if ((this.Child != null)) {
             this.Child.ShowAll();
         }
-        this.DefaultWidth = 442;
-        this.DefaultHeight = 300;
+        this.DefaultWidth = 433;
+        this.DefaultHeight = 333;
         this.Show();
         this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
         this.quitAction.Activated += new System.EventHandler(this.OnQuitActionActivated);
