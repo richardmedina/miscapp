@@ -1,15 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanDetailsWidget.cs" ctype="Workbench">
     <Files>
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="1" Column="1" />
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Employee.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeLoanWidget.cs" Line="29" Column="24" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeLoanWidget.cs" Line="1" Column="1" />
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/EmployeeDialog.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="111" Column="22" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Globals.cs" Line="11" Column="39" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeeListView.cs" Line="116" Column="39" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Globals.cs" Line="1" Column="1" />
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Main.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeePersonalDataWidget.cs" Line="67" Column="48" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/EmployeePersonalDataWidget.cs" Line="1" Column="1" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanResumeWidget.cs" Line="1" Column="1" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/LoanDetailsWidget.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,9 +20,7 @@
             <Node name="Stprm.CajaFinanciera.Data" expanded="True" />
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
               <Node name="Dialogs" expanded="True" />
-              <Node name="Widgets" expanded="True">
-                <Node name="EmployeeListView.cs" selected="True" />
-              </Node>
+              <Node name="Widgets" expanded="True" selected="True" />
             </Node>
           </Node>
         </State>
