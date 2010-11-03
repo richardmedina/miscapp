@@ -80,6 +80,8 @@
     <Compile Include="Widgets\DataSetView.cs" />
     <Compile Include="Widgets\EmployeeLoanWidget.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Widgets\LoanResumeWidget.cs" />
+    <Compile Include="Widgets\LoanDetailsWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
