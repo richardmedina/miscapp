@@ -15,21 +15,28 @@ namespace Stprm.DataEx
         {
         }
 
+        public new bool Exists()
+        {
+            EmployeeEx employee = new EmployeeEx(Db);
+            employee.Id = Id;
+
+            return employee.Update();
+        }
+
         public new bool Save()
         {
             bool result = false;
 
             if (!Exists())
             {
-                Db.NonQuery("INSERT INTO RR_CO_EMPLE (FICHA,NOM_EMPLE, NOMBRE, APE_PAT, APE_MAT) VALUES ({0}, '{1}', '{2}', '{3}', '{4}')",
-                    Id.ToString ("000000"), GetFullName(), FirstName, MiddleName, LastName);
-
-                Db.NonQuery("INSERT INTO RR_DERECHOHABIENCIA (FICHA, NUM_FAM, REGIMEN_CONT, REGIMEN_TIT, NOMBRES, AP_PATERNO, AP_PATERNO, NOM_NACIO)",
-                    Id, 0, DataMisc.ContractualArrangementToString(ContractualArrangement), DataMisc.ContractualArrangementToString(ContractualArrangement), 
-                    FirstName, MiddleName, LastName, "-1");
+                string arra = ContractualArrangement == Data.ContractualArrangement.Plant ? "PS" : "TS";
 
 
+                Db.NonQuery("exec sp_AgregarTrabajador '{0}', '{1}', '{2}', '{3}', '{4}'",
+                    Id.ToString("000000"), FirstName, MiddleName, LastName, arra);
 
+
+                result = true;
             }
 
             return result;

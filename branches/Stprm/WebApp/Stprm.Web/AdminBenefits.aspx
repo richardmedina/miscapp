@@ -26,7 +26,7 @@ Tipo apoyo: <ajax:ComboBox runat="server" ID="_cmb_apoyos" />
 </asp:Panel>
 
 <ajax:ModalPopupExtender ID="ModalPopupExtender1" TargetControlID="_btn_popup" PopupControlID="_panel" OkControlID="_btn_popup_close" runat="server" RepositionMode="RepositionOnWindowResizeAndScroll" />
-</ContentTemplate>
+</ContentTemplate>  
 </asp:UpdatePanel>
 
 <ajax:UpdatePanelAnimationExtender
@@ -49,6 +49,5 @@ Tipo apoyo: <ajax:ComboBox runat="server" ID="_cmb_apoyos" />
             </OnUpdated>
         </Animations>
 </ajax:UpdatePanelAnimationExtender>
-
 </asp:Content>
 

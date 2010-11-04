@@ -72,7 +72,10 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="AdminBenefits.aspx" />
     <Content Include="EmployeeInfo.ascx" />
+    <Content Include="EmployeeNew.aspx" />
     <Content Include="EmployeeSearch.aspx" />
+    <Content Include="EventList.ascx" />
+    <Content Include="Events.aspx" />
     <Content Include="IdSearchControl.ascx" />
     <Content Include="javascript\functions.js" />
     <Content Include="Relations.aspx" />
@@ -150,12 +153,33 @@
     <Compile Include="EmployeeInfo.ascx.designer.cs">
       <DependentUpon>EmployeeInfo.ascx</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeNew.aspx.cs">
+      <DependentUpon>EmployeeNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmployeeNew.aspx.designer.cs">
+      <DependentUpon>EmployeeNew.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeSearch.aspx.cs">
       <DependentUpon>EmployeeSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EmployeeSearch.aspx.designer.cs">
       <DependentUpon>EmployeeSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventList.ascx.cs">
+      <DependentUpon>EventList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EventList.ascx.designer.cs">
+      <DependentUpon>EventList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
