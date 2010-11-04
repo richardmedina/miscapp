@@ -46,11 +46,13 @@
     <Compile Include="BenefitEx.cs" />
     <Compile Include="Concept.cs" />
     <Compile Include="ConceptCollection.cs" />
+    <Compile Include="DatabaseEx.cs" />
     <Compile Include="DatabaseOperation.cs" />
     <Compile Include="EmployeeEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordEx.cs" />
     <Compile Include="RecordTypeEx.cs" />
+    <Compile Include="UserDataEx.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -69,6 +69,20 @@ namespace Stprm.Web
         {
         }
 
+        public TextBox TxtId
+        {
+            get { return _txt_id; }
+        }
+
+        public Label LabelMsg
+        {
+            get { return _lbl_msg; }
+        }
+
+        public Button ButtonOk
+        {
+            get { return _btn_search; }
+        }
 
         public event EmployeeEventHandler SearchResultEvent
         {
