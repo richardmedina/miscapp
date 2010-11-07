@@ -49,8 +49,8 @@
                 <td>Situacion Contractual</td>
                 <td>
                 <ajax:ComboBox runat="server" ID="_cmb_arrangement"  DropDownStyle="DropDownList">
+                     <asp:ListItem Text="Transitorio" Value="trans" />
                     <asp:ListItem Text="Planta" Value="plant" />
-                    <asp:ListItem Text="Transitorio" Value="trans" />
                 </ajax:ComboBox>
                 </td>
             </tr>
