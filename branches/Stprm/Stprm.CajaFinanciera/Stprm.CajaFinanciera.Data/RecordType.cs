@@ -9,8 +9,11 @@ namespace Stprm.CajaFinanciera.Data
 	{
 		Employee,
 		Country,
-		Category,
+		Categoria,
 		Loan,
-		UserCredential
+		UserCredential,
+		Ahorro,
+		CuentaBancaria,
+		PlazoPago
 	}
 }

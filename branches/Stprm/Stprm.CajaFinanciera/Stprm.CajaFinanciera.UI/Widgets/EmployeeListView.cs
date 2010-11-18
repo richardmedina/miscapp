@@ -50,37 +50,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				columns [i].SortColumnId = i+1;
 				
 				columns [i].Reorderable = true;
-				/*
-				columns [i].Clicked += delegate(object sender, EventArgs e) {
-					
-					TreeViewColumn col = (TreeViewColumn) sender;
-					Console.WriteLine ("Sort : {0}", col.SortColumnId);
-					
-					//col.SortIndicator = true;
-					//col.SortOrder = SortType.Ascending;
-					_store.SetSortColumnId (col.SortColumnId, SortType.Descending);
-					//_store.SetSortColumnId (col.SortColumnId, SortType.Ascending);
-				};
-				*/
-				/*
-				columns [i].Clicked += delegate(object sender, EventArgs e) {
-					TreeViewColumn column = (TreeViewColumn) sender;
-					int sort_id;
-					SortType sort_type;
-					
-					if (_store.GetSortColumnId (out sort_id, out sort_type)) {
-						if (sort_id == column.SortColumnId) {
-							if (sort_type == SortType.Ascending)
-								sort_type = SortType.Descending;
-							else
-								sort_type = SortType.Ascending;
-							_store.SetSortColumnId (sort_id, sort_type);
-						}
-						else
-							_store.SetSortColumnId (column.SortColumnId, SortType.Ascending);
-					} else _store.SetSortColumnId (column.SortColumnId, SortType.Ascending);
-				};
-				*/
+				
 				if (i == 2 || i == 3) // Balance
 					renders [i].Xalign = 1f;
 			}

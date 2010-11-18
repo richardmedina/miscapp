@@ -10,12 +10,12 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
-	public class EmployeePersonalDataWidget : Gtk.VBox
+	public class EmployeePersonalDataWidget : CustomVBox
 	{
-		private EditableLabelButton _entry_id;
-		private EditableLabelButton _entry_firstname;
-		private EditableLabelButton _entry_middlename;
-		private EditableLabelButton _entry_lastname;
+		private Entry _entry_id;
+		private Entry _entry_firstname;
+		private Entry _entry_middlename;
+		private Entry _entry_lastname;
 		private DateTimeButton _button_borndate;
 		
 		private Gtk.ComboBox _cmb_category;
@@ -24,14 +24,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private Gtk.ComboBox _cmb_status;
 		private string [] _emp_status = {"Alta", "Baja"};
 		
-		public EmployeePersonalDataWidget () : base (false, 5)
+		public EmployeePersonalDataWidget ()
 		{
 			Gtk.HBox hbox = new Gtk.HBox (false, 5);
 			
-			_entry_id = new EditableLabelButton ();
-			_entry_firstname = new EditableLabelButton ();
-			_entry_middlename = new EditableLabelButton ();
-			_entry_lastname = new EditableLabelButton ();
+			_entry_id = new Entry ();
+			_entry_firstname = new Entry ();
+			_entry_middlename = new Entry ();
+			_entry_lastname = new Entry ();
 			_button_borndate = new DateTimeButton (new DateTime (0001, 1, 1));
 			
 			_cmb_category = new ComboBox (_emp_categories);
@@ -73,10 +73,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public void UpdateFromEmployee (Employee employee)
 		{
 			Console.WriteLine (employee);
-			_entry_id.EditableLabel.Text = employee.Id;
-			_entry_firstname.EditableLabel.Text = employee.FirstName;
-			_entry_middlename.EditableLabel.Text = employee.MiddleName;
-			_entry_lastname.EditableLabel.Text = employee.LastName;
+			_entry_id.Text = employee.Id;
+			_entry_firstname.Text = employee.FirstName;
+			_entry_middlename.Text = employee.MiddleName;
+			_entry_lastname.Text = employee.LastName;
 		}
 	}
 }

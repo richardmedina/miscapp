@@ -45,6 +45,11 @@ namespace Stprm.CajaFinanciera.Data
 			return employees;
 		}
 		
+		public static IDataAdapter GetCollectionInAdapter (Database db)
+		{
+			return 	db.QueryToAdapter ("select tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre from trabajadores order by ficha asc");
+		}
+		
 		public override bool Update ()
 		{
 			bool result = false;
@@ -94,7 +99,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public string Id {
 			get { return _id; }
-			internal set { 
+			set { 
 				_id = value; 
 				OnModified ();
 			}
