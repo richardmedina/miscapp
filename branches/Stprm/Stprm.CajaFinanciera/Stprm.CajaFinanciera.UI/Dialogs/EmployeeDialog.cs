@@ -20,7 +20,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		public EmployeeDialog ()
 		{
-			Title = "Información de Empleado";
+			Title = Globals.FormatWindowTitle ("Información de Empleado");
 			
 			_notebook = new Notebook ();
 			_emp_personaldata = new EmployeePersonalDataWidget ();
@@ -32,9 +32,8 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			_notebook.AppendPage (_emp_loans, new Label ("Préstamos"));
 			
 			VBox.PackStart (_notebook);
-			VBox.ShowAll ();
 			
-			AddButton (Stock.Cancel, ResponseType.Cancel);
+			VBox.ShowAll ();AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		

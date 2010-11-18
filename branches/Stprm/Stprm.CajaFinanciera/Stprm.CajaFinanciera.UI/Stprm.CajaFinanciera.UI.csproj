@@ -82,6 +82,28 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Widgets\LoanResumeWidget.cs" />
     <Compile Include="Widgets\LoanDetailsWidget.cs" />
+    <Compile Include="Widgets\AhorroListView.cs" />
+    <Compile Include="Widgets\MainToolbar.cs" />
+    <Compile Include="Widgets\CuentaBancariaCombo.cs" />
+    <Compile Include="Widgets\CuentaBancariaChooser.cs" />
+    <Compile Include="Dialogs\MultiPagedDialog.cs" />
+    <Compile Include="Widgets\Tab.cs" />
+    <Compile Include="Widgets\TabPageCollection.cs" />
+    <Compile Include="Widgets\TabPage.cs" />
+    <Compile Include="Widgets\AhorroDetallesWidget.cs" />
+    <Compile Include="Widgets\CategoriaCombo.cs" />
+    <Compile Include="Dialogs\AhorroDialog.cs" />
+    <Compile Include="Widgets\EmployeeSearchView.cs" />
+    <Compile Include="Dialogs\EmployeeSearchDialog.cs" />
+    <Compile Include="Widgets\TrabajadoresCriteriosMenu.cs" />
+    <Compile Include="Widgets\EmployeeSearchWidget.cs" />
+    <Compile Include="Widgets\PlazoListView.cs" />
+    <Compile Include="Dialogs\PlazosDialog.cs" />
+    <Compile Include="Widgets\ImportesWidget.cs" />
+    <Compile Include="Widgets\CustomVBox.cs" />
+    <Compile Include="Widgets\OperacionFinancieraEstadoCombo.cs" />
+    <Compile Include="Dialogs\PrestamoDialog.cs" />
+    <Compile Include="Widgets\PrestamoDetallesWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
