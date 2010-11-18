@@ -57,7 +57,7 @@ namespace Stprm.CajaFinanciera.Data
 			string [] fields = new string [0];
 			
 			switch (Type) {
-				case RecordType.Category:
+				case RecordType.Categoria:
 					fields = new string [] {"categorias", "cat_creadopor", "cat_creadofec", "cat_modifipor", "cat_modififec"};
 				break;
 				
@@ -71,7 +71,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public virtual void SaveSpecialRecordInfo (int createdby_id, DateTime createdby_date, int modifyby_id, DateTime modifyby_date)
 		{
-			string [] fields = GetRecordUpdateFields ();
+			//string [] fields = GetRecordUpdateFields ();
 			
 			if (createdby_id != 0) {
 				/*Db.NonQuery ("UPDATE {0} SET {1}={2}, {3}={4}",

@@ -13,6 +13,14 @@ public partial class MainWindow : Gtk.Window
 {
 	private EmployeeListView _view_employees;
 	private LoanListView _view_loans;
+	private AhorroListView _view_ahorros;
+	
+	private CuentaBancariaChooser _chooser_cuentas;
+	
+	private SearchEntry _searchentry_search;
+	
+	private MainToolbar _toolbar;
+	
 	
 	private Gtk.Notebook _notebook;
 	
@@ -20,14 +28,36 @@ public partial class MainWindow : Gtk.Window
 	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
+		
 		_view_employees = new EmployeeListView ();
-		
 		_view_loans = new  LoanListView ();
+		_view_ahorros = new AhorroListView ();
 		
-		WindowPosition = Gtk.WindowPosition.Center;
+		_chooser_cuentas = new CuentaBancariaChooser ();
+		_chooser_cuentas.Combo.Changed += Handle_chooser_cuentasComboChanged;
+		_searchentry_search = new SearchEntry ();
+		_searchentry_search.Menu = new TrabajadoresCriteriosMenu (null);
+		
+		_toolbar = new MainToolbar ();
+		_toolbar.ButtonNew.Clicked += Handle_toolbarButtonNewClicked;
+		_toolbar.WidthRequest = 200;
+		Resize (800, 600);
 		
 		Build ();
-			
+		
+		Gtk.HBox hbox = new Gtk.HBox (false, 5);
+		hbox.PackStart (Factory.Label ("Cuenta Bancaria:"), false, false, 0);
+		hbox.PackStart (_chooser_cuentas, false, false, 0);
+		
+		_eb_cuentas.Add (hbox);
+		
+		hbox = new HBox (false, 5);
+		hbox.PackStart (Factory.Label ("Filtrar:"), false, false, 0);
+		hbox.PackStart (_searchentry_search, false, false, 0);
+		
+		_eb_search.Add (hbox);
+		_eb_toolbar.Add (_toolbar);
+		
 		Gtk.ScrolledWindow scroll = new Gtk.ScrolledWindow ();
 		scroll.Add (_view_employees);
 		
@@ -39,9 +69,46 @@ public partial class MainWindow : Gtk.Window
 		
 		_notebook.AppendPage (scroll, new Label ("Préstamos"));
 		
+		scroll = new ScrolledWindow ();
+		scroll.Add (_view_ahorros);
+		_notebook.AppendPage (scroll, new Label ("Ahorros"));
+		
+		
+		_notebook.Sensitive = false;
 		_main_container.Add (_notebook);
 		
-		Resize (640, 480);
+		Title = Globals.FormatWindowTitle ("Principal");
+	}
+
+	private void Handle_toolbarButtonNewClicked (object sender, EventArgs e)
+	{
+		Stprm.CajaFinanciera.UI.Dialogs.CustomDialog dialog;	
+		switch (_notebook.Page) {
+			default:
+				dialog = new EmployeeDialog ();
+			break;
+		
+			case 1:
+				dialog = new PrestamoDialog ();
+			break;
+		
+			case 2:
+				dialog = new AhorroDialog ();
+			break;
+		}
+		
+		dialog.Run ();
+		dialog.Destroy ();
+	}
+
+	private void Handle_chooser_cuentasComboChanged (object sender, EventArgs e)
+	{
+		CuentaBancaria cuenta;
+		
+		if (_chooser_cuentas.Combo.GetSelected (out cuenta)) {
+			Globals.CuentaActual = cuenta;
+			_notebook.Sensitive = true;
+		}
 	}
 	
 	public void SetLoading (bool state)
@@ -73,9 +140,28 @@ public partial class MainWindow : Gtk.Window
 	protected override void OnShown ()
 	{
 		base.OnShown ();
-		Present ();
-		SetLoading (false);
-		load_employees ();
+		
+		if (Authenticate ()) { }
+			Present ();		
+			_chooser_cuentas.Combo.Populate (CuentaBancaria.GetCollection (Globals.Db));
+		
+			SetLoading (false);
+			load_employees ();
+		/*} else 
+			Application.Quit ();
+		*/
+	}
+	
+	private bool Authenticate ()
+	{
+		bool result = false;
+		
+		AuthenticationDialog dialog = new AuthenticationDialog();
+		ResponseType response = (ResponseType) dialog.Run ();
+		
+		dialog.Destroy ();
+		
+		return result;
 	}
 	
 	private void load_employees ()
@@ -116,8 +202,20 @@ public partial class MainWindow : Gtk.Window
 					_view_loans.LoadDataSet (ds);	
 					_view_loans.Populate ();
 				});
-					
+				
+				load_ahorros (db);
 			//}).Start ();
+	}
+	
+	private void load_ahorros (Database db)
+	{
+		DataSet ds = new DataSet ();
+		Ahorro.GetAllInAdtapter(db).Fill (ds);
+		
+		Utils.RunOnGtkThread (delegate {
+			_view_ahorros.LoadDataSet (ds);
+			_view_ahorros.Populate ();	
+		});
 	}
 
 	protected virtual void OnQuitActionActivated (object sender, System.EventArgs e)
@@ -134,7 +232,7 @@ public partial class MainWindow : Gtk.Window
 		                                       MessageType.Question, 
 		                                       ButtonsType.YesNo, 
 		                                       false, 
-		                                       "Seguro que deseas salir de la aplicación");
+		                                       "¿Seguro que deseas salir de la aplicación?");
 		
 		ResponseType response = (ResponseType) msg.Run ();
 		msg.Destroy ();

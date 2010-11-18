@@ -9,7 +9,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
-	public class EmployeeAddressDataWidget : Gtk.VBox
+	public class EmployeeAddressDataWidget : CustomVBox
 	{
 
 		private Gtk.Entry _entry_street;
@@ -54,7 +54,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
     		"Yucatán",
     		"Zacatecas" };
 		*/
-		public EmployeeAddressDataWidget () : base (false, 5)
+		public EmployeeAddressDataWidget ()
 		{
 			_entry_street = new Gtk.Entry ();
 			_entry_colony = new Gtk.Entry ();

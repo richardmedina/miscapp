@@ -8,7 +8,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
-	public class EmployeeLoanWidget : Gtk.VBox
+	public class EmployeeLoanWidget : CustomVBox
 	{
 		private DataSetView _view_loans;
 		

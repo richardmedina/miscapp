@@ -5,7 +5,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
-	public class LoanResumeWidget
+	public class LoanResumeWidget : CustomVBox
 	{
 
 		public LoanResumeWidget ()
