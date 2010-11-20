@@ -28,14 +28,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			"Diciembre"
 		};
 		
-		public DateTimeButton () : this (DateTime.Now)
+		public DateTimeButton () : this (DateTime.MinValue)
 		{
+			Label = "...";
+			WidthRequest = 200;
 		}
 		
 		public DateTimeButton (DateTime datetime)
 		{
 			Date = datetime;
 			Relief = ReliefStyle.None;
+			WidthRequest = 200;
 		}
 		
 		protected override void OnClicked ()
