@@ -10,7 +10,7 @@ namespace Stprm.CajaFinanciera.Data
 		Employee,
 		Country,
 		Categoria,
-		Loan,
+		Prestamo,
 		UserCredential,
 		Ahorro,
 		CuentaBancaria,

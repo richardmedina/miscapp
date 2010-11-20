@@ -48,7 +48,6 @@
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
     <Compile Include="UserCredential.cs" />
-    <Compile Include="Loan.cs" />
     <Compile Include="Ahorro.cs" />
     <Compile Include="OperacionFinancieraEstado.cs" />
     <Compile Include="CuentaBancaria.cs" />
@@ -58,6 +57,8 @@
     <Compile Include="PlazoPagoCollection.cs" />
     <Compile Include="CategoriaCollection.cs" />
     <Compile Include="DataMisc.cs" />
+    <Compile Include="Prestamo.cs" />
+    <Compile Include="PrestamoCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

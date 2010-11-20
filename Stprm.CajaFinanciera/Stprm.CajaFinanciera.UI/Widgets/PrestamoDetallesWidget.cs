@@ -69,7 +69,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			_cmb_estado = new OperacionFinancieraEstadoCombo ();
 			
-			PackStart (Factory.Label ("<b>Detalles del ahorro</b>", 130, Justification.Left), false, false, 0);
+			PackStart (Factory.Label ("<b>Detalles del préstamo</b>", 130, Justification.Left), false, false, 0);
 			PackStart (new HSeparator (), false, false, 0);
 			
 			Gtk.HBox hbox = new Gtk.HBox (false, 5);
@@ -126,6 +126,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (Factory.Label ("<b>Importe desglosado</b>", 100, Justification.Left), false, false, 0);
 			PackStart (new HSeparator (), false, false, 0);
 			PackStart (_iw_importes);
+			
+		}
+		
+		public void UpdateFromPrestamo ()
+		{
 			
 		}
 

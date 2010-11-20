@@ -14,6 +14,7 @@ namespace Stprm.CajaFinanciera.Data
 		 * ******/
 		
 		public static readonly string TableEmployees = "trabajadores";
+		public static readonly string TablePrestamos = "prestamos";
 
 		private Database _database;
 
@@ -83,6 +84,44 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			_modified (this, EventArgs.Empty);	
 		}
+		
+		protected static string GetString (IDataReader reader, string field_name)
+		{
+			Console.WriteLine ("String. {0}...", field_name);
+			return reader.IsDBNull (reader.GetOrdinal (field_name)) ? string.Empty : reader.GetString (reader.GetOrdinal (field_name));
+		}
+		
+		protected static DateTime GetDateTime (IDataReader reader, string field_name)
+		{
+			Console.WriteLine ("DateTime. {0}...", field_name);
+			DateTime date = DateTime.MinValue;
+			Console.Write ("Convirtiendo...");
+			try {
+				Console.WriteLine ("Valores : {0}", reader [field_name].ToString () == null ? string.Empty : reader [field_name].ToString ());
+				string date_str = reader [field_name].ToString ();
+				
+				if (!date_str.StartsWith ("0/0/0000"))
+					date = reader.IsDBNull (reader.GetOrdinal (field_name)) ? DateTime.MinValue : reader.GetDateTime (reader.GetOrdinal (field_name));
+			} catch (Exception exception) {	
+				Console.Write ("Excepcion atrapada mientras DateTiem conversion");
+			}
+			
+			Console.WriteLine ("OK");
+			return date;
+		}
+		
+		public static int GetInt32 (IDataReader reader, string field_name)
+		{
+			Console.WriteLine ("Int32. {0}...", field_name);
+			return 	reader.IsDBNull (reader.GetOrdinal (field_name)) ? 0 : reader.GetInt32 (reader.GetOrdinal (field_name));
+		}
+		
+		public static decimal GetDecimal (IDataReader reader, string field_name)
+		{
+			Console.WriteLine ("Decimal. {0}...", field_name);
+			return reader.IsDBNull (reader.GetOrdinal (field_name)) ? 0 : reader.GetDecimal (reader.GetOrdinal (field_name));
+		}
+		
 		
 		private void onModified (object sender, EventArgs args)
 		{
