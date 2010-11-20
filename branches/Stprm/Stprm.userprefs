@@ -1,21 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Record.cs" ctype="Workbench">
     <Files>
       <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/PrestamoDetallesWidget.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/AhorroDetallesWidget.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/PrestamoDialog.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/MainWindow.cs" Line="77" Column="31" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Dialogs/CustomDialog.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/CuentaBancariaCollection.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/CuentaBancaria.cs" Line="1" Column="1" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Prestamo.cs" Line="95" Column="31" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Ahorro.cs" Line="1" Column="1" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/RecordType.cs" Line="1" Column="1" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Record.cs" Line="99" Column="129" />
+      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Main.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="Stprm.CajaFinanciera" expanded="True">
             <Node name="RickiLib.Widgets" expanded="True" />
-            <Node name="Stprm.CajaFinanciera.Data" expanded="True" />
+            <Node name="Stprm.CajaFinanciera.Data" expanded="True">
+              <Node name="Prestamo.cs" selected="True" />
+            </Node>
             <Node name="Stprm.CajaFinanciera.UI" expanded="True">
               <Node name="Dialogs" expanded="True" />
               <Node name="Widgets" expanded="True" />
