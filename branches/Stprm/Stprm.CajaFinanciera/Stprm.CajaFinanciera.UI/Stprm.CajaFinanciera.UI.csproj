@@ -104,6 +104,8 @@
     <Compile Include="Widgets\OperacionFinancieraEstadoCombo.cs" />
     <Compile Include="Dialogs\PrestamoDialog.cs" />
     <Compile Include="Widgets\PrestamoDetallesWidget.cs" />
+    <Compile Include="Widgets\CurrencyEntry.cs" />
+    <Compile Include="Widgets\PrestamoImportesWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />

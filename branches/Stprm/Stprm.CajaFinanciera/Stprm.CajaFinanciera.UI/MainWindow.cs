@@ -157,7 +157,7 @@ public partial class MainWindow : Gtk.Window
 		bool result = false;
 		
 		AuthenticationDialog dialog = new AuthenticationDialog();
-		ResponseType response = (ResponseType) dialog.Run ();
+		dialog.Run ();
 		
 		dialog.Destroy ();
 		
@@ -196,7 +196,7 @@ public partial class MainWindow : Gtk.Window
 				//Database db = (Database) mydb;
 				DataSet ds = new DataSet ();
 			
-				db.QueryToAdapter ("select DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo from prestamos, trabajadores where prestamos.tra_id = trabajadores.tra_id order by Ficha asc").Fill (ds);
+				Prestamo.GetInAdapter (db).Fill (ds);
 				
 				Utils.RunOnGtkThread (delegate {
 					_view_loans.LoadDataSet (ds);	

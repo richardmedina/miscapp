@@ -56,14 +56,6 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			}
 			Model = _store;
 			_store.DefaultSortFunc = sort_func;
-			
-			/*
-			columns [0] = AppendColumn ("Ficha", new CellRendererText (), "text", 1);
-			columns [1] = AppendColumn ("Nombre", new CellRendererText (), "text", 2);
-			columns [2] = AppendColumn ("Saldo", new CellRendererText (), "text", 3);
-			columns [3] = AppendColumn ("Ult.Fecha.Pago", new CellRendererText (), "text", 4);
-			columns [4] = AppendColumn ("Cat", new CellRendererText (), "text", 5);
-			*/
 		}
 		
 		private int sort_func (TreeModel model, TreeIter a, TreeIter b)
