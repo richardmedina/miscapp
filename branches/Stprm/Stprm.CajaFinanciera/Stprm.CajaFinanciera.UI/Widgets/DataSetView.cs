@@ -89,12 +89,12 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		protected override bool OnKeyPressEvent (Gdk.EventKey evnt)
 		{
-			if (evnt.Key == Gdk.Key.Return || evnt.Key == Gdk.Key.KP_Enter)
+			if (evnt.Key == Gdk.Key.Return || evnt.Key == Gdk.Key.KP_Enter) {
 				OnActivated ();
+			}
 			
 			return base.OnKeyPressEvent (evnt);
 		}
-
 		
 		protected override bool OnButtonPressEvent (Gdk.EventButton evnt)
 		{
