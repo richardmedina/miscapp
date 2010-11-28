@@ -37,7 +37,7 @@ namespace Stprm.CajaFinanciera.Data
 			
 			while (reader.Read ()) {
 				Employee employee = new Employee (db);
-				employee.fill_from_reader (reader);
+				employee.FillFromReader (reader);
 				employees.Add (employee);
 			}
 			reader.Close ();
@@ -58,7 +58,7 @@ namespace Stprm.CajaFinanciera.Data
 			                               TableEmployees, Id);
 			
 			if (reader.Read ()) {
-				fill_from_reader (reader);
+				FillFromReader (reader);
 				result = true;
 			}
 			reader.Close ();
@@ -66,7 +66,23 @@ namespace Stprm.CajaFinanciera.Data
 			return result;
 		}
 		
-		protected void fill_from_reader (IDataReader reader)
+		public bool UpdateFromInternalId ()
+		{
+			bool result = false;
+			
+			IDataReader reader = Db.Query ("SELECT * from {0} where tra_id={1}",
+			                               TableEmployees, InternalId);
+			
+			if (reader.Read ()) {
+				FillFromReader (reader);
+				result = true;
+			}
+			reader.Close ();
+			
+			return result;
+		}
+		
+		public override void FillFromReader (IDataReader reader)
 		{
 				if (!int.TryParse (reader ["tra_id"].ToString (), out _internalid))
 			    	InternalId = 0;

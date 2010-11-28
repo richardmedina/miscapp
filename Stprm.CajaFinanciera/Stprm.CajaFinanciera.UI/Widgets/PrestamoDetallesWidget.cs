@@ -32,7 +32,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private CuentaBancariaCombo _cmb_cuenta;
 		private OperacionFinancieraEstadoCombo _cmb_estado;
 		
-		private ImportesWidget _iw_importes;
+		private PrestamoImportesWidget _iw_importes;
 		
 		public PrestamoDetallesWidget ()
 		{
@@ -51,7 +51,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			_label_nombre = Factory.Label ("", 300, Justification.Left);
 			
-			_iw_importes = new ImportesWidget ();
+			_iw_importes = new PrestamoImportesWidget ();
 			
 			_spin_plazo = new SpinButton (0, 1000, 1);
 			_button_plazo = new Button ();
@@ -90,7 +90,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			hbox.PackEnd (Factory.Label ("Último Pago", 100, Justification.Left), false, false, 0);
 			
 			PackStart (hbox, false, false, 0);
-		
+			
 			hbox = new HBox (false, 5);
 			hbox.PackStart (Factory.Label ("Cheque", 100, Justification.Left), false, false, 0);
 			hbox.PackStart (_entry_cheque, false, false, 0);
@@ -125,13 +125,37 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			PackStart (Factory.Label ("<b>Importe desglosado</b>", 100, Justification.Left), false, false, 0);
 			PackStart (new HSeparator (), false, false, 0);
+			
 			PackStart (_iw_importes);
 			
 		}
 		
-		public void UpdateFromPrestamo ()
+		public void UpdateFromPrestamo (Prestamo prestamo)
 		{
+			Employee employee = new Employee (prestamo.Db);
+			employee.InternalId = prestamo.TrabajadorId;
 			
+			
+			if (employee.UpdateFromInternalId ()) {
+				_entry_ficha.Text = employee.Id;
+				SetLabelText (employee.GetFullName ());
+			}
+			
+			_entry_cheque.Text = prestamo.Cheque;
+			_entry_pagare.Text = prestamo.Pagare;
+			_button_fecha.Date = prestamo.Fecha;
+			_spin_plazo.Value = prestamo.NumPagos;
+			_dtb_inicobro.Date = prestamo.FechaIniCobro;
+			
+			//_iw_importes.EntryImporte.Text = (prestamo.Capital + prestamo.Interes).ToString ("C");
+			_iw_importes.UpdateFromPrestamo (prestamo);
+			
+			//_dtb_ultpago.Date = prestamo.
+		}
+		
+		public void SetLabelText (string text)
+		{
+			_label_nombre.Text = string.Format ("\t{0}", text);	
 		}
 
 		private void Handle_button_plazoClicked (object sender, EventArgs e)
@@ -171,7 +195,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_label_nombre.Text = string.Empty;
 			
 			if (employee.Update ()) {
-				_label_nombre.Text = "\t" + employee.GetFullName ();
+				SetLabelText (employee.GetFullName ());
 			}
 		}
 
