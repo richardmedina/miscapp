@@ -21,11 +21,16 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private CurrencyEntry _entry_abono;
 		private CurrencyEntry _entry_saldo;
 		
+		private int _num_pagos = 1;
+		
 		public PrestamoImportesWidget ()
 		{
 			_entry_capital = new CurrencyEntry ();
+			_entry_capital.FocusOutEvent += Handle_entry_capitalFocusOutEvent;
 			_spin_interes = new SpinButton (0, 100, 1);
-			_spin_interes.ChangeValue += Handle_spin_interesChangeValue;
+			//_spin_interes.Changed += Handle_spin_interesChanged;
+			_spin_interes.FocusOutEvent += Handle_spin_interesFocusOutEvent;
+			
 			//_spin_interes.WidthRequest = 200;
 			_entry_interes = new CurrencyEntry ();
 			_entry_total = new CurrencyEntry ();
@@ -54,7 +59,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (hbox, false, false, 0);
 			
 			hbox = new HBox (false, 5);
-			//PackStart (hbox, false, false, 0);
+			
 			hbox.PackStart (Factory.Label ("Abono", 130, Justification.Left), false, false, 0);
 			hbox.PackStart (_entry_abono, false, false, 0);
 			
@@ -66,10 +71,25 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (hbox, false, false, 0);
 			
 		}
-
-		private void Handle_spin_interesChangeValue (object o, ChangeValueArgs args)
+		
+		public void UpdateEntries ()
 		{
 			EntryInteres.Value = ((EntryCapital.Value > 0 ? EntryCapital.Value : 1) / 100) * Convert.ToDecimal (_spin_interes.Value);
+			EntryTotal.Value = EntryTotal.Value + EntryInteres.Value;
+			EntryAbono.Value = EntryTotal.Value / NumeroPagos;
+			Console.WriteLine (NumeroPagos);
+		}
+
+		private void Handle_entry_capitalFocusOutEvent (object o, FocusOutEventArgs args)
+		{
+			UpdateEntries ();
+			//Handle_spin_interesChanged (_spin_interes, EventArgs.Empty);
+		}
+
+		private void Handle_spin_interesFocusOutEvent (object o, FocusOutEventArgs args)
+		{
+			UpdateEntries ();
+			//Handle_spin_interesChanged (o, EventArgs.Empty);
 		}
 		
 		public void UpdateFromPrestamo (Prestamo prestamo)
@@ -104,6 +124,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public CurrencyEntry EntrySaldo {
 			get { return _entry_saldo; }
-		}	
+		}
+		
+		public int NumeroPagos {
+			get { return _num_pagos; }
+			set { _num_pagos = value; }
+		}
 	}
 }

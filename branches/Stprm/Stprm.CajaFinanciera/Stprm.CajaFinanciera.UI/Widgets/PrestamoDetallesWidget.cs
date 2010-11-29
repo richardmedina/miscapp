@@ -54,6 +54,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_iw_importes = new PrestamoImportesWidget ();
 			
 			_spin_plazo = new SpinButton (0, 1000, 1);
+			_spin_plazo.ValueChanged += Handle_spin_plazoChanged;
 			_button_plazo = new Button ();
 			_button_plazo.Relief = ReliefStyle.None;
 			_button_plazo.Image = Image.NewFromIconName (Stock.Find, IconSize.Button);
@@ -129,11 +130,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (_iw_importes);
 			
 		}
+
+		private void Handle_spin_plazoChanged (object sender, EventArgs e)
+		{
+			_iw_importes.NumeroPagos = Convert.ToInt32 (_spin_plazo.Value);
+			_iw_importes.UpdateEntries ();
+		}
 		
 		public void UpdateFromPrestamo (Prestamo prestamo)
 		{
 			Employee employee = new Employee (prestamo.Db);
-			employee.InternalId = prestamo.TrabajadorId;
+			employee.InternalId = prestamo.TrabajadorInternalId;
 			
 			
 			if (employee.UpdateFromInternalId ()) {

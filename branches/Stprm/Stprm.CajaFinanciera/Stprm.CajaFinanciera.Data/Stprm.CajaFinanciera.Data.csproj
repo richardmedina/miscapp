@@ -59,6 +59,7 @@
     <Compile Include="DataMisc.cs" />
     <Compile Include="Prestamo.cs" />
     <Compile Include="PrestamoCollection.cs" />
+    <Compile Include="PrestamoMovimiento.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
