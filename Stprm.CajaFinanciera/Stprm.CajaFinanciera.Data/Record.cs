@@ -15,6 +15,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static readonly string TableEmployees = "trabajadores";
 		public static readonly string TablePrestamos = "prestamos";
+		public static readonly string TablePrestamoMovimientos = "prestamos_mov";
 
 		private Database _database;
 

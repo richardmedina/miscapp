@@ -11,7 +11,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public int Id;
 		public int PlazoId;
-		public int TrabajadorId;
+		public int TrabajadorInternalId;
 		public string Folio;
 		public string FolioOriginal;
 		
@@ -76,6 +76,11 @@ namespace Stprm.CajaFinanciera.Data
 			return result;
 		}
 		
+		public IDataAdapter GetMovimientos ()
+		{
+			return PrestamoMovimiento.GetMovimientosInAdapter (this);	
+		}
+		
 		public static IDataAdapter GetInAdapter (Database db)
 		{
 			return db.QueryToAdapter ("select pre_id as Id, DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo from prestamos, trabajadores where prestamos.tra_id = trabajadores.tra_id order by Ficha asc");
@@ -85,7 +90,7 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			//Id = GetInt32 (reader, "pre_id");
 			PlazoId = GetInt32 (reader, "pla_id");
-			TrabajadorId = GetInt32 (reader, "tra_id");
+			TrabajadorInternalId = GetInt32 (reader, "tra_id");
 			Folio = GetString (reader, "pre_folio");
 			FolioOriginal = GetString (reader, "pre_folio_original");
 			Fecha = GetDateTime (reader, "pre_fecha");
