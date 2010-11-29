@@ -55,7 +55,6 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			EntryDescuento.Value = (prestamo.Capital + prestamo.Interes) / (prestamo.NumPagos > 0 ? prestamo.NumPagos : 1);
 			EntryAbono.Value = prestamo.Abono;
 			EntrySaldo.Value = prestamo.Saldo;
-			
 		}
 		
 		public CurrencyEntry EntryImporte {

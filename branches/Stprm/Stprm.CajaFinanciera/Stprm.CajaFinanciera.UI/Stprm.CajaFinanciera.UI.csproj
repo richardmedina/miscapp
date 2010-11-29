@@ -106,6 +106,7 @@
     <Compile Include="Widgets\PrestamoDetallesWidget.cs" />
     <Compile Include="Widgets\CurrencyEntry.cs" />
     <Compile Include="Widgets\PrestamoImportesWidget.cs" />
+    <Compile Include="Widgets\MovimientosListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />

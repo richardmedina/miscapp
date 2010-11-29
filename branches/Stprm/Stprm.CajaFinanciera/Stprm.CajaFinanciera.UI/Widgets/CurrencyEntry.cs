@@ -45,7 +45,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			double val;
 			
 			if (double.TryParse (Text, out val)) {
-				Text = string.Format ("{0:C}", val);
+				Value = Convert.ToDecimal (val);
+				//Text = string.Format ("{0:C}", val);
 			}
 			
 			return base.OnFocusOutEvent (evnt);
