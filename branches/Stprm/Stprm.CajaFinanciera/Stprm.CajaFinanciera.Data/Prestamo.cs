@@ -76,7 +76,7 @@ namespace Stprm.CajaFinanciera.Data
 			return result;
 		}
 		
-		public IDataAdapter GetMovimientos ()
+		public IDataAdapter GetMovimientosInAdapter ()
 		{
 			return PrestamoMovimiento.GetMovimientosInAdapter (this);	
 		}

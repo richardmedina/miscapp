@@ -125,6 +125,76 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			return false;
 		}
+		
+		private int sort_func (TreeModel model, TreeIter a, TreeIter b)
+		{
+			int sort_id;
+			SortType sort_type;
+			
+			Console.WriteLine ("Sorting...");
+			if (_store.GetSortColumnId (out sort_id, out sort_type)) {
+				string astr = (string) _store.GetValue (a, sort_id);
+				string bstr = (string) _store.GetValue (b, sort_id);
+				
+				if (sort_id == 1)
+					return byInt (astr, bstr) * -1;
+				if (sort_id == 2)
+					return byString (astr, bstr) * -1;
+				if (sort_id == 3)
+					return byCurrency (astr, bstr) * -1;
+				if (sort_id == 4)
+					return byDateTime (astr, bstr) * -1;
+				
+			}
+			
+			return 0;
+		}
+		
+		private int byDateTime (string a, string b)
+		{
+			DateTime adate = DateTime.Parse (a);
+			DateTime bdate = DateTime.Parse (b);
+			
+			if (adate > bdate)
+				return -1;
+			if (bdate > adate)
+				return 1;
+			
+			return 0;
+		}
+		
+		private int byCurrency (string a, string b)
+		{
+			a = a.Replace ("$", string.Empty).Replace ("(", string.Empty).Replace (")", string.Empty).Replace (",", string.Empty);
+			b = b.Replace ("$", string.Empty).Replace ("(", string.Empty).Replace (")", string.Empty).Replace (",", string.Empty);
+			
+			double adouble = double.Parse (a);
+			double bdouble = double.Parse (b);
+			if (adouble == bdouble)
+				return 0;
+			if (adouble > bdouble)
+				return -1;
+			
+			return 1;
+		}
+		
+		private int byString (string a, string b)
+		{
+			return string.Compare (a, b);	
+		}
+		
+		private int byInt (string a, string b)
+		{
+			int aint = int.Parse (a);
+			int bint = int.Parse (b);
+				
+			if (aint == bint)
+				return 0;
+			if (aint > bint)
+				return -1;
+			
+			return 1;
+		}
 				
 		private void onActivated (object sender, EventArgs args)
 		{

@@ -14,7 +14,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 
 		public CurrencyEntry ()
 		{
-			
+			SetProperty ("xalign", new GLib.Value (1));
 		}
 		
 		protected override void OnFocusGrabbed ()

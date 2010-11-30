@@ -29,7 +29,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_entry_capital.FocusOutEvent += Handle_entry_capitalFocusOutEvent;
 			_spin_interes = new SpinButton (0, 100, 1);
 			//_spin_interes.Changed += Handle_spin_interesChanged;
-			_spin_interes.FocusOutEvent += Handle_spin_interesFocusOutEvent;
+			_spin_interes.ValueChanged += Handle_spin_interesValueChanged;
 			
 			//_spin_interes.WidthRequest = 200;
 			_entry_interes = new CurrencyEntry ();
@@ -71,6 +71,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (hbox, false, false, 0);
 			
 		}
+
+		private void Handle_spin_interesValueChanged (object sender, EventArgs e)
+		{
+			UpdateEntries ();
+		}
 		
 		public void UpdateEntries ()
 		{
@@ -84,12 +89,6 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			UpdateEntries ();
 			//Handle_spin_interesChanged (_spin_interes, EventArgs.Empty);
-		}
-
-		private void Handle_spin_interesFocusOutEvent (object o, FocusOutEventArgs args)
-		{
-			UpdateEntries ();
-			//Handle_spin_interesChanged (o, EventArgs.Empty);
 		}
 		
 		public void UpdateFromPrestamo (Prestamo prestamo)
