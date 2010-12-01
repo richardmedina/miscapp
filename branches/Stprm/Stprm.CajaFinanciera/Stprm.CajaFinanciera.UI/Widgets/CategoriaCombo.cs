@@ -25,6 +25,29 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			Model = _model;
 		}
+		
+		public void Populate () 
+		{
+			_model.Clear ();
+			
+			foreach (Categoria categoria in Categoria.GetCollection (Globals.Db)) {
+				_model.AppendValues (categoria, string.Format ("{0} ({1})", categoria.Nombre, categoria.Id));
+			}
+		}
+		
+		public void Select (Categoria categoria)
+		{
+			Gtk.TreeIter iter;
+			
+			if (_model.GetIterFirst (out iter))
+				do {
+					Categoria categoria_actual = (Categoria) _model.GetValue (iter, 0);
+					if (categoria.Id == categoria_actual.Id) {
+						SetActiveIter (iter);
+						break;
+					}
+				} while (_model.IterNext (ref iter));
+		}
 
 		public bool GetSelected (out Categoria categoria)
 		{

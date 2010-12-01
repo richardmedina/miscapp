@@ -1,5 +1,6 @@
 
 using System;
+using System.Data;
 using Gtk;
 
 using Stprm.CajaFinanciera.Data;
@@ -8,7 +9,65 @@ using Stprm.CajaFinanciera.UI.Dialogs;
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
+	public class EmployeeListView : DataSetView
+	{
+		
+		public EmployeeListView ()
+		{
+			RulesHint = true;	
+		}
+		
+		public override void New ()
+		{
+			EmployeeDialog dialog = new EmployeeDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
 
+		public override void Load ()
+		{
+			DataSet ds = new DataSet ();
+			Employee.GetCollectionInAdapter (Globals.Db).Fill (ds);
+			LoadDataSet (ds);
+			Populate ();
+			Columns [0].Visible = false;
+		}
+				
+		public override void EditSelected ()
+		{
+			string [] fields;
+			
+			if (GetSelected (out fields)) {
+				int internal_id;
+				if (int.TryParse (fields [0], out internal_id)) {
+					Employee employee = new Employee (Globals.Db);
+					employee.InternalId = internal_id;
+				
+					if (employee.UpdateFromInternalId ()) {
+						EmployeeDialog dialog = new EmployeeDialog ();
+						dialog.UpdateFromEmployee (employee);
+						if (dialog.Run () == ResponseType.Ok) {
+							Gtk.TreeIter iter;
+							if (Selection.GetSelected (out iter)) {
+									
+							}
+						}
+						dialog.Destroy ();
+					}
+				}
+			}
+		}
+		
+		protected override void OnActivated ()
+		{
+			EditSelected ();
+			
+			base.OnActivated ();
+		}
+
+	}
+	
+	/*
 	public class EmployeeListView : Gtk.TreeView
 	{
 		
@@ -137,7 +196,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				                     employee.GetFullName (),
 				                     employee.Saldo.ToString ("C"),
 				                     employee.LastPayDate.ToString ("dd/MM/yyyy"),
-				                     employee.Category);	
+				                     employee.CategoryId);	
 			}
 		}
 
@@ -163,7 +222,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_store.SetValue (iter, 2, employee.GetFullName ());
 			_store.SetValue (iter, 3, employee.Saldo.ToString ("C"));
 			_store.SetValue (iter, 4, employee.LastPayDate.ToString ("dd/MM/yyyy"));
-			_store.SetValue (iter, 5, employee.Category);
+			_store.SetValue (iter, 5, employee.CategoryId);
 		}
 		
 		public bool Exists (Employee employee)
@@ -203,4 +262,5 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		}
 
 	}
+	*/
 }

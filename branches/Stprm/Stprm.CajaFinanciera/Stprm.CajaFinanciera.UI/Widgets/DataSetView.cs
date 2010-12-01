@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using Gtk;
 
+using Stprm.CajaFinanciera.UI;
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
@@ -10,8 +11,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 	public class DataSetView : Gtk.TreeView
 	{
 		private Gtk.ListStore _store;
-		private Gtk.TreeViewColumn [] _columns;
-		private Gtk.CellRendererText [] _renders;
+		private Gtk.TreeViewColumn [] _columns = new Gtk.TreeViewColumn [0];
+		private Gtk.CellRendererText [] _renders = new Gtk.CellRendererText [0];
 		
 		private DataSet _dataset;
 		
@@ -27,8 +28,37 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Activated = onActivated;
 		}
 		
+		public virtual void New ()
+		{
+		}
+		
+		public virtual void RemoveSelected ()
+		{
+			TreeIter iter;
+			
+			if (Selection.GetSelected (out iter)) {
+				TreeIter iter_for_removing = iter;
+				Store.IterNext (ref iter);
+				Store.Remove (ref iter_for_removing);
+				Selection.SelectIter (iter);
+			}
+		}
+		
+		public virtual void EditSelected ()
+		{
+		}
+		
+		public virtual void Load ()
+		{
+		}
+		
 		public virtual void LoadDataSet (DataSet dataset)
 		{
+			
+			foreach (TreeViewColumn col in Columns) {
+				RemoveColumn (col);
+			}
+					
 				_dataset = dataset;
 				Type [] types = new Type [dataset.Tables [0].Columns.Count];
 			
@@ -53,6 +83,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public virtual bool OnRowAdd (string [] fields)
 		{
 			_store.AppendValues (fields);
+			
+			if (Globals.ViewResponsiveLoading)
+				while (Application.EventsPending ())
+					Application.RunIteration ();
+			
 			return true;
 		}
 				
@@ -111,7 +146,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			return base.OnButtonPressEvent (evnt);
 		}
-		
+				
 		public bool GetSelected (out string [] fields)
 		{
 			fields = new string [Renders.Length];

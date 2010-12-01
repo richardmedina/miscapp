@@ -57,10 +57,14 @@
     </Reference>
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CajaFinanciera.png">
+      <LogicalName>CajaFinanciera.png</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -107,8 +111,11 @@
     <Compile Include="Widgets\CurrencyEntry.cs" />
     <Compile Include="Widgets\PrestamoImportesWidget.cs" />
     <Compile Include="Widgets\MovimientosListView.cs" />
-    <Compile Include="Widgets\DescuentosWidget.cs" />
     <Compile Include="Widgets\DescuentosListView.cs" />
+    <Compile Include="Widgets\CobrosListView.cs" />
+    <Compile Include="Dialogs\DescuentoDialog.cs" />
+    <Compile Include="Widgets\GeneradorDescuentoView.cs" />
+    <Compile Include="Dialogs\GenerarDescuentoDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />

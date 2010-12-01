@@ -32,6 +32,7 @@ namespace Stprm.CajaFinanciera.Data
 				country.FillFromReader (reader);
 				countries.Add (country);
 			}
+			reader.Close ();
 			
 			return countries;
 		}

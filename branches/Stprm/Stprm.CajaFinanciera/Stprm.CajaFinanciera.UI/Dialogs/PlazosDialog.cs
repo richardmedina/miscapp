@@ -15,6 +15,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		public PlazosDialog ()
 		{
+			Title = Globals.FormatWindowTitle ("Seleccionar plazo");
 			Resize (320, 240);
 			_view_plazos = new PlazoListView ();
 			
@@ -24,7 +25,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			VBox.PackStart (scroll);
 			VBox.ShowAll ();
 			
-			AddButton (Stock.Cancel, ResponseType.Cancel);
+			AddButton (Stock.Close, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		

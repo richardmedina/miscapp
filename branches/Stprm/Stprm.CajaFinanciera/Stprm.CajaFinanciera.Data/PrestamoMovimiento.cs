@@ -29,6 +29,8 @@ namespace Stprm.CajaFinanciera.Data
 			
 		}
 		
+		
+		
 		public static IDataAdapter GetMovimientosInAdapter (Prestamo prestamo)
 		{
 			

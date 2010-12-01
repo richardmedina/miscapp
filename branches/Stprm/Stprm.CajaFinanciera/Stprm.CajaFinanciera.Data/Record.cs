@@ -17,6 +17,9 @@ namespace Stprm.CajaFinanciera.Data
 		public static readonly string TablePrestamos = "prestamos";
 		public static readonly string TablePrestamoMovimientos = "prestamos_mov";
 		public static readonly string TableCobros = "cobros";
+		public static readonly string TableCuentasBancarias = "cuentas";
+		public static readonly string TablePlazos = "plazos";
+		public static readonly string TableCategorias = "categorias";
 
 		private Database _database;
 
@@ -53,6 +56,23 @@ namespace Stprm.CajaFinanciera.Data
 		{
 		}
 		
+		public virtual int GetLastInsertId ()
+		{
+			int id = 0;
+			IDataReader reader = Db.Query ("select last_insert_id() as id");
+			
+			if (reader.Read ()) {
+				id = GetInt32 (reader, "id");//reader.GetInt32 (reader.GetOrdinal ("id"));	
+			}
+			reader.Close ();
+			
+			return id;
+		}
+		
+		public string DateTimeToDbFormat (DateTime date)
+		{
+			return date == DateTime.MinValue ? "00000000" : date.ToString ("yyyyMMdd");
+		}
 		
 		// gets an array for special fields of each record
 		public string [] GetRecordUpdateFields ()
@@ -89,23 +109,19 @@ namespace Stprm.CajaFinanciera.Data
 		
 		protected static string GetString (IDataReader reader, string field_name)
 		{
-			//Console.WriteLine ("String. {0}...", field_name);
 			return reader.IsDBNull (reader.GetOrdinal (field_name)) ? string.Empty : reader.GetString (reader.GetOrdinal (field_name));
 		}
 		
 		protected static DateTime GetDateTime (IDataReader reader, string field_name)
 		{
-			//Console.WriteLine ("DateTime. {0}...", field_name);
 			DateTime date = DateTime.MinValue;
-			//Console.Write ("Convirtiendo...");
 			try {
-				//Console.WriteLine ("Valores : {0}", reader [field_name].ToString () == null ? string.Empty : reader [field_name].ToString ());
 				string date_str = reader [field_name].ToString ();
 				
 				if (!date_str.StartsWith ("0/0/0000"))
 					date = reader.IsDBNull (reader.GetOrdinal (field_name)) ? DateTime.MinValue : reader.GetDateTime (reader.GetOrdinal (field_name));
 			} catch (Exception exception) {	
-				//Console.Write ("Excepcion atrapada mientras DateTiem conversion");
+				Console.Write (exception.Message + "Excepcion atrapada mientras DateTiem conversion");
 			}
 			
 			//Console.WriteLine ("OK");
@@ -114,13 +130,11 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static int GetInt32 (IDataReader reader, string field_name)
 		{
-			//Console.WriteLine ("Int32. {0}...", field_name);
 			return 	reader.IsDBNull (reader.GetOrdinal (field_name)) ? 0 : reader.GetInt32 (reader.GetOrdinal (field_name));
 		}
 		
 		public static decimal GetDecimal (IDataReader reader, string field_name)
 		{
-			//Console.WriteLine ("Decimal. {0}...", field_name);
 			return reader.IsDBNull (reader.GetOrdinal (field_name)) ? 0 : reader.GetDecimal (reader.GetOrdinal (field_name));
 		}
 		

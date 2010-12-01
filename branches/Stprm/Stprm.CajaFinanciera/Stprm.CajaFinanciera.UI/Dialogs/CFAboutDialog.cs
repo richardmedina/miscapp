@@ -11,8 +11,10 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 
 		public CFAboutDialog ()
 		{
+			ProgramName = "Caja Financiera";
+			Comments = "Todo bajo control";
 			Version = "0.1b";
-			Copyright = "S.T.P.R.M. 2009-2010";
+			Copyright = "S.T.P.R.M. 2010-2012";
 			
 			Authors = new string [] {"Ricardo Medina López <ricardo.medina@pemex.com>"};
 		}

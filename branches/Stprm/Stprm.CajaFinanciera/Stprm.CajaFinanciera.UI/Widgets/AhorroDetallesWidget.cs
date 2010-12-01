@@ -55,7 +55,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_dtb_ultpago = new DateTimeButton ();
 			
 			_cmb_cuenta = new CuentaBancariaCombo ();
-			_cmb_cuenta.Populate (CuentaBancaria.GetCollection (Globals.Db));
+			_cmb_cuenta.Populate ();
 			_cmb_cuenta.SelectCuenta (Globals.CuentaActual);
 			_cmb_cuenta.Sensitive = false;
 			
@@ -151,7 +151,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private void Handle_button_fichaClicked (object sender, EventArgs e)
 		{
 			EmployeeSearchDialog dialog = new EmployeeSearchDialog ();
-			dialog.SearchWidget.SearchView.Load (Globals.Db);
+			dialog.SearchWidget.SearchView.Load ();
 			dialog.Populate ();
 			
 			ResponseType response = dialog.Run ();

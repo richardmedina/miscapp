@@ -23,15 +23,19 @@ namespace Stprm.CajaFinanciera.Data
 		public int CuentaId;
 		public int Count;
 		
-		public Cobro ()
+		public Cobro (Database db) : base (db, RecordType.Cobro)
 		{
 		}
 		
-		public static IDataAdapter GetcollectionInAdapter (Database db)
+		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select cob_id as Id, cob_clave as Clave, CONCAT (cob_periodo, '-',cob_anio) as Periodo, cob_fecha as Fecha from {0} where cob_clave <> '' order by Fecha desc",
+			return db.QueryToAdapter ("select cob_id as Id, cob_clave as Clave, CONCAT (CAST(cob_periodo as CHAR), '-',CAST(cob_anio as CHAR)) as Periodo, DATE_FORMAT(cob_fecha,'%d/%m/%Y') as Fecha from {0} where cob_clave <> '' order by cob_fecha desc",
 			                          TableCobros);
 		}
 		
+		public IDataAdapter GetDescuentosInAdapter ()
+		{
+			return Descuento.GetCollectionInAdapter (Db, Id);
+		}
 	}
 }

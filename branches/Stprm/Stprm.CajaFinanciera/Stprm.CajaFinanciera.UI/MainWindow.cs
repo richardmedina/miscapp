@@ -14,6 +14,9 @@ public partial class MainWindow : Gtk.Window
 	private EmployeeListView _view_employees;
 	private LoanListView _view_loans;
 	private AhorroListView _view_ahorros;
+	private CobrosListView _view_cobros;
+	
+	private DataSetView [] _views;
 	
 	private CuentaBancariaChooser _chooser_cuentas;
 	
@@ -28,10 +31,12 @@ public partial class MainWindow : Gtk.Window
 	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
+		_views = new DataSetView [4];
 		
-		_view_employees = new EmployeeListView ();
-		_view_loans = new  LoanListView ();
-		_view_ahorros = new AhorroListView ();
+		_views [0] = _view_employees = new EmployeeListView ();
+		_views [1] = _view_loans = new  LoanListView ();
+		_views [2] = _view_ahorros = new AhorroListView ();
+		_views [3] = _view_cobros = new CobrosListView();
 		
 		_chooser_cuentas = new CuentaBancariaChooser ();
 		_chooser_cuentas.Combo.Changed += Handle_chooser_cuentasComboChanged;
@@ -40,7 +45,9 @@ public partial class MainWindow : Gtk.Window
 		
 		_toolbar = new MainToolbar ();
 		_toolbar.ButtonNew.Clicked += Handle_toolbarButtonNewClicked;
-		_toolbar.WidthRequest = 200;
+		_toolbar.ButtonEdit.Clicked += Handle_toolbarButtonEditClicked;
+		_toolbar.ButtonRemove.Clicked += Handle_toolbarButtonRemoveClicked;
+		_toolbar.ButtonRefresh.Clicked += Handle_toolbarButtonRefreshClicked;
 		Resize (800, 600);
 		
 		Build ();
@@ -62,6 +69,7 @@ public partial class MainWindow : Gtk.Window
 		scroll.Add (_view_employees);
 		
 		_notebook = new Notebook ();
+		_notebook.TabPos = PositionType.Left;
 		_notebook.AppendPage (scroll,  new Label ("Trabajadores"));
 		
 		scroll = new ScrolledWindow ();
@@ -73,6 +81,9 @@ public partial class MainWindow : Gtk.Window
 		scroll.Add (_view_ahorros);
 		_notebook.AppendPage (scroll, new Label ("Ahorros"));
 		
+		scroll = new ScrolledWindow ();
+		scroll.Add (_view_cobros);
+		_notebook.AppendPage (scroll, new Label ("Descuentos"));
 		
 		_notebook.Sensitive = false;
 		_main_container.Add (_notebook);
@@ -80,11 +91,30 @@ public partial class MainWindow : Gtk.Window
 		Title = Globals.FormatWindowTitle ("Principal");
 	}
 
+	private void Handle_toolbarButtonRefreshClicked (object sender, EventArgs e)
+	{
+		_views [_notebook.Page].Load ();
+	}
+
+	private void Handle_toolbarButtonRemoveClicked (object sender, EventArgs e)
+	{
+		_views [_notebook.Page].RemoveSelected ();
+	}
+
+	private void Handle_toolbarButtonEditClicked (object sender, EventArgs e)
+	{
+		_views [_notebook.Page].EditSelected ();
+	}
+
 	private void Handle_toolbarButtonNewClicked (object sender, EventArgs e)
 	{
+		
+		_views [_notebook.Page].New ();
+		/*
 		Stprm.CajaFinanciera.UI.Dialogs.CustomDialog dialog;	
+		//Dialog dialog;
 		switch (_notebook.Page) {
-			default:
+			case 0:
 				dialog = new EmployeeDialog ();
 			break;
 		
@@ -95,10 +125,17 @@ public partial class MainWindow : Gtk.Window
 			case 2:
 				dialog = new AhorroDialog ();
 			break;
+			case 3:
+				dialog = new GenerarDescuentoDialgo ();
+			break;
+			
+			default:
+				dialog = null;//new MessageDialog (this, DialogFlags.Modal, MessageType.Warning, ButtonsType.Ok, "Nada que hacer");
+			break;
 		}
 		
 		dialog.Run ();
-		dialog.Destroy ();
+		dialog.Destroy ();*/
 	}
 
 	private void Handle_chooser_cuentasComboChanged (object sender, EventArgs e)
@@ -139,14 +176,17 @@ public partial class MainWindow : Gtk.Window
 	
 	protected override void OnShown ()
 	{
-		base.OnShown ();
+		
 		
 		if (Authenticate ()) { }
+			base.OnShown ();
 			Present ();		
-			_chooser_cuentas.Combo.Populate (CuentaBancaria.GetCollection (Globals.Db));
-		
+			_chooser_cuentas.Combo.Populate ();
+			
 			SetLoading (false);
-			load_employees ();
+		
+			new Thread (load_everything).Start ();
+			//new Thread (load_everything
 		/*} else 
 			Application.Quit ();
 		*/
@@ -157,64 +197,38 @@ public partial class MainWindow : Gtk.Window
 		bool result = false;
 		
 		AuthenticationDialog dialog = new AuthenticationDialog();
+		dialog.Title = Globals.FormatWindowTitle ("Iniciar sesión");
 		dialog.Run ();
 		
 		dialog.Destroy ();
 		
 		return result;
 	}
-	
+	/*
 	private void load_employees ()
 	{
 		_lbl_msg.Text = "Cargando trabajadores...";
 		_isloading = true;
 		
-		Thread thread = new Thread (new ParameterizedThreadStart (
-			delegate (object mydb) {
-				int counter = 0;
-				Database db = (Database) mydb;
-				foreach (Employee emp in Employee.GetStartingWith (db, string.Empty)) {
-					Utils.RunOnGtkThread (delegate {
-				       	_view_employees.Add (emp);
-						_lbl_msg.Text = string.Format ("{0} trabajadores cargados", ++ counter);
-					});
-				}
-				load_loans (db);
-				_isloading = false;
-			}
-		));
-		thread.Start (Globals.Db);
+		load_everything ();
 		
-		
+		_isloading = false;
 	}
-	
-	private void load_loans (Database db)
+	*/
+	private void load_everything ()
 	{
-			/*
-		Thread thread = new Thread (new ParameterizedThreadStart (
-			delegate (object mydb) {*/
-				//Database db = (Database) mydb;
-				DataSet ds = new DataSet ();
-			
-				Prestamo.GetInAdapter (db).Fill (ds);
-				
-				Utils.RunOnGtkThread (delegate {
-					_view_loans.LoadDataSet (ds);	
-					_view_loans.Populate ();
-				});
-				
-				load_ahorros (db);
-			//}).Start ();
-	}
-	
-	private void load_ahorros (Database db)
-	{
-		DataSet ds = new DataSet ();
-		Ahorro.GetAllInAdtapter(db).Fill (ds);
 		
 		Utils.RunOnGtkThread (delegate {
-			_view_ahorros.LoadDataSet (ds);
-			_view_ahorros.Populate ();	
+			_view_employees.Load ();
+			while (Application.EventsPending ())
+					Application.RunIteration ();
+			_view_loans.Load ();
+			while (Application.EventsPending ())
+					Application.RunIteration ();
+			_view_ahorros.Load ();
+			while (Application.EventsPending ())
+				Application.RunIteration ();
+			_view_cobros.Load ();
 		});
 	}
 

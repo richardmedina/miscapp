@@ -9,12 +9,12 @@ namespace Stprm.CajaFinanciera.Data
 	{
 		
 		private static string [] _oper_state = {
-			"Retenido",
-			"Descuento sin cobro",
-			"Descuento",
-			"Suspendido",
-			"Pagado",
-			"Cancelado"
+			"Retenido (RT)",
+			"Descuento sin cobro (DC)",
+			"Descuento (DT)",
+			"Suspendido (SP)",
+			"Pagado (PG)",
+			"Cancelado (CA)"
 		};
 		
 		public static string OperacionFinancieraEstadoToString (OperacionFinancieraEstado estado)

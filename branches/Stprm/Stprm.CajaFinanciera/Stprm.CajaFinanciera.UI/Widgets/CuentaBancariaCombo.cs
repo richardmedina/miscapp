@@ -23,16 +23,15 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			AddAttribute (_render, "text", 1);
 			
 			Model = _model;
-			
-			
 		}
 		
-		public void Populate (CuentaBancariaCollection cuentas) 
+		public void Populate () 
 		{
 			_model.Clear ();
-			foreach (CuentaBancaria cuenta in cuentas) {
-					_model.AppendValues (cuenta, string.Format ("{0} ({1})",
-				                                    cuenta.Banco, cuenta.Cuenta));
+			
+			foreach (CuentaBancaria cuenta in CuentaBancaria.GetCollection (Globals.Db)) {
+				_model.AppendValues (cuenta, string.Format ("{0} ({1})",
+				                     cuenta.Banco, cuenta.Cuenta));
 			}
 		}
 		

@@ -61,6 +61,7 @@
     <Compile Include="PrestamoCollection.cs" />
     <Compile Include="PrestamoMovimiento.cs" />
     <Compile Include="Cobro.cs" />
+    <Compile Include="Descuento.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

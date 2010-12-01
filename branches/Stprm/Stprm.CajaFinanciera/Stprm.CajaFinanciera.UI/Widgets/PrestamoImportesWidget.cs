@@ -28,14 +28,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_entry_capital = new CurrencyEntry ();
 			_entry_capital.FocusOutEvent += Handle_entry_capitalFocusOutEvent;
 			_spin_interes = new SpinButton (0, 100, 1);
-			//_spin_interes.Changed += Handle_spin_interesChanged;
 			_spin_interes.ValueChanged += Handle_spin_interesValueChanged;
 			
-			//_spin_interes.WidthRequest = 200;
 			_entry_interes = new CurrencyEntry ();
+			_entry_interes.Sensitive = false;
+			
 			_entry_total = new CurrencyEntry ();
+			_entry_total.Sensitive = false;
 			_entry_abono = new CurrencyEntry ();
+			_entry_abono.Sensitive = false;
 			_entry_saldo = new CurrencyEntry ();
+			_entry_saldo.Sensitive = false;
 			
 			Gtk.HBox hbox = new  Gtk.HBox (false, 5);
 			
@@ -79,10 +82,16 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public void UpdateEntries ()
 		{
-			EntryInteres.Value = ((EntryCapital.Value > 0 ? EntryCapital.Value : 1) / 100) * Convert.ToDecimal (_spin_interes.Value);
-			EntryTotal.Value = EntryTotal.Value + EntryInteres.Value;
-			EntryAbono.Value = EntryTotal.Value / NumeroPagos;
-			Console.WriteLine (NumeroPagos);
+			if (EntryCapital.Value == 0) {
+				EntryInteres.Value = 0;
+				EntryTotal.Value = 0;
+			} else {
+				EntryInteres.Value = ((EntryCapital.Value > 0 ? EntryCapital.Value : 1) / 100) * Convert.ToDecimal (_spin_interes.Value);
+				EntryTotal.Value = EntryCapital.Value + EntryInteres.Value;
+			}
+				//EntryAbono.Value = EntryTotal.Value / NumeroPagos;
+
+			//Console.WriteLine (NumeroPagos);
 		}
 
 		private void Handle_entry_capitalFocusOutEvent (object o, FocusOutEventArgs args)
@@ -99,6 +108,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			EntryTotal.Value = prestamo.Capital + prestamo.Interes;
 			EntryAbono.Value = prestamo.Abono;
 			EntrySaldo.Value = prestamo.Saldo;
+		}
+		
+		public void SaveToPrestamo (Prestamo prestamo)
+		{
+			prestamo.Capital = EntryCapital.Value;
+			prestamo.Interes = EntryInteres.Value;
+			prestamo.Cargo = prestamo.Capital + prestamo.Interes;
+			
 		}
 		
 		public CurrencyEntry EntryCapital {
