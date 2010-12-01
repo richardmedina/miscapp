@@ -18,6 +18,23 @@ namespace Stprm.CajaFinanciera.Data
 		{
 		}
 		
+		
+		public override bool Update ()
+		{
+			bool result = false;
+			
+			IDataReader reader = Db.Query ("SELECT * FROM {0} where pla_id= {1}",
+			                               TablePlazos, Id);
+			
+			if (reader.Read ()) {
+				FillFromReader (reader);
+				result = true;
+			}
+			reader.Close ();
+			
+			return result;
+		}
+		
 		public override void FillFromReader (System.Data.IDataReader reader)
 		{
 			Id = reader.GetInt32 (reader.GetOrdinal ("pla_id"));
@@ -29,7 +46,7 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			PlazoPagoCollection plazos = new PlazoPagoCollection ();
 			
-			IDataReader reader = db.Query ("SELECT * FROM plazos");
+			IDataReader reader = db.Query ("SELECT * FROM {0}", TablePlazos);
 			
 			while (reader.Read ()) {
 				PlazoPago plazopago = new PlazoPago (db);
@@ -43,7 +60,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select pla_nombre as Plazo, pla_num_pagos as Pagos from plazos");
+			return db.QueryToAdapter ("select pla_nombre as Plazo, pla_num_pagos as Pagos, CONCAT (CAST(pre_porcentaje_interes AS CHAR), '%') as Interes from plazos");
 		}
 	}
 }

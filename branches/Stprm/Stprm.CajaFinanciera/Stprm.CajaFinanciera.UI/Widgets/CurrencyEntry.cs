@@ -15,6 +15,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public CurrencyEntry ()
 		{
 			SetProperty ("xalign", new GLib.Value (1));
+			Value = 0;
 		}
 		
 		protected override void OnFocusGrabbed ()
@@ -42,12 +43,13 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		protected override bool OnFocusOutEvent (Gdk.EventFocus evnt)
 		{
-			double val;
+			decimal val;
 			
-			if (double.TryParse (Text, out val)) {
-				Value = Convert.ToDecimal (val);
+			if (decimal.TryParse (Text, out val)) {
+				//Value = Convert.ToDecimal (val);
+				Value = val;
 				//Text = string.Format ("{0:C}", val);
-			}
+			} else Value = 0;
 			
 			return base.OnFocusOutEvent (evnt);
 		}

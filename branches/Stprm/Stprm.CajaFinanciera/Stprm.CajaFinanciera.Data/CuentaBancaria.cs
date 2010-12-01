@@ -17,11 +17,25 @@ namespace Stprm.CajaFinanciera.Data
 		{
 		}
 		
+		public override bool Update ()
+		{
+			bool result = false;
+			IDataReader reader = Db.Query ("SELECT cue_id, cue_numero, cue_banco, cue_saldo from {0} where cue_id = {1}",
+			                               TableCuentasBancarias, Id);
+			
+			if (reader.Read ()) {
+				FillFromReader (reader);
+				result = true;
+			}
+			reader.Close ();
+			return result;
+		}
+		
 		public static CuentaBancariaCollection GetCollection (Database db)
 		{
 			CuentaBancariaCollection cuentas = new CuentaBancariaCollection();
 			
-			IDataReader reader = db.Query ("SELECT * from cuentas");
+			IDataReader reader = db.Query ("SELECT cue_id, cue_numero, cue_banco, cue_saldo from {0}", TableCuentasBancarias);
 			
 			while (reader.Read ()) {
 				CuentaBancaria cuenta = new CuentaBancaria (db);

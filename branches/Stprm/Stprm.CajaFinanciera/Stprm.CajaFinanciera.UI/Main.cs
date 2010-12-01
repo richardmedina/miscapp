@@ -10,6 +10,7 @@ namespace Stprm.CajaFinanciera.UI
 		{
 			Application.Init ();
 			Globals.Db = Database.CreateStprmConnection ();
+			/*
 			PrestamoCollection prestamos = Prestamo.GetCollection (Globals.Db);
 			decimal total = 0;
 			decimal desc_catorcenal = 0;
@@ -22,7 +23,7 @@ namespace Stprm.CajaFinanciera.UI
 					desc_catorcenal += prestamo.AbonoCapital + prestamo.AbonoInteres;
 			}
 			Console.WriteLine ("{0} prestamos, Capital: {1:C}, Desc.Catorcenal: {2:C}", prestamos.Count, total, desc_catorcenal);
-			
+			*/
 			MainWindow win = new MainWindow ();
 			Globals.MainWindow = win;
 			win.ShowAll ();

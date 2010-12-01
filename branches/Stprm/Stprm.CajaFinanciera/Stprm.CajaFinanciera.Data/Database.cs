@@ -62,6 +62,7 @@ namespace Stprm.CajaFinanciera.Data
 		public IDataReader Query(string format, params object[] objs)
 		{
 			string query = string.Format(format, objs);
+			Console.WriteLine (query);
 			IDbCommand command = new MySqlCommand (query, _connection);
 
 			IDataReader reader = null;

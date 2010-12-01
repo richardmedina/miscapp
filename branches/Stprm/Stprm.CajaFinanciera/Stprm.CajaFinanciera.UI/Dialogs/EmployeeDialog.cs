@@ -17,10 +17,12 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		private EmployeeAddressDataWidget _emp_addrdata;
 		private EmployeeLoanWidget _emp_loans;
 		
+		private Employee _employee = null;
+		
 		
 		public EmployeeDialog ()
 		{
-			Title = Globals.FormatWindowTitle ("Información de Empleado");
+			Title = Globals.FormatWindowTitle ("Información de trabajador");
 			
 			_notebook = new Notebook ();
 			_emp_personaldata = new EmployeePersonalDataWidget ();
@@ -33,14 +35,26 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			
 			VBox.PackStart (_notebook);
 			
-			VBox.ShowAll ();AddButton (Stock.Cancel, ResponseType.Cancel);
+			VBox.ShowAll ();AddButton (Stock.Close, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		
 		public void UpdateFromEmployee (Employee employee)
 		{
+			_employee = employee;
 			_emp_personaldata.UpdateFromEmployee (employee);	
 			_emp_loans.UpdateFromEmployee (employee);
+		}
+		
+		public Employee GetAsEmpleado ()
+		{
+			if (_employee == null) {
+				_employee = new Employee (Globals.Db);
+			}
+			
+			_emp_personaldata.SaveToEmployee (_employee);
+			
+			return _employee;
 		}
 	}
 }

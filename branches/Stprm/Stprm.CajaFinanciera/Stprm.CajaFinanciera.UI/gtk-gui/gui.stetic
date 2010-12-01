@@ -57,9 +57,9 @@
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Icon">resource:CajaFinanciera.png</property>
     <property name="WindowPosition">Center</property>
     <property name="Gravity">Center</property>
-    <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.VBox" id="vbox1">
         <property name="MemberName" />

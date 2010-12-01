@@ -20,7 +20,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_view_search = new EmployeeSearchView ();
 			
 			Gtk.HBox hbox = new Gtk.HBox (false, 5);
-			hbox.PackStart (Factory.Label ("Nombre :"), false, false, 0);
+			hbox.PackStart (Factory.Label ("Buscar :"), false, false, 0);
 			hbox.PackEnd (_entry_name);
 			
 			PackStart (hbox, false, false, 0);
