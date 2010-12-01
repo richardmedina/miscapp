@@ -34,6 +34,12 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		private PrestamoImportesWidget _iw_importes;
 		
+		private Prestamo _prestamo = null;
+		
+		private int _plazo_id = 0;
+		private int _trabajador_internal_id = 0;
+		
+		
 		public PrestamoDetallesWidget ()
 		{
 			_entry_ficha = new Entry ();
@@ -64,7 +70,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_dtb_ultpago = new DateTimeButton ();
 			
 			_cmb_cuenta = new CuentaBancariaCombo ();
-			_cmb_cuenta.Populate (CuentaBancaria.GetCollection (Globals.Db));
+			_cmb_cuenta.Populate ();
 			_cmb_cuenta.SelectCuenta (Globals.CuentaActual);
 			_cmb_cuenta.Sensitive = false;
 			
@@ -79,22 +85,24 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			hbox.PackStart (_entry_ficha, false, false, 0);
 			hbox.PackStart (_button_ficha, false, false, 0);
 			
-			hbox.PackEnd (_dtb_inicobro, false, false, 0);
-			hbox.PackEnd (Factory.Label ("Inicio de cobro", 100, Justification.Left), false, false, 0);
+			hbox.PackEnd (_button_fecha, false, false, 0);
+			hbox.PackEnd (Factory.Label ("Otorgado", 100, Justification.Left), false, false, 0);
 			
 			PackStart (hbox, false, false, 0);
 			
 			hbox = new HBox (false, 5);
 			
 			hbox.PackStart (_label_nombre, false, false, 0);
-			hbox.PackEnd (_dtb_ultpago, false, false, 0);
-			hbox.PackEnd (Factory.Label ("Último Pago", 100, Justification.Left), false, false, 0);
+			hbox.PackEnd (_dtb_inicobro, false, false, 0);
+			hbox.PackEnd (Factory.Label ("Inicio de cobro", 100, Justification.Left), false, false, 0);
 			
 			PackStart (hbox, false, false, 0);
 			
 			hbox = new HBox (false, 5);
 			hbox.PackStart (Factory.Label ("Cheque", 100, Justification.Left), false, false, 0);
 			hbox.PackStart (_entry_cheque, false, false, 0);
+			hbox.PackEnd (_dtb_ultpago, false, false, 0);
+			hbox.PackEnd (Factory.Label ("Último Pago", 100, Justification.Left), false, false, 0);
 			
 			PackStart (hbox, false, false, 0);
 			
@@ -102,14 +110,6 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			hbox.PackStart (Factory.Label ("Pagaré", 100, Justification.Left), false, false, 0);
 			hbox.PackStart (_entry_pagare, false, false, 0);
-			
-			PackStart (hbox, false, false, 0);
-			
-			hbox = new HBox (false, 5);
-			hbox.PackStart (Factory.Label ("Fecha", 100, Justification.Left), false, false, 0);
-			hbox.PackStart (_button_fecha, false, false, 0);
-			
-			
 			hbox.PackEnd (_cmb_cuenta, false, false, 0);
 			
 			PackStart (hbox, false, false, 0);
@@ -128,6 +128,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (new HSeparator (), false, false, 0);
 			
 			PackStart (_iw_importes);
+			Console.WriteLine (_dtb_inicobro.Date);
 			
 		}
 
@@ -137,27 +138,58 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_iw_importes.UpdateEntries ();
 		}
 		
+		public Prestamo GetAsPrestamo ()
+		{
+			if (_prestamo == null) {
+				_prestamo = new Prestamo (Globals.Db);
+				_prestamo.Id = 0;
+			}
+			
+			_prestamo.PlazoId = _plazo_id;
+			_prestamo.TrabajadorInternalId = _trabajador_internal_id;
+			_prestamo.NumPagos = Convert.ToInt32 (_spin_plazo.Value);
+			
+			_prestamo.Fecha = _button_fecha.Date;
+			_prestamo.FechaIniCobro = _dtb_inicobro.Date;
+			_prestamo.Capital = _iw_importes.EntryCapital.Value;
+			_prestamo.Interes = _iw_importes.EntryInteres.Value;
+			_prestamo.Cheque = _entry_cheque.Text;
+			_prestamo.Pagare = _entry_pagare.Text;
+			_prestamo.Status = _cmb_estado.Estado;
+			
+			return _prestamo;
+		}
+		
 		public void UpdateFromPrestamo (Prestamo prestamo)
 		{
+			_prestamo = prestamo;
 			Employee employee = new Employee (prestamo.Db);
 			employee.InternalId = prestamo.TrabajadorInternalId;
 			
+			_trabajador_internal_id = prestamo.TrabajadorInternalId;
 			
 			if (employee.UpdateFromInternalId ()) {
 				_entry_ficha.Text = employee.Id;
 				SetLabelText (employee.GetFullName ());
 			}
 			
+			_plazo_id = _prestamo.PlazoId;
+			
+			_cmb_estado.Estado = prestamo.Status;
 			_entry_cheque.Text = prestamo.Cheque;
 			_entry_pagare.Text = prestamo.Pagare;
 			_button_fecha.Date = prestamo.Fecha;
 			_spin_plazo.Value = prestamo.NumPagos;
 			_dtb_inicobro.Date = prestamo.FechaIniCobro;
 			
-			//_iw_importes.EntryImporte.Text = (prestamo.Capital + prestamo.Interes).ToString ("C");
-			_iw_importes.UpdateFromPrestamo (prestamo);
+			CuentaBancaria cuenta = new CuentaBancaria (prestamo.Db);
+			cuenta.Id = prestamo.CuentaId;
 			
-			//_dtb_ultpago.Date = prestamo.
+			if (cuenta.Update ()) {
+				_cmb_cuenta.SelectCuenta (cuenta);
+			}
+			
+			_iw_importes.UpdateFromPrestamo (prestamo);
 		}
 		
 		public void SetLabelText (string text)
@@ -181,9 +213,13 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			ResponseType response = dialog.Run ();
 			if (response == ResponseType.Ok) {
 				int val;
-				if (dialog.ViewPlazos.GetSelected (out fields))
+				if (dialog.ViewPlazos.GetSelected (out fields)) {
 						if (int.TryParse (fields [1], out val))
 					    	_spin_plazo.Value = val;
+						if (int.TryParse (fields [2].Replace ("%", string.Empty), out val)) {
+							_iw_importes.SpinInteres.Value = Convert.ToDouble (val);
+						}
+				}
 			}
 			
 			dialog.Destroy ();
@@ -202,6 +238,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_label_nombre.Text = string.Empty;
 			
 			if (employee.Update ()) {
+				_trabajador_internal_id = employee.InternalId;
 				SetLabelText (employee.GetFullName ());
 			}
 		}
@@ -209,7 +246,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private void Handle_button_fichaClicked (object sender, EventArgs e)
 		{
 			EmployeeSearchDialog dialog = new EmployeeSearchDialog ();
-			dialog.SearchWidget.SearchView.Load (Globals.Db);
+			dialog.SearchWidget.SearchView.Load ();
 			dialog.Populate ();
 			
 			ResponseType response = dialog.Run ();

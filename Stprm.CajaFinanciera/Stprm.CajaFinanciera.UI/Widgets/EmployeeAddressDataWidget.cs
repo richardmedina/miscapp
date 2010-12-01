@@ -19,59 +19,20 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private Gtk.Entry _entry_postal;
 		private Gtk.Entry _entry_phone;
 		
-		/*
-		private string [] _countries = {
-			"Aguascalientes",
-		    "Baja California",
-    		"Baja California Sur",
-	    	"Campeche",
-		    "Chiapas",
-    		"Chihuahua",
-	    	"Coahuila",
-	    	"Colima",
-    		"Distrito Federal",
-    		"Durango",
-    		"Estado de México",
-    		"Guanajuato",
-    		"Guerrero",
-    		"Hidalgo",
-    		"Jalisco",
-    		"Michoacán",
-    		"Morelos",
-    		"Nayarit",
-    		"Nuevo León",
-    		"Oaxaca",
-    		"Puebla",
-    		"Querétaro",
-    		"Quintana Roo",
-    		"San Luis Potosí",
-    		"Sinaloa",
-    		"Sonora",
-    		"Tabasco",
-    		"Tamaulipas",
-    		"Tlaxcala",
-    		"Veracruz",
-    		"Yucatán",
-    		"Zacatecas" };
-		*/
 		public EmployeeAddressDataWidget ()
 		{
 			_entry_street = new Gtk.Entry ();
 			_entry_colony = new Gtk.Entry ();
 			_entry_city = new Gtk.Entry ();
 			
-			CountryCollection countries;
-				
-			using (Database db = Database.CreateStprmConnection ()) {
-				countries = Country.GetFromDatabase (db);
-			}
+			CountryCollection countries = Country.GetFromDatabase (Globals.Db);
 			
 			
 			
 			string [] str_countries = new string [countries.Count];
 			for (int i = 0; i < str_countries.Length; i ++) {
 				str_countries [i] = countries [i].Name;
-				Console.WriteLine (str_countries [i]);
+				//Console.WriteLine (str_countries [i]);
 			}
 			
 			_cmb_country = new Gtk.ComboBox (str_countries);

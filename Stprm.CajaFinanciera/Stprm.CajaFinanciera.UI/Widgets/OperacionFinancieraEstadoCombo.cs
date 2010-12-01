@@ -13,5 +13,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			Active = 0;
 		}
+		
+		public OperacionFinancieraEstado Estado {
+			get { return (OperacionFinancieraEstado) (Active + 1); }
+			set { Active = (int) (value -1); }
+		}
 	}
 }

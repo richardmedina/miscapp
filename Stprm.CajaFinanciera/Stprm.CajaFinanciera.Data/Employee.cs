@@ -15,9 +15,9 @@ namespace Stprm.CajaFinanciera.Data
 		private string _middlename;
 		private string _lastname;
 		
-		private double _saldo;
+		private decimal _saldo;
 		private DateTime _last_pay_date;
-		private string _category;
+		private string _category_id;
 
 		public Employee (Database db) : base (db, RecordType.Employee)
 		{
@@ -47,8 +47,45 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return 	db.QueryToAdapter ("select tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre from trabajadores order by ficha asc");
+			return db.QueryToAdapter ("select tra_id as Id, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(tra_saldo, 2)) as Saldo, if (tra_fechaultimopago='00000000','', DATE_FORMAT(tra_fechaultimopago, '%d/%m/%Y')) as FechaUltPago, cat_id as Categoria from {0} order by ficha asc", TableEmployees);
 		}
+		
+		public static IDataAdapter GetCollectionForSearchingInAdapter (Database db)
+		{
+			return 	db.QueryToAdapter ("select tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre from {0} order by ficha asc", TableEmployees);
+		}
+		
+		public IDataAdapter GetPrestamosInAdapter ()
+		{
+			return Prestamo.GetCollectionForEmployee (Db, InternalId);	
+		}
+		
+		public override bool Save ()
+		{
+			bool result = false;
+			
+			if (!Exists () ) {
+				Db.NonQuery ("insert into {0} (tra_ficha) values ('{1}')", TableEmployees, Id);
+				InternalId = GetLastInsertId ();
+			}
+			
+			if (InternalId > 0) {
+				Db.NonQuery ("UPDATE {0} SET tra_ficha='{1}', tra_nombre='{2}', tra_apepaterno='{3}' tra_apematerno='{4}', tra_saldo='{5}', tra_fechaultimopago='{6}' cat_id='{7}' where tra_id={8}",
+			             TableEmployees, FirstName, MiddleName, LastName, Saldo, DateTimeToDbFormat (LastPayDate), CategoryId, InternalId);
+				result = true;
+			}
+			
+			return result;
+		}
+		
+		public override bool Exists ()
+		{
+			Employee employee = new Employee (Db);
+			employee.InternalId = InternalId;
+				
+			return employee.UpdateFromInternalId ();
+		}
+
 		
 		public override bool Update ()
 		{
@@ -84,19 +121,14 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public override void FillFromReader (IDataReader reader)
 		{
-				if (!int.TryParse (reader ["tra_id"].ToString (), out _internalid))
-			    	InternalId = 0;
-				Id = reader ["tra_ficha"].ToString ();
-				FirstName = reader ["tra_nombre"].ToString ();
-				MiddleName = reader ["tra_apepaterno"].ToString ();
-				LastName = reader ["tra_apematerno"].ToString ();
-				if (!double.TryParse (reader ["tra_saldo"].ToString (), out _saldo))
-					Saldo = 0;
-				
-				if (!DateTime.TryParse (reader ["tra_fechaultimopago"].ToString (), out _last_pay_date))
-					LastPayDate = DateTime.MinValue;
-			
-				Category = (string) reader ["cat_id"];
+			    InternalId = GetInt32 (reader, "tra_id");
+				Id = GetString (reader, "tra_ficha");
+				FirstName = GetString (reader, "tra_nombre");
+				MiddleName = GetString (reader, "tra_apepaterno");
+				LastName = GetString (reader, "tra_apematerno");
+				Saldo = GetDecimal (reader,  "tra_saldo");
+				LastPayDate = GetDateTime (reader, "tra_fechaultimopago");
+				CategoryId = GetString (reader, "cat_id");
 		}
 		
 		public override string ToString ()
@@ -145,7 +177,7 @@ namespace Stprm.CajaFinanciera.Data
 			}
 		}
 		
-		public double Saldo {
+		public decimal Saldo {
 			get { return _saldo; }
 			set { 
 				_saldo = value; 
@@ -161,10 +193,10 @@ namespace Stprm.CajaFinanciera.Data
 			}
 		}
 		
-		public string Category {
-			get { return _category; }
+		public string CategoryId {
+			get { return _category_id; }
 			set { 
-				_category = value; 
+				_category_id = value; 
 				OnModified (); 
 			}
 		}		

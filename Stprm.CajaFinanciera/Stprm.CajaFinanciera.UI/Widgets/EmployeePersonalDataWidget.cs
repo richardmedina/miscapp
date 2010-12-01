@@ -18,8 +18,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private Entry _entry_lastname;
 		private DateTimeButton _button_borndate;
 		
-		private Gtk.ComboBox _cmb_category;
-		private string [] _emp_categories = {"Activo", "Corporativo", "Jubilado", "Transitorio"};
+		private CategoriaCombo _cmb_category;
+		//private string [] _emp_categories = {"Activo", "Corporativo", "Jubilado", "Transitorio"};
 		
 		private Gtk.ComboBox _cmb_status;
 		private string [] _emp_status = {"Alta", "Baja"};
@@ -34,9 +34,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_entry_lastname = new Entry ();
 			_button_borndate = new DateTimeButton (new DateTime (0001, 1, 1));
 			
-			_cmb_category = new ComboBox (_emp_categories);
+			_cmb_category = new CategoriaCombo ();
+			_cmb_category.Populate ();
+			_cmb_category.Active = 0;
 			_cmb_status = new ComboBox (_emp_status);
-			
 			
 			hbox.PackStart (Factory.Label ("Nombre(s) :", 100, Justification.Right), false, false, 0);
 			hbox.PackStart (_entry_firstname);
@@ -70,13 +71,27 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			ShowAll ();
 		}
 		
+		public void SaveToEmployee (Employee employee)
+		{
+			employee.FirstName = _entry_firstname.Text;
+			employee.MiddleName = _entry_middlename.Text;
+			employee.LastName = _entry_lastname.Text;
+			//employee.CategoryId = 
+		}
+		
 		public void UpdateFromEmployee (Employee employee)
 		{
-			Console.WriteLine (employee);
 			_entry_id.Text = employee.Id;
 			_entry_firstname.Text = employee.FirstName;
 			_entry_middlename.Text = employee.MiddleName;
 			_entry_lastname.Text = employee.LastName;
+			
+			Categoria categoria = new Categoria (Globals.Db);
+			categoria.Id = employee.CategoryId;
+			
+			if (categoria.Update ()) {
+				_cmb_category.Select (categoria);
+			}
 		}
 	}
 }

@@ -26,17 +26,20 @@ namespace Stprm.CajaFinanciera.Data
 		public int CueId;
 		public decimal Cargo;
 		public int CieId;
-		
-		
-		
 			
 		public Ahorro (Database  db) : base (db, RecordType.Ahorro)
 		{
 		}
 		
+		public override bool Update ()
+		{
+			return true;
+		}
+
+		
 		public static IDataAdapter GetAllInAdtapter (Database db)
 		{
-			return db.QueryToAdapter ("SELECT DATE_FORMAT(aho_fecha,'%d/%m/%Y') as Fecha, aho_folio as Folio, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, aho_importe as Importe, aho_abono as Abono, aho_saldo as Saldo, CASE aho_status when 1 then 'RT' when 2 then 'DC' when 3 then 'DT' when 4 then 'SP' when 5 then 'PG' when 6 then 'CA' end as Estado from ahorros,trabajadores where ahorros.tra_id = trabajadores.tra_id");
+			return db.QueryToAdapter ("SELECT aho_id, DATE_FORMAT(aho_fecha,'%d/%m/%Y') as Fecha, aho_folio as Folio, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, aho_importe as Importe, aho_abono as Abono, aho_saldo as Saldo, CASE aho_status when 1 then 'RT' when 2 then 'DC' when 3 then 'DT' when 4 then 'SP' when 5 then 'PG' when 6 then 'CA' end as Estado from ahorros,trabajadores where ahorros.tra_id = trabajadores.tra_id");
 		}
 	}
 }

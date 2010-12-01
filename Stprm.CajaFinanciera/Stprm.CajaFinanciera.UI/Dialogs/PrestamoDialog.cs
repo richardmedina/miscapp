@@ -33,14 +33,20 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			
 			ShowAll ();
 			
-			AddButton (Stock.Cancel, ResponseType.Cancel);
-			AddButton (Stock.Save, ResponseType.Ok);
+			AddButton (Stock.Close, ResponseType.Cancel);
+			AddButton (Stock.Ok, ResponseType.Ok);
 		}
+		
 		
 		public void UpdateFromPrestamo (Prestamo prestamo)
 		{
 			_pdw_prestamo.UpdateFromPrestamo (prestamo);
 			_lv_movimientos.LoadMovimientos (prestamo);
+		}
+		
+		public Prestamo GetAsPrestamo ()
+		{
+			return _pdw_prestamo.GetAsPrestamo ();
 		}
 	}
 }

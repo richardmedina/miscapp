@@ -15,6 +15,8 @@ namespace Stprm.CajaFinanciera.Data
 		Ahorro,
 		CuentaBancaria,
 		PlazoPago,
-		PrestamoMovimiento
+		PrestamoMovimiento,
+		Cobro,
+		Descuento
 	}
 }

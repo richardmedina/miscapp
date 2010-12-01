@@ -25,7 +25,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public decimal Saldo;
 		public int PorcentajeInteres;
-		public int Status;
+		public OperacionFinancieraEstado Status;
 		
 		public DateTime FechaSusp;
 		public int NumPagos;
@@ -76,6 +76,56 @@ namespace Stprm.CajaFinanciera.Data
 			return result;
 		}
 		
+		public override bool Save ()
+		{
+			bool result = false;
+			
+			if (!Exists ()) {
+				Db.NonQuery ("insert into {0} (pla_id) values (0)",
+				          TablePrestamos);
+				Id = GetLastInsertId ();
+			}
+			
+			if (Id > 0) {
+				Db.NonQuery ("UPDATE {0} SET pla_id ={1}, tra_id={2}, pre_folio='{3}', pre_folio_original='{4}', pre_fecha='{5}', pre_fecha_inicobro ='{6}', pre_capital={7}, pre_interes={8}, pre_cargo={9}, pre_porcentaje_interes={10}, pre_abono={11}, pre_saldo={12}, pre_status={13}, pre_fecha_susp={14}, pre_num_pagos={15}, pre_abono_capital={16}, pre_abono_interes={17}, pre_cheque='{18}', pre_pagare='{19}' where pre_id={20}",
+				             TablePrestamos, PlazoId, TrabajadorInternalId, Folio, FolioOriginal, Fecha.ToString ("yyyyMMdd"), FechaIniCobro == DateTime.MinValue? "00000000" : FechaIniCobro.ToString ("YYYYmmdd"), Capital, Interes, Cargo, PorcentajeInteres, Abono, Saldo, (int) Status, FechaSusp == DateTime.MinValue ? "00000000" : FechaSusp.ToString ("yyyyMMdd"), NumPagos, AbonoCapital, AbonoInteres, Cheque, Pagare, Id);
+				
+				Employee employee = new Employee (Db);
+				employee.InternalId = TrabajadorInternalId;
+				
+				if (employee.UpdateFromInternalId ()) {
+					employee.Saldo = GetSaldo ();
+					employee.Save ();
+					result = true;
+				}
+			}
+			
+			return result;
+		}
+		
+		public override bool Exists ()
+		{
+			Prestamo prestamo = new Prestamo (Db);
+			prestamo.Id = Id;
+			
+			return prestamo.Update ();
+		}
+		
+		public decimal GetSaldo ()
+		{
+			decimal saldo = 0m;
+			IDataReader reader = Db.Query ("select sum(pre_saldo) as saldo from {0} where tra_id = '{1}'",
+			                               TablePrestamos, TrabajadorInternalId);
+			
+			if (reader.Read ()) {
+				saldo = GetDecimal (reader, "saldo");
+			}
+			
+			reader.Close ();
+			return saldo;
+		}
+		
+		
 		public IDataAdapter GetMovimientosInAdapter ()
 		{
 			return PrestamoMovimiento.GetMovimientosInAdapter (this);	
@@ -83,7 +133,13 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select pre_id as Id, DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo from prestamos, trabajadores where prestamos.tra_id = trabajadores.tra_id order by Ficha asc");
+			return db.QueryToAdapter ("select pre_id as Id, DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo, CASE pre_status WHEN 1 THEN 'RT' WHEN 2 THEN 'DC' WHEN 3 THEN 'DT' WHEN 4 THEN 'SP' WHEN 5 THEN 'PG' END as Estado from prestamos, trabajadores where prestamos.tra_id = trabajadores.tra_id and pre_saldo < (pre_capital+pre_interes) order by Ficha asc");
+		}
+		
+		public static IDataAdapter GetCollectionForEmployee (Database db, int tra_id)
+		{
+			return db.QueryToAdapter ("select DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo, CASE pre_status WHEN 1 THEN 'RT' WHEN 2 THEN 'DC' WHEN 3 THEN 'DT' WHEN 4 THEN 'SP' WHEN 5 THEN 'PG' END as Estado from {0}, {1} where prestamos.tra_id = trabajadores.tra_id and prestamos.tra_id={2} order by pre_fecha asc", 
+			                          TablePrestamos, TableEmployees, tra_id);
 		}
 		
 		public override void FillFromReader (IDataReader reader)
@@ -101,13 +157,14 @@ namespace Stprm.CajaFinanciera.Data
 			Abono = GetDecimal (reader, "pre_abono");
 			Saldo = GetDecimal (reader, "pre_saldo");
 			PorcentajeInteres = GetInt32 (reader, "pre_porc");
-			Status = GetInt32 (reader, "pre_status");
+			Status = (OperacionFinancieraEstado) GetInt32 (reader, "pre_status");
 			FechaSusp = GetDateTime (reader, "pre_fecha_susp");
 			NumPagos = GetInt32 (reader, "pre_num_pagos");
 			AbonoCapital = GetDecimal (reader, "pre_abono_capital");
 			AbonoInteres = GetDecimal (reader, "pre_abono_interes");
 			Cheque = GetString (reader, "pre_cheque");
 			Pagare = GetString (reader, "pre_pagare");
+			CuentaId = GetInt32 (reader, "cue_id");
 		}
 	}
 }

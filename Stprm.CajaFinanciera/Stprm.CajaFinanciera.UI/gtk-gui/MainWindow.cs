@@ -84,6 +84,7 @@ public partial class MainWindow {
         this.AddAccelGroup(this.UIManager.AccelGroup);
         this.Name = "MainWindow";
         this.Title = Mono.Unix.Catalog.GetString("MainWindow");
+        this.Icon = Gdk.Pixbuf.LoadFromResource("CajaFinanciera.png");
         this.WindowPosition = ((Gtk.WindowPosition)(1));
         this.Gravity = ((Gdk.Gravity)(5));
         // Container child MainWindow.Gtk.Container+ContainerChild
@@ -188,7 +189,6 @@ public partial class MainWindow {
         this.DefaultWidth = 433;
         this.DefaultHeight = 333;
         this.Show();
-        this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
         this.quitAction.Activated += new System.EventHandler(this.OnQuitActionActivated);
         this.aboutAction.Activated += new System.EventHandler(this.OnAboutActionActivated);
     }

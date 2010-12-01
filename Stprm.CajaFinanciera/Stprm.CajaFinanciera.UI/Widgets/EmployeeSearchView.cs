@@ -15,11 +15,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			AutoSelectable = true;
 		}
 		
-		public void Load (Database db)
+		public override void Load ()
 		{
 			DataSet ds = new DataSet ();
 			
-			Employee.GetCollectionInAdapter (db).Fill (ds);
+			Employee.GetCollectionForSearchingInAdapter (Globals.Db).Fill (ds);
 			
 			LoadDataSet (ds);
 		}

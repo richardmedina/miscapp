@@ -1,5 +1,6 @@
 
 using System;
+using System.Data;
 using Gtk;
 using Stprm.CajaFinanciera.Data;
 using Stprm.CajaFinanciera.UI.Dialogs;
@@ -26,7 +27,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Columns [0].Visible = false;
 		}
 		
-		protected override void OnActivated ()
+		public override void New ()
+		{
+			PrestamoDialog dialog = new PrestamoDialog ();
+			if (dialog.Run () == ResponseType.Ok) {
+				Prestamo prestamo = dialog.GetAsPrestamo ();
+				prestamo.Save ();
+			}
+			dialog.Destroy ();
+		}
+		
+		public override void EditSelected ()
 		{
 			string [] fields;
 			int id;
@@ -41,11 +52,28 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 					if (prestamo.Update ()) {
 						PrestamoDialog dialog = new PrestamoDialog ();
 						dialog.UpdateFromPrestamo (prestamo);
-						dialog.Run ();
+						if (dialog.Run () == ResponseType.Ok) {
+							Prestamo prestamo_editado = dialog.GetAsPrestamo ();
+							prestamo_editado.Save ();
+						}
 						dialog.Destroy ();
 					}
 				}
 			}
+		}
+
+		
+		public override void Load ()
+		{
+			DataSet ds = new DataSet ();
+			Prestamo.GetInAdapter (Globals.Db).Fill (ds);
+			LoadDataSet (ds);
+			Populate ();
+		}
+		
+		protected override void OnActivated ()
+		{
+			EditSelected ();
 			base.OnActivated ();
 		}
 	}
