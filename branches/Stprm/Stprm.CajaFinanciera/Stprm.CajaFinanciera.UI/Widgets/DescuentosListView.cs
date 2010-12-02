@@ -4,6 +4,8 @@ using System.Data;
 using Gtk;
 using Stprm.CajaFinanciera.Data;
 
+using Stprm.CajaFinanciera.UI.Dialogs;
+
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
@@ -13,16 +15,51 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public DescuentosListView ()
 		{
+			RulesHint = true;
 		}
 		
-		public void Load (Cobro cobro)
+		public override void New ()
 		{
-			DataSet ds = new DataSet();
+			GenerarDescuentoDialog dialog = new GenerarDescuentoDialog ();
+			dialog.Run ();
+			dialog.Destroy ();
+		}
+
+		
+		public override void EditSelected ()
+		{
+			string [] fields;
 			
-			cobro.GetDescuentosInAdapter ().Fill (ds);
+			if (GetSelected (out fields)) {
+				int id;
+				if (int.TryParse (fields [0], out id)) {
+					Descuento descuento = new Descuento (Globals.Db);
+					descuento.Id = id;
+					if (descuento.Update ()) {
+						DescuentoMovimientoDialog dialog = new DescuentoMovimientoDialog ();
+						dialog.Load (descuento);
+						dialog.Run ();
+						dialog.Destroy ();
+					}
+				}
+			}
+		}
+
+		
+		public override void Load ()
+		{
+			DataSet ds = new DataSet ();
+			Descuento.GetCollectionInAdapter (Globals.Db).Fill (ds);
 			
 			LoadDataSet (ds);
 			Populate ();
+			Columns [0].Visible = false;
 		}
+		
+		protected override void OnActivated ()
+		{
+			EditSelected ();
+		}
+
 	}
 }

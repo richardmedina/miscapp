@@ -15,8 +15,11 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			Comments = "Todo bajo control";
 			Version = "0.1b";
 			Copyright = "S.T.P.R.M. 2010-2012";
+			Logo = Gdk.Pixbuf.LoadFromResource ("CajaFinanciera.png");
 			
 			Authors = new string [] {"Ricardo Medina López <ricardo.medina@pemex.com>"};
+			Artists = Authors;
+			Documenters = Artists;
 		}
 	}
 }
