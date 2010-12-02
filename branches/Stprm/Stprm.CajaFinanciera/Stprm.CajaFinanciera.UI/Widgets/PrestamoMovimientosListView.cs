@@ -9,10 +9,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
-	public class MovimientosListView : DataSetView
+	public class PrestamoMovimientosListView : DataSetView
 	{
 
-		public MovimientosListView ()
+		public PrestamoMovimientosListView ()
 		{
 		}
 		

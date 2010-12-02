@@ -17,6 +17,7 @@ namespace Stprm.CajaFinanciera.Data
 		PlazoPago,
 		PrestamoMovimiento,
 		Cobro,
-		Descuento
+		Descuento,
+		DescuentoMovimiento
 	}
 }

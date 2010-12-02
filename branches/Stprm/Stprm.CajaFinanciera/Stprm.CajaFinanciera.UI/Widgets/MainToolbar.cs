@@ -22,7 +22,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public MainToolbar ()
 		{
 			
-			IconSize = IconSize.SmallToolbar;
+			IconSize = IconSize.LargeToolbar;
 			//ToolbarStyle = ToolbarStyle.Both;
 			WidthRequest = 250;
 			

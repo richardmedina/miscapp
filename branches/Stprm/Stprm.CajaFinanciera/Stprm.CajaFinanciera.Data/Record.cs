@@ -20,6 +20,9 @@ namespace Stprm.CajaFinanciera.Data
 		public static readonly string TableCuentasBancarias = "cuentas";
 		public static readonly string TablePlazos = "plazos";
 		public static readonly string TableCategorias = "categorias";
+		public static readonly string TableDescuentos = "descuentos";
+		public static readonly string TableDescuentoMovimientos = "descuentos_mov";
+		
 
 		private Database _database;
 

@@ -12,13 +12,13 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 	{
 		private Gtk.Notebook _notebook;
 		private PrestamoDetallesWidget _pdw_prestamo;
-		private MovimientosListView _lv_movimientos;
+		private PrestamoMovimientosListView _lv_movimientos;
 		
 		public PrestamoDialog ()
 		{
 			Title = Globals.FormatWindowTitle ("Prestamo");
 			_pdw_prestamo = new PrestamoDetallesWidget ();
-			_lv_movimientos = new MovimientosListView ();
+			_lv_movimientos = new PrestamoMovimientosListView ();
 			
 			_notebook = new Notebook ();
 			_notebook.AppendPage (_pdw_prestamo, new Label ("Detalles"));
