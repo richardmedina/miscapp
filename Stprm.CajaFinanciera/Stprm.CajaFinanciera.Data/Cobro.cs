@@ -35,7 +35,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public IDataAdapter GetDescuentosInAdapter ()
 		{
-			return Descuento.GetCollectionInAdapter (Db, Id);
+			return Descuento.GetCollectionInAdapter (Db);
 		}
 	}
 }

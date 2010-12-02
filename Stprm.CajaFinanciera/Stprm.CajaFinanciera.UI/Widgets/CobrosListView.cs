@@ -36,7 +36,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Populate ();
 			Columns [0].Visible = false;
 		}
-		
+		/*
 		public override void EditSelected ()
 		{
 			string [] fields;
@@ -47,13 +47,13 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				if (int.TryParse (fields [0], out id)) {
 					cobro.Id = id;
 					DescuentoDialog dialog = new DescuentoDialog ();
-					dialog.LoadDescuentos (cobro);
+					dialog.Load ();
 					dialog.Run ();
 					dialog.Destroy ();
 				}
 			}
 		}
-		
+		*/
 		protected override void OnActivated ()
 		{
 			EditSelected ();

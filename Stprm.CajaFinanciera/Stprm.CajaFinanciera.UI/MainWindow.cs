@@ -14,7 +14,7 @@ public partial class MainWindow : Gtk.Window
 	private EmployeeListView _view_employees;
 	private LoanListView _view_loans;
 	private AhorroListView _view_ahorros;
-	private CobrosListView _view_cobros;
+	private DescuentosListView _view_descs;
 	
 	private DataSetView [] _views;
 	
@@ -36,7 +36,7 @@ public partial class MainWindow : Gtk.Window
 		_views [0] = _view_employees = new EmployeeListView ();
 		_views [1] = _view_loans = new  LoanListView ();
 		_views [2] = _view_ahorros = new AhorroListView ();
-		_views [3] = _view_cobros = new CobrosListView();
+		_views [3] = _view_descs = new DescuentosListView ();
 		
 		_chooser_cuentas = new CuentaBancariaChooser ();
 		_chooser_cuentas.Combo.Changed += Handle_chooser_cuentasComboChanged;
@@ -82,7 +82,7 @@ public partial class MainWindow : Gtk.Window
 		_notebook.AppendPage (scroll, new Label ("Ahorros"));
 		
 		scroll = new ScrolledWindow ();
-		scroll.Add (_view_cobros);
+		scroll.Add (_view_descs);
 		_notebook.AppendPage (scroll, new Label ("Descuentos"));
 		
 		_notebook.Sensitive = false;
@@ -228,7 +228,7 @@ public partial class MainWindow : Gtk.Window
 			_view_ahorros.Load ();
 			while (Application.EventsPending ())
 				Application.RunIteration ();
-			_view_cobros.Load ();
+			_view_descs.Load ();
 		});
 	}
 
