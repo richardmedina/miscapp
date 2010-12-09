@@ -46,7 +46,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			_emp_loans.UpdateFromEmployee (employee);
 		}
 		
-		public Employee GetAsEmpleado ()
+		public Employee GetAsEmployee  ()
 		{
 			if (_employee == null) {
 				_employee = new Employee (Globals.Db);

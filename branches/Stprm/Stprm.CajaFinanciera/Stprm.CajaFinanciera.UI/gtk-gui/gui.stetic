@@ -10,7 +10,7 @@
     <widget-library name="../../RickiLib/RickiLib.Widgets/bin/Debug/RickiLib.Widgets.dll" />
     <widget-library name="../bin/Debug/Stprm.CajaFinanciera.UI.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="433 333">
+  <widget class="Gtk.Window" id="MainWindow" design-size="535 333">
     <action-group name="Default">
       <action id="ArchivoAction">
         <property name="Type">Action</property>
@@ -54,6 +54,52 @@
         <property name="StockId">gtk-about</property>
         <signal name="Activated" handler="OnAboutActionActivated" />
       </action>
+      <action id="EdicinAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Edición</property>
+        <property name="ShortLabel" translatable="yes">_Edición</property>
+      </action>
+      <action id="copyAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Copiar</property>
+        <property name="ShortLabel" translatable="yes">_Copiar</property>
+        <property name="StockId">gtk-copy</property>
+      </action>
+      <action id="pasteAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Pegar</property>
+        <property name="ShortLabel" translatable="yes">_Pegar</property>
+        <property name="StockId">gtk-paste</property>
+      </action>
+      <action id="PegadoEspecialAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">P_egado especial...</property>
+        <property name="ShortLabel" translatable="yes">P_egado especial...</property>
+      </action>
+      <action id="newAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Nuevo</property>
+        <property name="ShortLabel" translatable="yes">_Nuevo</property>
+        <property name="StockId">gtk-new</property>
+      </action>
+      <action id="editAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Editar</property>
+        <property name="ShortLabel" translatable="yes">_Editar</property>
+        <property name="StockId">gtk-edit</property>
+      </action>
+      <action id="removeAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Eliminar</property>
+        <property name="ShortLabel" translatable="yes">_Eliminar</property>
+        <property name="StockId">gtk-remove</property>
+      </action>
+      <action id="refreshAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Actualizar</property>
+        <property name="ShortLabel" translatable="yes">Actualizar</property>
+        <property name="StockId">gtk-refresh</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -70,6 +116,17 @@
             <node name="menubar1" type="Menubar">
               <node type="Menu" action="ArchivoAction">
                 <node type="Menuitem" action="quitAction" />
+              </node>
+              <node type="Menu" action="EdicinAction">
+                <node type="Menuitem" action="copyAction" />
+                <node type="Menuitem" action="pasteAction" />
+                <node type="Menuitem" action="PegadoEspecialAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="newAction" />
+                <node type="Menuitem" action="editAction" />
+                <node type="Menuitem" action="removeAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="refreshAction" />
               </node>
               <node type="Menu" action="AyudaAction">
                 <node type="Menuitem" action="helpAction" />

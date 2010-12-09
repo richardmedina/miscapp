@@ -23,7 +23,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			_help_request = onHelpRequest;
 		}
 		
-		public new ResponseType Run ()
+		public new virtual ResponseType Run ()
 		{
 			ResponseType response;
 			

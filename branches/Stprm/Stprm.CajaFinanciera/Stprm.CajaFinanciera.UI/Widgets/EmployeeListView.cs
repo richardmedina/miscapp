@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 using Gtk;
-
+using RickiLib.Widgets;
 using Stprm.CajaFinanciera.Data;
 using Stprm.CajaFinanciera.UI.Dialogs;
 
@@ -20,7 +20,13 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public override void New ()
 		{
 			EmployeeDialog dialog = new EmployeeDialog ();
-			dialog.Run ();
+			if (dialog.Run () == ResponseType.Ok) {
+				Employee employee = dialog.GetAsEmployee ();
+				if (employee.Save ()) {
+					ShowNewMessageSucess ();
+				}
+			}
+			
 			dialog.Destroy ();
 		}
 
@@ -47,15 +53,33 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 						EmployeeDialog dialog = new EmployeeDialog ();
 						dialog.UpdateFromEmployee (employee);
 						if (dialog.Run () == ResponseType.Ok) {
-							Gtk.TreeIter iter;
-							if (Selection.GetSelected (out iter)) {
-									
+							Employee edited_employee = dialog.GetAsEmployee ();
+							if (edited_employee.Save ()) {
+								ShowEditMessageSucess ();
 							}
 						}
 						dialog.Destroy ();
 					}
 				}
 			}
+		}
+		
+		private void ShowNewMessageSucess ()
+		{
+			ShowMessage ("Trabajador registrado satisfactoriamente");
+		}
+		
+		public void ShowEditMessageSucess ()
+		{
+			ShowMessage ("Trabajador modificado satisfactoriamente");
+		}
+		
+		private void ShowMessage (string text)
+		{
+			MessageDialog message = new MessageDialog (null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok,
+					                                           text);
+					message.Run ();
+					message.Destroy ();
 		}
 		
 		protected override void OnActivated ()
