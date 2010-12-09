@@ -24,5 +24,29 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			AddButton (Stock.Close, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
+		
+		public override ResponseType Run ()
+		{
+			ResponseType resp = ResponseType.DeleteEvent;
+			
+			while ((resp = base.Run ())  == ResponseType.DeleteEvent) {
+				MessageDialog message = new MessageDialog (this,
+				                                           DialogFlags.Modal, 
+				                                           MessageType.Warning,
+				                                           ButtonsType.YesNo,
+				                                           "Seguro que desea cerrar la ventana y perder los cambios realizados?");
+				message.Title = Globals.FormatWindowTitle ("Aviso");
+				ResponseType response = (ResponseType) message.Run ();
+				message.Destroy ();
+				if (response == ResponseType.Yes) {
+					resp = ResponseType.Cancel;
+					break;
+				}
+			}
+			
+			
+			return resp;
+		}
+
 	}
 }

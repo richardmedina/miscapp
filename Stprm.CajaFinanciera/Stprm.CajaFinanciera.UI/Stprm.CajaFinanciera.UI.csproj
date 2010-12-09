@@ -112,13 +112,16 @@
     <Compile Include="Widgets\PrestamoImportesWidget.cs" />
     <Compile Include="Widgets\DescuentosListView.cs" />
     <Compile Include="Widgets\CobrosListView.cs" />
-    <Compile Include="Widgets\GeneradorDescuentoView.cs" />
     <Compile Include="Dialogs\GenerarDescuentoDialog.cs" />
     <Compile Include="Widgets\GeneradorDescuentosWidget.cs" />
     <Compile Include="Widgets\CajaFinancieraComboBox.cs" />
     <Compile Include="Widgets\PrestamoMovimientosListView.cs" />
     <Compile Include="Dialogs\DescuentoMovimientosDialog.cs" />
     <Compile Include="Widgets\DescuentoMovimientosListView.cs" />
+    <Compile Include="Widgets\GeneradorDescuentosView.cs" />
+    <Compile Include="Widgets\BuscarPrestamoListView.cs" />
+    <Compile Include="Widgets\BuscarPrestamoWidget.cs" />
+    <Compile Include="Dialogs\BuscarPrestamoDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
