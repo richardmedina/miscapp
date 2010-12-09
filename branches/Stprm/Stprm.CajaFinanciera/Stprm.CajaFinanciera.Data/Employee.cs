@@ -69,13 +69,30 @@ namespace Stprm.CajaFinanciera.Data
 				InternalId = GetLastInsertId ();
 			}
 			
+			Saldo = GetAbono ();
+			
 			if (InternalId > 0) {
-				Db.NonQuery ("UPDATE {0} SET tra_ficha='{1}', tra_nombre='{2}', tra_apepaterno='{3}' tra_apematerno='{4}', tra_saldo='{5}', tra_fechaultimopago='{6}' cat_id='{7}' where tra_id={8}",
-			             TableEmployees, FirstName, MiddleName, LastName, Saldo, DateTimeToDbFormat (LastPayDate), CategoryId, InternalId);
+				Db.NonQuery ("UPDATE {0} SET tra_ficha='{1}', tra_nombre='{2}', tra_apepaterno='{3}', tra_apematerno='{4}', tra_saldo={5}, tra_fechaultimopago='{6}', cat_id='{7}' where tra_id={8}",
+			             TableEmployees, Id, FirstName, MiddleName, LastName, Saldo, DateTimeToDbFormat (LastPayDate), CategoryId, InternalId);
 				result = true;
 			}
 			
 			return result;
+		}
+		
+		public decimal GetAbono ()
+		{
+			decimal saldo = 0m;
+			IDataReader reader = Db.Query ("select sum(pre_saldo) as saldo from {0} where tra_id = {1}",
+			                               TablePrestamos, InternalId);
+			
+			if (reader.Read ()) {
+				saldo = GetDecimal (reader, "saldo");
+			}
+			
+			reader.Close ();
+			return saldo;
+
 		}
 		
 		public override bool Exists ()

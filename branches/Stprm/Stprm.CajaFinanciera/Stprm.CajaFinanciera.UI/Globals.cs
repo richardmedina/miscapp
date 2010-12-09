@@ -18,6 +18,14 @@ namespace Stprm.CajaFinanciera.UI
 		
 		public static bool ViewResponsiveLoading = false;
 		
+		public static int DiasCatorcenal = 14;
+		
+		public static string DbHostname = "localhost";
+		public static string DbUserId = "ricki";
+		public static string DbPassword = "09b9085a+";
+		public static string DbName = "caja1";
+		
+		
 		public static string FormatWindowTitle (string title)
 		{
 			return string.Format ("{0} - {1}",

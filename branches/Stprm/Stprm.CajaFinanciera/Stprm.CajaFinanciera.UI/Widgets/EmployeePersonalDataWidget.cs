@@ -26,7 +26,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public EmployeePersonalDataWidget ()
 		{
-			Gtk.HBox hbox = new Gtk.HBox (false, 5);
+			
 			
 			_entry_id = new Entry ();
 			_entry_firstname = new Entry ();
@@ -38,6 +38,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_cmb_category.Populate ();
 			_cmb_category.Active = 0;
 			_cmb_status = new ComboBox (_emp_status);
+			
+			Gtk.HBox hbox = new Gtk.HBox (false, 5);
+			hbox.PackStart (Factory.Label ("Ficha :", 100, Justification.Right), false, false, 0);
+			hbox.PackStart (_entry_id, false, false, 0);
+			
+			PackStart (hbox, false, false, 0);
+			
+			hbox = new HBox (false, 5);
 			
 			hbox.PackStart (Factory.Label ("Nombre(s) :", 100, Justification.Right), false, false, 0);
 			hbox.PackStart (_entry_firstname);
@@ -73,6 +81,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public void SaveToEmployee (Employee employee)
 		{
+			employee.Id = _entry_id.Text;
 			employee.FirstName = _entry_firstname.Text;
 			employee.MiddleName = _entry_middlename.Text;
 			employee.LastName = _entry_lastname.Text;

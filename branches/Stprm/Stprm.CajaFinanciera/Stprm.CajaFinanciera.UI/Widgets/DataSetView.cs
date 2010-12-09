@@ -16,7 +16,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		private DataSet _dataset;
 		
-		public string CurrentFilter = string.Empty;
+		private string _current_filter = string.Empty;
 		public int ColumnId = 0;
 		
 		public bool AutoSelectable = false;
@@ -26,6 +26,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public DataSetView ()
 		{
 			Activated = onActivated;
+			AutoSelectable = true;
+		}
+		
+		public virtual void SendActivated ()
+		{
+			Gtk.TreeIter iter;
+			if (Selection.GetSelected (out iter))
+				OnActivated ();
 		}
 		
 		public virtual void New ()
@@ -40,7 +48,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				TreeIter iter_for_removing = iter;
 				Store.IterNext (ref iter);
 				Store.Remove (ref iter_for_removing);
-				Selection.SelectIter (iter);
+				if (AutoSelectable)
+					Selection.SelectIter (iter);
 			}
 		}
 		
@@ -79,10 +88,18 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 				Model = _store;
 		}
-		
+		static int counter = 0;
 		public virtual bool OnRowAdd (string [] fields)
 		{
-			_store.AppendValues (fields);
+			if (CurrentFilter.Length == 0) {
+				_store.AppendValues (fields);
+			}
+			else
+				for (int i = 0; i < fields.Length; i ++) {
+					if (Columns [i].Visible)
+						if (fields [i].ToLower ().IndexOf (CurrentFilter) > -1)
+							_store.AppendValues (fields);
+				}
 			
 			if (Globals.ViewResponsiveLoading)
 				while (Application.EventsPending ())
@@ -110,8 +127,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Gtk.TreeIter iter;
 			
 			if (AutoSelectable) {
-					if (Store.GetIterFirst (out iter))
-						Selection.SelectIter (iter);
+				if (Store.GetIterFirst (out iter))
+					Selection.SelectIter (iter);
 			}
 			
 			return count;
@@ -249,6 +266,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public DataSet Dataset {
 			get { return _dataset; }
+		}
+		
+		public string CurrentFilter {
+			get { return _current_filter; }
+			set { 
+				if (_current_filter != value.ToLower ()) {
+					_current_filter = value.ToLower (); 
+					//if (_current_filter.Length > 2)
+					Populate ();
+				}
+			}
 		}
 	}
 }

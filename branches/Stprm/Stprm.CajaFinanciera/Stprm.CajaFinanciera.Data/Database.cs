@@ -28,7 +28,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static Database CreateStprmConnection ()
 		{
-			Database db = new Database (@"localhost", "ricki", "09b9085a+", "caja2");
+			Database db = new Database (@"localhost", "ricki", "09b9085a", "caja1");
 			db.Open ();
 			return db;
 		}

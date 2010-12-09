@@ -31,6 +31,8 @@ public partial class MainWindow : Gtk.Window
 	
 	public MainWindow () : base(Gtk.WindowType.Toplevel)
 	{
+		Title = Globals.FormatWindowTitle ("Principal");
+		
 		_views = new DataSetView [4];
 		
 		_views [0] = _view_employees = new EmployeeListView ();
@@ -38,12 +40,19 @@ public partial class MainWindow : Gtk.Window
 		_views [2] = _view_ahorros = new AhorroListView ();
 		_views [3] = _view_descs = new DescuentosListView ();
 		
+		foreach (DataSetView view in Views)
+			view.KeyPressEvent += Handle_GenericKeyPressEvent;
+		
 		_chooser_cuentas = new CuentaBancariaChooser ();
 		_chooser_cuentas.Combo.Changed += Handle_chooser_cuentasComboChanged;
 		_searchentry_search = new SearchEntry ();
 		_searchentry_search.Menu = new TrabajadoresCriteriosMenu (null);
+		_searchentry_search.Entry.Changed += Handle_searchentry_searchEntryChanged;
+		_searchentry_search.Entry.Activated += Handle_searchentry_searchEntryActivated;
+		_searchentry_search.Entry.KeyPressEvent += Handle_GenericKeyPressEvent;
 		
 		_toolbar = new MainToolbar ();
+		_toolbar.Sensitive = false;
 		_toolbar.ButtonNew.Clicked += Handle_toolbarButtonNewClicked;
 		_toolbar.ButtonEdit.Clicked += Handle_toolbarButtonEditClicked;
 		_toolbar.ButtonRemove.Clicked += Handle_toolbarButtonRemoveClicked;
@@ -69,6 +78,8 @@ public partial class MainWindow : Gtk.Window
 		scroll.Add (_view_employees);
 		
 		_notebook = new Notebook ();
+		_notebook.SwitchPage += Handle_notebookSwitchPage;
+		
 		_notebook.TabPos = PositionType.Left;
 		_notebook.AppendPage (scroll,  new Label ("Trabajadores"));
 		
@@ -86,9 +97,31 @@ public partial class MainWindow : Gtk.Window
 		_notebook.AppendPage (scroll, new Label ("Descuentos"));
 		
 		_notebook.Sensitive = false;
-		_main_container.Add (_notebook);
+		_searchentry_search.Sensitive = false;
 		
-		Title = Globals.FormatWindowTitle ("Principal");
+		_main_container.Add (_notebook);
+		_chooser_cuentas.Combo.GrabFocus ();
+	}
+
+	private void Handle_GenericKeyPressEvent (object o, KeyPressEventArgs args)
+	{
+		if (args.Event.Key == Gdk.Key.Escape)
+			_searchentry_search.Entry.Text = string.Empty;
+	}
+
+	private void Handle_searchentry_searchEntryActivated (object sender, EventArgs e)
+	{
+		_views [_notebook.Page].EditSelected ();
+	}
+
+	private void Handle_notebookSwitchPage (object o, SwitchPageArgs args)
+	{
+			_searchentry_search.Entry.Text = _views [args.PageNum].CurrentFilter;
+	}
+
+	private void Handle_searchentry_searchEntryChanged (object sender, EventArgs e)
+	{
+		_views [_notebook.Page].CurrentFilter = _searchentry_search.Entry.Text.Trim ();
 	}
 
 	private void Handle_toolbarButtonRefreshClicked (object sender, EventArgs e)
@@ -145,6 +178,9 @@ public partial class MainWindow : Gtk.Window
 		if (_chooser_cuentas.Combo.GetSelected (out cuenta)) {
 			Globals.CuentaActual = cuenta;
 			_notebook.Sensitive = true;
+			_toolbar.Sensitive = true;
+			_searchentry_search.Sensitive = true;
+			_searchentry_search.Entry.GrabFocus ();
 		}
 	}
 	
@@ -176,11 +212,12 @@ public partial class MainWindow : Gtk.Window
 	
 	protected override void OnShown ()
 	{
-		
-		
 		if (Authenticate ()) { }
 			base.OnShown ();
-			Present ();		
+			Present ();	
+			//Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
+			//Globals.Db.Open ();
+		
 			_chooser_cuentas.Combo.Populate ();
 			
 			SetLoading (false);
@@ -263,6 +300,8 @@ public partial class MainWindow : Gtk.Window
 		dialog.Run ();
 		dialog.Destroy ();
 	}
-	
-	
+
+	public DataSetView [] Views {
+		get { return _views; }
+	}
 }
