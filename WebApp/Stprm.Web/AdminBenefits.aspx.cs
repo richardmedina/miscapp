@@ -21,23 +21,17 @@ namespace Stprm.Web
     {
         protected override void OnLoad(EventArgs e)
         {
-            _isc_search.SearchResultEvent += _isc_search_SearchResultEvent;
+            _isc_search.Busqueda += _isc_search_Busqueda;
             _ei_employee.ClearData();
             
-            using (Database db = Database.CreateStprmConnection())
-            {
-                foreach (Concept concept in Concept.GetAllFromDb(db))
-                {
-                   _cmb_apoyos.Items.Add(new ListItem(concept.Name, concept.Id.ToString ()));
-                }
-            }
         }
 
-        private void _isc_search_SearchResultEvent(object sender, EmployeeEventArgs args)
+        private void _isc_search_Busqueda (object sender, TrabajadorEventArgs args)
         {
+            _ei_employee.ClearData();
+
             if (args.Exists)
-                _ei_employee.UpdateFromEmployee(args.Employee);
-            else _ei_employee.ClearData();
+                _ei_employee.UpdateFromEmployee(args.Trabajador);
         }
     }
 }

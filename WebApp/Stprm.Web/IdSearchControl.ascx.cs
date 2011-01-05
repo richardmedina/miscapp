@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 
 using MedLib.Controls;
-using Stprm.Data;
+using Stprm.DataEx;
 
 namespace Stprm.Web
 {
@@ -21,7 +21,9 @@ namespace Stprm.Web
     public partial class IdSearchControl : System.Web.UI.UserControl
     {
 
-        private event EmployeeEventHandler _search_result_event;
+        private event TrabajadorEventHander _search_result_event;
+
+        public string ErrorMessage = "Ficha no existe";
 
         protected override void OnInit(EventArgs e)
         {
@@ -36,27 +38,29 @@ namespace Stprm.Web
             _lbl_msg.Text = string.Empty;
         }
 
-        protected virtual void OnSearchResult(Employee employee, bool exists)
+        protected virtual void OnSearchResult(Trabajador trabajador, bool existe)
         {
-            _search_result_event(this, new EmployeeEventArgs(employee, exists));
+            _search_result_event(this, new TrabajadorEventArgs (trabajador, existe));
         }
 
-        void _btn_search_Click(object sender, EventArgs e)
+        private void _btn_search_Click(object sender, EventArgs e)
         {
             int id;
 
             if (int.TryParse(_txt_id.Text, out id))
             {
-                using (Database db = Database.CreateStprmConnection())
+                using (BaseDatos datos = BaseDatos.CreateStprmConnection ())
                 {
-                    Employee employee = new Employee(db);
-                    employee.Id = id;
+                    Trabajador trabajador = new Trabajador(datos);
+                    trabajador.Ficha = _txt_id.Text;
+                    //Employee employee = new Employee(db);
+                    //employee.Id = id;
 
-                    bool exists = employee.Update();
-                    if (!exists)
-                        _lbl_msg.Text = "Ficha no existe";
+                    bool existe = trabajador.Actualizar ();
+                    if (!existe)
+                        _lbl_msg.Text = ErrorMessage;
 
-                    OnSearchResult(employee, exists);
+                    OnSearchResult(trabajador, existe);
                 }
             }
             else
@@ -65,7 +69,7 @@ namespace Stprm.Web
             }
         }
 
-        private void on_search_result_event(object sender, EmployeeEventArgs args)
+        private void on_search_result_event(object sender, TrabajadorEventArgs args)
         {
         }
 
@@ -84,7 +88,7 @@ namespace Stprm.Web
             get { return _btn_search; }
         }
 
-        public event EmployeeEventHandler SearchResultEvent
+        public event TrabajadorEventHander Busqueda
         {
             add { _search_result_event += value; }
             remove { _search_result_event -= value; }

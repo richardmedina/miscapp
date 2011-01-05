@@ -35,7 +35,7 @@ namespace Stprm.DataEx
         {
             bool result = false;
 
-            IDataReader reader = Bd.Query("select Ficha, Folio, Categoria, Inicio, Termino, Terminacion, Jornada, Nivel, Plaza, AreaPersonal, Clasificacion, ReferenciaOrigen, ReferenciaMotivo, OrigenMovimiento, Motivo1, Depto, Centro from {0} where Ficha ='{1}' and Folio='{2}'",
+            IDataReader reader = Bd.Query("select Ficha, Folio, Categoria, Inicio, Termino, Terminacion, Jornada, Nivel, Plaza, AreaPersonal, Clasificacion, ReferenciaOrigen, ReferenciaMotivo, OrigenMovimiento, Motivo1 + Motivo2 + Motivo3 as Motivo, Depto, Centro from {0} where Ficha ='{1}' and Folio='{2}'",
                 TablaContratos, Ficha, Folio);
 
             if (reader.Read ()) {
@@ -103,7 +103,7 @@ namespace Stprm.DataEx
             ReferenciaOrigen = reader.IsDBNull (reader.GetOrdinal("ReferenciaOrigen")) ? string.Empty : reader.GetString(reader.GetOrdinal("ReferenciaOrigen"));
             ReferenciaMotivo = reader.IsDBNull(reader.GetOrdinal("ReferenciaMotivo")) ? string.Empty : reader.GetString(reader.GetOrdinal("ReferenciaMotivo"));
             OrigenMovimiento = reader.IsDBNull(reader.GetOrdinal("OrigenMovimiento")) ? string.Empty : reader.GetString(reader.GetOrdinal("OrigenMovimiento"));
-            Motivo = reader.IsDBNull(reader.GetOrdinal("Motivo1")) ? string.Empty : reader.GetString(reader.GetOrdinal("Motivo1"));
+            Motivo = reader.IsDBNull(reader.GetOrdinal("Motivo")) ? string.Empty : reader.GetString(reader.GetOrdinal("Motivo"));
             Depto = reader.IsDBNull(reader.GetOrdinal("Depto")) ? string.Empty : reader.GetString(reader.GetOrdinal("Depto"));
             CentroTrabajo = reader.IsDBNull(reader.GetOrdinal("Centro")) ? string.Empty : reader.GetString(reader.GetOrdinal("Centro"));
         }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 
+using Stprm.Data;
+
 namespace Stprm.DataEx
 {
     public class BaseDatos : IDisposable
@@ -23,10 +25,18 @@ namespace Stprm.DataEx
 			_password = password;
 			_source = source;
 		}
+
+        public static Database CreateOldConnection()
+        {
+            Database db = new Database("Poseidon", "ricki", "09b9085a+", "seccion26");
+            db.Open();
+
+            return db;
+        }
 		
 		public static BaseDatos CreateStprmConnection ()
 		{
-			BaseDatos db = new BaseDatos (@"Mercurio", "ricki", "09b9085a+", "seccion26");
+			BaseDatos db = new BaseDatos (@"Poseidon", "ricki", "09b9085a+", "seccion26");
 			db.Open ();
 			return db;
 		}

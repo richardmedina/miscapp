@@ -11,7 +11,12 @@ namespace Stprm.Web.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ChangeUserPassword.ChangingPassword += new LoginCancelEventHandler(ChangeUserPassword_ChangingPassword);
+        }
 
+        private void ChangeUserPassword_ChangingPassword(object sender, LoginCancelEventArgs e)
+        {
+            
         }
     }
 }

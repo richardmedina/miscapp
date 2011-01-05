@@ -16,6 +16,13 @@ namespace Stprm.DataEx
         {
         }
 
+        public static DatabaseEx ConeccionStprm ()
+        {
+            DatabaseEx db = new DatabaseEx("Poseidon", "ricki", "09b9085a+", "seccion26");
+            db.Open();
+            return db;
+        }
+
         public UserDataEx UserData
         {
             get { return _userdata; }

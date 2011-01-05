@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-using Stprm.Data;
+using Stprm.DataEx;
 
 namespace Stprm.Web
 {
@@ -50,43 +50,34 @@ namespace Stprm.Web
             }
         }
 
-        public void UpdateFromEmployee(Employee employee)
+        public void UpdateFromEmployee(Trabajador trabajador)
         {
-            UpdateFromEmployee(employee, true);
+            UpdateFromEmployee(trabajador, true);
         }
 
-        public void UpdateFromEmployee(Employee employee, bool editable)
+        public void UpdateFromEmployee(Trabajador trabajador, bool editable)
         {
             SetEditable(editable);
-            Id = employee.Id.ToString();
-            Name = employee.GetFullName();
-            ContractualArrangement = DataMisc.ContractualArrangementToString(employee.ContractualArrangement);
+            Id = trabajador.Ficha;
+            Name = trabajador.GetNombreCompleto();
+            //ContractualArrangement = DataMisc.ContractualArrangementToString(employee.ContractualArrangement);
+            ContractualArrangement = trabajador.RegimenContractual;
 
-            ContractCollection contracts = employee.GetContracts();
-            if (contracts.Count > 0)
+
+            Contrato contrato; 
+            
+            
+            if (trabajador.GetUltimoContrato(out contrato))
             {
-                Contract contr = contracts[0];
-                Position position = contr.Position;
-                Category category = position.GetCategory();
-                Department department = position.GetDepartment();
+                Classif = contrato.Clasificacion;
+                Category = contrato.Categoria;
+                Section = "26";
+                Level = contrato.Nivel;
 
-                PositionNum = position.Id;
-
-                if (category != null)
-                {
-                    Classif = category.Classification;
-                    Category = category.Name;
-                    Section = "26";
-                    Level = category.Level;
-                }
-
-                ValidityStart = contr.StartingDate.ToString("dd/MM/yyyy");
-                ValidityEnd = contr.EndingDate.ToString("dd/MM/yyyy");
-
-                Journey = position.Jor.ToString("0");
-
-                if (department != null)
-                    Department = department.Name;
+                ValidityStart = contrato.Inicio.ToString ("dd/MM/yyyy");
+                ValidityEnd = contrato.Termino.ToString("dd/MM/yyyy");
+                Journey = contrato.Jornada;
+                Department = contrato.Depto;
             }
         }
 
