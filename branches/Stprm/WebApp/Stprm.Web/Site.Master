@@ -19,12 +19,12 @@
         <div class="header">
             <div class="title">
                 <h1>
-                    Aplicacion de Administración Sindical<br />
+                    Aplicacion de Administración Sindical
                     <span style="font-size: 12px;">"Ing. Carlos Jiménez Hernández"</span>
                 </h1>
             </div>
             <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
                         [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Iniciar sesión</a> ]
                     </AnonymousTemplate>
@@ -34,29 +34,38 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
-            <div class="clear hideSkiplink">
-                <asp:Menu ID="_mnu_main" runat="server" CssClass="menu" EnableViewState="true" IncludeStyleBlock="false" Orientation="Horizontal">
+            <div class="hideSkiplink">
+            <asp:Menu ID="_mnu_main" runat="server" CssClass="menu" Orientation="Horizontal" BackColor="#3a4f63" ForeColor="White">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Página principal"/>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Página principal" />
                         <asp:MenuItem NavigateUrl="~/Help.aspx" Text="Ayuda">
                             <asp:MenuItem NavigateUrl="~/HelpThemes.aspx" Text="Temas de ayuda" />
                             <asp:MenuItem NavigateUrl="~/BugReport.aspx" Text="Reportar un error" />
                             <asp:MenuItem NavigateUrl="~/About.aspx" Text="Créditos" />
                         </asp:MenuItem>
                     </Items>
+                    <StaticSelectedStyle BackColor="#3a4f63" />
+                    <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                    <DynamicMenuStyle BackColor="#3a4f63" />
+                    <DynamicSelectedStyle BackColor="#3a4f63" />
+                    <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" ForeColor="White" />
+                    <DynamicHoverStyle BackColor="White" Font-Bold="False" ForeColor="#3a4f63" BorderColor="#3a4f63" BorderWidth="1px" BorderStyle="Solid" />
+                    <StaticHoverStyle BackColor="#3a4f63" Font-Bold="False" ForeColor="White" />
                 </asp:Menu>
             </div>
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="body" runat="server"/>
+            <asp:ContentPlaceHolder ID="body" runat="server">
+                
+            </asp:ContentPlaceHolder>
         </div>
         <div class="clear">
         </div>
     </div>
-    <div class="footer">
+    </form>
+    <div class="footer" style="background-color: transparent">
         Sindicato de Trabajadores Petroleros de la República Mexicana. <br />
         Todos los derechos reservados 2010-2012.
     </div>
-    </form>
 </body>
 </html>

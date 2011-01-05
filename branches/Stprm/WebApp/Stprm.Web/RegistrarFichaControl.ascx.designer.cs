@@ -10,42 +10,51 @@
 namespace Stprm.Web {
     
     
-    public partial class AdminBenefits {
+    public partial class RegistrarFichaControl {
         
         /// <summary>
-        /// Control _isc_search.
+        /// Control _txt_ficha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Stprm.Web.IdSearchControl _isc_search;
+        protected global::System.Web.UI.WebControls.TextBox _txt_ficha;
         
         /// <summary>
-        /// Control _ei_employee.
+        /// Control _txt_nombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Stprm.Web.EmployeeInfo _ei_employee;
+        protected global::System.Web.UI.WebControls.TextBox _txt_nombre;
         
         /// <summary>
-        /// Control _cmb_tipo.
+        /// Control _txt_regimen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox _cmb_tipo;
+        protected global::System.Web.UI.WebControls.TextBox _txt_regimen;
         
         /// <summary>
-        /// Control _txt_beneficiario.
+        /// Control _txt_depto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox _txt_beneficiario;
+        protected global::System.Web.UI.WebControls.TextBox _txt_depto;
+        
+        /// <summary>
+        /// Control _btn_ok.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button _btn_ok;
     }
 }

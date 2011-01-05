@@ -3,28 +3,13 @@
 
 body   
 {
-    background: #b6b7bc;
+    background: #b6b7bc url('logo.png') no-repeat;
     font-size: .80em;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
     color: #696969;
-}
-
-a:link, a:visited
-{
-    color: #034af3;
-}
-
-a:hover
-{
-    color: #1d60ff;
-    text-decoration: none;
-}
-
-a:active
-{
-    color: #034af3;
+    text-align: left;
 }
 
 p
@@ -41,8 +26,9 @@ h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
     color: #666666;
-    font-variant: small-caps;
+    
     text-transform: none;
+    text-align: left;
     font-weight: 200;
     margin-bottom: 0px;
 }
@@ -88,10 +74,11 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    width: 1280px;
     background-color: #fff;
     margin: 20px auto 0px auto;
     border: 1px solid #496077;
+    text-align: left;
 }
 
 .header
@@ -112,6 +99,7 @@ first child of the left and right table columns */
     border: none;
     line-height: 2em;
     font-size: 2em;
+    text-align: left;
 }
 
 .main
@@ -136,23 +124,32 @@ first child of the left and right table columns */
     margin: 0px auto;
     text-align: center;
     line-height: normal;
+    border: 0px;
+    background-color: red;
 }
 
 
 /* TAB MENU   
 ----------------------------------------------------------*/
 
+hideSkiplink
+{
+    text-align: left;
+    margin: 0 0;
+}
+
 div.hideSkiplink
 {
-    background-color:#3a4f63;
-    width:100%;
+    background-color: #C00000;
+    text-align: left;
 }
 
 div.menu
 {
     padding: 4px 0px 4px 8px;
     border: solid 1px red;
-    background: red;
+    background: #3a4f63;
+    text-align: left;
 }
 
 div.menu ul
@@ -162,35 +159,39 @@ div.menu ul
     padding: 0px;
     width: auto;
     background: blue;
+    text-align: left;
 }
 
 div.menu ul li a, div.menu ul li a:visited
 {
     background-color: #465c71;
     border: 1px #4e667d solid;
-    color: #dde4ec;
+    color: White;
     display: block;
     line-height: 1.35em;
     padding: 4px 20px;
     text-decoration: none;
     white-space: nowrap;
     background: green;
+    text-align: left;
 }
 
 div.menu ul li a:hover
 {
     background-color: #bfcbd6;
-    color: #465c71;
+    color: White;
     text-decoration: none;
     font-weight: bold;
+    text-align: left;
 }
 
 div.menu ul li a:active
 {
     background-color: #465c71;
-    color: #cfdbe6;
-    text-decoration: none;
+    color: White;
+    text-decoration: underline;
     border: 1px solid black;
+    text-align: left;
 }
 
 /* FORM ELEMENTS   
@@ -265,6 +266,7 @@ div.accountInfo
     text-align: right;
     padding: 10px;
     color: White;
+    margin-bottom 93px;
 }
 
 .loginDisplay a:link
