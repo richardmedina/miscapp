@@ -8,7 +8,7 @@ namespace Stprm.DataEx
     public class RecordEx : Stprm.Data.Record
     {
         private readonly static string _tablename_benefits = "Beneficios";
-        private readonly static string _tablename_sndconcepts = "Conceptos";
+        private readonly static string _tablename_sndconcepts = "Beneficiossindicales";
        
         private RecordTypeEx _recordtypeex;
 

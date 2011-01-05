@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Security;
 
 using Stprm.Data;
+using Stprm.DataEx;
 
 namespace Stprm.Web.Account
 {
@@ -26,8 +27,10 @@ namespace Stprm.Web.Account
             
             e.Authenticated = false;
 
-            Database db = new Database("Mercurio", "ricki", "09b9085a+", "seccion26");
-            if (db.Open ())
+            //Database db = new Database("Mercurio", "ricki", "09b9085a+", "seccion26");
+            
+            //if (db.Open ())
+            using (Database db = BaseDatos.CreateOldConnection ())
             {
                 UserProfile profile = new UserProfile(db);
                 profile.Username = LoginUser.UserName;

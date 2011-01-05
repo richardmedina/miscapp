@@ -9,6 +9,11 @@ namespace Stprm.DataEx
     {
         Trabajador,
         Contrato,
-        PosicionEscalafonaria
+        PosicionEscalafonaria,
+        Audiencia,
+        PartAudiencia,
+        Evento,
+        PerfilUsuario,
+        BeneficioSindical
     }
 }

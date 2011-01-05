@@ -4,7 +4,7 @@
 <table width="100%">
     <tr>
         <td colspan="2">
-        <asp:Label runat="server" ID="_lbl_cab" Text="Información de trabajador" Font-Size="Large" width="100%" />
+        <asp:Label runat="server" ID="_lbl_cab" Font-Size="Large" width="100%" />
         </td>
     </tr>
     <tr>
@@ -24,11 +24,15 @@
     </tr>
     <tr>
         <td width="100px"><asp:Label runat="server" ID="_lbl_tra_cat_motivo" Text="Motivo" /></td>
-        <td><asp:TextBox runat="server" ID="_txt_tra_cat_motivo" ReadOnly="true" Width="100%" /></td>
+        <td><asp:TextBox runat="server" ID="_txt_tra_cat_motivo" ReadOnly="true" Width="100%" TextMode="MultiLine" Height="60px" /></td>
     </tr>
     <tr>
         <td width="100px"><asp:Label runat="server" ID="_lbl_tra_cat_base" Text="Puesto base" /></td>
         <td><asp:TextBox runat="server" ID="_txt_tra_cat_base" ReadOnly="true" Width="100%" /></td>
+    </tr>
+    <tr>
+        <td width="100px"><asp:Label runat="server" ID="_lbl_estadis" Text="Estadística" /></td>
+        <td><asp:TextBox runat="server" ID="_txt_stadis" ReadOnly="true" Width="100%" /></td>
     </tr>
 </table>
 

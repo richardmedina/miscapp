@@ -25,7 +25,7 @@
 		<td>
 		<asp:Textbox runat="server" ID="_txt_date" ContentEditable="false" />
 		<asp:Button runat="server" ID="button" Text=" " CssClass="skel_calendar_button" />
-		<asp:Button runat="server" ID="_btn_save" Text="Guargar" Visible="false" 
+		<asp:Button runat="server" ID="_btn_save" Text="Guardar" Visible="false" 
 				onclick="_btn_save_Click" />
 		</td>
 	</tr>
@@ -38,7 +38,7 @@
 
 <asp:Panel runat="server" ID="_pnl_edit" Visible="false" HorizontalAlign="Center">
 	<hr />
-	<table border=0>
+	<table border="0">
     <tr>
     <td>
     <med:IdSearch runat="server" ID="_isc_search" />
@@ -55,18 +55,12 @@
 	</tr>
     </table>
     <hr />
-	<asp:Panel ID="Panel1" runat="server" ScrollBars="Auto" Height="300px">
-	<asp:GridView CssClass="skel_grid" runat="server" ID="_grid_members" Style="height: 100px;" 
-	AutoGenerateColumns="false">
+	<asp:Panel ID="Panel1" runat="server" ScrollBars="Auto">
+	<asp:GridView RowStyle-CssClass="gridview_rows" Width="100%" CssClass="gridview" HeaderStyle-CssClass="gridview_header" ShowHeader="true" runat="server" ID="_grid_members"  
+	AutoGenerateColumns="false" AlternatingRowStyle-BackColor="#FFDFDF">
 		<Columns>
-			<asp:TemplateField>
-				<ItemTemplate>
-				<span >
-				<%# Container.DataItemIndex + 1 %>
-				</span>
-				</ItemTemplate>
-			</asp:TemplateField>
-			
+            <asp:BoundField DataField="Num" HeaderText="Posicion" />
+            
 			<asp:BoundField HeaderText="Ficha" DataField="Ficha" />
 
 			<asp:TemplateField HeaderText="Nombre">

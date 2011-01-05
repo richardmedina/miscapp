@@ -36,6 +36,7 @@ namespace Stprm.Web
 
         private void btn_search_Click(object sender, EventArgs args)
         {
+            /*
             _lbl_recom_result.Visible = false;
             _txt_id_recom.Text = string.Empty;
 
@@ -94,11 +95,12 @@ namespace Stprm.Web
                         _ei_trans.Visible = false;
                     }
                 }
-            }
+            }*/
         }
 
         private void btn_search_recom_Click(object sender, EventArgs args)
         {
+            /*
             using (Database db = Database.CreateStprmConnection())
             {
                 Employee employee = new Employee(db);
@@ -133,7 +135,7 @@ namespace Stprm.Web
                     _lbl_recom_result.Visible = true;
                 }
 
-            }
+            }*/
         }
 
         private void btn_assign_Click(object sender, EventArgs args)

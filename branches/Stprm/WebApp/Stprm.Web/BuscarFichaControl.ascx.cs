@@ -51,6 +51,7 @@ namespace Stprm.Web
             else
             {
                 _lbl_msg.Text = "Ficha Inválida";
+                OnBusqueda(new Trabajador(null), false);
             }
         }
 

@@ -22,7 +22,7 @@
             </tr>
 
             <tr>
-                <td>Nombres</td>
+                <td>Nombre</td>
                 <td>
                  <asp:TextBox runat="server" ID="_txt_firstname" />
                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="_txt_firstname" Text="*" SetFocusOnError="true" />
@@ -42,6 +42,13 @@
                 <td>
                  <asp:TextBox runat="server" ID="_txt_lastname" />
                  <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="_txt_lastname" Text="*" SetFocusOnError="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>Depto.</td>
+                <td>
+                <asp:TextBox runat="server" ID="_txt_depto" Text="" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="_txt_depto" Text="*" SetFocusOnError="true" />
                 </td>
             </tr>
 

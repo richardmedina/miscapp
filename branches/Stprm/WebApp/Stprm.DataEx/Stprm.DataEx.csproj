@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audiencia.cs" />
     <Compile Include="Basedatos.cs" />
+    <Compile Include="BeneficioSindical.cs" />
     <Compile Include="BenefitEx.cs" />
     <Compile Include="Concept.cs" />
     <Compile Include="ConceptCollection.cs" />
@@ -54,7 +56,12 @@
     <Compile Include="DatabaseOperation.cs" />
     <Compile Include="EmployeeEx.cs" />
     <Compile Include="Escalafon.cs" />
+    <Compile Include="EscalafonCollection.cs" />
+    <Compile Include="Evento.cs" />
     <Compile Include="IRegistro.cs" />
+    <Compile Include="PartAudiencia.cs" />
+    <Compile Include="ParticipacionAudiencia.cs" />
+    <Compile Include="PerfilUsuario.cs" />
     <Compile Include="PosicionEscalafonaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordEx.cs" />
