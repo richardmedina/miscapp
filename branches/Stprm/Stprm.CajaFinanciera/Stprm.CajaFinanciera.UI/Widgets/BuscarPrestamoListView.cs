@@ -2,6 +2,8 @@
 using System;
 using System.Data;
 using Gtk;
+
+using RickiLib.Widgets;
 using Stprm.CajaFinanciera.Data;
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
@@ -38,7 +40,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			DataSet ds = new DataSet ();
 			
-			Prestamo.GetInAdapter (Globals.Db).Fill (ds);
+			Prestamo.GetInAdapter (Globals.Db, false).Fill (ds);
 			
 			LoadDataSet (ds);
 			

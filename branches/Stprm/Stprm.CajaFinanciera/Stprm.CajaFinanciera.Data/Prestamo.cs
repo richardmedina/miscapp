@@ -144,10 +144,13 @@ namespace Stprm.CajaFinanciera.Data
 			return PrestamoMovimiento.GetMovimientosInAdapter (this);	
 		}
 		
-		public static IDataAdapter GetInAdapter (Database db)
+		public static IDataAdapter GetInAdapter (Database db, bool mostrar_pagados)
 		{
-			return db.QueryToAdapter ("select pre_id as Id, DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo, CASE pre_status WHEN 1 THEN 'RT' WHEN 2 THEN 'DC' WHEN 3 THEN 'DT' WHEN 4 THEN 'SP' WHEN 5 THEN 'PG' END as Estado from {0}, {1} where {0}.tra_id = {1}.tra_id and {0}.pre_status <> 5 order by Ficha asc",
-			                          TablePrestamos, TableEmployees);
+			string query = string.Format ("select pre_id as Id, DATE_FORMAT(pre_fecha,'%d/%m/%Y') as Fecha, pre_folio as Folio, pre_cheque as Cheque, pre_pagare as Pagare, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(pre_capital,2)) as Capital, CONCAT('$', FORMAT(pre_interes, 2)) as Intereses, CONCAT('$', FORMAT(pre_capital + pre_interes, 2)) as Total, CONCAT('$', FORMAT(pre_abono,2)) as Abono, CONCAT('$', FORMAT(pre_saldo, 2)) as Saldo, CASE pre_status WHEN 1 THEN 'RT' WHEN 2 THEN 'DC' WHEN 3 THEN 'DT' WHEN 4 THEN 'SP' WHEN 5 THEN 'PG' END as Estado from {0}, {1} where {0}.tra_id = {1}.tra_id and {0}.pre_status <> 5 {2} order by Ficha asc",
+			                          TablePrestamos, TableEmployees, mostrar_pagados ? string.Empty : " and (pre_capital + pre_interes)  > pre_abono ");
+		
+			Console.WriteLine (query);
+			return db.QueryToAdapter (query);
 		}
 		
 		public static IDataAdapter GetCollectionForEmployee (Database db, int tra_id)

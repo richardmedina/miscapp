@@ -52,13 +52,13 @@ public partial class MainWindow {
     
     private Gtk.EventBox _eb_toolbar;
     
-    private Gtk.VBox vbox3;
-    
-    private Gtk.EventBox _eb_cuentas;
-    
     private Gtk.VBox vbox2;
     
     private Gtk.EventBox _eb_search;
+    
+    private Gtk.VBox vbox3;
+    
+    private Gtk.EventBox _eb_cuentas;
     
     private Gtk.EventBox _main_container;
     
@@ -150,22 +150,6 @@ public partial class MainWindow {
         this.hbox1.Add(this._eb_toolbar);
         Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.hbox1[this._eb_toolbar]));
         w3.Position = 0;
-        w3.Expand = false;
-        // Container child hbox1.Gtk.Box+BoxChild
-        this.vbox3 = new Gtk.VBox();
-        this.vbox3.Name = "vbox3";
-        this.vbox3.Spacing = 6;
-        // Container child vbox3.Gtk.Box+BoxChild
-        this._eb_cuentas = new Gtk.EventBox();
-        this._eb_cuentas.Name = "_eb_cuentas";
-        this.vbox3.Add(this._eb_cuentas);
-        Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.vbox3[this._eb_cuentas]));
-        w4.Position = 0;
-        w4.Fill = false;
-        this.hbox1.Add(this.vbox3);
-        Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
-        w5.Position = 1;
-        w5.Expand = false;
         // Container child hbox1.Gtk.Box+BoxChild
         this.vbox2 = new Gtk.VBox();
         this.vbox2.Name = "vbox2";
@@ -174,11 +158,28 @@ public partial class MainWindow {
         this._eb_search = new Gtk.EventBox();
         this._eb_search.Name = "_eb_search";
         this.vbox2.Add(this._eb_search);
-        Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox2[this._eb_search]));
+        Gtk.Box.BoxChild w4 = ((Gtk.Box.BoxChild)(this.vbox2[this._eb_search]));
+        w4.Position = 0;
+        w4.Fill = false;
+        this.hbox1.Add(this.vbox2);
+        Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox2]));
+        w5.PackType = ((Gtk.PackType)(1));
+        w5.Position = 1;
+        w5.Expand = false;
+        // Container child hbox1.Gtk.Box+BoxChild
+        this.vbox3 = new Gtk.VBox();
+        this.vbox3.Name = "vbox3";
+        this.vbox3.Spacing = 6;
+        // Container child vbox3.Gtk.Box+BoxChild
+        this._eb_cuentas = new Gtk.EventBox();
+        this._eb_cuentas.Name = "_eb_cuentas";
+        this.vbox3.Add(this._eb_cuentas);
+        Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox3[this._eb_cuentas]));
+        w6.PackType = ((Gtk.PackType)(1));
         w6.Position = 0;
         w6.Fill = false;
-        this.hbox1.Add(this.vbox2);
-        Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox2]));
+        this.hbox1.Add(this.vbox3);
+        Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
         w7.PackType = ((Gtk.PackType)(1));
         w7.Position = 2;
         w7.Expand = false;

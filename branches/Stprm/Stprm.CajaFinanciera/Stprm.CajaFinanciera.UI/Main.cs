@@ -13,8 +13,11 @@ namespace Stprm.CajaFinanciera.UI
 			Application.Init ();
 			
 			//Globals.ViewResponsiveLoading = true;
+			
 			Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
+			Console.WriteLine ("Connecting to database");
 			Globals.Db.Open ();
+			Console.WriteLine ("Creating MainWindow");
 			MainWindow win = new MainWindow ();
 			Globals.MainWindow = win;
 			win.ShowAll ();
@@ -29,19 +32,19 @@ namespace Stprm.CajaFinanciera.UI
 			} else for (int i = 0; i < args.Length; i ++) {
 				switch (args [i]) {
 					case "--dbhostname":
-						Globals.DbHostname = args [i+1];
+						Globals.DbHostname = args [i + 1];
 					break;
 					
 					case "--dbuserid":
-						Globals.DbUserId = args [i +1];
+						Globals.DbUserId = args [i + 1];
 					break;
 					
 					case "--dbpassword":
-						Globals.DbPassword = args [i +1];
+						Globals.DbPassword = args [i + 1];
 					break;
 					
 					case "--dbname":
-						Globals.DbName = args [i +1];
+						Globals.DbName = args [i + 1];
 					break;
 				}
 			}

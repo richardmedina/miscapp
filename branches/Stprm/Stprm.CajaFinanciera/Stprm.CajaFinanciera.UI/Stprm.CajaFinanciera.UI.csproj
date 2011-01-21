@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{42D2BDBF-ED56-4873-B98E-A3D44887BFE1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Stprm.CajaFinanciera.UI</RootNamespace>
     <AssemblyName>Stprm.CajaFinanciera.UI</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -58,6 +58,7 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -81,7 +82,6 @@
     <Compile Include="Widgets\LoanListView.cs" />
     <Compile Include="Widgets\EmployeePersonalDataWidget.cs" />
     <Compile Include="Widgets\EmployeeAddressDataWidget.cs" />
-    <Compile Include="Widgets\DataSetView.cs" />
     <Compile Include="Widgets\EmployeeLoanWidget.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Widgets\LoanResumeWidget.cs" />
@@ -122,6 +122,9 @@
     <Compile Include="Widgets\BuscarPrestamoListView.cs" />
     <Compile Include="Widgets\BuscarPrestamoWidget.cs" />
     <Compile Include="Dialogs\BuscarPrestamoDialog.cs" />
+    <Compile Include="Widgets\HelpWidget.cs" />
+    <Compile Include="Dialogs\HelpDialog.cs" />
+    <Compile Include="Widgets\PrestamoContextMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Widgets\" />
@@ -134,12 +137,15 @@
       <Name>Stprm.CajaFinanciera.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\RickiLib\RickiLib.Types\RickiLib.Types.csproj">
-      <Project>{43ED1CB1-140E-49C2-A2F2-7B64DD9BCD0C}</Project>
+      <Project>{FCA5FA96-F7CA-4FF6-A109-2A49F66C7C4A}</Project>
       <Name>RickiLib.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\RickiLib\RickiLib.Widgets\RickiLib.Widgets.csproj">
-      <Project>{8900B410-4A5E-440D-9FE3-3453F516CC5C}</Project>
+      <Project>{62FB4FFC-6FBA-43E1-A0FB-13D3B8B8CA5C}</Project>
       <Name>RickiLib.Widgets</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Widgets\DataSetView.cs" />
   </ItemGroup>
 </Project>
