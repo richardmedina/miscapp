@@ -4,6 +4,7 @@ using System.Data;
 using Gtk;
 using Stprm.CajaFinanciera.Data;
 
+using RickiLib.Widgets;
 using Stprm.CajaFinanciera.UI.Dialogs;
 
 namespace Stprm.CajaFinanciera.UI.Widgets

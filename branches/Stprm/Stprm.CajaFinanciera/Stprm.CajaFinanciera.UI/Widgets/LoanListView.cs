@@ -5,16 +5,28 @@ using Gtk;
 using Stprm.CajaFinanciera.Data;
 using Stprm.CajaFinanciera.UI.Dialogs;
 
+using RickiLib.Widgets;
 namespace Stprm.CajaFinanciera.UI.Widgets
 {
 
 
 	public class LoanListView : DataSetView
 	{
+		private PrestamoContextMenu _prestamo_context_menu;
+		
+		public bool MostrarPagados = true;
 		
 		public LoanListView ()
-		{
+		{	
 			RulesHint = true;
+			
+			_prestamo_context_menu = new PrestamoContextMenu ();
+			_prestamo_context_menu.ItemInformacion.Activated += Handle_prestamo_context_menuItemInformacionActivated;
+		}
+
+		private void Handle_prestamo_context_menuItemInformacionActivated (object sender, EventArgs e)
+		{
+			EditSelected ();
 		}
 		
 		public new void Populate ()
@@ -23,8 +35,6 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			for (int i = 7; i < 12; i ++)
 				Renders [i].Xalign = 1;
-			
-			Columns [0].Visible = false;
 		}
 		
 		public override void New ()
@@ -66,8 +76,9 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public override void Load ()
 		{
 			DataSet ds = new DataSet ();
-			Prestamo.GetInAdapter (Globals.Db).Fill (ds);
+			Prestamo.GetInAdapter (Globals.Db, MostrarPagados).Fill (ds);
 			LoadDataSet (ds);
+			Columns [0].Visible = false;
 			Populate ();
 		}
 		
@@ -75,6 +86,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			EditSelected ();
 			base.OnActivated ();
+		}
+		
+		protected override bool OnButtonPressEvent (Gdk.EventButton evnt)
+		{
+			if (evnt.Button == 3)
+				_prestamo_context_menu.Popup ();
+			
+			return base.OnButtonPressEvent (evnt);
 		}
 	}
 }

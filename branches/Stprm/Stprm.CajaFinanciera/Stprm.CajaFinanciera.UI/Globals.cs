@@ -23,7 +23,7 @@ namespace Stprm.CajaFinanciera.UI
 		public static string DbHostname = "localhost";
 		public static string DbUserId = "ricki";
 		public static string DbPassword = "09b9085a+";
-		public static string DbName = "caja1";
+		public static string DbName = "caja2";
 		
 		
 		public static string FormatWindowTitle (string title)

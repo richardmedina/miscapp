@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using Gtk;
 
+using RickiLib.Widgets;
 using Stprm.CajaFinanciera.Data;
 
 namespace Stprm.CajaFinanciera.UI.Widgets

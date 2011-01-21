@@ -38,6 +38,9 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		protected virtual void OnHelpRequest ()
 		{
+			HelpDialog dialog = new HelpDialog();
+			dialog.Run ();
+			dialog.Destroy ();
 			_help_request (this, EventArgs.Empty);	
 		}
 		

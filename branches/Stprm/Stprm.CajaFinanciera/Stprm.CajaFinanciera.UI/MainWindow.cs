@@ -213,6 +213,7 @@ public partial class MainWindow : Gtk.Window
 	protected override void OnShown ()
 	{
 		if (Authenticate ()) { }
+		Console.WriteLine ("Authenticated");
 			base.OnShown ();
 			Present ();	
 			//Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
@@ -221,8 +222,10 @@ public partial class MainWindow : Gtk.Window
 			_chooser_cuentas.Combo.Populate ();
 			
 			SetLoading (false);
-		
-			new Thread (load_everything).Start ();
+			Console.WriteLine ("load_everything");
+			load_everything ();
+			Console.WriteLine ("load_everything.end");
+			//new Thread (load_everything).Start ();
 			//new Thread (load_everything
 		/*} else 
 			Application.Quit ();
