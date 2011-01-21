@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 
+using RickiLib.Widgets;
 using Stprm.CajaFinanciera.Data;
 
 namespace Stprm.CajaFinanciera.UI.Widgets

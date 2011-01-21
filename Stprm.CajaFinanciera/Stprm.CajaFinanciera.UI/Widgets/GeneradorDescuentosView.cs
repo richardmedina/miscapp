@@ -50,6 +50,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 					_renders [i].Edited += HandleEdited;
 				}
 				
+				if (i == 4) {
+					_renders [i].Editable = true;
+					_renders [i].Edited += HandleEditedValueCol4;
+				}
+				
 				if (i == 5) {
 					_renders [i].Editable = true;
 					_renders [i].Edited += HandleEditedValueCol5;
@@ -82,6 +87,18 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				}
 		}
 		
+		private void HandleEditedValueCol4 (object sender, EditedArgs args)
+		{
+			TreeIter iter;
+			decimal val;
+			
+				
+			if (decimal.TryParse (args.NewText, out val))
+				if (_model.GetIterFromString (out iter, args.Path)) {
+					_model.SetValue (iter, 4, val.ToString ("0.00"));
+				}
+		}
+		
 		private void HandleEditedValueCol5 (object sender, EditedArgs args)
 		{
 			TreeIter iter;
@@ -91,6 +108,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			if (decimal.TryParse (args.NewText, out val))
 				if (_model.GetIterFromString (out iter, args.Path)) {
 					_model.SetValue (iter, 5, val.ToString ("0.00"));
+					_model.SetValue (iter, 6, (val > 0 ? (val / 14) : val).ToString ("0.00")); 
 				}
 		}
 		
@@ -103,6 +121,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			if (decimal.TryParse (args.NewText, out val))
 				if (_model.GetIterFromString (out iter, args.Path)) {
 					_model.SetValue (iter, 6, val.ToString ("0.00"));
+					_model.SetValue (iter, 5, (val * 14).ToString ("0.00"));
 				}
 		}
 
@@ -237,6 +256,32 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			IterGetLast (out iter);
 			
 			return iter;
+		}
+		
+		public void GetDescuentoMovimientos ()
+		{
+			DescuentoMovimientoCollection movs = new DescuentoMovimientoCollection ();
+			
+			TreeIter iter;
+			
+			if (_model.GetIterFirst (out iter))
+				do {
+					DescuentoMovimiento mov = new DescuentoMovimiento (Globals.Db);
+					string [] row = GetRow (iter);
+					Console.WriteLine (mov);
+					movs.Add (mov);
+				} while (_model.IterNext (ref iter));
+		}
+		
+		public string [] GetRow (Gtk.TreeIter iter)
+		{
+			string [] row = new string [Columns.Length];
+			
+			for (int i = 0; i < row.Length; i ++) {
+				row [i] = (string) _model.GetValue (iter, i);
+			}
+			
+			return row;
 		}
 	}
 }

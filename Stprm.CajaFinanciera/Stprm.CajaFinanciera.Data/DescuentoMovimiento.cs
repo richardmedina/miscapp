@@ -5,10 +5,22 @@ using System.Data;
 namespace Stprm.CajaFinanciera.Data
 {
 
-
 	public class DescuentoMovimiento : Record
 	{
-
+		
+		public string Ficha;
+		public string Pagare;
+		public string Folio;
+		public string Nombre;
+		public decimal Saldo;
+		public decimal DescuentoCatorcenal;
+		public decimal DescuentoDiario;
+		
+		public string Clave;
+		public string Periodo;
+		public string Anio;
+		
+		
 		public DescuentoMovimiento (Database db) : base (db, RecordType.DescuentoMovimiento)
 		{
 		}
@@ -19,5 +31,13 @@ namespace Stprm.CajaFinanciera.Data
 			                                    //"select * from {0} where desc_id = {1}",
 			                                         TableDescuentoMovimientos, descuento.Id);
 		}
+		
+		public override string ToString ()
+		{
+			return string.Format("[DescuentoMovimiento] Ficha = {0}, Pagare = {1}, Folio = {2}, Nombre = {3}, Saldo = {4}, DescuentoCatorcenal = {5}, DescuentDiario = {6}",
+			                     Ficha, Folio, Nombre, Saldo, DescuentoCatorcenal, DescuentoDiario);
+		}
+
 	}
+	
 }

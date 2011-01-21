@@ -100,14 +100,20 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			PackStart (new HSeparator (), false, false, 0);
 			PackStart (scroll);
-			_cmb_clave.Active = 0;
-			update_dates_visibility ();
 			
+			_cmb_clave.Active = 0;
 		}
+		
+		protected override void OnShown ()
+		{
+			update_dates_visibility ();
+			base.OnShown ();
+		}
+
 
 		private void Handle_cmb_claveChanged (object sender, EventArgs e)
 		{
-			
+			update_dates_visibility ();
 		}
 		
 		private void update_dates_visibility ()
