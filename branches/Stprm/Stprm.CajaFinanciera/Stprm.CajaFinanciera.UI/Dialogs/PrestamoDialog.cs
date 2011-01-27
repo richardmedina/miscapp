@@ -33,8 +33,59 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			
 			ShowAll ();
 			
-			AddButton (Stock.Close, ResponseType.Cancel);
+			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
+		}
+		
+		protected override bool OnValidate (out string message)
+		{
+			Prestamo prestamo = GetAsPrestamo ();
+			bool result = base.OnValidate (out message);
+			
+			Console.WriteLine ("InternalID = {0}", prestamo.TrabajadorInternalId);
+			
+			Employee employee = new Employee (Globals.Db);
+			employee.InternalId = prestamo.TrabajadorInternalId;
+			
+			if (prestamo.TrabajadorInternalId == 0 || !employee.UpdateFromInternalId ()) {
+				message = "Verifique la ficha del trabajador";
+				result = false;
+			}
+			
+			else if (prestamo.Cheque.Trim () == string.Empty) {
+				message = "Por favor establezca el numero de cheque";
+				result = false;
+			}
+			
+			else if (prestamo.Pagare.Trim () == string.Empty) {
+				message = "Por favor establezca el numero de pagaré";
+				result = false;
+			}
+			
+			else if (prestamo.NumPagos == 0) {
+				message = "Por favor establezca el plazo";
+				result = false;
+			}
+			
+			else if (prestamo.Capital == 0) {
+				message = "Por favor establezca el monto del préstamo";
+				result = false;
+			}
+			
+			else if (prestamo.Id == 0) {
+				if (Prestamo.ChequeExiste (Globals.Db, prestamo.Cheque, Globals.CuentaActual)) {
+					message = "El cheque ya está registrado en la cuenta seleccionada";
+					result = false;
+				}
+			
+				else if (Prestamo.PagareExiste (Globals.Db, prestamo.Pagare, prestamo.Fecha.Year)) {
+					message = "El pagaré existe, por favor verifiquelo";
+					result = false;
+				}
+			}
+			
+			Console.WriteLine ("Result: {0}",result);
+			return result;
 		}
 		
 		

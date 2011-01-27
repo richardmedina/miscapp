@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using Gtk;
 using Stprm.CajaFinanciera.Data;
+using System.Globalization;
 
 namespace Stprm.CajaFinanciera.UI
 {
@@ -9,14 +11,18 @@ namespace Stprm.CajaFinanciera.UI
 		public static void Main (string[] args)
 		{
 			
-			ParseArgs (args);		
+			ParseArgs (args);
+			
+			CultureInfo culture = new CultureInfo (Globals.CurrentCultureName, false);
+			Thread.CurrentThread.CurrentCulture = culture;
+			
 			Application.Init ();
 			
 			//Globals.ViewResponsiveLoading = true;
 			
-			Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
+			//Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
 			Console.WriteLine ("Connecting to database");
-			Globals.Db.Open ();
+			//Globals.Db.Open ();
 			Console.WriteLine ("Creating MainWindow");
 			MainWindow win = new MainWindow ();
 			Globals.MainWindow = win;

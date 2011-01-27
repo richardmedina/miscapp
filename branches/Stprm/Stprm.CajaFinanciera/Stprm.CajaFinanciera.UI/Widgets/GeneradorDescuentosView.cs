@@ -36,7 +36,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			                        typeof (string), // saldo
 			                        typeof (string), // desc.catorcenal
 			                        typeof (string), // desc.diario
-			                        typeof (string));// STA
+			                        typeof (string), // STA
+			                        typeof (Prestamo)); // Prestamo al que pertenece el descuento
 			
 			Model = _model;
 			_renders = new CellRendererText[_columns_str.Length];
@@ -48,6 +49,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				if (i == 0) {
 					_renders [i].Editable = true;
 					_renders [i].Edited += HandleEdited;
+				}
+				
+				if (i == 1) {
+					_renders [i].Editable = true;
+					_renders [i].Edited += HandleEditedValueCol1;
 				}
 				
 				if (i == 4) {
@@ -77,16 +83,97 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			AppendRow ();
 		}
 		
+		public void ChangePrestamosStatus ()
+		{
+			Gtk.TreeIter iter;
+			
+			if (_model.GetIterFirst (out iter))
+				do {
+					Prestamo prestamo = (Prestamo) _model.GetValue (iter, 8);
+					if (prestamo.Id > 0) {
+						if ((string) _model.GetValue (iter, 7) == "B") {
+							prestamo.Suspender ();
+						}
+						else {
+							if (prestamo.Status == OperacionFinancieraEstado.Suspendido)
+								prestamo.Reactivar (OperacionFinancieraEstado.DescuentoSinCobro);
+						
+							prestamo.Status = OperacionFinancieraEstado.DescuentoSinCobro;
+						}
+						Console.WriteLine ("Salvando prestamo...");
+						prestamo.Save ();
+					}
+				} while (_model.IterNext (ref iter));
+		}
+		
 		private void HandleEditedText (object sender, EditedArgs args)
 		{
 			TreeIter iter ;
 			
-			if (args.NewText.Length == 1)
+			if (args.NewText.ToUpper() == "A" || args.NewText.ToUpper () == "B") {
 				if (_model.GetIterFromString (out iter, args.Path)) {
-					_model.SetValue (iter, 7, args.NewText);
+					if (args.NewText.ToUpper () == "B") {
+						_model.SetValue (iter, 6, "0.00");
+						_model.SetValue (iter, 5, "0.00");
+						_model.SetValue (iter, 4, "0.00");
+						_model.SetValue (iter, 7, args.NewText.ToUpper ());
+					} else {
+					
+						Prestamo prestamo;
+						string ficha = (string) _model.GetValue (iter, 0);
+				
+						Employee employee = new Employee (Globals.Db);
+						employee.Id = ficha;
+				
+						if (employee.Update ()) {
+							if (Prestamo.GetFromPagare (Globals.Db, employee, (string) _model.GetValue (iter, 1), out prestamo)) {
+								UpdateIter (iter, employee, prestamo);
+							}
+						}
+						_model.SetValue (iter, 7, args.NewText.ToUpper ());
+					}
 				}
+			}
+				//args.NewText.ToUpper () == "A";
 		}
 		
+		private void HandleEdited (object o, EditedArgs args)
+		{
+			TreeIter iter ;
+			
+			if (_model.GetIterFromString (out iter, args.Path)) {
+				UpdateIterFromFicha (iter, args.NewText);
+			}
+		}
+		
+		private void HandleEditedValueCol1 (object sender, EditedArgs args)
+		{
+			Gtk.TreeIter iter;
+			
+			if (_model.GetIterFromString (out iter, args.Path)) {
+				string ficha = (string) _model.GetValue (iter, 0);
+				
+				Employee employee = new Employee (Globals.Db);
+				employee.Id = ficha;
+				
+				if (employee.Update ()) {
+					Prestamo prestamo;
+					
+					if (employee.GetPrestamoFromPagare (employee, args.NewText, out prestamo))
+						UpdateIter (iter, employee, prestamo);
+					
+					/*foreach (Prestamo prestamo in employee.GetPrestamos ()) {
+						if (prestamo.Pagare == args.NewText) {
+							//_model.SetValue (iter, 1, args.NewText);
+							UpdateIter (iter, employee, prestamo);
+							break;
+						}
+						
+					}*/
+				}
+			}
+		}
+		// DescuentoCatorcenal
 		private void HandleEditedValueCol4 (object sender, EditedArgs args)
 		{
 			TreeIter iter;
@@ -99,6 +186,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				}
 		}
 		
+		// DescuentoDiario
 		private void HandleEditedValueCol5 (object sender, EditedArgs args)
 		{
 			TreeIter iter;
@@ -107,6 +195,9 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				
 			if (decimal.TryParse (args.NewText, out val))
 				if (_model.GetIterFromString (out iter, args.Path)) {
+					if (val == 0) {
+						_model.SetValue (iter, 7, "B");
+					}
 					_model.SetValue (iter, 5, val.ToString ("0.00"));
 					_model.SetValue (iter, 6, (val > 0 ? (val / 14) : val).ToString ("0.00")); 
 				}
@@ -124,16 +215,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 					_model.SetValue (iter, 5, (val * 14).ToString ("0.00"));
 				}
 		}
-
-		private void HandleEdited (object o, EditedArgs args)
-		{
-			TreeIter iter ;
-			
-			if (_model.GetIterFromString (out iter, args.Path)) {
-				UpdateIterFromFicha (iter, args.NewText);
-			}
-		}
-		
+				
 		public void RemoveSelected ()
 		{
 			TreeIter iter;
@@ -150,7 +232,26 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Employee employee = new Employee(Globals.Db);
 			employee.Id = ficha;
 			if (employee.Update ()) {
-				UpdateIter (iter, employee.Id, string.Empty, string.Empty, employee.GetFullName (), 0m, 0m, 0m, "A");
+				PrestamoCollection prestamos = employee.GetPrestamos ();
+				//string pagare = prestamos.Count == 1? prestamos [0].Pagare : string.Empty;
+				
+				//Console.WriteLine (prestamos.Count + " " + employee.GetFullName ());
+				if (prestamos.Count == 0) {
+					MessageDialog dialog = new MessageDialog (Globals.MainWindow,
+					                                          DialogFlags.Modal,
+					                                          MessageType.Error,
+					                                          ButtonsType.Ok,
+					                                          "El trabajador no tiene adeudos");
+					dialog.Run ();
+					dialog.Destroy ();
+				}
+				
+				if (prestamos.Count == 1)
+					UpdateIter (iter, employee, prestamos [0]);
+				
+				else if (prestamos.Count > 1) {
+					UpdateIter (iter, employee, null);
+				}
 			}
 			Console.WriteLine ("UpdateIter.End");
 		}
@@ -164,22 +265,67 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 				Gtk.TreeIter iter = AppendRowIfLastEmpty ();
 				
-				UpdateIter (iter,
-				            employee.Id,
-							prestamo.Pagare,
-							prestamo.Cheque + DateTime.Today.ToString ("yyyy"),
-							employee.GetFullName (),
-							prestamo.Saldo,
-							(prestamo.Capital + prestamo.Interes) / prestamo.NumPagos,
-							(((prestamo.Capital + prestamo.Interes) / prestamo.NumPagos) / Globals.DiasCatorcenal),
-							"A");
+				UpdateIter (iter, employee, prestamo);
 				
 				AppendRowIfLastEmpty ();
 			}
 		}
 		
-		public void UpdateIter (Gtk.TreeIter iter, string ficha, string pagare,
-		                        string folio, string nombre, 
+		public void UpdateIter (Gtk.TreeIter iter, Employee employee, Prestamo prestamo)
+		{
+			SetPrestamoToIter (iter, prestamo);
+			
+			if (prestamo == null) {
+				UpdateIter (iter, employee.Id, employee.GetFullName (),
+				            string.Empty, string.Empty,
+				            0m, 0m, 0m, "A");
+				return;
+			}
+			
+			decimal descuento_catorcenal = (prestamo.Capital + prestamo.Interes);
+			decimal descuento_diario = 0;
+			string folio = prestamo.Folio;
+			
+			Console.WriteLine ("Prestamo.Folio: {0}", prestamo.Folio);
+			
+			if (folio == string.Empty)
+				folio = prestamo.Pagare + prestamo.Fecha.Year.ToString ("0000");
+			else {
+				folio = prestamo.Folio;
+			}
+			
+			if (prestamo.Status == OperacionFinancieraEstado.Suspendido) {
+					string anio = folio.Substring (folio.Length - 4);
+					Console.WriteLine ("Anio : {0}", anio);
+			}
+			
+			if (descuento_catorcenal > 0 && prestamo.NumPagos > 0) {
+				descuento_catorcenal /= prestamo.NumPagos;
+				
+				if (descuento_catorcenal > prestamo.Saldo)
+					descuento_catorcenal = prestamo.Saldo;
+				if (descuento_catorcenal > 0)
+					descuento_diario = descuento_catorcenal / Globals.DiasCatorcenal;
+			}
+			
+			UpdateIter (iter, employee.Id, employee.GetFullName (), 
+			            prestamo.Pagare, folio, 
+			            prestamo.Saldo, descuento_catorcenal,
+			            descuento_diario, "A");
+		}
+		
+		public void SetPrestamoToIter (Gtk.TreeIter iter, Prestamo prestamo)
+		{
+			if (prestamo == null) {
+				prestamo = new Prestamo (Globals.Db);
+				prestamo.Id = 0;
+			}
+			
+			_model.SetValue (iter, 8, prestamo);
+		}
+		
+		public void UpdateIter (Gtk.TreeIter iter, string ficha, string nombre, 
+								string pagare, string folio, 
 		                        decimal saldo, decimal desc_catorcenal, 
 		                        decimal desc_diario, string status)
 		{
@@ -208,6 +354,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			last_iter = TreeIter.Zero;
 			
 			if (_model.GetIterFirst (out iter)) {
+				
 				last_iter = iter;
 				do {
 					last_iter = iter;
@@ -241,7 +388,9 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			for (int i = 0; i < fields.Length; i ++)
 				fields [i] = string.Empty;
 			
-			return _model.AppendValues (fields);
+			Gtk.TreeIter iter = _model.AppendValues (fields);
+			SetPrestamoToIter (iter, null);
+			return iter;
 		}
 		
 		public Gtk.TreeIter AppendRowIfLastEmpty ()
@@ -258,7 +407,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			return iter;
 		}
 		
-		public void GetDescuentoMovimientos ()
+		public DescuentoMovimientoCollection GetDescuentoMovimientos ()
 		{
 			DescuentoMovimientoCollection movs = new DescuentoMovimientoCollection ();
 			
@@ -266,13 +415,32 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			if (_model.GetIterFirst (out iter))
 				do {
-					DescuentoMovimiento mov = new DescuentoMovimiento (Globals.Db);
-					string [] row = GetRow (iter);
-					Console.WriteLine (mov);
-					movs.Add (mov);
-				} while (_model.IterNext (ref iter));
+					if (!IterIsEmpty (iter)) {
+						Prestamo prestamo = (Prestamo) _model.GetValue (iter, 8);
+						DescuentoMovimiento mov = new DescuentoMovimiento (Globals.Db);
+						string [] row = GetRow (iter);
+						
+						foreach (string field in row)
+							Console.Write ("'{0}' ", field);
+						Console.WriteLine ();
+					
+						Employee employee = new Employee (Globals.Db);
+						employee.Id = row [0];
+						if (employee.Update ()) {
+							mov.TrabajadorInternalId = employee.InternalId;
+						}
+						mov.PrestamoId = prestamo.Id;
+						mov.Folio = row [2];
+						
+						mov.Importe = decimal.Parse (row [5]);
+						mov.DescuentoDiario = decimal.Parse (row [6]);
+						movs.Add (mov);
+				}
+			} while (_model.IterNext (ref iter));
+			
+			return movs;
 		}
-		
+				
 		public string [] GetRow (Gtk.TreeIter iter)
 		{
 			string [] row = new string [Columns.Length];
@@ -283,5 +451,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			return row;
 		}
+		
+		protected override bool OnKeyPressEvent (Gdk.EventKey evnt)
+		{
+			if (evnt.Key == Gdk.Key.Delete)
+				RemoveSelected ();
+			
+			return base.OnKeyPressEvent (evnt);
+		}
+
 	}
 }

@@ -39,6 +39,11 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private int _plazo_id = 0;
 		private int _trabajador_internal_id = 0;
 		
+		private Gtk.Entry _entry_folio;
+		private Gtk.Label _label_fecha_susp;
+		
+		private DateTime FechaSusp = DateTime.Now;
+		
 		
 		public PrestamoDetallesWidget ()
 		{
@@ -151,11 +156,16 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			_prestamo.Fecha = _button_fecha.Date;
 			_prestamo.FechaIniCobro = _dtb_inicobro.Date;
+			/*
 			_prestamo.Capital = _iw_importes.EntryCapital.Value;
 			_prestamo.Interes = _iw_importes.EntryInteres.Value;
+			*/
+			_iw_importes.SaveToPrestamo (_prestamo);
+			
 			_prestamo.Cheque = _entry_cheque.Text;
 			_prestamo.Pagare = _entry_pagare.Text;
 			_prestamo.Status = _cmb_estado.Estado;
+			_prestamo.CuentaId = Globals.CuentaActual.Id;
 			
 			return _prestamo;
 		}

@@ -17,7 +17,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			Copyright = "S.T.P.R.M. 2010-2012";
 			Logo = Gdk.Pixbuf.LoadFromResource ("CajaFinanciera.png");
 			
-			Authors = new string [] {"Ricardo Medina López <ricardo.medina@pemex.com>"};
+			Authors = new string [] {"Ricardo Medina López <ricardo.medina@mistprm.org>"};
 			Artists = Authors;
 			Documenters = Artists;
 		}

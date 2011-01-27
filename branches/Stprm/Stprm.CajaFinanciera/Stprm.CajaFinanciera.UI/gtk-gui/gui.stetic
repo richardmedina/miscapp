@@ -100,6 +100,21 @@
         <property name="ShortLabel" translatable="yes">Actualizar</property>
         <property name="StockId">gtk-refresh</property>
       </action>
+      <action id="findAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Ir a filtro...</property>
+        <property name="ShortLabel" translatable="yes">_Ir a filtro...</property>
+        <property name="StockId">gtk-find</property>
+        <signal name="Activated" handler="OnFindActionActivated" />
+      </action>
+      <action id="refreshAction1">
+        <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Mod2&gt;F5</property>
+        <property name="Label" translatable="yes">_Actualizar</property>
+        <property name="ShortLabel" translatable="yes">_Actualizar</property>
+        <property name="StockId">gtk-refresh</property>
+        <signal name="Activated" handler="OnRefreshAction1Activated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -126,7 +141,9 @@
                 <node type="Menuitem" action="editAction" />
                 <node type="Menuitem" action="removeAction" />
                 <node type="Separator" />
-                <node type="Menuitem" action="refreshAction" />
+                <node type="Menuitem" action="findAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="refreshAction1" />
               </node>
               <node type="Menu" action="AyudaAction">
                 <node type="Menuitem" action="helpAction" />

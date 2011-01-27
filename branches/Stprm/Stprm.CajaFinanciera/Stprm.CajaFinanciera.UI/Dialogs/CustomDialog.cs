@@ -14,7 +14,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		
 		public CustomDialog ()
 		{
-			WindowPosition = WindowPosition.CenterOnParent;
+			WindowPosition = WindowPosition.CenterAlways;
 			BorderWidth = 5;
 			VBox.Spacing = 5;
 			Resize (640, 480);
@@ -26,14 +26,33 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		public new virtual ResponseType Run ()
 		{
 			ResponseType response;
+			string message;
 			
 			do {
 				response = (ResponseType) base.Run ();
 				if (response == ResponseType.Help)
 					OnHelpRequest ();
+				
+				if (response == ResponseType.Ok)
+						if (!OnValidate (out message)) {
+							MessageDialog msg = new MessageDialog (Globals.MainWindow,
+					                                       DialogFlags.Modal, MessageType.Error,
+					                                       ButtonsType.Ok, message);
+							msg.Title = Globals.FormatWindowTitle ("Error");
+							msg.Run ();
+							msg.Destroy ();
+							response = ResponseType.Help;
+							continue;
+						}
 			}while (response == ResponseType.Help);
 			
 			return response;
+		}
+		
+		protected virtual bool OnValidate (out string message)
+		{
+			message = string.Empty;
+			return true;
 		}
 		
 		protected virtual void OnHelpRequest ()

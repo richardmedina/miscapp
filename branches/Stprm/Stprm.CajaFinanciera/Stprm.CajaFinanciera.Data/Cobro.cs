@@ -29,7 +29,7 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select cob_id as Id, cob_clave as Clave, CONCAT (CAST(cob_periodo as CHAR), '-',CAST(cob_anio as CHAR)) as Periodo, DATE_FORMAT(cob_fecha,'%d/%m/%Y') as Fecha from {0} where cob_clave <> '' order by cob_fecha desc",
+			return db.QueryToAdapter ("select cob_id as Id, cob_clave as Clave, CONCAT (CAST(cob_periodo as CHAR), '-',CAST(cob_anio as CHAR)) as Periodo, CAST(DATE_FORMAT(cob_fecha,'%d/%m/%Y') as CHAR) as Fecha from {0} where cob_clave <> '' order by cob_fecha desc",
 			                          TableCobros);
 		}
 		
