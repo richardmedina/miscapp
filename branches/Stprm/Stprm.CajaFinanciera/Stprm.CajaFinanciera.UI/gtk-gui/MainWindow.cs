@@ -44,6 +44,10 @@ public partial class MainWindow {
     
     private Gtk.Action refreshAction;
     
+    private Gtk.Action findAction;
+    
+    private Gtk.Action refreshAction1;
+    
     private Gtk.VBox vbox1;
     
     private Gtk.MenuBar menubar1;
@@ -120,6 +124,12 @@ public partial class MainWindow {
         this.refreshAction = new Gtk.Action("refreshAction", Mono.Unix.Catalog.GetString("Actualizar"), null, "gtk-refresh");
         this.refreshAction.ShortLabel = Mono.Unix.Catalog.GetString("Actualizar");
         w1.Add(this.refreshAction, null);
+        this.findAction = new Gtk.Action("findAction", Mono.Unix.Catalog.GetString("_Ir a filtro..."), null, "gtk-find");
+        this.findAction.ShortLabel = Mono.Unix.Catalog.GetString("_Ir a filtro...");
+        w1.Add(this.findAction, null);
+        this.refreshAction1 = new Gtk.Action("refreshAction1", Mono.Unix.Catalog.GetString("_Actualizar"), null, "gtk-refresh");
+        this.refreshAction1.ShortLabel = Mono.Unix.Catalog.GetString("_Actualizar");
+        w1.Add(this.refreshAction1, "<Mod2>F5");
         this.UIManager.InsertActionGroup(w1, 0);
         this.AddAccelGroup(this.UIManager.AccelGroup);
         this.Name = "MainWindow";
@@ -132,7 +142,7 @@ public partial class MainWindow {
         this.vbox1.Name = "vbox1";
         this.vbox1.Spacing = 6;
         // Container child vbox1.Gtk.Box+BoxChild
-        this.UIManager.AddUiFromString("<ui><menubar name='menubar1'><menu name='ArchivoAction' action='ArchivoAction'><menuitem name='quitAction' action='quitAction'/></menu><menu name='EdicinAction' action='EdicinAction'><menuitem name='copyAction' action='copyAction'/><menuitem name='pasteAction' action='pasteAction'/><menuitem name='PegadoEspecialAction' action='PegadoEspecialAction'/><separator/><menuitem name='newAction' action='newAction'/><menuitem name='editAction' action='editAction'/><menuitem name='removeAction' action='removeAction'/><separator/><menuitem name='refreshAction' action='refreshAction'/></menu><menu name='AyudaAction' action='AyudaAction'><menuitem name='helpAction' action='helpAction'/><separator/><menuitem name='homeAction' action='homeAction'/><menuitem name='missingImageAction' action='missingImageAction'/><separator/><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
+        this.UIManager.AddUiFromString("<ui><menubar name='menubar1'><menu name='ArchivoAction' action='ArchivoAction'><menuitem name='quitAction' action='quitAction'/></menu><menu name='EdicinAction' action='EdicinAction'><menuitem name='copyAction' action='copyAction'/><menuitem name='pasteAction' action='pasteAction'/><menuitem name='PegadoEspecialAction' action='PegadoEspecialAction'/><separator/><menuitem name='newAction' action='newAction'/><menuitem name='editAction' action='editAction'/><menuitem name='removeAction' action='removeAction'/><separator/><menuitem name='findAction' action='findAction'/><separator/><menuitem name='refreshAction1' action='refreshAction1'/></menu><menu name='AyudaAction' action='AyudaAction'><menuitem name='helpAction' action='helpAction'/><separator/><menuitem name='homeAction' action='homeAction'/><menuitem name='missingImageAction' action='missingImageAction'/><separator/><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
         this.menubar1 = ((Gtk.MenuBar)(this.UIManager.GetWidget("/menubar1")));
         this.menubar1.Name = "menubar1";
         this.vbox1.Add(this.menubar1);
@@ -232,5 +242,7 @@ public partial class MainWindow {
         this.Show();
         this.quitAction.Activated += new System.EventHandler(this.OnQuitActionActivated);
         this.aboutAction.Activated += new System.EventHandler(this.OnAboutActionActivated);
+        this.findAction.Activated += new System.EventHandler(this.OnFindActionActivated);
+        this.refreshAction1.Activated += new System.EventHandler(this.OnRefreshAction1Activated);
     }
 }

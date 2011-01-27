@@ -14,6 +14,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private Gtk.ToolButton _btn_remove;
 		private Gtk.ToolButton _btn_refresh;
 		
+		private Gtk.ToolButton _btn_export;
+		
 		
 		private Gtk.ToolButton _btn_help;
 		private Gtk.ToolButton _btn_about;
@@ -30,6 +32,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			_btn_edit = new ToolButton (Stock.Edit);
 			_btn_remove = new ToolButton (Stock.Remove);
 			_btn_refresh = new ToolButton (Stock.Refresh);
+			_btn_export = new ToolButton (Stock.SaveAs);
 			
 			_btn_help = new ToolButton (Stock.Help);
 			_btn_about = new ToolButton (Stock.About);
@@ -39,6 +42,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Insert (_btn_edit, -1);
 			Insert (_btn_remove, -1);
 			Insert (_btn_refresh, -1);
+			Insert (new SeparatorToolItem (), -1);
+			Insert (_btn_export, -1);
 			Insert (new SeparatorToolItem (), -1);
 			Insert (_btn_help, -1);
 			Insert (_btn_about, -1);
@@ -65,6 +70,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public ToolButton ButtonRefresh {
 			get {return _btn_refresh; }
+		}
+		
+		public ToolButton ButtonExport {
+			get { return _btn_export; }	
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Data;
 using System.Threading;
 using Gtk;
@@ -57,7 +58,9 @@ public partial class MainWindow : Gtk.Window
 		_toolbar.ButtonEdit.Clicked += Handle_toolbarButtonEditClicked;
 		_toolbar.ButtonRemove.Clicked += Handle_toolbarButtonRemoveClicked;
 		_toolbar.ButtonRefresh.Clicked += Handle_toolbarButtonRefreshClicked;
-		Resize (800, 600);
+		_toolbar.ButtonExport.Clicked += Handle_toolbarButtonExportClicked;
+		
+		Resize (1024, 600);
 		
 		Build ();
 		
@@ -101,6 +104,35 @@ public partial class MainWindow : Gtk.Window
 		
 		_main_container.Add (_notebook);
 		_chooser_cuentas.Combo.GrabFocus ();
+		
+		Title = Globals.FormatWindowTitle ("Principal");
+	}
+
+	private void Handle_toolbarButtonExportClicked (object sender, EventArgs e)
+	{
+		string [] row;
+		if (!_view_descs.GetSelected (out row))
+			return;
+		
+		int desc_id = 0;
+		
+		if (int.TryParse (row [0], out desc_id)) {
+			Descuento descuento = new Descuento (Globals.Db);
+			descuento.Id = desc_id;
+			if (descuento.Update ()) {
+				string filename = Globals.SelectSingleFileDialog (FileChooserAction.Save, 
+				                                                  string.Format ("{0}-{1}-{2}.txt", descuento.CategoriaId, descuento.Fecha.Year.ToString ("0000"), descuento.Periodo));
+				
+				if (filename != string.Empty) {
+					DescuentoMovimientoCollection movs = descuento.GetMovimientos ();
+					
+					using (StreamWriter sw = new StreamWriter (filename)) {
+						foreach (DescuentoMovimiento mov in movs)
+							sw.WriteLine (mov.Serialize ());
+					}
+				}
+			}
+		}
 	}
 
 	private void Handle_GenericKeyPressEvent (object o, KeyPressEventArgs args)
@@ -116,7 +148,8 @@ public partial class MainWindow : Gtk.Window
 
 	private void Handle_notebookSwitchPage (object o, SwitchPageArgs args)
 	{
-			_searchentry_search.Entry.Text = _views [args.PageNum].CurrentFilter;
+		_toolbar.ButtonExport.Sensitive = _views [args.PageNum] == _view_descs;
+		_searchentry_search.Entry.Text = _views [args.PageNum].CurrentFilter;
 	}
 
 	private void Handle_searchentry_searchEntryChanged (object sender, EventArgs e)
@@ -212,8 +245,9 @@ public partial class MainWindow : Gtk.Window
 	
 	protected override void OnShown ()
 	{
+		Globals.Init ();
 		if (Authenticate ()) { }
-		Console.WriteLine ("Authenticated");
+			Console.WriteLine ("Authenticated");
 			base.OnShown ();
 			Present ();	
 			//Globals.Db = new Database (Globals.DbHostname, Globals.DbUserId, Globals.DbPassword, Globals.DbName);
@@ -304,6 +338,17 @@ public partial class MainWindow : Gtk.Window
 		dialog.Destroy ();
 	}
 
+	protected virtual void OnFindActionActivated (object sender, System.EventArgs e)
+	{
+		_searchentry_search.Entry.GrabFocus ();
+	}
+	
+	protected virtual void OnRefreshAction1Activated (object sender, System.EventArgs e)
+	{
+		_views [_notebook.Page].Populate ();
+	}
+	
+	
 	public DataSetView [] Views {
 		get { return _views; }
 	}

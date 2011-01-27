@@ -3,7 +3,7 @@ using System;
 using Gtk;
 
 using Stprm.CajaFinanciera.UI.Widgets;
-
+using Stprm.CajaFinanciera.Data;
 namespace Stprm.CajaFinanciera.UI.Dialogs
 {
 
@@ -21,7 +21,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			VBox.PackStart (_widget_gen_descs);
 			
 			VBox.ShowAll ();
-			AddButton (Stock.Close, ResponseType.Cancel);
+			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		
@@ -47,6 +47,30 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			
 			return resp;
 		}
-
+		
+		protected override bool OnValidate (out string message)
+		{
+			//bool result = base.OnValidate (out message);
+			//clave,periodo,anio,fecha
+			
+			
+			return _widget_gen_descs.OnValidate (out message);
+			
+		}
+		
+		public void ChangePrestamosStatus ()
+		{
+			_widget_gen_descs.ChangePrestamosStatus ();	
+		}
+		
+		public Descuento GetDescuento ()
+		{
+			return _widget_gen_descs.GetDescuento ();
+		}
+		
+		public DescuentoMovimientoCollection GetMovimientos ()
+		{
+			return _widget_gen_descs.GetMovimientos ();	
+		}		
 	}
 }

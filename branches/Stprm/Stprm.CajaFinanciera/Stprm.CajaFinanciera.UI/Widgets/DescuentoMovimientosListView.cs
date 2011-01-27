@@ -1,5 +1,6 @@
 
 using System;
+using System.IO;
 using Gtk;
 using System.Data;
 
@@ -25,10 +26,21 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			Load ();
 		}
 		
+		public void Export (string filename) 
+		{
+			try {
+				using (StreamWriter sw = new StreamWriter (filename)) {
+				
+				}
+			} catch (Exception exception) {
+				Console.WriteLine ("Exception : {1}", exception.Message);	
+			}
+		}
+		
 		public override void Load ()
 		{
 			DataSet ds = new DataSet ();
-			_descuento.GetMovimientos ().Fill (ds);
+			_descuento.GetMovimientosInAdapter ().Fill (ds);
 			
 			LoadDataSet (ds);
 			Populate ();
