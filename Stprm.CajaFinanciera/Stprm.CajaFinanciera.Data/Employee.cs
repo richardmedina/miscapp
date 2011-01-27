@@ -32,7 +32,7 @@ namespace Stprm.CajaFinanciera.Data
 		{
 			EmployeeCollection employees = new EmployeeCollection ();
 			
-			IDataReader reader = db.Query ("select  * from {0} where concat(tra_nombre,  ' ', tra_apepaterno, ' ', tra_apematerno) like '{1}%'",
+			IDataReader reader = db.Query ("select * from {0} where concat(tra_nombre,  ' ', tra_apepaterno, ' ', tra_apematerno) like '{1}%'",
 			                               TableEmployees, filter);
 			
 			while (reader.Read ()) {
@@ -47,12 +47,35 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select tra_id as Id, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(tra_saldo, 2)) as Saldo, if (tra_fechaultimopago='00000000','', DATE_FORMAT(tra_fechaultimopago, '%d/%m/%Y')) as FechaUltPago, cat_id as Categoria from {0} order by ficha asc", TableEmployees);
+			return db.QueryToAdapter ("select tra_id as Id, tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre, CONCAT('$', FORMAT(tra_saldo, 2)) as Saldo, CAST(if (tra_fechaultimopago='00000000','', DATE_FORMAT(tra_fechaultimopago, '%d/%m/%Y')) as CHAR) as FechaUltPago, cat_id as Categoria from {0} order by ficha asc", TableEmployees);
 		}
 		
 		public static IDataAdapter GetCollectionForSearchingInAdapter (Database db)
 		{
 			return 	db.QueryToAdapter ("select tra_ficha as Ficha, TRIM(CONCAT(tra_nombre, ' ', tra_apepaterno, ' ', tra_apematerno)) as Nombre from {0} order by ficha asc", TableEmployees);
+		}
+				
+		public PrestamoCollection GetPrestamos ()
+		{
+			PrestamoCollection prestamos = new PrestamoCollection ();
+			
+			IDataReader reader = Db.Query ("SELECT * FROM {0} where tra_id={1}",
+			                               TablePrestamos, InternalId);
+			
+			while (reader.Read ()) {
+				Prestamo prestamo = new Prestamo (Db);
+				prestamo.FillFromReader (reader);
+				
+				prestamos.Add (prestamo);
+			}
+			reader.Close ();
+			
+			return prestamos;
+		}
+		
+		public bool GetPrestamoFromPagare (Employee employee, string pagare, out Prestamo prestamo)
+		{
+			return Prestamo.GetFromPagare (Db, this, pagare, out prestamo);
 		}
 		
 		public IDataAdapter GetPrestamosInAdapter ()

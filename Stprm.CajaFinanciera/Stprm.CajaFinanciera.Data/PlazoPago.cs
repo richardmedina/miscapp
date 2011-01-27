@@ -37,9 +37,9 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public override void FillFromReader (System.Data.IDataReader reader)
 		{
-			Id = reader.GetInt32 (reader.GetOrdinal ("pla_id"));
-			Nombre = reader.GetString (reader.GetOrdinal ("pla_nombre"));
-			NumPagos = reader.GetInt32 (reader.GetOrdinal ("pla_num_pagos"));
+			Id = GetInt32 (reader, "pla_id"); // reader.GetInt32 (reader.GetOrdinal ("pla_id"));
+			Nombre = GetString (reader, "pla_nombre"); //reader.GetString (reader.GetOrdinal ("pla_nombre"));
+			NumPagos = GetInt32 (reader, "pla_num_pagos"); //reader.GetInt32 (reader.GetOrdinal ("pla_num_pagos"));
 		}
 		
 		public static PlazoPagoCollection GetCollection (Database db)
@@ -60,7 +60,10 @@ namespace Stprm.CajaFinanciera.Data
 		
 		public static IDataAdapter GetCollectionInAdapter (Database db)
 		{
-			return db.QueryToAdapter ("select pla_nombre as Plazo, pla_num_pagos as Pagos, CONCAT (CAST(pre_porcentaje_interes AS CHAR), '%') as Interes from plazos");
+			Console.WriteLine (@"select pla_nombre as Plazo, pla_num_pagos as Pagos, CONCAT(CAST(pre_porcentaje_interes AS CHAR), '%') as Interes from {0}",
+			                          TablePlazos);
+			return db.QueryToAdapter (@"select pla_nombre as Plazo, pla_num_pagos as Pagos, CONCAT(CAST(pre_porcentaje_interes AS CHAR), '%') as Interes from {0}",
+			                          TablePlazos);
 		}
 	}
 }

@@ -16,7 +16,6 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 		{
 			Title = Globals.FormatWindowTitle ("Buscar trabajador");
 			Resize (430, 340);
-			WindowPosition = WindowPosition.CenterOnParent;
 			
 			_view_searchemployee = new EmployeeSearchWidget ();
 			_view_searchemployee.SearchEntry.Changed += entry_nameChanged;;
@@ -26,7 +25,7 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			VBox.PackStart (_view_searchemployee);
 			VBox.ShowAll ();
 			
-			AddButton (Stock.Close, ResponseType.Cancel);
+			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		

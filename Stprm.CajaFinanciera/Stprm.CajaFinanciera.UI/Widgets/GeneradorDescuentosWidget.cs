@@ -101,6 +101,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			PackStart (new HSeparator (), false, false, 0);
 			PackStart (scroll);
 			
+			_entry_anio.Text = _dtb_fecha.Date.Year.ToString ("0000");
+			
 			_cmb_clave.Active = 0;
 		}
 		
@@ -142,6 +144,74 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		private void Handle_button_eliminarClicked (object sender, EventArgs e)
 		{
 			_view_gen_descs.RemoveSelected ();
+		}
+		
+		public Descuento GetDescuento ()
+		{
+			Descuento descuento = new Descuento (Globals.Db);
+			descuento.Fecha = _dtb_fecha.Date;
+			descuento.FechaIni = _dtb_inicio.Date;
+			descuento.FechaFin = _dtb_fin.Date;
+			descuento.Anio = _dtb_fecha.Date.Year;
+			Categoria categoria;
+			if (_cmb_clave.GetSelected (out categoria))
+				descuento.CategoriaId = categoria.Id;
+			
+			descuento.Periodo = int.Parse (_entry_periodo.Text);
+			
+			return descuento;
+		}
+		
+		public DescuentoMovimientoCollection GetMovimientos ()
+		{
+			return _view_gen_descs.GetDescuentoMovimientos ();	
+		}
+		
+		public void ChangePrestamosStatus ()
+		{
+			_view_gen_descs.ChangePrestamosStatus ();	
+		}
+		
+		public bool OnValidate (out string message)
+		{
+			bool result = true;
+			int valor;
+			message = string.Empty;
+			
+			if (_entry_periodo.Text.Trim () == string.Empty || !int.TryParse (_entry_periodo.Text, out valor)) {
+				message = "Por favor verifique el periodo";
+				result = false;
+			}
+			
+			else if (_entry_anio.Text.Trim () == string.Empty || !int.TryParse (_entry_anio.Text, out valor)) {
+				message = "Por favor verifique el Año";
+				result = false;
+			}
+			
+			else {
+				DescuentoMovimientoCollection movs = _view_gen_descs.GetDescuentoMovimientos ();
+				
+				if (movs.Count == 0) {
+					message = "No hay movimientos";
+					result = false;
+				}
+				
+				for (int i = 0; i < movs.Count; i ++) {
+					if (movs [i].TrabajadorInternalId == 0) {
+						message = string.Format ("La ficha en la fila {0} no puede ser nula", (i + 1));
+						result = false;
+						break;
+					}
+					
+					if (movs [i].Folio == string.Empty) {
+						message = string.Format ("Por favor establezca el numero de pagaré en la fila {0}", (i + 1));	
+						result = false;
+						break;
+					}
+				}
+		    }
+			
+			return result;
 		}
 	}
 }

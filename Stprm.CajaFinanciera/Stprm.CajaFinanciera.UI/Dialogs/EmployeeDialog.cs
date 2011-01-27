@@ -35,7 +35,8 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			
 			VBox.PackStart (_notebook);
 			
-			VBox.ShowAll ();AddButton (Stock.Close, ResponseType.Cancel);
+			VBox.ShowAll ();
+			AddButton (Stock.Cancel, ResponseType.Cancel);
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		

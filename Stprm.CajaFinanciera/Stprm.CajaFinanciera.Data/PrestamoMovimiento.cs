@@ -34,7 +34,7 @@ namespace Stprm.CajaFinanciera.Data
 		public static IDataAdapter GetMovimientosInAdapter (Prestamo prestamo)
 		{
 			
-			return prestamo.Db.QueryToAdapter ("select  prem_id, DATE_FORMAT(prem_fecha,'%d/%m/%Y') as Fecha, prem_concepto as Concepto, CONCAT('$', FORMAT(prem_cargo, 2)) as Cargo, CONCAT('$', FORMAT(prem_abono, 2)) as Abono, CONCAT('$', FORMAT(prem_saldo, 2)) as Saldo from {0} where pre_id = {1} and tra_id = {2}",
+			return prestamo.Db.QueryToAdapter ("select  prem_id, CAST(DATE_FORMAT(prem_fecha,'%d/%m/%Y') as CHAR) as Fecha, prem_concepto as Concepto, CONCAT('$', FORMAT(prem_cargo, 2)) as Cargo, CONCAT('$', FORMAT(prem_abono, 2)) as Abono, CONCAT('$', FORMAT(prem_saldo, 2)) as Saldo from {0} where pre_id = {1} and tra_id = {2}",
 			                                   TablePrestamoMovimientos, prestamo.Id, prestamo.TrabajadorInternalId);
 		}
 	}

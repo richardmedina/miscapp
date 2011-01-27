@@ -124,7 +124,7 @@ namespace Stprm.CajaFinanciera.Data
 				if (!date_str.StartsWith ("0/0/0000"))
 					date = reader.IsDBNull (reader.GetOrdinal (field_name)) ? DateTime.MinValue : reader.GetDateTime (reader.GetOrdinal (field_name));
 			} catch (Exception exception) {	
-				Console.Write (exception.Message + "Excepcion atrapada mientras DateTiem conversion");
+				Console.Write ("Field ({0}).Excepcion atrapada mientras DateTime conversion : {1}", field_name, exception.Message);
 			}
 			
 			//Console.WriteLine ("OK");

@@ -22,7 +22,17 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public override void New ()
 		{
 			GenerarDescuentoDialog dialog = new GenerarDescuentoDialog ();
-			dialog.Run ();
+			if (dialog.Run () == ResponseType.Ok) {
+				
+				Descuento desc = dialog.GetDescuento ();
+				if (desc.Save ()) {
+					foreach (DescuentoMovimiento mov in dialog.GetMovimientos ()) {
+						desc.AgregarMovimiento (mov);
+					}
+					dialog.ChangePrestamosStatus ();
+					Populate ();
+				}
+			}
 			dialog.Destroy ();
 		}
 

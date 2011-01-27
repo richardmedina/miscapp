@@ -108,14 +108,18 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			EntryTotal.Value = prestamo.Capital + prestamo.Interes;
 			EntryAbono.Value = prestamo.Abono;
 			EntrySaldo.Value = prestamo.Saldo;
+			
+			Console.WriteLine ("SpínInteres desde: {0}", prestamo.PorcentajeInteres);
 		}
 		
 		public void SaveToPrestamo (Prestamo prestamo)
 		{
 			prestamo.Capital = EntryCapital.Value;
+			prestamo.PorcentajeInteres = Convert.ToInt32 (SpinInteres.Value);
 			prestamo.Interes = EntryInteres.Value;
 			prestamo.Cargo = prestamo.Capital + prestamo.Interes;
 			
+			Console.WriteLine ("SpinInteres a: {0}", prestamo.PorcentajeInteres);
 		}
 		
 		public CurrencyEntry EntryCapital {
