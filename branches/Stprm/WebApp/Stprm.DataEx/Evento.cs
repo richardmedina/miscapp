@@ -56,7 +56,7 @@ namespace Stprm.DataEx
 
                 if (reader.Read())
                 {
-                    Id = GetInt32(reader, "Id");
+                    Id = Convert.ToInt32 (GetDecimal(reader, "Id"));
                 }
                 reader.Close();
             }
@@ -114,7 +114,12 @@ namespace Stprm.DataEx
 
         public IDataAdapter ParticipantesEnAdapter()
         {
-            return Bd.QueryToAdapter("SELECT ROW_NUMBER() OVER (ORDER BY FICHA ASC) AS Num, Ficha, MAX(NombreCompleto) as Nombres, 'PS' as SitContr, 'Apoyo' as Apoyo FROM     NuevosContratos WHERE    Ficha     IN    (     SELECT    Ficha    FROM     PART_EVENTOS    WHERE    NUM_EVENTO =  {0} ) group by Ficha ", Id);
+            return Bd.QueryToAdapter("SELECT ROW_NUMBER() OVER (ORDER BY FICHA ASC) AS Num, Ficha, MAX(NombreCompleto) as Nombres, MIN(AreaPersonal) as SitContr, 'Apoyo' as Apoyo FROM     NuevosContratos WHERE    AreaPersonal <> 'PC' and AreaPersonal <> 'TC' and Ficha     IN    (SELECT    Ficha    FROM     PART_EVENTOS    WHERE    NUM_EVENTO =  {0} ) group by Ficha", Id);
         }
+		
+		public static IDataAdapter ObtenerEnAdapter (BaseDatos datos)
+		{
+			return 	datos.QueryToAdapter ("Select * from {0} order by Fecha desc", TablaEventos);
+		}
     }
 }

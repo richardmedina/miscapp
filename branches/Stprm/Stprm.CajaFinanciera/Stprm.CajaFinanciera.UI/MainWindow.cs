@@ -352,4 +352,20 @@ public partial class MainWindow : Gtk.Window
 	public DataSetView [] Views {
 		get { return _views; }
 	}
+	
+	public EmployeeListView ViewEmployees {
+		get { return _view_employees; }
+	}
+	
+	public LoanListView PrestamosView {
+		get { return _view_loans; }
+	}
+	
+	public AhorroListView AhorrosView {
+		get { return _view_ahorros; }
+	}
+	
+	public DescuentosListView DescuentosView {
+		get { return _view_descs; }
+	}
 }

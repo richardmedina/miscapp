@@ -63,7 +63,7 @@ namespace Stprm.CajaFinanciera.Data
 				}
 			}
 			
-			Console.WriteLine ("Agregado, actualizando...");
+			Console.WriteLine ("Agregado, actualizando...{0}", Serialize ());
 			
 			if (Id > 0) {
 				try {
@@ -110,6 +110,7 @@ namespace Stprm.CajaFinanciera.Data
 			PrestamoId = GetInt32 (reader, "pre_id");
 			Importe = GetDecimal (reader, "dem_importe");
 			DescuentoDiario = GetDecimal (reader, "dem_desc_diario");
+			Folio = GetString (reader, "dem_folio_act");
 		}
 
 		public static DescuentoMovimientoCollection GetCollection (Descuento descuento)
@@ -154,29 +155,47 @@ namespace Stprm.CajaFinanciera.Data
 					if (categoria.Update ()) {
 						if (categoria.Id == "CO") {
 						// Corporativo
-				
-							
 							str = string.Format ("{0}{1}{2:000000000.00}{3}",
 							                     AddZerosTo(employee.Id, 8 - employee.Id.Length), categoria.Concepto, Importe, descuento.Fecha.ToString ("yyyyMMdd"));
-						} else if (categoria.Id == "CA") {
-							// PEP	
-							str = string.Format ("00{0}{1}{2}{3}{4}{5}");
+						} else {
+							// PEP
+							Console.WriteLine ("PEP");
+							Console.WriteLine (AddZerosTo (Folio, 10 - Folio.Length));
+							Console.WriteLine ("PEP_END");
+							str = string.Format ("{0}{1}{2}{3}{4}{5}",
+							                     AddZerosTo (Folio, 10 - Folio.Length),
+							                     AddZerosTo (employee.Id, 8 - employee.Id.Length),
+							                     PepFormatName (employee.GetFullName ()),
+							                     categoria.Concepto,
+							                     Importe.ToString ("000000000.00"),
+							                     DescuentoDiario.ToString ("000000000.00"));
 						}
 					}
 				}
 			}
-			
-			
-			
-			
-			
+						
 			return str;
 		}
 		
-		private string AddZerosTo (string ficha, int howmany)
+		public string PepFormatName (string fullname)
+		{
+				fullname = fullname.Replace (" ", string.Empty);
+			
+				if (fullname.Length >= 31)
+					fullname = fullname.Substring (0, 30);
+				else
+					for (int i = fullname.Length; i < 30; i ++)
+						fullname += "X";
+			
+			return fullname;
+		}
+			
+
+		
+		private string AddZerosTo (string text, int howmany)
 		{
 			
-			string nuevaficha = ficha;
+			string nuevaficha = text;
 			
 			for(int i =0; i < howmany; i ++)
 				nuevaficha = "0" + nuevaficha;

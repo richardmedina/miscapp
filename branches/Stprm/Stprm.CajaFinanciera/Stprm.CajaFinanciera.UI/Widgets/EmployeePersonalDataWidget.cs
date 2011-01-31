@@ -79,13 +79,38 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			ShowAll ();
 		}
 		
+		public bool OnValidate (out string message)
+		{
+			bool result = true;
+			int ficha = 0;
+			message = string.Empty;
+			
+			if (!int.TryParse (_entry_id.Text.Trim (), out ficha)) {
+				message = "Por favor verifique la ficha del trabajador";
+				result = false;
+			}
+			else if (_entry_firstname.Text.Trim ().Length == 0) {
+				message = "El nombre del trabajador no puede ser nulo";
+				result = false;
+			}
+			
+			return result;
+		}
+		
 		public void SaveToEmployee (Employee employee)
 		{
 			employee.Id = _entry_id.Text;
 			employee.FirstName = _entry_firstname.Text;
 			employee.MiddleName = _entry_middlename.Text;
 			employee.LastName = _entry_lastname.Text;
-			//employee.CategoryId = 
+			
+			
+			
+			Categoria categoria;
+			
+			if (_cmb_category.GetSelected (out categoria))
+				employee.CategoryId = categoria.Id;
+			
 		}
 		
 		public void UpdateFromEmployee (Employee employee)

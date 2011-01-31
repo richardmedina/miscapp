@@ -26,8 +26,9 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				
 				Descuento desc = dialog.GetDescuento ();
 				if (desc.Save ()) {
-					foreach (DescuentoMovimiento mov in dialog.GetMovimientos ()) {
-						desc.AgregarMovimiento (mov);
+					
+					foreach (DescuentoMovimiento desc_mov in dialog.GetMovimientos ()) {
+						desc.AgregarMovimiento (desc_mov);
 					}
 					dialog.ChangePrestamosStatus ();
 					Populate ();

@@ -36,7 +36,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				if (prestamo.Update ()) {
 					prestamo.Suspender ();
 					prestamo.Save ();
-					EditPrestamo (prestamo);
+					UpdatePrestamo (prestamo);
 				}
 			}			
 		}
@@ -51,7 +51,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 				if (prestamo.Update ()) {
 					prestamo.Reactivar (OperacionFinancieraEstado.Retenido);	
 					prestamo.Save ();
-					EditPrestamo (prestamo);
+					UpdatePrestamo (prestamo);
 				}
 			}
 		}
@@ -75,9 +75,34 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			if (dialog.Run () == ResponseType.Ok) {
 				Prestamo prestamo = dialog.GetAsPrestamo ();
 				if (prestamo.Save ()) {
-					AddPrestamo (prestamo);
-					//Populate ();
+					/*******************
+					 * Monto inicial del prestamo
+					 * ****************/
+					PrestamoMovimiento prestamo_mov = new PrestamoMovimiento (Globals.Db);
+					prestamo_mov.PrestamoId = prestamo.Id;
+					prestamo_mov.TrabajadorInternalId = prestamo.TrabajadorInternalId;
+					prestamo_mov.Fecha = prestamo.Fecha;
+					prestamo_mov.Concepto = string.Format ("Prestamo CH={0} PA={1}", 
+						prestamo.Cheque, prestamo.Pagare);
+					prestamo_mov.Cargo = prestamo.Cargo;
+					prestamo_mov.CargoCapital = prestamo.Capital;
+						
+					prestamo_mov.Save ();
+					/*********************
+					 * Intereses 
+					 * ******************/
+					prestamo_mov = new PrestamoMovimiento (Globals.Db);
+							
+					prestamo_mov.PrestamoId = prestamo.Id;
+					prestamo_mov.TrabajadorInternalId = prestamo.TrabajadorInternalId;
+					prestamo_mov.Fecha = prestamo.Fecha;
+					prestamo_mov.Concepto = string.Format ("Intereses", 
+						prestamo.Cheque, prestamo.Pagare);
+					prestamo_mov.Cargo = prestamo.Cargo;
+					prestamo_mov.CargoCapital = prestamo.Capital;
+					prestamo_mov.Save ();
 				}
+				AddPrestamo (prestamo);
 			}
 			dialog.Destroy ();
 		}
@@ -110,13 +135,12 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			                                  DataMisc.OperacionFinancieraEstadoToShortString (prestamo.Status)};	
 		}
 		
-		public void EditPrestamo (Prestamo prestamo)
+		public void UpdatePrestamo (Prestamo prestamo)
 		{
 			TreeIter iter;
-			string [] row = GetPrestamoAsRow (prestamo);
 			
 			if (BuscarPrestamo (prestamo, out iter)) {
-			//if (Selection.GetSelected (out iter)) {
+				string [] row = GetPrestamoAsRow (prestamo);
 				Store.SetValues (iter, row);
 			}
 		}
@@ -159,7 +183,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 						if (dialog.Run () == ResponseType.Ok) {
 							Prestamo prestamo_editado = dialog.GetAsPrestamo ();
 							if (prestamo_editado.Save ())
-								EditPrestamo (prestamo_editado);
+								UpdatePrestamo (prestamo_editado);
 						}
 						dialog.Destroy ();
 					}
