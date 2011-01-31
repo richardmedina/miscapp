@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace Stprm.DataEx
 			_password = password;
 			_source = source;
 		}
-
+		
         public static Database CreateOldConnection()
         {
             Database db = new Database("Poseidon", "ricki", "09b9085a+", "seccion26");

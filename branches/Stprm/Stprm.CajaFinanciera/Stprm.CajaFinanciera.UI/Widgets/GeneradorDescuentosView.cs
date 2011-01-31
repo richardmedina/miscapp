@@ -101,7 +101,9 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 							prestamo.Status = OperacionFinancieraEstado.DescuentoSinCobro;
 						}
 						Console.WriteLine ("Salvando prestamo...");
+						prestamo.Folio = (string) _model.GetValue (iter, 2);
 						prestamo.Save ();
+						Globals.MainWindow.PrestamosView.UpdatePrestamo (prestamo);
 					}
 				} while (_model.IterNext (ref iter));
 		}
@@ -407,7 +409,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			return iter;
 		}
 		
-		public DescuentoMovimientoCollection GetDescuentoMovimientos ()
+		public DescuentoMovimientoCollection GetDescuentoMovimientos (Categoria categoria)
 		{
 			DescuentoMovimientoCollection movs = new DescuentoMovimientoCollection ();
 			
@@ -433,11 +435,15 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 						mov.Folio = row [2];
 						
 						mov.Importe = decimal.Parse (row [5]);
+						
+					if (categoria.Concepto == "1244")
+							mov.Importe = decimal.Parse (row [4]);
+						
 						mov.DescuentoDiario = decimal.Parse (row [6]);
 						movs.Add (mov);
 				}
 			} while (_model.IterNext (ref iter));
-			
+			Console.WriteLine ("Regresando movs...");
 			return movs;
 		}
 				

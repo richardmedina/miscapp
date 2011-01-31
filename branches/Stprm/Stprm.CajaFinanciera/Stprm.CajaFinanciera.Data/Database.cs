@@ -40,7 +40,6 @@ namespace Stprm.CajaFinanciera.Data
 
 		public bool Open()
 		{
-			Console.WriteLine ("Connecting...");
 			string connection_string = string.Format("Server={0};UID={1};PWD={2};Database={3}; Connection Timeout=15;Allow Zero Datetime=true",
 				Hostname, UserId, Password, Source);
 
@@ -53,8 +52,6 @@ namespace Stprm.CajaFinanciera.Data
 				Console.WriteLine("Exception Connecting: {0}", exception);
 				return false;
 			}
-			
-			Console.WriteLine ("Connected!");
 
 			return true;
 		}
@@ -62,7 +59,7 @@ namespace Stprm.CajaFinanciera.Data
 		public IDataReader Query(string format, params object[] objs)
 		{
 			string query = string.Format(format, objs);
-			Console.WriteLine (query);
+			//Console.WriteLine (query);
 			IDbCommand command = new MySqlCommand (query, _connection);
 
 			IDataReader reader = null;

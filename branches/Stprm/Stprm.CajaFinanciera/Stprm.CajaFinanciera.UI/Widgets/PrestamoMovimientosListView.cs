@@ -11,8 +11,8 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 
 
 	public class PrestamoMovimientosListView : DataSetView
-	{
-
+	{		
+		
 		public PrestamoMovimientosListView ()
 		{
 		}
@@ -21,7 +21,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		{
 			DataSet ds = new DataSet ();
 			
-			prestamo.GetMovimientosInAdapter ().Fill (ds);
+			prestamo.GetPrestamoMovimientosInAdapter ().Fill (ds);
 			
 			LoadDataSet (ds);
 			Populate ();

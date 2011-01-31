@@ -46,7 +46,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			foreach (TreeViewColumn col in Columns)
 				col.Visible = true;
-			
+			Columns [0].Visible = false;
 			Populate ();
 		}
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -39,6 +39,7 @@ namespace Stprm.DataEx
                 SetearDesdeDataReader(reader);
                 result = true;
             }
+			
             reader.Close();
 
             return result;
@@ -57,7 +58,20 @@ namespace Stprm.DataEx
             FichaRecomendado = reader.IsDBNull (reader.GetOrdinal("FichaRec"))? string.Empty : reader.GetString(reader.GetOrdinal("FichaRec"));
             NombreRecomendado = reader.IsDBNull (reader.GetOrdinal ("NombreRec")) ? string.Empty : reader.GetString(reader.GetOrdinal("NombreRec"));
             ParentescoRecomendado = reader.IsDBNull (reader.GetOrdinal("Parentesco")) ? string.Empty : reader.GetString(reader.GetOrdinal("Parentesco")); 
-
         }
+		
+		public Contrato ToContrato ()
+		{
+			Contrato contrato = new Contrato (Bd);
+			contrato.Plaza = Plaza;
+			contrato.Categoria = Categoria;
+			contrato.Ficha = Ficha;
+			contrato.Nivel = Clasificacion.Substring (0, 2);;
+			contrato.Clasificacion = Clasificacion;
+			contrato.Jornada = "";
+			contrato.Depto = Depto;
+			
+			return contrato;
+		}
     }
 }
