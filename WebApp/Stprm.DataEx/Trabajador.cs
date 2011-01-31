@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -232,6 +232,17 @@ namespace Stprm.DataEx
             return Bd.QueryToAdapter("select {0}.NOMBRE as Evento, {0}.Fecha as Fecha, {0}.Lugar as Lugar, {1}.TIPO_APOYO from {0}, {1} where FICHA = '{2}'  and {0}.ID = {1}.NUM_EVENTO order by {0}.Fecha desc",
                 TablaEventos, TablaParticipacionEventos, Ficha);
         }
+		
+		public IDataAdapter GetBeneficiosSindicales ()
+		{
+			return BeneficioSindical.GetColeccion (Bd, Ficha);
+		}
+		
+		public static IDataAdapter ObtenerColeccion (BaseDatos datos, string filtro)
+		{
+			//return datos.QueryToAdapter ("SELECT Ficha, MAX(NombreCompleto) as Nombre from {0} where NombreCompleto like '%{1}%' group by ficha", TablaContratos, filtro);
+			return datos.QueryToAdapter ("SELECT Ficha, MAX(NombreCompleto) as Nombre, MIN(AreaPersonal) as Regimen from {0} where AreaPersonal <> 'PC' and AreaPersonal <> 'TC' group by Ficha order by Ficha", TablaContratos);
+		}
 
         public override void SetearDesdeDataReader(IDataReader reader)
         {

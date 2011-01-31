@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -20,6 +20,8 @@ namespace Stprm.DataEx
         public static readonly string TablaParticipacionAudiencias = "part_audiencias";
         public static readonly string TablaPerfilUsuarios = "Perfiles";
         public static readonly string TablaTrabajadoresInexistentes = "TrabajadoresInexistentes";
+		
+		public static readonly string TablaBeneficiosOtorgados = "BeneficiosSindicalesOtorgados";
 
         private static MD5 _md5 = MD5.Create();
 

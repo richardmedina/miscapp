@@ -20,6 +20,8 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			Resize (640, 480);
 			Resizable = true;
 			
+			Icon = Gdk.Pixbuf.LoadFromResource ("CajaFinanciera.png");
+			
 			_help_request = onHelpRequest;
 		}
 		

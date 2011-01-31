@@ -223,9 +223,9 @@ namespace Stprm.CajaFinanciera.Data
 		}
 		
 		
-		public IDataAdapter GetMovimientosInAdapter ()
+		public IDataAdapter GetPrestamoMovimientosInAdapter ()
 		{
-			return PrestamoMovimiento.GetMovimientosInAdapter (this);	
+			return PrestamoMovimiento.GetPrestamoMovimientosInAdapter (this);	
 		}
 		
 		public static IDataAdapter GetInAdapter (Database db, bool mostrar_pagados)

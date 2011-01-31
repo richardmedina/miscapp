@@ -103,6 +103,11 @@ namespace Stprm.CajaFinanciera.Data
 			return result;
 		}
 		
+		public decimal GetSaldo ()
+		{
+			
+		}
+		
 		public decimal GetAbono ()
 		{
 			decimal saldo = 0m;

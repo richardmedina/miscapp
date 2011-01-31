@@ -164,7 +164,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		
 		public DescuentoMovimientoCollection GetMovimientos ()
 		{
-			return _view_gen_descs.GetDescuentoMovimientos ();	
+			Categoria categoria;
+			
+			_cmb_clave.GetSelected (out categoria);
+			return _view_gen_descs.GetDescuentoMovimientos (categoria);
 		}
 		
 		public void ChangePrestamosStatus ()
@@ -189,7 +192,10 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			}
 			
 			else {
-				DescuentoMovimientoCollection movs = _view_gen_descs.GetDescuentoMovimientos ();
+				Categoria categoria;
+				_cmb_clave.GetSelected (out categoria);
+				_view_gen_descs.GetDescuentoMovimientos (categoria);
+				DescuentoMovimientoCollection movs = _view_gen_descs.GetDescuentoMovimientos (categoria);
 				
 				if (movs.Count == 0) {
 					message = "No hay movimientos";

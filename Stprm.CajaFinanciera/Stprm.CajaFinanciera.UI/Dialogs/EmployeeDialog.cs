@@ -40,6 +40,12 @@ namespace Stprm.CajaFinanciera.UI.Dialogs
 			AddButton (Stock.Ok, ResponseType.Ok);
 		}
 		
+		protected override bool OnValidate (out string message)
+		{
+			return _emp_personaldata.OnValidate (out message);
+		}
+
+		
 		public void UpdateFromEmployee (Employee employee)
 		{
 			_employee = employee;

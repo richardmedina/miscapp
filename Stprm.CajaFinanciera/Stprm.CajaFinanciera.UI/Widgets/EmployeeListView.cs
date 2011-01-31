@@ -23,6 +23,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			if (dialog.Run () == ResponseType.Ok) {
 				Employee employee = dialog.GetAsEmployee ();
 				if (employee.Save ()) {
+					AddTrabajador (employee);
 					ShowNewMessageSucess ();
 				}
 			}
@@ -55,6 +56,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 						if (dialog.Run () == ResponseType.Ok) {
 							Employee edited_employee = dialog.GetAsEmployee ();
 							if (edited_employee.Save ()) {
+								UpdateTrabajador (edited_employee);
 								ShowEditMessageSucess ();
 							}
 						}
@@ -72,6 +74,53 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 		public void ShowEditMessageSucess ()
 		{
 			ShowMessage ("Trabajador modificado satisfactoriamente");
+		}
+		
+		public void UpdateTrabajador (Employee employee)
+		{
+			Gtk.TreeIter iter;
+			
+			if (BuscarTrabajador (employee, out iter)) {
+				Store.SetValues (iter, GetTrabajadorAsRow (employee));
+			}
+		}
+		
+		public bool BuscarTrabajador (Employee employee, out Gtk.TreeIter iter)
+		{
+			bool result = false;
+			Gtk.TreeIter xiter;
+			
+			iter = TreeIter.Zero;
+			
+			if (Store.GetIterFirst (out xiter))
+			    do {
+					string ficha = (string) Store.GetValue (xiter, 1);
+					if (ficha == employee.Id) {
+						iter = xiter;
+						result = true;
+					}
+				} while (Store.IterNext (ref xiter));
+			
+			return result;
+		}
+		
+		public string [] GetTrabajadorAsRow (Employee employee)
+		{
+			return new string [] {
+				employee.InternalId.ToString (),
+				employee.Id.ToString (),
+				employee.GetFullName (),
+				employee.Saldo.ToString ("C"),
+				employee.LastPayDate == DateTime.MinValue ? string.Empty : employee.LastPayDate.ToString ("dd/MM/yyyy"),
+				employee.CategoryId
+			};
+		}
+		
+		public void AddTrabajador (Employee employee)
+		{
+			string [] row = GetTrabajadorAsRow (employee);
+			this.Dataset.Tables [0].Rows.Add (row);
+			AddRow (row);
 		}
 		
 		private void ShowMessage (string text)

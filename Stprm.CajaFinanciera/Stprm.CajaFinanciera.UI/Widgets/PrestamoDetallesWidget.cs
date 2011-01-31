@@ -59,6 +59,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 			
 			_entry_cheque = new Entry ();
 			_entry_pagare = new Entry ();
+			_entry_pagare.MaxLength = 4;
 			
 			_label_nombre = Factory.Label ("", 300, Justification.Left);
 			
