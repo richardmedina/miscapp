@@ -235,7 +235,7 @@ namespace Stprm.DataEx
 		
 		public IDataAdapter GetBeneficiosSindicales ()
 		{
-			return BeneficioSindical.GetColeccion (Bd, Ficha);
+			return BeneficioSindical.GetColeccionInAdapter (Bd, Ficha);
 		}
 		
 		public static IDataAdapter ObtenerColeccion (BaseDatos datos, string filtro)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -33,6 +33,15 @@ namespace Stprm.DataEx
 
             return true;
         }
+		
+		public bool Autenticar (string username, string password)
+		{
+			Console.WriteLine ("{0}({4}) == {1}({5}) && {2}({6}) == {3}({7}) **",
+			                   Usuario, username, Password, Cifrar(password),
+			                   Usuario.Length, username.Length, Password.Length, password.Length);
+			
+			return (Usuario == username && Password == Cifrar (password));
+		}
 
         public override bool Actualizar ()
         {
@@ -44,6 +53,7 @@ namespace Stprm.DataEx
                 SetearDesdeDataReader(reader);
                 result = true;
             }
+			
             reader.Close();
 
             return result;
@@ -59,8 +69,8 @@ namespace Stprm.DataEx
 
         public override void SetearDesdeDataReader(IDataReader reader)
         {
-            Usuario = GetString(reader, "Username");
-            Password = GetString(reader, "Password");
+            Usuario = GetString(reader, "Username").Trim ();
+            _password = GetString(reader, "Password").Trim ();
             Nombre = GetString(reader, "Name");
             Activo = GetBool(reader, "Active");
         }
@@ -68,7 +78,7 @@ namespace Stprm.DataEx
         public string Password
         {
             get { return _password; }
-            set { _password = Encrypt(value); }
+            set { _password = Cifrar (value); }
         }
     }
 }

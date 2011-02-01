@@ -158,10 +158,7 @@ namespace Stprm.CajaFinanciera.Data
 							str = string.Format ("{0}{1}{2:000000000.00}{3}",
 							                     AddZerosTo(employee.Id, 8 - employee.Id.Length), categoria.Concepto, Importe, descuento.Fecha.ToString ("yyyyMMdd"));
 						} else {
-							// PEP
-							Console.WriteLine ("PEP");
-							Console.WriteLine (AddZerosTo (Folio, 10 - Folio.Length));
-							Console.WriteLine ("PEP_END");
+							// All PEP loans
 							str = string.Format ("{0}{1}{2}{3}{4}{5}",
 							                     AddZerosTo (Folio, 10 - Folio.Length),
 							                     AddZerosTo (employee.Id, 8 - employee.Id.Length),
