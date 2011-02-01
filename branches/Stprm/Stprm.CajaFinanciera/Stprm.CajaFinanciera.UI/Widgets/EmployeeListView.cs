@@ -98,6 +98,7 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 					if (ficha == employee.Id) {
 						iter = xiter;
 						result = true;
+						break;
 					}
 				} while (Store.IterNext (ref xiter));
 			

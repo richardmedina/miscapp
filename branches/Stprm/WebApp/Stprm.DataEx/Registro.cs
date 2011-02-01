@@ -54,6 +54,24 @@ namespace Stprm.DataEx
         public virtual void SetearDesdeDataReader(IDataReader reader)
         {
         }
+		
+		protected int GetLastInsertId ()
+		{
+			int id = 0;
+			try {
+				IDataReader reader = Bd.Query("SELECT @@IDENTITY AS Id");
+
+    	        if (reader.Read())
+        	    {
+            		id = Convert.ToInt32 (GetDecimal(reader, "Id"));
+	            }
+            	reader.Close();	
+			}catch (Exception exception) {
+				Console.WriteLine (exception);
+			}
+			
+			return id;
+		}
 
         protected static string GetString(IDataReader reader, string field_name)
         {
@@ -93,9 +111,16 @@ namespace Stprm.DataEx
             return reader.IsDBNull(reader.GetOrdinal(field_name)) ? 0 : reader.GetDecimal(reader.GetOrdinal(field_name));
         }
 
-        public static string Encrypt(string text)
+        public static string Cifrar (string text)
         {
-            return Encoding.Default.GetString (_md5.ComputeHash(Encoding.Default.GetBytes(text)));
+			string cifrado = string.Empty;
+			
+			byte [] bytes = _md5.ComputeHash(Encoding.Default.GetBytes(text));
+			
+			for (int i = 0; i < bytes.Length; i++)
+				cifrado += bytes[i].ToString("x2").ToLower();
+			
+            return cifrado;
         }
 
         public static string DateTimeToDbString(DateTime date)
