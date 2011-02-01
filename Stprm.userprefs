@@ -1,20 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/DescuentosListView.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../Stprm.BancoDeTrabajo/Stprm.BancoDeTrabajo.UI/Dialogs/BeneficioSindicalDialog.cs" ctype="Workbench">
     <Files>
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/Record.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/GeneradorDescuentosWidget.cs" Line="1" Column="1" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.UI/Widgets/DescuentosListView.cs" Line="34" Column="31" />
-      <File FileName="Stprm.CajaFinanciera/Stprm.CajaFinanciera.Data/PrestamoMovimiento.cs" Line="46" Column="18" />
+      <File FileName="../../../Stprm.BancoDeTrabajo/Stprm.BancoDeTrabajo.UI/Dialogs/BeneficioSindicalDialog.cs" Line="83" Column="43" />
+      <File FileName="../../../Stprm.BancoDeTrabajo/Stprm.BancoDeTrabajo.UI/Dialogs/AgregarBeneficioDialog.cs" Line="30" Column="48" />
+      <File FileName="../../../Stprm.BancoDeTrabajo/Stprm.BancoDeTrabajo.UI/Widgets/BecaBeneficioSindicalWidget.cs" Line="72" Column="46" />
+      <File FileName="../../../Stprm.BancoDeTrabajo/Stprm.BancoDeTrabajo.UI/Widgets/BeneficioSindicalView.cs" Line="26" Column="29" />
+      <File FileName="WebApp/Stprm.DataEx/BeneficioSindical.cs" Line="86" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Stprm.CajaFinanciera" expanded="True">
-            <Node name="Stprm.CajaFinanciera.Data" expanded="True">
-              <Node name="Prestamo.cs" selected="True" />
-            </Node>
-            <Node name="Stprm.CajaFinanciera.UI" expanded="True">
+          <Node name="Stprm.BancoDeTrabajo" expanded="True">
+            <Node name="RickiLib.Widgets" expanded="True" />
+            <Node name="Stprm.BancoDeTrabajo.UI" expanded="True">
+              <Node name="ExternalFiles" expanded="True" />
+              <Node name="Dialogs" expanded="True">
+                <Node name="BeneficioSindicalDialog.cs" selected="True" />
+              </Node>
               <Node name="Widgets" expanded="True" />
             </Node>
           </Node>

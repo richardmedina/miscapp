@@ -165,9 +165,9 @@ namespace Stprm.CajaFinanciera.Data
 				employee.InternalId = TrabajadorInternalId;
 				
 				if (employee.UpdateFromInternalId ()) {
-					employee.Saldo = employee.GetAbono ();
-					employee.Save ();
-					result = true;
+					employee.Saldo = employee.GetSaldo ();
+					if (employee.Save ())
+						result = true;
 				}
 			}
 			

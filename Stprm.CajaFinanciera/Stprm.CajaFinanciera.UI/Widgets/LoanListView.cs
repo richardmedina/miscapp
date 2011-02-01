@@ -101,8 +101,14 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 					prestamo_mov.Cargo = prestamo.Cargo;
 					prestamo_mov.CargoCapital = prestamo.Capital;
 					prestamo_mov.Save ();
+				
+					AddPrestamo (prestamo);
+					Employee employee = new Employee (Globals.Db);
+					employee.InternalId = prestamo.TrabajadorInternalId;
+					
+					if(employee.UpdateFromInternalId ())
+						Globals.MainWindow.ViewEmployees.UpdateTrabajador (employee);
 				}
-				AddPrestamo (prestamo);
 			}
 			dialog.Destroy ();
 		}
@@ -182,17 +188,22 @@ namespace Stprm.CajaFinanciera.UI.Widgets
 						dialog.UpdateFromPrestamo (prestamo);
 						if (dialog.Run () == ResponseType.Ok) {
 							Prestamo prestamo_editado = dialog.GetAsPrestamo ();
-							if (prestamo_editado.Save ())
+							if (prestamo_editado.Save ()) {
 								UpdatePrestamo (prestamo_editado);
+								
+								Employee employee = new Employee (Globals.Db);
+								employee.InternalId = prestamo.TrabajadorInternalId;
+								if (employee.UpdateFromInternalId ()) {
+									Console.WriteLine("Actualizando empleado {0}", employee.GetFullName ());
+									Globals.MainWindow.ViewEmployees.UpdateTrabajador (employee);
+								}
+							}
 						}
 						dialog.Destroy ();
 					}
 				}
 			}
 		}
-		
-		
-
 		
 		public override void Load ()
 		{
