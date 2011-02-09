@@ -24,8 +24,8 @@ namespace Stprm.DataEx
 		
 		public static IDataAdapter GetColeccionInAdapter (BaseDatos datos, string ficha)
 		{
-			return datos.QueryToAdapter ("SELECT Id, Fecha, TipoBeneficio as Beneficio, Estado, Observacion FROM {0} where Ficha = '{1}' order by Fecha desc", 
-			                      TablaBeneficiosOtorgados, ficha);
+			return datos.QueryToAdapter ("SELECT Id, {2} as Fecha, TipoBeneficio as Beneficio, Estado, Observacion FROM {0} where Ficha = '{1}' order by Fecha desc", 
+			                      TablaBeneficiosOtorgados, ficha, DbDateTimeToString ("Fecha"));
 		}
 
         public override bool Guardar()
