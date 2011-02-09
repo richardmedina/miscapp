@@ -22,6 +22,10 @@ namespace Stprm.DataEx
         public static readonly string TablaTrabajadoresInexistentes = "TrabajadoresInexistentes";
 		
 		public static readonly string TablaBeneficiosOtorgados = "BeneficiosSindicalesOtorgados";
+		public static readonly string TablaTipoCasas = "CreditoHipotecarioTipoCasas";
+		public static readonly string TablaUbicaciones = "Ubicaciones";
+		
+		public static readonly string TablaCursos = "Cursos";
 
         private static MD5 _md5 = MD5.Create();
 
@@ -100,6 +104,11 @@ namespace Stprm.DataEx
         {
             return reader.IsDBNull(reader.GetOrdinal(field_name)) ? 0 : reader.GetInt32(reader.GetOrdinal(field_name));
         }
+		
+		public static long GetInt64 (IDataReader reader, string field_name)
+        {
+            return reader.IsDBNull(reader.GetOrdinal(field_name)) ? 0L : reader.GetInt64(reader.GetOrdinal(field_name));
+        }
 
         public static bool GetBool (IDataReader reader, string field_name)
         {
@@ -128,6 +137,10 @@ namespace Stprm.DataEx
             return date.ToString("yyyyMMdd");
         }
 
+		public static string DbDateTimeToString (string sql_expr)
+		{
+			return string.Format ("Convert(varchar(10), {0}, 103)", sql_expr);
+		}
 
         public TipoRegistro Tipo
         {

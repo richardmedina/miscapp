@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,13 +13,41 @@ namespace Stprm.DataEx
         public bool PermitirPlanta;
         public bool PermitirTransitorio;
         public bool PermitirExterno;
+		public int MaximaAudiencia;
 
 
         public Audiencia(BaseDatos datos)
             : base(datos, TipoRegistro.Audiencia)
         {
         }
-
+		
+		public override bool Guardar ()
+		{
+			bool result = false;
+			
+			if (!Existe ()) {
+				Bd.NonQuery ("INSERT INTO {0} (Fecha,Planta,Transitorio,Externo,MaximaAudiencia) values ('{1}', '{2}', '{3}', '{4}', {5})",
+				             TablaAudiencias, DateTimeToDbString(Fecha), PermitirPlanta, PermitirTransitorio, PermitirExterno, MaximaAudiencia);
+				
+				Id = GetLastInsertId ();
+			}
+			
+			if (Id > 0) {
+				Bd.NonQuery ("UPDATE {0} SET Fecha='{1}', Planta='{2}', Transitorio='{3}', Externo='{4}', MaximaAudiencia={5} Where Id={6}",
+				             TablaAudiencias, DateTimeToDbString(Fecha), PermitirPlanta, PermitirTransitorio, PermitirExterno, MaximaAudiencia, Id);
+				result = true;
+			}
+			
+			return result;
+		}
+		
+		public override bool Existe ()
+		{
+			Audiencia audiencia = new Audiencia (Bd);
+			audiencia.Id = Id;
+			
+			return audiencia.Actualizar ();
+		}
 
         public override bool Actualizar()
         {
@@ -93,12 +121,43 @@ namespace Stprm.DataEx
             PermitirPlanta = GetBool (reader, "Planta");
             PermitirTransitorio = GetBool (reader, "Transitorio");
             PermitirExterno = GetBool (reader, "Externo");
+			MaximaAudiencia = GetInt32 (reader, "MaximaAudiencia");
         }
+		
+		public IDataAdapter ObtenerParticipantesEnAdapter ()
+		{
+			return Bd.QueryToAdapter ("SELECT Id,Ficha,Nombre,Reg_Contr as Regimen, Depto, Asunto from {0} where ID_AUD={1}",
+			                   TablaParticipacionAudiencias, Id);
+		}
 
+		
+		public static IDataAdapter ObtenerColeccionEnAdapter (BaseDatos datos)
+		{
+			return datos.QueryToAdapter ("select Id,{0} as Fecha, MaximaAudiencia, case Planta when '0' then 'No' when '1' then 'Si' end as PermitirPlanta, case Transitorio when '0' then 'No' when '1' then 'Si' end as PermitirTransitorios,case Externo when '0' then 'No' when '1' then 'Si' end as PermitirExternos from {1} order by Audiencias.Fecha desc", DbDateTimeToString ("Fecha"), TablaAudiencias);
+		}
+		
+		public static AudienciaCollection ObtenerColeccion (BaseDatos datos)
+		{
+			AudienciaCollection audiencias = new AudienciaCollection ();
+			
+			IDataReader reader = datos.Query ("select * from {0} order by Fecha desc", TablaAudiencias);
+			
+			while (reader.Read ()) {
+				Audiencia audiencia = new Audiencia (datos);
+				audiencia.SetearDesdeDataReader (reader);
+				audiencias.Add (audiencia);
+			}
+			reader.Close ();
+			
+			return audiencias;
+		}
+		
+		/*
         public IDataAdapter GetCollectionInAdapter()
         {
             return Bd.QueryToAdapter("SELECT Ficha, Nombre,Depto, REG_CONTR as Regimen, Depto, Asunto, Observacion from {0} where ID_AUD = {1} order by Fecha desc",
                 TablaParticipacionAudiencias, Id);
         }
+        */
     }
 }
