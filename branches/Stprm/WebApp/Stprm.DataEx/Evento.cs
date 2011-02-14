@@ -119,7 +119,9 @@ namespace Stprm.DataEx
 		
 		public static IDataAdapter ObtenerEnAdapter (BaseDatos datos)
 		{
-			return 	datos.QueryToAdapter ("Select * from {0} order by Fecha desc", TablaEventos);
+			//return 	datos.QueryToAdapter ("Select Id,Nombre,Lugar,{1} as Fecha from {0} order by {0}.Fecha desc", TablaEventos, DbDateTimeToString ("Fecha"));
+			return datos.QueryToAdapter ("select Id,{2} as Fecha, MAX(NOMBRE) as Evento, COUNT(Ficha) as Asistencia, MAX(LUGAR) as Lugar from {0},{1} where {0}.ID = {1}.NUM_EVENTO group by Id order by ID desc",
+			                             TablaEventos, TablaParticipacionEventos, DbDateTimeToString ("MAX(FECHA)"));
 		}
     }
 }

@@ -18,6 +18,7 @@ namespace Stprm.DataEx
 		TipoCasa,
 		PermisoUsuario,
 		Ubicacion,
-		Curso
+		Curso,
+		Recomendacion
     }
 }

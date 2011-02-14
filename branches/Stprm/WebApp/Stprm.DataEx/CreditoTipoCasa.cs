@@ -11,7 +11,7 @@ namespace Stprm.DataEx
 
 		public int Id;
 		public string TipoCasa;
-		public decimal MontoCredito;
+		public long MontoCredito;
 		public string Descripcion;
 		
 		public CreditoTipoCasa (BaseDatos datos) : base (datos, TipoRegistro.TipoCasa)
