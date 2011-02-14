@@ -16,6 +16,7 @@ namespace Stprm.DataEx
         public string Nombre;
         public string Email;
         public bool Activo;
+		public bool Admin;
 
         public PerfilUsuario(BaseDatos datos)
             : base(datos, TipoRegistro.PerfilUsuario)
@@ -27,14 +28,14 @@ namespace Stprm.DataEx
 			bool result = false;
 			
             if (Existe()) {
-				Bd.NonQuery ("UPDATE {0} SET Password='{2}',Name='{3}', Active='{4}' where Username='{1}'",
-				             TablaPerfilUsuarios, Usuario, Password, Nombre, Activo);
+				Bd.NonQuery ("UPDATE {0} SET Password='{2}',Name='{3}', IsActive='{4}',IsAdmin where Username='{1}'",
+				             TablaPerfilUsuarios, Usuario, Password, Nombre, Activo, Admin);
 				result = true;
 			}
 			else
             {
-                Bd.NonQuery("INSERT INTO {0} (Username,Password,Name,Email,Active) values ('{1}', '{2}', '{3}', {4})",
-                    TablaPerfilUsuarios, Usuario, Password, Nombre, Email, Activo);
+                Bd.NonQuery("INSERT INTO {0} (Username,Password,Name,Email,Active,IsAdmin) values ('{1}', '{2}', '{3}', {4},5)",
+                    TablaPerfilUsuarios, Usuario, Password, Nombre, Email, Activo, Admin );
 				result = true;
             }
     
@@ -54,7 +55,7 @@ namespace Stprm.DataEx
         public override bool Actualizar ()
         {
             bool result = false;
-            IDataReader reader = Bd.Query ("SELECT Username,Password,Name,Email,Active FROM {0} where Username='{1}'",
+            IDataReader reader = Bd.Query ("SELECT Username,Password,Name,Email,IsActive,IsAdmin FROM {0} where Username='{1}'",
                 TablaPerfilUsuarios, Usuario);
 
             if (reader.Read ()) {
@@ -81,7 +82,8 @@ namespace Stprm.DataEx
             _password = GetString(reader, "Password").Trim ();
 			Email = GetString (reader ,"Email");
             Nombre = GetString(reader, "Name");
-            Activo = GetBool(reader, "Active");
+            Activo = GetBool(reader, "IsActive");
+			Admin = GetBool (reader, "IsAdmin");
         }
 
         public string Password

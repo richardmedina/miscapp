@@ -75,37 +75,68 @@ namespace Stprm.DataEx
             return result;
         }
 
-        public void SetRecomendado(Trabajador trabajador, string parentezco)
+		// Return values:
+		// -1: Error
+		//  0: Sucess
+		//  1: Planta Existe
+		//  2: Transitorio Existe
+        public int SetRecomendado(Trabajador trabajador, string parentesco, bool sobreescribir)
         {
-            ;
+			Recomendacion recomendacion = new Recomendacion (Bd);
+			recomendacion.FichaPlanta = Ficha;
+			recomendacion.FichaTransitorio = trabajador.Ficha;
+			recomendacion.Parentesco = parentesco;
+			
+			if (!sobreescribir) {
+				if (recomendacion.Existe ())
+					return 1;
+				if (recomendacion.ExisteTransitorio ())
+					return 2;
+			}
+			
+			return recomendacion.Guardar () ? 0 : -1;
         }
 
-        public bool GetRecomendado (out Trabajador trabajador, out string parentesco)
+        public bool GetRecomendado (out Trabajador recomendado, out string parentesco)
         {
             bool result = false;
-            trabajador = new Trabajador(Bd);
+            recomendado = new Trabajador(Bd);
             parentesco = string.Empty;
-
-            IDataReader reader = Bd.Query("SELECT FichaRec,NombreRec,Parentesco FROM {0} where ficha='{1}'",
-                TablaEscalafones, Ficha);
-
-            if (reader.Read())
-            {
-                trabajador.Ficha = reader.IsDBNull (reader.GetOrdinal ("FichaRec")) ? string.Empty : reader.GetString(reader.GetOrdinal("FichaRec"));
-                trabajador.Nombre = reader.IsDBNull(reader.GetOrdinal("NombreRec")) ? string.Empty : reader.GetString(reader.GetOrdinal("NombreRec"));
-                parentesco = reader.IsDBNull(reader.GetOrdinal("Parentesco")) ? string.Empty : reader.GetString(reader.GetOrdinal("Parentesco"));
-                result = true;
-            }
-            reader.Close();
-
-            if (result)
-                return trabajador.Actualizar();
+			
+			Recomendacion recomendacion = new Recomendacion (Bd);
+			recomendacion.FichaPlanta = Ficha;
+			
+			if (recomendacion.Actualizar ()) {
+				recomendado.Ficha = recomendacion.FichaTransitorio;
+				if (recomendado.Actualizar ()) {
+					parentesco = recomendacion.Parentesco;
+					result = true;
+				} else Console.WriteLine ("Recomendado no existe");
+			} else  Console.WriteLine ("Recomendacion no encontrada");
 
             return result;
         }
 
-        public bool GetRecomienda (out Trabajador trabajador, out string parentesco)
+        public bool GetRecomienda (out Trabajador trabajador_planta, out string parentesco)
         {
+			bool result = false;
+            trabajador_planta = new Trabajador(Bd);
+            parentesco = string.Empty;
+			
+			Recomendacion recomendacion = new Recomendacion (Bd);
+			recomendacion.FichaTransitorio = Ficha;
+			
+			if (recomendacion.ActualizarDesdeTransitorio ()) {
+				trabajador_planta.Ficha = recomendacion.FichaPlanta;
+				if (trabajador_planta.Actualizar ()) {
+					parentesco = recomendacion.Parentesco;
+					result = true;
+				} else Console.WriteLine ("Planta no existe");
+			} else  Console.WriteLine ("Recomendacion no encontrada");
+
+            return result;
+			
+			/*
             bool result = true;
             trabajador = new Trabajador(Bd);
             parentesco = string.Empty;
@@ -125,6 +156,7 @@ namespace Stprm.DataEx
                 return trabajador.Actualizar();
 
             return result;
+            */
         }
 
         public bool GetUltimoDefinitivo (out Contrato contrato)
@@ -229,8 +261,8 @@ namespace Stprm.DataEx
 
         public IDataAdapter GetMilitanciaInAdapter()
         {
-            return Bd.QueryToAdapter("select {0}.NOMBRE as Evento, {0}.Fecha as Fecha, {0}.Lugar as Lugar, {1}.TIPO_APOYO from {0}, {1} where FICHA = '{2}'  and {0}.ID = {1}.NUM_EVENTO order by {0}.Fecha desc",
-                TablaEventos, TablaParticipacionEventos, Ficha);
+            return Bd.QueryToAdapter("select {0}.NOMBRE as Evento, {3} as Fecha, {0}.Lugar as Lugar, {1}.TIPO_APOYO from {0}, {1} where FICHA = '{2}'  and {0}.ID = {1}.NUM_EVENTO order by {0}.Fecha desc",
+                TablaEventos, TablaParticipacionEventos, Ficha, DbDateTimeToString (TablaEventos + ".Fecha"));
         }
 		
 		public IDataAdapter GetBeneficiosSindicales ()

@@ -78,6 +78,7 @@
     <Compile Include="Ubicacion.cs" />
     <Compile Include="ParticipacionAudienciaCollection.cs" />
     <Compile Include="Curso.cs" />
+    <Compile Include="Recomendacion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
