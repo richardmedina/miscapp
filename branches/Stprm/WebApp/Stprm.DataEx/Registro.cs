@@ -27,6 +27,8 @@ namespace Stprm.DataEx
 		
 		public static readonly string TablaCursos = "Cursos";
 		public static readonly string TablaRecomendaciones = "Recomendaciones";
+		
+		public static readonly string TablaPermisosUsuarios = "Permisos";
 
         private static MD5 _md5 = MD5.Create();
 
