@@ -30,6 +30,7 @@ namespace Stprm.DataEx
 			} else {
 				Bd.NonQuery ("INSERT INTO {0} (FIC_PLANTA, FIC_TRANSI, PARENTESCO) VALUES ('{1}', '{2}', '{3}')",
 				             TablaRecomendaciones, FichaPlanta, FichaTransitorio, Parentesco);
+				
 				result = true;
 			}
 			
