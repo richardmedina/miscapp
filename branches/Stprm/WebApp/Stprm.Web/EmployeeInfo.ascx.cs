@@ -73,6 +73,7 @@ namespace Stprm.Web
                 Category = contrato.Categoria;
                 Section = "26";
                 Level = contrato.Nivel;
+                PositionNum = contrato.Plaza;
 
                 ValidityStart = contrato.Inicio.ToString ("dd/MM/yyyy");
                 ValidityEnd = contrato.Termino.ToString("dd/MM/yyyy");

@@ -10,5 +10,7 @@
 <med:EmployeeInfo runat="server" Id="_ei_employee" />
 <hr />
 Beneficio : <ajax:ComboBox runat="server" ID="_cmb_tipo" /> Beneficiario <asp:TextBox runat="server" ID="_txt_beneficiario" /> &nbsp; <asp:Button runat="server" Text="Agregar" />
+<hr />
+<asp:GridView runat="server" ID="_gv_benefits" CssClass="gridview" />
 </asp:Content>
 

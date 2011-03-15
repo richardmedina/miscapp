@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-using Stprm.Data;
+using Stprm.DataEx;
 
 namespace Stprm.Web
 {
@@ -20,143 +20,103 @@ namespace Stprm.Web
     {
         protected override void OnLoad(EventArgs e)
         {
-            _txt_id.Attributes.Add("onkeypress", "return clickButton(event,'" + _btn_search.ClientID + "')");
-            _txt_id_recom.Attributes.Add("onkeypress", "return clickButton(event,'" + _btn_search_recom.ClientID + "')");
+           // _txt_id.Attributes.Add("onkeypress", "return clickButton(event,'" + _btn_search.ClientID + "')");
+            //_txt_id_recom.Attributes.Add("onkeypress", "return clickButton(event,'" + _btn_search_recom.ClientID + "')");
 
-            _btn_search.Click += btn_search_Click;
+            //_btn_search.Click += btn_search_Click;
+
+            _is_buscarplanta.Busqueda += new DataEx.TrabajadorEventHander(_is_buscarplanta_Busqueda);
+            _is_buscartransitorio.Busqueda += new DataEx.TrabajadorEventHander(_is_buscartransitorio_Busqueda);
             _btn_assign.Click += btn_assign_Click;
-            _btn_search_recom.Click += btn_search_recom_Click;
-            _btn_assign_cancel.Click += btn_assign_cancel_Click;
+            //_btn_search_recom.Click += btn_search_recom_Click;
+            //_btn_assign_cancel.Click += btn_assign_cancel_Click;
         }
 
-        void btn_assign_cancel_Click(object sender, EventArgs e)
+        void _is_buscartransitorio_Busqueda(object sender, DataEx.TrabajadorEventArgs args)
         {
-            btn_search_Click(_btn_search, e);
-        }
+            _ei_trans.Visible = false;
+            _txt_parentesco.Text = string.Empty;
+            _pnl_parentesco.Visible = false;
 
-        private void btn_search_Click(object sender, EventArgs args)
-        {
-            /*
-            _lbl_recom_result.Visible = false;
-            _txt_id_recom.Text = string.Empty;
-
-            using (Database db = Database.CreateStprmConnection())
+            if (args.Exists)
             {
-                Employee employee = new Employee(db);
-                int intval = 0;
-
-                if (int.TryParse(_txt_id.Text, out intval))
+                if (args.Trabajador.RegimenContractual == "TS")
                 {
-                    employee.Id = intval;
-                    if (employee.Update())
-                    {
-                        _lbl_search.Visible = true;
-                        if (employee.ContractualArrangement == ContractualArrangement.Plant)
-                        {
-                            _ei_plant.UpdateFromEmployee(employee);
-                            _ei_plant.Visible = true;
-                            _lbl_search.Visible = false;
-                            Recomendation rec = new Recomendation(db);
-                            rec.Id = employee.Id;
-                            if (rec.Update())
-                            {
-                                Employee recom = new Employee(db);
-                                recom.Id = rec.RecommendedId;
-                                _btn_assign.Enabled = false;
-
-                                if (recom.Update())
-                                {
-                                    _ei_trans.UpdateFromEmployee(recom);
-                                    _ei_trans.Visible = true;
-                                }
-                                else
-                                {
-                                    _ei_trans.Visible = false;
-                                }
-                            }
-                            else
-                            {
-                                _ei_trans.Visible = false;
-                            }
-                        }
-                        else
-                        {
-                            _lbl_search.Text = "Trabajador existe pero no es de planta..";
-                            _ei_plant.ClearData();
-                            _ei_trans.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        _ei_plant.ClearData();
-                        _ei_plant.Visible = false;
-                        _lbl_search.Text = "Trabajador no existe";
-                        _lbl_search.Visible = true;
-                        _ei_trans.Visible = false;
-                    }
-                }
-            }*/
-        }
-
-        private void btn_search_recom_Click(object sender, EventArgs args)
-        {
-            /*
-            using (Database db = Database.CreateStprmConnection())
-            {
-                Employee employee = new Employee(db);
-                int intval = 0;
-
-                if (int.TryParse(_txt_id_recom.Text, out intval))
-                {
-                    employee.Id = intval;
-                    if (employee.Update())
-                    {
-                        if (employee.ContractualArrangement == ContractualArrangement.Plant)
-                        {
-                            _lbl_recom_result.Text = "No se puede recomendar a un trabajador de planta";
-                            _lbl_recom_result.Visible = true;
-                            return;
-                        }
-                        _lbl_recom_result.Visible = false;
-                        _ei_trans.UpdateFromEmployee(employee);
-                        _ei_trans.Visible = true;
-                        _btn_assign.Enabled = true;
-                        _btn_assign_cancel.Enabled = true;
-                    }
-                    else
-                    {
-                        _lbl_recom_result.Text = "Trabajador no existe";
-                        _lbl_recom_result.Visible = true;
-                    }
+                    _ei_trans.UpdateFromEmployee(args.Trabajador);
+                    _ei_trans.Visible = true;
+                    _txt_parentesco.Text = string.Empty;
+                    _txt_parentesco.Visible = true;
+                    _btn_assign.Visible = true;
+                    _pnl_parentesco.Visible = true;
+                    _txt_parentesco.ReadOnly = false;
+                    _txt_parentesco.Text = string.Empty;
                 }
                 else
                 {
-                    _lbl_recom_result.Text = "Ficha inválida";
-                    _lbl_recom_result.Visible = true;
+                    _is_buscartransitorio.LabelMsg.Text = string.Format("{0} NO es transitorio", args.Trabajador.GetNombreCompleto());
+                    _pnl_parentesco.Visible = false;
+                    //_ei_trans.Visible = false;
                 }
+            }
+        }
 
-            }*/
+        private void _is_buscarplanta_Busqueda(object sender, DataEx.TrabajadorEventArgs args)
+        {
+            _is_buscartransitorio.Visible = false;
+            _ei_trans.Visible = false;
+            _btn_assign.Visible = false;
+            _pnl_parentesco.Visible = false;
+            if (args.Exists)
+            {
+                if (args.Trabajador.RegimenContractual == "PS")
+                {
+                    _ei_plant.UpdateFromEmployee(args.Trabajador);
+                    _ei_plant.Visible = true;
+                    _is_buscartransitorio.Visible = true;
+                    Trabajador recomendado;
+                    string parentesco;
+
+                    if (args.Trabajador.GetRecomendado(out recomendado, out parentesco))
+                    {
+                        _ei_trans.UpdateFromEmployee(recomendado);
+                        _is_buscartransitorio.Visible = true;
+                        _ei_trans.Visible = true;
+                        _pnl_parentesco.Visible = true;
+                        _txt_parentesco.Text = parentesco;
+                        _txt_parentesco.ReadOnly = true;
+                    }
+                }
+                else
+                    _is_buscarplanta.LabelMsg.Text = string.Format ("{0} NO es de planta", args.Trabajador.GetNombreCompleto ()) ;
+            }
+            else
+                _ei_plant.Visible = false;
         }
 
         private void btn_assign_Click(object sender, EventArgs args)
         {
-            int id;
-            int recomid;
-
-            if (int.TryParse(_ei_plant.Id, out id) && int.TryParse(_ei_trans.Id, out recomid))
+            if (_txt_parentesco.Text.Trim().Length > 0)
             {
-                using (Database db = Database.CreateStprmConnection())
+                using (BaseDatos datos = BaseDatos.CreateStprmConnection())
                 {
-                    Recomendation rec = new Recomendation(db);
-                    rec.Id = id;
-                    rec.RecommendedId = recomid;
-                    if (rec.Save())
+                    Recomendacion recomendacion = new Recomendacion(datos);
+                    recomendacion.FichaPlanta = _ei_plant.Id;
+                    recomendacion.FichaTransitorio = _ei_trans.Id;
+                    recomendacion.Parentesco = _txt_parentesco.Text;
+                    recomendacion.Nombre = _ei_trans.Name;
+
+                    if (!recomendacion.Guardar())
                     {
-                        _btn_assign.Enabled = false;
+                        _is_buscartransitorio.LabelMsg.Text = "Error estableciendo recomendado. Por favor intentelo mas tarde";
                     }
+                    else _btn_assign.Visible = false;
                 }
             }
-
-        }
+            else
+            {
+                _is_buscartransitorio.LabelMsg.Text = "por favor establezca el parentesco";
+                _txt_parentesco.Focus();
+            }
+       }
     }
 }

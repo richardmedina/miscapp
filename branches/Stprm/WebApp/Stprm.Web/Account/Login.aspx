@@ -38,9 +38,10 @@
                     <p>
                         <asp:CheckBox ID="RememberMe" runat="server"/>
                         <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Mantenerme conectado</asp:Label>
+
                     </p>
                 </fieldset>
-                <p class="submitButton">
+                 <p class="submitButton">
                     <asp:Button ID="OkButton" runat="server" CommandName="Login" Text="Iniciar sesión" ValidationGroup="LoginUserValidationGroup"   />
                 </p>
             </div>
