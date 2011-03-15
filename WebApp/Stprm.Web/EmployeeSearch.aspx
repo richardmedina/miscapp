@@ -103,7 +103,7 @@
 				<asp:Panel ID="_pnl_contracts" ScrollBars="Auto" 
 				runat="server" Height="200px" BorderColor="DarkGray" 
 				BorderStyle="Solid" BorderWidth=1 Width="100%">
-				<asp:GridView ID="_grid_contracts" runat="server" AutoGenerateColumns="false" Width="100%">
+				<asp:GridView ID="_grid_contracts" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview">
 				<Columns>
 					<asp:BoundField DataField="NUM_PLAZA" HeaderText="Plaza" />
 					<asp:BoundField DataField="NUM_TARJ" HeaderText="Contrato" ItemStyle-HorizontalAlign="Center" />
@@ -124,17 +124,17 @@
 		<h2>Empresa.</h2>
 		<br />&nbsp;<br />
 		<center>
-		<asp:GridView runat="server" ID="_grid_debits" CssClass="skel_grid" />
+		<asp:GridView runat="server" ID="_grid_debits" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 		</center>
 		<center>--</center>
 		<h2>Terceros.</h2>
 		<center>
-		<asp:GridView runat="server" ID="_grid_thirdparties" CssClass="skel_grid" />
+		<asp:GridView runat="server" ID="_grid_thirdparties" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 		</center>
 		<br />&nbsp;<br />
 		<center>--</center>
 		<h2>Prestaciones</h2>
-		<asp:GridView runat="server" ID="_grid_benefits" CssClass="skel_grid" />
+		<asp:GridView runat="server" ID="_grid_benefits" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 		<br />&nbsp;<br />
 		<center>--</center>
 		</ContentTemplate>
@@ -146,7 +146,7 @@
 			<br />&nbsp;<br />
 			<center>
 			<asp:GridView runat="server" ID="_grid_parents_list" OnRowDataBound="OnRowDatabound" 
-			 CssClass="skel_grid" />
+			 AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 			</center>
 		</ContentTemplate>
 		</ajax:TabPanel>
@@ -177,7 +177,7 @@
 				<asp:Panel ID="Panel1" ScrollBars="Auto" 
 				runat="server" Height="200px" BorderColor="DarkGray" 
 				BorderStyle="Solid" BorderWidth=1 Width="100%">
-				<asp:GridView ID="_grid_contracts_recom" runat="server" AutoGenerateColumns="false" Width="100%">
+				<asp:GridView ID="_grid_contracts_recom" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview">
 				<Columns>
 					<asp:BoundField DataField="NUM_PLAZA" HeaderText="Plaza" />
 					<asp:BoundField DataField="NUM_TARJ" HeaderText="Contrato" ItemStyle-HorizontalAlign="Center" />
@@ -190,7 +190,7 @@
 				</asp:Panel>
 			<h2>Labor social del recomendado</h2>
 			<center>
-			<asp:GridView ID="_grid_socialwork_recom" runat="server" OnRowDataBound="OnRowDatabound" CssClass="skel_grid" />
+			<asp:GridView ID="_grid_socialwork_recom" runat="server" OnRowDataBound="OnRowDatabound" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 			</center>
 		</ContentTemplate>
 		</ajax:TabPanel>
@@ -200,7 +200,7 @@
 			<h2>Participaciones</h2>
 			<br />&nbsp;<br />
 			<center>
-			<asp:GridView Id="_grid_militancy" runat="server" CssClass="skel_grid" OnRowDataBound="OnRowDatabound" />
+			<asp:GridView Id="_grid_militancy" runat="server" OnRowDataBound="OnRowDatabound" AlternatingRowStyle-BackColor="#FFDFDF" RowStyle-CssClass="gridview_rows" HeaderStyle-CssClass="gridview_header" Width="100%" CssClass="gridview" />
 			</center>
 		</ContentTemplate>
 		</ajax:TabPanel>

@@ -13,6 +13,15 @@ namespace Stprm.Web {
     public partial class InfoTrabControl {
         
         /// <summary>
+        /// Control _img_pic.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image _img_pic;
+        
+        /// <summary>
         /// Control _lbl_cab.
         /// </summary>
         /// <remarks>

@@ -2,8 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" Runat="Server">
-<asp:UpdatePanel runat="server" ID="wizard">
-<ContentTemplate>
+
 <h1>Registro de Audiencias</h1>
 <table width="100%">
 <tr>
@@ -44,7 +43,7 @@
 	<asp:Button ID="_btn_add" Text="Agregar" runat="server" />
 	<hr />
 	<h2>Lista de trabajadores</h2>
-	<asp:GridView runat="server" ID="_grid_employees" Width="100%" CssClass="gridview" AutoGenerateColumns="false" >
+	<asp:GridView runat="server" ID="_grid_employees" Width="100%" CssClass="gridview" HeaderStyle-CssClass="gridview_header" AlternatingRowStyle-BackColor="#FFDFDF" AutoGenerateColumns="false" >
 	<Columns>
 	<asp:TemplateField HeaderText="Pos.">
 		<ItemTemplate>
@@ -68,7 +67,5 @@
 	</Columns>
 	</asp:GridView>
 </asp:Panel>
-</ContentTemplate>
-</asp:UpdatePanel>	
 </asp:Content>
 

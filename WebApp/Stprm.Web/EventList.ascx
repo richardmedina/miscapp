@@ -35,7 +35,8 @@
 
 <asp:Button runat="server" Text="Nuevo" id="_btn_new" OnClick="btn_new_Click" /> 
 <asp:Button runat="server" Text="Modificar" id="_btn_edit" OnClick="btn_edit_Click" />
-
+<asp:UpdatePanel runat="server">
+<ContentTemplate>
 <asp:Panel runat="server" ID="_pnl_edit" Visible="false" HorizontalAlign="Center">
 	<hr />
 	<table border="0">
@@ -59,39 +60,13 @@
 	<asp:GridView RowStyle-CssClass="gridview_rows" Width="100%" CssClass="gridview" HeaderStyle-CssClass="gridview_header" ShowHeader="true" runat="server" ID="_grid_members"  
 	AutoGenerateColumns="false" AlternatingRowStyle-BackColor="#FFDFDF">
 		<Columns>
-            <asp:BoundField DataField="Num" HeaderText="Posicion" />
-            
+            <asp:BoundField HeaderText="#" DataField="Num" />
 			<asp:BoundField HeaderText="Ficha" DataField="Ficha" />
-
-			<asp:TemplateField HeaderText="Nombre">
-				<EditItemTemplate>
-					<asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Nombres") %>'></asp:TextBox>
-				</EditItemTemplate>
-				<ItemTemplate>
-					<asp:Label ID="Label2" runat="server" Text='<%# Bind("Nombres", "{0}") %>'></asp:Label>
-				</ItemTemplate>
-				<ItemStyle HorizontalAlign="Left" />
-			</asp:TemplateField>
-			<asp:TemplateField HeaderText="Sit.Contr">
-				<EditItemTemplate>
-					<asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("SitContr") %>'></asp:TextBox>
-				</EditItemTemplate>
-				<ItemTemplate>
-					<asp:Label ID="_lbl_sitcontr" runat="server" Text='<%# Bind("SitContr") %>'></asp:Label>
-				</ItemTemplate>
-				<ItemStyle HorizontalAlign="Center" />
-			</asp:TemplateField>
-
-			<asp:TemplateField HeaderText="Tipo de Apoyo">
-				<EditItemTemplate>
-					<asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("Apoyo") %>'></asp:TextBox>
-				</EditItemTemplate>
-				<ItemTemplate>
-					<asp:Label ID="Label4" runat="server" Text='<%# Bind("Apoyo", "{0}") %>'></asp:Label>
-				</ItemTemplate>
-				<ItemStyle HorizontalAlign="Left" />
-			</asp:TemplateField>
-			<asp:TemplateField HeaderText="">
+            <asp:BoundField HeaderText="Nombre" DataField="Nombre" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField HeaderText="Regimen" DataField="SitContr" />
+            <asp:BoundField HeaderText="Tipo de Apoyo" DataField="Apoyo" />
+			
+			<asp:TemplateField HeaderText="Suprimir">
 				<ItemTemplate>
 					<asp:Button runat="server" ID="_btn_delete" CommandName='<%# Bind("Ficha", "{0}") %>' Text=" " CssClass="misc_button_delete" OnClick="btn_delete_Click" />
 					<ajax:ConfirmButtonExtender ID="ConfirmButtonExtender1" runat="server" ConfirmText='Estas seguro que deseas eliminar el trabajador del evento?' TargetControlID="_btn_delete" />
@@ -102,3 +77,6 @@
 	</asp:GridView>
 	</asp:Panel>
 </asp:Panel>
+</ContentTemplate>
+</asp:UpdatePanel>
+

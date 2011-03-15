@@ -232,6 +232,11 @@ input.textEntry
     border: 1px solid #ccc;
 }
 
+input [type='text']
+{
+    border: solid 1px #cccccc;
+}
+
 input.passwordEntry 
 {
     width: 320px;
@@ -240,7 +245,7 @@ input.passwordEntry
 
 div.accountInfo
 {
-    width: 42%;
+    width: 58%;
 }
 
 /* MISC  
@@ -299,6 +304,8 @@ div.accountInfo
 {
     text-align: right;
     padding-right: 10px;
+    width: 227px;
+    height: 22px;
 }
 
 .gridview

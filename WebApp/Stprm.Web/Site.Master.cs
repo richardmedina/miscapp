@@ -37,8 +37,9 @@ namespace Stprm.Web
                         {
                             UserPermission permission = new UserPermission(db);
 
-                            if (username.Trim() == "arroyo" || username.Trim() == "oscar" || username.Trim () == "capturista")
-                            {
+                            if (username.Trim() == "arroyo" || username.Trim() == "benito.perez" || username.Trim() == "octavio.alonso" || username.Trim() == "oscar" || username.Trim() == "octavio.sosa" ||
+                                username.Trim() == "margarita.lopez" || username.Trim() == "santiago.gomez" || username.Trim() == "abundio.orozco" || username.Trim() == "leonardo.aparicio" || username.Trim() == "rocio.leon")
+                            { 
                                 break;
                             }
 
@@ -48,17 +49,32 @@ namespace Stprm.Web
 
                         root_item.ChildItems.Add(item);
 
+                        if (sec.Id == 1)
+                        {
+                            if (username.Trim() == "leonardo.aparicio")
+                            {
+                                item.ChildItems.Add(new MenuItem("Nueva audiencia", string.Empty, string.Empty, "Audiencies.aspx"));
+                            }
+
+                        }
+
                         if (sec.Id == 7)
                         {
-
-                            if (username.Trim() == "arroyo" || username.Trim() == "oscar" || username.Trim () == "capturista")
+                            /*
+                            if (username.Trim() == "arroyo" || username.Trim() == "oscar" || username.Trim () == "capturista" )
                             {
                                 item.ChildItems.Add(new MenuItem("Militancias", string.Empty, string.Empty, "Events.aspx"));
-                            }
-                            if (username.Trim() == "arroyo")
+                            }*/
+                            if (username.Trim() == "arroyo" || username.Trim() == "benito.perez" || username.Trim() == "octavio.alonso" || username.Trim() == "oscar" || username.Trim() == "octavio.sosa"
+                                || username.Trim () == "abundio.orozco" || username.Trim () == "santiago.gomez" || username.Trim () == "margarita.lopez" || username.Trim () == "leonardo.aparicio" || username.Trim () == "rocio.leon")
                             {
-                                item.ChildItems.Add(new MenuItem("Contratos", string.Empty, string.Empty, "Contracts.aspx"));
+                                item.ChildItems.Add(new MenuItem("Consulta Estadística", string.Empty, string.Empty, "Consulta.aspx"));
                                 //item.ChildItems.Add(new MenuItem("Consulta de Trabajadores", string.Empty, string.Empty, "EmployeeSearch.aspx"));
+                            }
+
+                            if (username.Trim() == "margarita.lopez")
+                            {
+                                item.ChildItems.Add(new MenuItem("Militancias", string.Empty, string.Empty, "Events.aspx"));
                             }
                         }
                     }

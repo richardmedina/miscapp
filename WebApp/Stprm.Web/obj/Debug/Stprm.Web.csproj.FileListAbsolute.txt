@@ -57,3 +57,10 @@ C:\Users\Richard\Desktop\WebApp\Stprm.Web\bin\Stprm.DataEx.pdb
 C:\Users\Richard\Desktop\WebApp\Stprm.Web\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Richard\Desktop\WebApp\Stprm.Web\obj\Debug\Stprm.Web.dll
 C:\Users\Richard\Desktop\WebApp\Stprm.Web\obj\Debug\Stprm.Web.pdb
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\bin\Stprm.Web.dll
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\bin\Stprm.Web.pdb
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\bin\Stprm.DataEx.dll
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\bin\Stprm.DataEx.pdb
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\obj\Debug\ResolveAssemblyReference.cache
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\obj\Debug\Stprm.Web.dll
+U:\Projects\miscapp\branches\Stprm\WebApp\Stprm.Web\obj\Debug\Stprm.Web.pdb

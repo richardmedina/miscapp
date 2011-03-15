@@ -4,6 +4,16 @@
 <table width="100%">
     <tr>
         <td colspan="2">
+            <center>
+            
+            <asp:Image runat="server" Id="_img_pic" ImageUrl="Pictures/anonimo.png" Width="220px" onerror="this.src='Pictures/anonimo.png'" /> <br />
+            <img src="Pictures/ok.png" alt="ok" width="19px" /> Crédito Hipotecario
+            <img src="Pictures/ok.png" alt="ok" width="19px" /> Ficha
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
         <asp:Label runat="server" ID="_lbl_cab" Font-Size="Large" width="100%" />
         </td>
     </tr>

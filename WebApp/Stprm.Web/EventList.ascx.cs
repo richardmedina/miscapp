@@ -17,15 +17,16 @@ namespace Stprm.Web
     {
 
         public BaseDatos Datos;
+        private BaseDatos CurrentConnection = null;
 
         protected override void OnLoad(EventArgs e)
         {
             _isc_search.TxtId.Attributes.Add("onkeypress", "return clickButton(event,'" + _isc_search.ButtonOk.ClientID + "')");
-            _grid_members.PageIndexChanging += new GridViewPageEventHandler(_grid_members_PageIndexChanging);
+           // _grid_members.PageIndexChanging += new GridViewPageEventHandler(_grid_members_PageIndexChanging);
             _grid_members.RowDataBound += _grid_members_RowDataBound;
             _grid_members.RowCreated += new GridViewRowEventHandler(_grid_members_RowCreated);
-            _grid_members.AllowPaging = true;
-            _grid_members.PageSize = 50;
+            //_grid_members.AllowPaging = true;
+            //_grid_members.PageSize = 50;
 
             _cmb_places.SelectedIndexChanged += _cmb_places_SelectedIndexChanged;
             _cbb_showtype.SelectedIndexChanged += _cbb_showtype_SelectedIndexChanged;
@@ -38,11 +39,7 @@ namespace Stprm.Web
 
             if (!IsPostBack)
             {
-                
-                //Database db = new Database("Mercurio", "ricki", "09b9085a+", "seccion26");
 
-                //using (Database db = Database.CreateStprmConnection())
-                //if (db.Open ())
                 using (Database db = BaseDatos.CreateOldConnection ())
                 {
                     ListItem item = new ListItem("Todos", "Todos");
@@ -83,7 +80,7 @@ namespace Stprm.Web
 
         void _cmb_places_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //loadEvents();
+            loadEvents();
             SetTextBoxesBold(false);
             _txt_name.Text = _txt_address.Text = _txt_date.Text = string.Empty;
 
@@ -309,32 +306,30 @@ namespace Stprm.Web
 
             if (_lst_events.SelectedIndex == -1) return;
 
-            _lst_events_SelectedIndexChanged(this, EventArgs.Empty);
+            //_lst_events_SelectedIndexChanged(this, EventArgs.Empty);
 
             _isc_search.LabelMsg.Text = string.Empty;
             _pnl_edit.Visible = true;
             _btn_save.Visible = true;
            
-                        DataSet ds = new DataSet ();
-                        using (BaseDatos bd = BaseDatos.CreateStprmConnection ()) {
-                            Evento evento = new Evento(bd);
+            DataSet ds = new DataSet ();
+            BaseDatos bd = CurrentConnection == null ? BaseDatos.CreateStprmConnection () : CurrentConnection;
+                
+            //using (BaseDatos bd = BaseDatos.CreateStprmConnection ()) {        
+            //bd = CurrentConnection;
+                if (int.TryParse(_txt_id.Value, out intval)) {
+                    Evento evento = new Evento(bd);
+                    evento.Id = intval;
+                    //ds.Clear();
+                    //ds.Tables.Clear();
 
-                            if (int.TryParse(_txt_id.Value, out intval))
+                    evento.ParticipantesEnAdapter().Fill(ds);
 
-                            evento.Id = intval;
-                            ds.Clear();
-                            ds.Tables.Clear();
+                    CargarDatos (ds, bd);
 
-                            evento.ParticipantesEnAdapter().Fill(ds);
-
-                            CargarDatos (ds, bd);
-
-                            _grid_members.DataSource = ds;
-                            _grid_members.DataBind();
-                        }
-                 //   }
-                //}
-
+                    _grid_members.DataSource = ds;
+                    _grid_members.DataBind();
+                }
             //}
 
             _grid_members.SelectedIndex = 0;
@@ -366,8 +361,7 @@ namespace Stprm.Web
                 if (trab.Actualizar ()) {
                     row [2] = trab.RegimenContractual;
                 }
-            }
-             * */
+            }*/
         }
 
         protected void _btn_save_Click(object sender, EventArgs e)
@@ -398,8 +392,11 @@ namespace Stprm.Web
             SetTextBoxesBold(false);
         }
 
+        
+
         protected void pnledit_btn_add_Click(Trabajador trabajador)
         {
+            CurrentConnection = trabajador.Bd;
             Evento evento = new Evento(trabajador.Bd);
 
             int id;
