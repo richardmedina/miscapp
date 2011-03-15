@@ -28,7 +28,7 @@ namespace Stprm.DataEx
 			bool result = false;
 			
             if (Existe()) {
-				Bd.NonQuery ("UPDATE {0} SET Password='{2}',Name='{3}', IsActive='{4}',IsAdmin where Username='{1}'",
+				Bd.NonQuery ("UPDATE {0} SET Password='{2}',Name='{3}', IsActive='{4}',IsAdmin='{5}' where Username='{1}'",
 				             TablaPerfilUsuarios, Usuario, Password, Nombre, Activo, Admin);
 				result = true;
 			}
@@ -85,6 +85,25 @@ namespace Stprm.DataEx
             Activo = GetBool(reader, "IsActive");
 			Admin = GetBool (reader, "IsAdmin");
         }
+		
+		public bool ObtenerPermiso (string referencia, out PermisoUsuario permiso)
+		{
+			bool result = false;
+			permiso = new PermisoUsuario (Bd);
+			permiso.Usuario = Usuario;
+			permiso.Referencia = referencia;
+			
+			if (Admin) {
+				permiso.Ver = permiso.Editar = permiso.Remover = true;
+				result = true;
+			}
+			
+			else if (permiso.ActualizarDesdeReferencia ()) {
+				result = true;
+			}
+			
+			return result;
+		}
 
         public string Password
         {
