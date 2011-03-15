@@ -65,6 +65,7 @@ namespace Stprm.DataEx
             {
                 Bd.NonQuery("UPDATE {0} set Nombre = '{1}', Lugar='{2}', Fecha='{3}' WHERE Id = {4}",
                     TablaEventos, Nombre, Lugar, DateTimeToDbString(Fecha), Id);
+				result = true;
             }
 
             return result;
@@ -120,8 +121,10 @@ namespace Stprm.DataEx
 		public static IDataAdapter ObtenerEnAdapter (BaseDatos datos)
 		{
 			//return 	datos.QueryToAdapter ("Select Id,Nombre,Lugar,{1} as Fecha from {0} order by {0}.Fecha desc", TablaEventos, DbDateTimeToString ("Fecha"));
-			return datos.QueryToAdapter ("select Id,{2} as Fecha, MAX(NOMBRE) as Evento, COUNT(Ficha) as Asistencia, MAX(LUGAR) as Lugar from {0},{1} where {0}.ID = {1}.NUM_EVENTO group by Id order by ID desc",
-			                             TablaEventos, TablaParticipacionEventos, DbDateTimeToString ("MAX(FECHA)"));
+			//return datos.QueryToAdapter ("select Id,{2} as Fecha, MAX(NOMBRE) as Evento, COUNT(Ficha) as Asistencia, MAX(LUGAR) as Lugar from {0},{1} where {0}.ID = {1}.NUM_EVENTO group by Id order by ID desc",
+			  //                           TablaEventos, TablaParticipacionEventos, DbDateTimeToString ("MAX(FECHA)"));
+			return datos.QueryToAdapter ("select Id,Max(Nombre) as Nombre,Max(Lugar) as Lugar,max(fecha) as Fecha, COUNT(ficha) as Asistencia from {0} LEFT JOIN {1} on ({0}.ID = {1}.NUM_EVENTO) group by Id order by Fecha desc ",
+			                             TablaEventos, TablaParticipacionEventos);
 		}
     }
 }
