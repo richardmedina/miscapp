@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -76,6 +76,7 @@ namespace Stprm.DataEx
         public override bool Existe()
         {
             ParticipacionAudiencia participacion = new ParticipacionAudiencia(Bd);
+			participacion.Id = Id;
             return participacion.Actualizar();
         }
 

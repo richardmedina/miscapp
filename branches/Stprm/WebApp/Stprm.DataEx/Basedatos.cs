@@ -67,6 +67,8 @@ namespace Stprm.DataEx
 		public IDataReader Query(string format, params object[] objs)
 		{
 			string query = string.Format(format, objs);
+			Console.WriteLine (query);
+			
 			IDbCommand command = new SqlCommand (query, _connection);
 
 			IDataReader reader = null;
@@ -79,6 +81,7 @@ namespace Stprm.DataEx
 		{
 			string query = string.Format(format, objs);
 
+			Console.WriteLine (query);
 			IDbCommand command = new SqlCommand (query, _connection);
 
 			command.ExecuteNonQuery();
@@ -87,7 +90,7 @@ namespace Stprm.DataEx
 		public IDataAdapter QueryToAdapter(string format, params object[] objs)
 		{
 			string query = string.Format(format, objs);
-
+			Console.WriteLine (query);
 			IDataAdapter adapter = new SqlDataAdapter (query, _connection);
 
 			return adapter;

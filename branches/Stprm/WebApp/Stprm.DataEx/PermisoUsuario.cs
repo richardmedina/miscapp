@@ -16,6 +16,12 @@ namespace Stprm.DataEx
 		public bool Editar;
 		public bool Remover;
 		
+		public override string ToString ()
+		{
+			return string.Format("[PermisoUsuario] Id={0},Perfil={1},Referencia={2},Nombre={4},Ver={5},Editar={6},Remover={7}",
+			                     TablaPermisosUsuarios, Id, Usuario, Referencia, Nombre, Ver, Editar, Remover);
+		}
+		
 		public PermisoUsuario (BaseDatos datos) : base (datos, TipoRegistro.PermisoUsuario)
 		{
 		}
@@ -87,12 +93,28 @@ namespace Stprm.DataEx
 		public override void SetearDesdeDataReader (IDataReader reader)
 		{
 			Id = GetInt32 (reader, "Id");
-			Usuario = GetString (reader, "Usuario");
+			Usuario = GetString (reader, "Perfil");
 			Referencia = GetString (reader, "Referencia");
 			Nombre = GetString (reader, "Nombre");
 			Ver = GetBool (reader, "Ver");
 			Editar = GetBool (reader, "Editar");
 			Remover = GetBool (reader, "Eliminar");
+		}
+		
+		public bool ActualizarDesdeReferencia ()
+		{
+			bool result = false;
+			
+			IDataReader reader = Bd.Query ("SELECT * FROM {0} where Perfil='{1}' and referencia='{2}'",
+			                               TablaPermisosUsuarios, Usuario, Referencia);
+			
+			if (reader.Read ()) {
+				SetearDesdeDataReader (reader);
+				result = true;
+			}
+			reader.Close ();
+			
+			return result;
 		}
 		
 		public static PermisoUsuarioCollection ObtenerColeccion (BaseDatos datos, string usuario)
@@ -110,6 +132,5 @@ namespace Stprm.DataEx
 			
 			return permisos;
 		}
-
 	}
 }
