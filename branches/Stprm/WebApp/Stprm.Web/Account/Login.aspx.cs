@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 
-using Stprm.Data;
+//using Stprm.Data;
 using Stprm.DataEx;
 
 namespace Stprm.Web.Account
@@ -27,22 +27,22 @@ namespace Stprm.Web.Account
             
             e.Authenticated = false;
 
-            //Database db = new Database("Mercurio", "ricki", "09b9085a+", "seccion26");
-            
-            //if (db.Open ())
-            using (Database db = BaseDatos.CreateOldConnection ())
+           
+            using (BaseDatos db = BaseDatos.CreateStprmConnection ())
             {
-                UserProfile profile = new UserProfile(db);
-                profile.Username = LoginUser.UserName;
+                PerfilUsuario perfil = new PerfilUsuario(db);
+                //UserProfile profile = new UserProfile(db);
+                //profile.Username = LoginUser.UserName;
+                perfil.Usuario = LoginUser.UserName;
 
-                if (profile.Update() && profile.Authenticate(LoginUser.UserName, LoginUser.Password))
+                if (perfil.Actualizar () && perfil.Autenticar (LoginUser.UserName, LoginUser.Password))
                 {
-                    Session["username"] = profile.Username;
-                    Session["username_name"] = profile.Name;
+                    Session["username"] = perfil.Usuario;
+                    Session["username_name"] = perfil.Nombre;
 
                     ticket = new FormsAuthenticationTicket(1,
-                    LoginUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(15),
-                    LoginUser.RememberMeSet, "Datos x");
+                        LoginUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(15),
+                        LoginUser.RememberMeSet, "Datos x");
 
                     cookiestr = FormsAuthentication.Encrypt(ticket);
 
@@ -57,9 +57,8 @@ namespace Stprm.Web.Account
                     e.Authenticated = true;
 
                     string strredirectto = Request["ReturnUrl"] == null ? "~/Default.aspx" : Request["ReturnUrl"].ToString();
-                    Response.Redirect(strredirectto);
+                    Response.Redirect (strredirectto);
                 }
-                db.Close();
             }
         }
     }

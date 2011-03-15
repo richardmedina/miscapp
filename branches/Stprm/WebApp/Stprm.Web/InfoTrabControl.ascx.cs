@@ -49,8 +49,9 @@ namespace Stprm.Web
         public void ActualizarDesdeTrabajador(Trabajador trabajador)
         {
 
-            Nombre.Text = string.Format("{0} ({1})",
-                trabajador.GetNombreCompleto(), trabajador.GetDiasLab());
+            Nombre.Text = string.Format("{0}",
+                trabajador.GetNombreCompleto());
+
 
             Ficha.Text = trabajador.Ficha;
 
@@ -70,9 +71,15 @@ namespace Stprm.Web
 
             PosicionEscalafonaria puesto;
             if (trabajador.GetPuestoEscalafon(out puesto))
+            {
                 ContratoBase.Text = puesto.Categoria;
+                ContratoBase.Text += string.Format(" ** {0}.{1}", puesto.ClaveEscalafon, puesto.DescripcionEscalafon);
+            }
             else
                 ContratoBase.Text = "N/A";
+
+            string filename = string.Format("Pictures/{0}.png", trabajador.Ficha.ToString ());
+            _img_pic.ImageUrl = filename;
         }
 
         public string Text

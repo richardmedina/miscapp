@@ -17,6 +17,10 @@ namespace Stprm.Web
             _btn_contratos.Click += new EventHandler(_btn_contratos_Click);
             _btn_escalafon.Click += new EventHandler(_btn_escalafon_Click);
             _btn_militancia.Click += new EventHandler(_btn_militancia_Click);
+            _btn_beneficios.Click += new EventHandler(_btn_beneficios_Click);
+            _btn_derechohabiencia.Click += new EventHandler(_btn_derechohabiencia_Click);
+
+            
 
             _it_planta.Text = "Trabajador de planta";
             _it_transitorio.Text = "Trabajador Transitorio";
@@ -27,6 +31,21 @@ namespace Stprm.Web
             if (PantallaActual == "contratos")
             {
                 //_gv_contratos.RowDataBound
+            }
+        }
+
+        private void Asegurar()
+        {
+            using (BaseDatos datos = BaseDatos.CreateStprmConnection())
+            {
+                PerfilUsuario perfil = new PerfilUsuario(datos);
+                perfil.Usuario = Session["username"] == null ? string.Empty : Session["username"].ToString();
+
+                if (perfil.Actualizar())
+                {
+                    PermisoUsuario permiso = new PermisoUsuario(datos);
+                    permiso.Usuario
+                }
             }
         }
 
@@ -46,6 +65,41 @@ namespace Stprm.Web
             
             FichaActual = _it_planta.Ficha.Text;
             CargarPantallaActual ();
+        }
+
+        private void _btn_beneficios_Click(object sender, EventArgs e)
+        {
+            string ficha = FichaActual;
+            PantallaActual = "beneficios";
+
+            SelectButton(_btn_beneficios);
+
+            if (ficha != string.Empty)
+                using (BaseDatos bd = BaseDatos.CreateStprmConnection())
+                {
+                    Trabajador trab = new Trabajador(bd);
+                    trab.Ficha = ficha;
+
+                    if (trab.Actualizar())
+                        CargarBeneficios(trab);
+                }
+        }
+
+        private void _btn_derechohabiencia_Click(object sender, EventArgs e)
+        {
+            string ficha = FichaActual;
+            PantallaActual = "derechohabiencia";
+
+            SelectButton(_btn_derechohabiencia);
+
+            if (ficha != string.Empty)
+                using (BaseDatos bd = BaseDatos.CreateStprmConnection())
+                {
+                    Trabajador trab = new Trabajador(bd);
+                    trab.Ficha = ficha;
+                    if (trab.Actualizar())
+                        CargarDerechohabiencia(trab);
+                }
         }
 
         void _btn_militancia_Click(object sender, EventArgs e)
@@ -163,6 +217,8 @@ namespace Stprm.Web
             _btn_contratos.CssClass = "button_unselected";
             _btn_escalafon.CssClass = "button_unselected";
             _btn_militancia.CssClass = "button_unselected";
+            _btn_beneficios.CssClass = "button_unselected";
+            _btn_derechohabiencia.CssClass = "button_unselected";
 
             button.CssClass = "button_selected";
         }
@@ -289,14 +345,47 @@ namespace Stprm.Web
         {
             _gv_contratos.Columns.Clear();
 
+            _gv_contratos.Columns.Add(NewBoundField("Fecha", "Fecha"));
             _gv_contratos.Columns.Add(NewBoundField("Evento", "Evento"));
             _gv_contratos.Columns.Add(NewBoundField("Lugar", "Lugar"));
-            _gv_contratos.Columns.Add(NewBoundField("Fecha", "Fecha"));
             _gv_contratos.Columns.Add(NewBoundField("Tipo_apoyo", "Tipo de apoyo"));
 
             DataSet ds = new DataSet();
 
             trabajador.GetMilitanciaInAdapter().Fill(ds);
+            _gv_contratos.DataSource = ds;
+            _gv_contratos.DataBind();
+        }
+
+        private void CargarDerechohabiencia(Trabajador trabajador)
+        {
+            _gv_contratos.Columns.Clear();
+
+            _gv_contratos.Columns.Add(NewBoundField("Codif", "Codif"));
+            _gv_contratos.Columns.Add(NewBoundField("Nombre", "Nombre"));
+            _gv_contratos.Columns.Add(NewBoundField("FecNac", "FecNac"));
+            _gv_contratos.Columns.Add(NewBoundField("Vigencia", "Vigencia"));
+
+            DataSet ds = new DataSet ();
+
+            trabajador.GetDerechohabienciaInAdapter().Fill(ds);
+            _gv_contratos.DataSource = ds;
+            _gv_contratos.DataBind();
+
+        }
+
+        private void CargarBeneficios(Trabajador trabajador)
+        {
+            _gv_contratos.Columns.Clear();
+            
+            _gv_contratos.Columns.Add (NewBoundField ("Fecha", "Fecha"));
+            _gv_contratos.Columns.Add (NewBoundField ("Beneficio", "Beneficio"));
+            _gv_contratos.Columns.Add (NewBoundField ("Estado", "Estado"));
+            _gv_contratos.Columns.Add (NewBoundField ("Observacion", "Observacion"));
+
+            DataSet ds = new DataSet();
+
+            trabajador.GetBeneficiosSindicales().Fill(ds);
             _gv_contratos.DataSource = ds;
             _gv_contratos.DataBind();
         }

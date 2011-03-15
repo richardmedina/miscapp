@@ -13,15 +13,6 @@ namespace Stprm.Web {
     public partial class Audiencies {
         
         /// <summary>
-        /// Control wizard.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel wizard;
-        
-        /// <summary>
         /// Control _radio_today.
         /// </summary>
         /// <remarks>

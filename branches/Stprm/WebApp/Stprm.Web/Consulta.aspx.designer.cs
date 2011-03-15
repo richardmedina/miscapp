@@ -67,6 +67,24 @@ namespace Stprm.Web {
         protected global::System.Web.UI.WebControls.Button _btn_militancia;
         
         /// <summary>
+        /// Control _btn_beneficios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button _btn_beneficios;
+        
+        /// <summary>
+        /// Control _btn_derechohabiencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button _btn_derechohabiencia;
+        
+        /// <summary>
         /// Control _gv_contratos.
         /// </summary>
         /// <remarks>

@@ -13,31 +13,13 @@ namespace Stprm.Web {
     public partial class RelationsControl {
         
         /// <summary>
-        /// Control _txt_id.
+        /// Control _is_buscarplanta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox _txt_id;
-        
-        /// <summary>
-        /// Control _btn_search.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button _btn_search;
-        
-        /// <summary>
-        /// Control _lbl_search.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label _lbl_search;
+        protected global::Stprm.Web.IdSearchControl _is_buscarplanta;
         
         /// <summary>
         /// Control _ei_plant.
@@ -49,31 +31,13 @@ namespace Stprm.Web {
         protected global::Stprm.Web.EmployeeInfo _ei_plant;
         
         /// <summary>
-        /// Control _txt_id_recom.
+        /// Control _is_buscartransitorio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox _txt_id_recom;
-        
-        /// <summary>
-        /// Control _btn_search_recom.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button _btn_search_recom;
-        
-        /// <summary>
-        /// Control _lbl_recom_result.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label _lbl_recom_result;
+        protected global::Stprm.Web.IdSearchControl _is_buscartransitorio;
         
         /// <summary>
         /// Control _ei_trans.
@@ -85,6 +49,24 @@ namespace Stprm.Web {
         protected global::Stprm.Web.EmployeeInfo _ei_trans;
         
         /// <summary>
+        /// Control _pnl_parentesco.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel _pnl_parentesco;
+        
+        /// <summary>
+        /// Control _txt_parentesco.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox _txt_parentesco;
+        
+        /// <summary>
         /// Control _btn_assign.
         /// </summary>
         /// <remarks>
@@ -92,14 +74,5 @@ namespace Stprm.Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button _btn_assign;
-        
-        /// <summary>
-        /// Control _btn_assign_cancel.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button _btn_assign_cancel;
     }
 }
