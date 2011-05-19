@@ -96,6 +96,11 @@ namespace Stprm.DataEx
             return result;
         }
 
+        public bool EsParticipanteDelDia()
+        {
+            return true;
+        }
+
         public void Agregar(Trabajador trabajador, string tipo_apoyo)
         {
             Agregar(trabajador.Ficha, tipo_apoyo);
@@ -115,7 +120,7 @@ namespace Stprm.DataEx
 
         public IDataAdapter ParticipantesEnAdapter()
         {
-            return Bd.QueryToAdapter("SELECT ROW_NUMBER() OVER (ORDER BY FICHA ASC) AS Num, Ficha, MAX(NombreCompleto) as Nombres, MIN(AreaPersonal) as SitContr, 'Apoyo' as Apoyo FROM     NuevosContratos WHERE    AreaPersonal <> 'PC' and AreaPersonal <> 'TC' and Ficha     IN    (SELECT    Ficha    FROM     PART_EVENTOS    WHERE    NUM_EVENTO =  {0} ) group by Ficha", Id);
+            return Bd.QueryToAdapter("SELECT ROW_NUMBER() OVER (ORDER BY FICHA ASC) AS Num, Ficha, MAX(NombreCompleto) as Nombre, MIN(AreaPersonal) as SitContr, 'Apoyo' as Apoyo FROM     NuevosContratos WHERE    AreaPersonal <> 'PC' and AreaPersonal <> 'TC' and Ficha     IN    (SELECT    Ficha    FROM     PART_EVENTOS    WHERE    NUM_EVENTO =  {0} ) group by Ficha", Id);
         }
 		
 		public static IDataAdapter ObtenerEnAdapter (BaseDatos datos)

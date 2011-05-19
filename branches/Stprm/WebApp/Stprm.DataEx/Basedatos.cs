@@ -28,7 +28,7 @@ namespace Stprm.DataEx
 		
         public static Database CreateOldConnection()
         {
-            Database db = new Database("Poseidon", "ricki", "09b9085a+", "seccion26");
+            Database db = new Database("poseidon", "ricki", "09b9085a+", "seccion26");
             db.Open();
 
             return db;
@@ -36,7 +36,7 @@ namespace Stprm.DataEx
 		
 		public static BaseDatos CreateStprmConnection ()
 		{
-			BaseDatos db = new BaseDatos (@"Poseidon", "ricki", "09b9085a+", "seccion26");
+            BaseDatos db = new BaseDatos(@"poseidon", "ricki", "09b9085a+", "seccion26");
 			db.Open ();
 			return db;
 		}
@@ -115,6 +115,12 @@ namespace Stprm.DataEx
 		{
 			get { return _source; }
 		}
+
+        protected SqlConnection Connection
+        {
+            set { _connection = value; }
+            get { return Connection; }
+        }
 
 		#region IDisposable Members
 

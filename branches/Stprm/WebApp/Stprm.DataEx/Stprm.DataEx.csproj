@@ -14,6 +14,26 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +43,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,11 +71,14 @@
     <Compile Include="Basedatos.cs" />
     <Compile Include="BeneficioSindical.cs" />
     <Compile Include="BenefitEx.cs" />
+    <Compile Include="ExcelReport.cs" />
     <Compile Include="Concept.cs" />
     <Compile Include="ConceptCollection.cs" />
     <Compile Include="Contrato.cs" />
     <Compile Include="DatabaseEx.cs" />
     <Compile Include="DatabaseOperation.cs" />
+    <Compile Include="Departamento.cs" />
+    <Compile Include="DepartamentoCollection.cs" />
     <Compile Include="EmployeeEx.cs" />
     <Compile Include="Escalafon.cs" />
     <Compile Include="EscalafonCollection.cs" />
@@ -61,14 +86,20 @@
     <Compile Include="IRegistro.cs" />
     <Compile Include="PartAudiencia.cs" />
     <Compile Include="ParticipacionAudiencia.cs" />
+    <Compile Include="ParticipacionEvento.cs" />
     <Compile Include="PerfilUsuario.cs" />
+    <Compile Include="Plaza.cs" />
+    <Compile Include="PlazaCollection.cs" />
     <Compile Include="PosicionEscalafonaria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecomendacionCollection.cs" />
     <Compile Include="RecordEx.cs" />
     <Compile Include="RecordTypeEx.cs" />
     <Compile Include="Registro.cs" />
+    <Compile Include="Reporte.cs" />
     <Compile Include="TipoRegistro.cs" />
     <Compile Include="Trabajador.cs" />
+    <Compile Include="TrabajadorCollection.cs" />
     <Compile Include="TrabajadorEventHandler.cs" />
     <Compile Include="UserDataEx.cs" />
     <Compile Include="CreditoTipoCasa.cs" />
@@ -80,6 +111,23 @@
     <Compile Include="Curso.cs" />
     <Compile Include="Recomendacion.cs" />
     <Compile Include="PermisoUsuarioCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

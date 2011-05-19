@@ -269,11 +269,52 @@ namespace Stprm.DataEx
 		{
 			return BeneficioSindical.GetColeccionInAdapter (Bd, Ficha);
 		}
+
+        public IDataAdapter GetDerechohabienciaInAdapter()
+        {
+            return Bd.QueryToAdapter("SELECT NUM_FAM as Codif, NOMBRES + ' ' + AP_PATERNO + ' ' + AP_MATERNO as Nombre, {2} as FecNac, {3} as Vigencia from {0} where Ficha='{1}' and NUM_FAM <> 0",
+                TablaDerechohabiencia, Ficha, DbDateTimeToString("FEC_NAC"), DbDateTimeToString("FEC_TERM_DER"));
+        }
+
+        public IDataAdapter GetParticipacionAudiencias()
+        {
+            return Bd.QueryToAdapter("select {1} as Fecha,Nombre, REG_CONTR as Regimen, Depto, Asunto, OBSERVACION from PART_AUDIENCIAS LEFT JOIN Audiencias on Audiencias.Id = part_audiencias.Id_aud where PART_AUDIENCIAS.FICHA = '{0}' order by Audiencias.Fecha desc",
+                Ficha, DbDateTimeToString("Fecha"));
+        }
+
+        public static TrabajadorCollection ObtenerColeccion(BaseDatos datos, string filtro)
+        {
+            TrabajadorCollection trabajadores = new TrabajadorCollection();
+
+            IDataReader reader = datos.Query("Select Ficha from {0} where NombreCompleto like '%{1}%' group by Ficha",
+                TablaContratos, filtro.Replace(" ", "%"));
+
+            List<string> fichas = new List<string> ();
+            
+
+            while (reader.Read ()) {
+                fichas.Add (GetString(reader, "Ficha"));
+            }
+            reader.Close ();
+
+            foreach (string ficha in fichas) {
+                Trabajador trab = new Trabajador (datos);
+                trab.Ficha = ficha;
+
+                if (trab.Actualizar())
+                    trabajadores.Add(trab);
+                else
+                    Console.WriteLine("ERROR");
+            }
+
+            return trabajadores;
+
+        }
 		
-		public static IDataAdapter ObtenerColeccion (BaseDatos datos, string filtro)
+		public static IDataAdapter ObtenerColeccionInAdapter (BaseDatos datos, string filtro)
 		{
 			//return datos.QueryToAdapter ("SELECT Ficha, MAX(NombreCompleto) as Nombre from {0} where NombreCompleto like '%{1}%' group by ficha", TablaContratos, filtro);
-			return datos.QueryToAdapter ("SELECT Ficha, MAX(NombreCompleto) as Nombre, MIN(AreaPersonal) as Regimen from {0} where AreaPersonal <> 'PC' and AreaPersonal <> 'TC' group by Ficha order by Ficha", TablaContratos);
+			return datos.QueryToAdapter ("SELECT Ficha, MAX(NombreCompleto) as Nombre, MIN(AreaPersonal) as Regimen from {0} where NombreCompleto like '%{1}%' and AreaPersonal <> 'PC' and AreaPersonal <> 'TC' group by Ficha order by Ficha", TablaContratos, filtro.Replace (" ","%"));
 		}
 
         public override void SetearDesdeDataReader(IDataReader reader)
