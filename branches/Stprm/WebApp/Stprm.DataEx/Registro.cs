@@ -29,6 +29,7 @@ namespace Stprm.DataEx
 		public static readonly string TablaRecomendaciones = "Recomendaciones";
 		
 		public static readonly string TablaPermisosUsuarios = "Permisos";
+        public static readonly string TablaDerechohabiencia = "Derechohabiencia";
 
         private static MD5 _md5 = MD5.Create();
 
@@ -39,6 +40,11 @@ namespace Stprm.DataEx
         }
 
         public virtual bool Guardar ()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool GuardarAtributos ()
         {
             throw new NotImplementedException();
         }
@@ -57,6 +63,7 @@ namespace Stprm.DataEx
         {
             throw new NotImplementedException();
         }
+
 
         public virtual void SetearDesdeDataReader(IDataReader reader)
         {
@@ -80,12 +87,12 @@ namespace Stprm.DataEx
 			return id;
 		}
 
-        protected static string GetString(IDataReader reader, string field_name)
+        public static string GetString(IDataReader reader, string field_name)
         {
             return reader.IsDBNull(reader.GetOrdinal(field_name)) ? string.Empty : reader.GetString(reader.GetOrdinal(field_name));
         }
 
-        protected static DateTime GetDateTime(IDataReader reader, string field_name)
+        public static DateTime GetDateTime(IDataReader reader, string field_name)
         {
             DateTime date = DateTime.MinValue;
             try
@@ -97,7 +104,7 @@ namespace Stprm.DataEx
             }
             catch (Exception exception)
             {
-                Console.Write(exception.Message + "Excepcion atrapada mientras DateTime conversion");
+                Console.Write(exception.Message + " Excepcion atrapada mientras DateTime conversion");
             }
 
             return date;

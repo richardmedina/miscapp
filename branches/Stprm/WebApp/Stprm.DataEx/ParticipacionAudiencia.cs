@@ -73,6 +73,38 @@ namespace Stprm.DataEx
             return result;
         }
 
+
+       
+        /*
+        public bool ActualizarDesdeFicha ()
+        {
+            bool result = false;
+
+            IDataReader reader = Bd.Query("SELECT Ficha FROM {0} where ID_AUD={1} and Ficha='{2}'",
+                TablaParticipacionAudiencias, Id, Ficha);
+
+            
+
+            return result;
+        }
+        */
+        public override bool Eliminar()
+        {
+            bool result = false;
+            try
+            {
+                Bd.NonQuery("DELETE FROM {0} where id={1}",
+                    TablaParticipacionAudiencias, Id);
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         public override bool Existe()
         {
             ParticipacionAudiencia participacion = new ParticipacionAudiencia(Bd);

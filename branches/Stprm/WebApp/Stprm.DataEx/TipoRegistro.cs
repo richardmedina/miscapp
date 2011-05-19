@@ -19,6 +19,8 @@ namespace Stprm.DataEx
 		PermisoUsuario,
 		Ubicacion,
 		Curso,
-		Recomendacion
+		Recomendacion,
+        Departamento,
+        Plaza
     }
 }

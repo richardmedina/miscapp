@@ -83,21 +83,37 @@ namespace Stprm.DataEx
             return result;
         }
 
+        //public void Agregar (string ficha, string nombre, string regimen, 
+
+        public void Remover(int id)
+        {
+            ParticipacionAudiencia participacion = new ParticipacionAudiencia(Bd);
+            participacion.AudienciaId = Id;
+            participacion.Id = id;
+            participacion.Eliminar();
+        }
+
         public void Agregar(Trabajador trabajador, string asunto)
         {
             //Contrato contrato = trabajador.RegimenContractual == 'PS' ? trabajador.GetPuestoEscalafon ()
             string depto = string.Empty;
+            /*
             if (trabajador.RegimenContractual == "PS") {
                 PosicionEscalafonaria posicion;
                 if (trabajador.GetPuestoEscalafon (out posicion)) {
                     depto = posicion.Depto;
                 }
-            } else {
+            } else {*/
                 Contrato contrato;
                 if (trabajador.GetUltimoContrato (out contrato)) {
-                    depto = contrato.Depto;
+                    Departamento fdepto = new Departamento (Bd);
+                    fdepto.ClaveCentro = contrato.CentroTrabajo;
+                    fdepto.Clave = contrato.Depto;
+                    
+                    fdepto.Actualizar ();
+                    depto = string.Format ("({0}:{1}) {2}", fdepto.ClaveCentro, fdepto.Clave, fdepto.Descripcion);
                 }
-            }
+            //}
 
             ParticipacionAudiencia participacion = new ParticipacionAudiencia(Bd);
             participacion.Ficha = trabajador.Ficha;
@@ -112,6 +128,23 @@ namespace Stprm.DataEx
 
             //Bd.NonQuery("INSERT INTO {0} (FICHA, ID_AUD, NOMBRE, REC_CONTR, DEPTO, ASUNTO, OBSERVACION) VALUES ('{1}', {2}, '{3}', '{4}', '{5}', '{6}')",
               //  TablaParticipacionAudiencias, trabajador.Ficha, Id, trabajador.GetNombreCompleto (), trabajador.RegimenContractual, depto, asunto);
+        }
+
+        public bool FichaEsParticipante (string ficha)
+        {
+            bool result = false;
+
+            IDataReader reader = Bd.Query("select top 1 Ficha from {0} where Ficha='{1}' and ID_AUD={2};",
+                TablaParticipacionAudiencias, ficha, Id);
+
+            if (reader.Read())
+            {
+                result = true;
+            }
+
+            reader.Close();
+
+            return result;
         }
 
         public override void SetearDesdeDataReader(IDataReader reader)
