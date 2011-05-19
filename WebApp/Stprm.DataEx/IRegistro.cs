@@ -15,6 +15,7 @@ namespace Stprm.DataEx
         void SetearDesdeDataReader (IDataReader reader);
 
         bool Existe ();
+        bool GuardarAtributos ();
 
         BaseDatos Bd
         {
