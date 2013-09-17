@@ -13,11 +13,12 @@ namespace Simatre.DataUploader
 
 			RecordumDataRow row = new RecordumDataRow ();
 			Console.WriteLine (row);
+			Console.WriteLine ("Presiona una tecla para continuar...");
 			Console.ReadLine ();
 
 			Recordum recordum = new Recordum ();
 			recordum.ConnectionType = RecordumConnectionType.Remote;
-			recordum.SensorId = "fa47740";
+			recordum.SensorId = "28c02c8";
 			recordum.Username = "admin";
 			recordum.Password = "1AQuality";
 

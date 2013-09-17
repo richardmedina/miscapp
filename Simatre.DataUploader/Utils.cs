@@ -12,6 +12,7 @@ namespace Simatre.DataUploader
 
 		public static RecordumPollutantType PollutantTypeFromString (string str)
 		{
+
 			return RecordumPollutantType.Unknown;
 		}
 

@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.IO;
+using System.Xml;
 
 namespace Simatre.DataUploader
 {
@@ -62,12 +63,23 @@ namespace Simatre.DataUploader
 				data = reader.ReadToEnd ();
 			}
 
-			//Console.WriteLine("--");
-			//Console.WriteLine (data);
+
+			XmlDocument doc = new XmlDocument ();
+			doc.LoadXml (data);
+
+			XmlNodeList nodes  = doc.GetElementsByTagName ("ParameterDetails");
+
+
+			for (int i = 0; i  < nodes.Count; i ++) {
+				XmlNode node = nodes [i];
+
+				Console.WriteLine ("Posicion : {0}", node.Attributes ["Position"].Value);
+
+			}
 
 			//"$this->Sensor/http_if/download.php?loginstring=$this->Username&user_pw=$this->Password&tstart=$this->StartingDate&tend=$this->EndingDate&$this->Interval=$this->AvgStr&dec=POINT&null=NULL";//&colT=3,2"
 
-			return data;
+			return "";
 		}
 
 		public string GetUrlRequest ()
