@@ -1,22 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Artemis.UI/MainWindow.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Artemis.Addins.SamplePlugins/SongChangeAdvice/SongChangeAdviceAddin.cs">
     <Files>
       <File FileName="Artemis.UI/Widgets/PopupWindow.cs" Line="7" Column="14" />
       <File FileName="Artemis.UI/MainWindow.cs" Line="35" Column="22" />
+      <File FileName="Artemis.Core.GStreamer/Gst.cs" Line="75" Column="81" />
+      <File FileName="Artemis.Addins.SamplePlugins/Notification/NotificationIcon.cs" Line="13" Column="25" />
+      <File FileName="Artemis.Addins.SamplePlugins/SongChangeAdvice/SongChangeAdviceAddin.cs" Line="31" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
+        <State expanded="True">
           <Node name="Artemis" expanded="True" />
           <Node name="Artemis.Addins" expanded="True" />
           <Node name="Artemis.Addins.Samples" expanded="True">
-            <Node name="Manager" expanded="True" />
+            <Node name="SongChangeAdvice" expanded="True">
+              <Node name="SongChangeAdviceAddin.cs" selected="True" />
+            </Node>
           </Node>
-          <Node name="Artemis.Core" expanded="True" />
           <Node name="Artemis.Core.GStreamer" expanded="True" />
-          <Node name="Artemis.UI" expanded="True">
-            <Node name="Widgets" expanded="True" />
-          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -27,5 +28,9 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
