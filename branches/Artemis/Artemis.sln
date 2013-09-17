@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.UI", "Artemis.UI\Artemis.UI.csproj", "{E1FB3944-225C-4441-A496-56937C050DA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Core", "Artemis.Core\Artemis.Core.csproj", "{974D0CEB-6EFD-43BD-946B-E3859C19410E}"
@@ -45,7 +45,6 @@ Global
 		{E1FB3944-225C-4441-A496-56937C050DA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		version = 0.1
 		StartupItem = Artemis\Artemis.csproj
 		Policies = $0
 		$0.ChangeLogPolicy = $1
@@ -57,16 +56,15 @@ Global
 		$3.inheritsSet = Mono
 		$0.TextStylePolicy = $4
 		$4.FileWidth = 120
-		$4.TabWidth = 4
 		$4.TabsToSpaces = False
-		$4.NoTabsAfterNonTabs = False
 		$4.RemoveTrailingWhitespace = False
-		$4.EolMarker = Native
+		$4.inheritsSet = VisualStudio
+		$4.inheritsScope = text/plain
 		$0.DotNetNamingPolicy = $5
 		$5.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$5.ResourceNamePolicy = FileFormatDefault
 		$0.StandardHeader = $6
 		$6.Text = 
-		$6.inheritsSet = MITX11License
+		$6.IncludeInNewFiles = True
 	EndGlobalSection
 EndGlobal
