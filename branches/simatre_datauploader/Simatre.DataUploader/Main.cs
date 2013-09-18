@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using Simatre.Recordum;
 
 namespace Simatre.DataUploader
 {
@@ -10,17 +12,17 @@ namespace Simatre.DataUploader
 		public static void Main (string[] args)
 		{
 			//WebRequest request = FileWebRequest.Create ("");
-
+			/*
 			RecordumDataRow row = new RecordumDataRow ();
 			Console.WriteLine (row);
 			Console.WriteLine ("Presiona una tecla para continuar...");
 			Console.ReadLine ();
-
-			Recordum recordum = new Recordum ();
-			recordum.ConnectionType = RecordumConnectionType.Remote;
-			recordum.SensorId = "28c02c8";
-			recordum.Username = "admin";
-			recordum.Password = "1AQuality";
+			*/
+			Airpointer airpointer = new Airpointer ();
+			airpointer.ConnectionType = ConnectionType.Remote;
+			airpointer.SensorId = "28c02c8";
+			airpointer.Username = "admin";
+			airpointer.Password = "1AQuality";
 
 
 			if (args.Length == 0) {
@@ -30,23 +32,23 @@ namespace Simatre.DataUploader
 				for (int i = 0; i < args.Length; i++) {
 					switch (args [i]) {
 						case "-sensorid":
-							recordum.SensorId = args [++i];
+							airpointer.SensorId = args [++i];
 						break;
 
 						case "-username":
-							recordum.Username = args [++i];
+							airpointer.Username = args [++i];
 						break;
 
 						case "-password":
-							recordum.Password = args [++i];
+							airpointer.Password = args [++i];
 						break;
 
 						case "-type":
 							string val = args [++i];
 							if (val == "remote")
-								recordum.ConnectionType = RecordumConnectionType.Remote;
+								airpointer.ConnectionType = ConnectionType.Remote;
 							else 
-								recordum.ConnectionType = RecordumConnectionType.Local;
+								airpointer.ConnectionType = ConnectionType.Local;
 						break;
 					}
 				}
@@ -55,9 +57,13 @@ namespace Simatre.DataUploader
 
 			//Console.WriteLine ("Waiting for ..." + recordum.RootUrl);
 
-			Console.WriteLine (recordum.Start ());
+			string data = airpointer.Start ();
 
 
+			using (StreamWriter sw = new StreamWriter ("data.xml"))
+				sw.Write (data);
+
+			Console.WriteLine (data.Length + " bytes written");
 
 			/*
 			MainForm form = new MainForm ();

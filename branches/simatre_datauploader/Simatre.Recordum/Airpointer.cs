@@ -3,9 +3,9 @@ using System.Net;
 using System.IO;
 using System.Xml;
 
-namespace Simatre.DataUploader
+namespace Simatre.Recordum
 {
-	public class Recordum
+	public class Airpointer
 	{
 
 		public string Username;
@@ -19,7 +19,7 @@ namespace Simatre.DataUploader
 		public string Pollutants = "1,2,3,4,5,6";
 		public string Interval = "avg3";
 
-		public RecordumConnectionType ConnectionType;
+		public ConnectionType ConnectionType;
 
 		public string RootUrl = "http://portal.recordum.com/instrument/UI";
 				//"http://10.0.0.140/start.php";
@@ -30,9 +30,9 @@ namespace Simatre.DataUploader
 		public readonly string [] PollutantName = {"NO", "NO2", "NOX", "CO", "O3", "SO2"};
 
 
-		public Recordum ()
+		public Airpointer ()
 		{
-			ConnectionType = RecordumConnectionType.Local;
+			ConnectionType = ConnectionType.Local;
 		}
 
 		public string Start ()
@@ -75,18 +75,27 @@ namespace Simatre.DataUploader
 
 				Console.WriteLine ("Posicion : {0}", node.Attributes ["Position"].Value);
 
+				foreach (XmlNode subnode in node.ChildNodes) {
+					Console.WriteLine ("\tSubnode: {0}", subnode.Name);
+				}
+
 			}
 
 			//"$this->Sensor/http_if/download.php?loginstring=$this->Username&user_pw=$this->Password&tstart=$this->StartingDate&tend=$this->EndingDate&$this->Interval=$this->AvgStr&dec=POINT&null=NULL";//&colT=3,2"
 
-			return "";
+			return data;
+		}
+
+		public void Info ()
+		{
+
 		}
 
 		public string GetUrlRequest ()
 		{
 			string querystr = GetQueryString ();
 
-			if (ConnectionType == RecordumConnectionType.Local) {
+			if (ConnectionType == ConnectionType.Local) {
 				return string.Format ("{0}?{1}", url_local, querystr);
 			}
 
@@ -95,7 +104,7 @@ namespace Simatre.DataUploader
 
 		public string GetQueryString ()
 		{
-			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&colt=3,2", 
+			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&nohtml&dec=point&del=semi&format=csv", 
 			                            Username, 
 			                            Password,
 			                            DateStart.ToString ("yyyy-MM-dd,HH:mm:ss"),
