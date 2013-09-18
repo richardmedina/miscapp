@@ -2,9 +2,9 @@ using System;
 using System.Net;
 using System.IO;
 
-namespace Simatre.DataUploader
+namespace Simatre.Recordum
 {
-	public enum RecordumConnectionType
+	public enum ConnectionType
 	{
 		Local,
 		Remote
