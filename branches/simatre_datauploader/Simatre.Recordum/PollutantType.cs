@@ -1,8 +1,8 @@
 using System;
 
-namespace Simatre.DataUploader
+namespace Simatre.Recordum
 {
-	public enum RecordumPollutantType
+	public enum PollutantType
 	{
 		Unknown,
 		NO,

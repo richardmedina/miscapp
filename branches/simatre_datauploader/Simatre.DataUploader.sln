@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simatre.DataUploader", "Simatre.DataUploader\Simatre.DataUploader.csproj", "{575C6606-EC7E-43A7-B885-5BCA55D482D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simatre.Recordum", "Simatre.Recordum\Simatre.Recordum.csproj", "{EB08BE13-6AFE-4D82-A87C-D1C5043E1E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{575C6606-EC7E-43A7-B885-5BCA55D482D6}.Debug|x86.Build.0 = Debug|x86
 		{575C6606-EC7E-43A7-B885-5BCA55D482D6}.Release|x86.ActiveCfg = Release|x86
 		{575C6606-EC7E-43A7-B885-5BCA55D482D6}.Release|x86.Build.0 = Release|x86
+		{EB08BE13-6AFE-4D82-A87C-D1C5043E1E6A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB08BE13-6AFE-4D82-A87C-D1C5043E1E6A}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB08BE13-6AFE-4D82-A87C-D1C5043E1E6A}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB08BE13-6AFE-4D82-A87C-D1C5043E1E6A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Simatre.DataUploader\Simatre.DataUploader.csproj

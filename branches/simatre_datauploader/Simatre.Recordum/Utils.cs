@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Globalization;
-namespace Simatre.DataUploader
+namespace Simatre.Recordum
 {
 	public class Utils
 	{
@@ -10,10 +10,10 @@ namespace Simatre.DataUploader
 		public static readonly string RecordumDateFormat = "yyyy-MM-dd,HH:mm:ss"; 
 
 
-		public static RecordumPollutantType PollutantTypeFromString (string str)
+		public static PollutantType PollutantTypeFromString (string str)
 		{
 
-			return RecordumPollutantType.Unknown;
+			return PollutantType.Unknown;
 		}
 
 		public static bool DateTimeFromRecordumString (string str, out DateTime datetime)
@@ -39,7 +39,7 @@ namespace Simatre.DataUploader
 			return RecordumPenddingFilename;
 		}
 
-		public static void SaveToPendding (RecordumDataRow row)
+		public static void SaveToPendding (AirpointerDataRow row)
 		{
 			using (StreamWriter sw = new StreamWriter (GetFilename ())) {
 
@@ -47,7 +47,7 @@ namespace Simatre.DataUploader
 		}
 
 
-		public static bool RecordumSend (RecordumDataRow row)
+		public static bool RecordumSend (AirpointerDataRow row)
 		{
 			throw new NotImplementedException ();
 		}

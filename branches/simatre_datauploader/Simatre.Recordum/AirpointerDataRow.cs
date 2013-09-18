@@ -1,8 +1,8 @@
 using System;
 
-namespace Simatre.DataUploader
+namespace Simatre.Recordum
 {
-	public class RecordumDataRow
+	public class AirpointerDataRow
 	{
 
 		public string SensorId;
@@ -18,7 +18,7 @@ namespace Simatre.DataUploader
 		public float SO2;
 
 
-		public RecordumDataRow ()
+		public AirpointerDataRow ()
 		{
 		}
 

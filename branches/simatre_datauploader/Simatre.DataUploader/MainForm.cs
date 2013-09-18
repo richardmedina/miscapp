@@ -49,10 +49,10 @@ namespace Simatre.DataUploader
 			worker = new BackgroundWorker ();
 			worker.DoWork += delegate(object sender, DoWorkEventArgs e) {
 				Console.WriteLine ("Iniciando conexion");
-				Recordum recordum = new Recordum();
+				/*Recordum recordum = new Recordum();
 				recordum.Username = "admin";
 				recordum.Password = "1AQuality";
-				recordum.Start ();
+				recordum.Start ();*/
 				Console.WriteLine ("Hecho");
 			};
 
