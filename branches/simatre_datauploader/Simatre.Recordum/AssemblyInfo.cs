@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Simatre.Recordum")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Recordum Simatre Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("richard")]
+[assembly: AssemblyCompany("Sistemas Informaticos Avanzados")]
+[assembly: AssemblyProduct("Simatre.Recordum")]
+[assembly: AssemblyCopyright("All Rights Reserved 2013 - Ricardo Medina López")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
