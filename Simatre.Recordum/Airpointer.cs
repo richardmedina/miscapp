@@ -63,9 +63,19 @@ namespace Simatre.Recordum
 				data = reader.ReadToEnd ();
 			}
 
-
 			XmlDocument doc = new XmlDocument ();
 			doc.LoadXml (data);
+
+			PollutantCollection pollutants = XmlToCollection (doc);
+
+			//"$this->Sensor/http_if/download.php?loginstring=$this->Username&user_pw=$this->Password&tstart=$this->StartingDate&tend=$this->EndingDate&$this->Interval=$this->AvgStr&dec=POINT&null=NULL";//&colT=3,2"
+
+			return data;
+		}
+
+		public PollutantCollection XmlToCollection (XmlDocument doc)
+		{
+			PollutantCollection pollutants = new PollutantCollection ();
 
 			XmlNodeList nodes  = doc.GetElementsByTagName ("ParameterDetails");
 
@@ -76,15 +86,14 @@ namespace Simatre.Recordum
 				Console.WriteLine ("Posicion : {0}", node.Attributes ["Position"].Value);
 
 				foreach (XmlNode subnode in node.ChildNodes) {
-					Console.WriteLine ("\tSubnode: {0}", subnode.Name);
+					Console.WriteLine ("\tSubnode {0}: {1}", subnode.Name, subnode.InnerText);
 				}
 
 			}
 
-			//"$this->Sensor/http_if/download.php?loginstring=$this->Username&user_pw=$this->Password&tstart=$this->StartingDate&tend=$this->EndingDate&$this->Interval=$this->AvgStr&dec=POINT&null=NULL";//&colT=3,2"
-
-			return data;
+			return pollutants;
 		}
+
 
 		public void Info ()
 		{
@@ -104,7 +113,7 @@ namespace Simatre.Recordum
 
 		public string GetQueryString ()
 		{
-			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&nohtml&dec=point&del=semi&format=csv", 
+			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&nohtml&dec=point&del=semi", 
 			                            Username, 
 			                            Password,
 			                            DateStart.ToString ("yyyy-MM-dd,HH:mm:ss"),

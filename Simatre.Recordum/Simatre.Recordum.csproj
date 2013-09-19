@@ -42,6 +42,7 @@
     <Compile Include="Pollutant.cs" />
     <Compile Include="PollutantCollection.cs" />
     <Compile Include="ConnectionType.cs" />
+    <Compile Include="MeasureUnit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
