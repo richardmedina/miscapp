@@ -43,6 +43,9 @@
     <Compile Include="PollutantCollection.cs" />
     <Compile Include="ConnectionType.cs" />
     <Compile Include="MeasureUnit.cs" />
+    <Compile Include="Magnitude.cs" />
+    <Compile Include="RecordumException.cs" />
+    <Compile Include="AirpointerException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
