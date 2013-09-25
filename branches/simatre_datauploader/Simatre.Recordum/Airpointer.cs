@@ -16,7 +16,7 @@ namespace Simatre.Recordum
 		public DateTime DateStart = DateTime.Now - new TimeSpan(5, 0, 0, 0);
 		public DateTime DateEnd = DateTime.Now - new TimeSpan (4, 0, 0, 0);
 
-		public string Pollutants = "1,2,3,4,5,6";
+		public string Pollutants = "1,2,3,4,5,6" + ",31,247,33,11745,11751,11763,11769,11775,11757,11811,11739,11733";
 		public string Interval = "avg3";
 
 		public ConnectionType ConnectionType;
@@ -35,7 +35,7 @@ namespace Simatre.Recordum
 			ConnectionType = ConnectionType.Local;
 		}
 
-		public string Start ()
+		public PollutantCollection Start ()
 		{
 			//Console.WriteLine ("Recordum.Start");
 
@@ -50,54 +50,48 @@ namespace Simatre.Recordum
 			                            Pollutants);
 
 		*/
-			string url = GetUrlRequest ();
 
-			Console.WriteLine ("Waiting for {0}...", url);
+			string url = GetUrlRequest ();
+			string data = string.Empty;
+
 
 			WebRequest request = WebRequest.Create (url);
 
-			var response = request.GetResponse ();
-			string data;
-
-			using (StreamReader reader = new StreamReader (response.GetResponseStream ())) {
-				data = reader.ReadToEnd ();
-			}
-
-			XmlDocument doc = new XmlDocument ();
-			doc.LoadXml (data);
-
-			PollutantCollection pollutants = XmlToCollection (doc);
-
-			//"$this->Sensor/http_if/download.php?loginstring=$this->Username&user_pw=$this->Password&tstart=$this->StartingDate&tend=$this->EndingDate&$this->Interval=$this->AvgStr&dec=POINT&null=NULL";//&colT=3,2"
-
-			return data;
-		}
-
-		public PollutantCollection XmlToCollection (XmlDocument doc)
-		{
-			PollutantCollection pollutants = new PollutantCollection ();
-
-			XmlNodeList nodes  = doc.GetElementsByTagName ("ParameterDetails");
-
-
-			for (int i = 0; i  < nodes.Count; i ++) {
-				XmlNode node = nodes [i];
-
-				Console.WriteLine ("Posicion : {0}", node.Attributes ["Position"].Value);
-
-				foreach (XmlNode subnode in node.ChildNodes) {
-					Console.WriteLine ("\tSubnode {0}: {1}", subnode.Name, subnode.InnerText);
+			try {
+				var response = request.GetResponse ();
+				using (StreamReader reader = new StreamReader (response.GetResponseStream ())) {
+					data = reader.ReadToEnd ();
 				}
 
+			} catch (Exception) {
+				throw new AirpointerException (string.Format ("Airpointer {0} does not respond", SensorId));
+			}
+	
+			XmlDocument doc = new XmlDocument ();
+
+			try {
+				doc.LoadXml (data);
+			} catch (Exception) {
+				throw new AirpointerException (string.Format ("Airpointer {0} xml file is corrupt", SensorId));
+			}
+
+			
+			PollutantCollection pollutants;
+			try {
+				pollutants = PollutantCollection.ParseXML (SensorId, doc);
+			} catch (Exception) {
+				throw new AirpointerException (string.Format ("Parsing error {0} in xml data file", SensorId));
 			}
 
 			return pollutants;
 		}
 
 
+
+
 		public void Info ()
 		{
-
+			throw new NotImplementedException ();
 		}
 
 		public string GetUrlRequest ()
