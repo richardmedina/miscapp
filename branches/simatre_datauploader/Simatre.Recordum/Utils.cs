@@ -33,6 +33,11 @@ namespace Simatre.Recordum
 			return false;
 		}
 
+		public static string DateTimeToRecordumString (DateTime datetime)
+		{
+			return datetime.ToString (RecordumDateFormat);
+		}
+
 
 		public static string GetFilename ()
 		{

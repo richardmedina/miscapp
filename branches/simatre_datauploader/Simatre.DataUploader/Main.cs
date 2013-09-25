@@ -20,7 +20,10 @@ namespace Simatre.DataUploader
 			*/
 			Airpointer airpointer = new Airpointer ();
 			airpointer.ConnectionType = ConnectionType.Remote;
+
 			airpointer.SensorId = "28c02c8";
+			airpointer.SensorId = "fa47740";
+
 			airpointer.Username = "admin";
 			airpointer.Password = "1AQuality";
 
@@ -31,24 +34,24 @@ namespace Simatre.DataUploader
 
 				for (int i = 0; i < args.Length; i++) {
 					switch (args [i]) {
-						case "-sensorid":
-							airpointer.SensorId = args [++i];
+					case "-sensorid":
+						airpointer.SensorId = args [++i];
 						break;
 
-						case "-username":
-							airpointer.Username = args [++i];
+					case "-username":
+						airpointer.Username = args [++i];
 						break;
 
-						case "-password":
-							airpointer.Password = args [++i];
+					case "-password":
+						airpointer.Password = args [++i];
 						break;
 
-						case "-type":
-							string val = args [++i];
-							if (val == "remote")
-								airpointer.ConnectionType = ConnectionType.Remote;
-							else 
-								airpointer.ConnectionType = ConnectionType.Local;
+					case "-type":
+						string val = args [++i];
+						if (val == "remote")
+							airpointer.ConnectionType = ConnectionType.Remote;
+						else 
+							airpointer.ConnectionType = ConnectionType.Local;
 						break;
 					}
 				}
@@ -57,10 +60,33 @@ namespace Simatre.DataUploader
 
 			//Console.WriteLine ("Waiting for ..." + recordum.RootUrl);
 
-			string data = airpointer.Start ();
+			PollutantCollection pollutants;
 
+			try {
+				pollutants = airpointer.Start ();
+			} catch (AirpointerException e) {
+				Console.WriteLine ("MyError {0}", e);
+			return;
+			}
 
-			using (StreamWriter sw = new StreamWriter ("data.xml"))
+			string [] queries = pollutants.GetQueryString ();
+			foreach (string query in queries)
+				Console.WriteLine (query);
+
+			//foreach (float f in pollutants.GetMagnitudes (0, MeasureUnit.PPB)) {
+			/*
+			Console.Write ("{0}:", Utils.DateTimeToRecordumString(pollutants [0].Magnitudes [0].Date));
+
+			for (int i = 0; i  < pollutants.Count; i ++) {
+
+				Console.Write ("@{0}={1}", 
+				               pollutants [i].Type, 
+				               pollutants [i].Magnitudes [0].GetPPMValue ());
+			}
+			*/
+			Console.ReadLine ();
+
+			/*using (StreamWriter sw = new StreamWriter ("data.xml"))
 				sw.Write (data);
 
 			Console.WriteLine (data.Length + " bytes written");
