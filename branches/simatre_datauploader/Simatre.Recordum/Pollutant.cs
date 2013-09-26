@@ -7,13 +7,13 @@ namespace Simatre.Recordum
 		public float LMP = 0f;
 		public MagnitudeCollection Magnitudes;
 		public PollutantType Type;
-		public string AirpointerId;
+		public Airpointer Airpointer;
 		public MeasureUnit Unit;
 		
 
-		public Pollutant (string airpointer_id, PollutantType type, MeasureUnit unit)
+		public Pollutant (Airpointer airpointer, PollutantType type, MeasureUnit unit)
 		{
-			AirpointerId = airpointer_id;
+			Airpointer = airpointer;
 			Type = type;
 			Unit = unit;
 			Magnitudes = new MagnitudeCollection ();
