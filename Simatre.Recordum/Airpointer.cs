@@ -11,12 +11,15 @@ namespace Simatre.Recordum
 		public string Username;
 		public string Password;
 
-		public string SensorId = "";
+		public string Id = "";
 
-		public DateTime DateStart = DateTime.Now - new TimeSpan(5, 0, 0, 0);
-		public DateTime DateEnd = DateTime.Now - new TimeSpan (4, 0, 0, 0);
+		public DateTime DateStart = DateTime.Now - new TimeSpan(0, 2, 0, 0);
+		public DateTime DateEnd = DateTime.Now - new TimeSpan (0, 1, 0, 0);
 
-		public string Pollutants = "1,2,3,4,5,6" + ",31,247,33,11745,11751,11763,11769,11775,11757,11811,11739,11733";
+		//public string Pollutants = "1,2,3,4,5,6" + ",31,247,33,11745,11751,11763,11769,11775,11757,11811,11739,11733";
+
+		public PollutantPairCollection PollutantPairs;
+		 
 		public string Interval = "avg3";
 
 		public ConnectionType ConnectionType;
@@ -29,28 +32,38 @@ namespace Simatre.Recordum
 
 		public readonly string [] PollutantName = {"NO", "NO2", "NOX", "CO", "O3", "SO2"};
 
+		public bool VerboseMode = false;
 
-		public Airpointer ()
+		public Airpointer (string airpointerid)
 		{
+			Id = airpointerid;
 			ConnectionType = ConnectionType.Local;
+			PollutantPairs = new PollutantPairCollection ();
+		}
+
+		public void Init ()
+		{
+			string [] ptypes = PollutantType.GetNames (typeof(PollutantType));
+			PollutantPair [] pairs = new PollutantPair [ptypes.Length -1];
+
+
+			for (int i = 0; i < ptypes.Length; i ++) {
+				PollutantType pt = (PollutantType)Enum.Parse (typeof (PollutantType), ptypes[i]);
+				int pollutant_id = GetPollutantId (pt);
+
+				if (pollutant_id == 0) continue;//throw new AirpointerException ("PollutantId " + Id + " can't be zero");
+
+				PollutantPair pair = new PollutantPair (pollutant_id, pt);  
+				pairs [i-1] = pair;
+			}
+
+			if (pairs.Length == 0) throw new AirpointerException (Id + ": Specify parameters");
+
+			PollutantPairs.AddRange (pairs);
 		}
 
 		public PollutantCollection Start ()
 		{
-			//Console.WriteLine ("Recordum.Start");
-
-			/*string url = string.Format ("{0}/{1}/http_if/download.php?loginstring={2}&user_pw={3}&tstart={4}&tend={5}&{6}={7}&dec=POINT&null=NULL&colt=3,2", 
-			                            RootUrl, 
-			                            SensorId, 
-			                            Username, 
-			                            Password,
-			                            DateStart.ToString ("yyyy-MM-dd,HH:mm:ss"),
-			                            DateEnd.ToString ("yyyy-MM-dd,HH:mm:ss"),
-			                            Interval,
-			                            Pollutants);
-
-		*/
-
 			string url = GetUrlRequest ();
 			string data = string.Empty;
 
@@ -64,7 +77,7 @@ namespace Simatre.Recordum
 				}
 
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Airpointer {0} does not respond", SensorId));
+				throw new AirpointerException (string.Format ("Airpointer {0} does not respond", Id));
 			}
 	
 			XmlDocument doc = new XmlDocument ();
@@ -72,22 +85,28 @@ namespace Simatre.Recordum
 			try {
 				doc.LoadXml (data);
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Airpointer {0} xml file is corrupt", SensorId));
+				throw new AirpointerException (string.Format ("Airpointer {0} xml file is corrupt", Id));
 			}
 
 			
 			PollutantCollection pollutants;
 			try {
-				pollutants = PollutantCollection.ParseXML (SensorId, doc);
+				pollutants = PollutantCollection.ParseXML (this, doc);
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Parsing error {0} in xml data file", SensorId));
+				throw new AirpointerException (string.Format ("Parsing error {0} in xml data file", Id));
 			}
 
 			return pollutants;
 		}
 
-
-
+		public virtual int GetPollutantId (PollutantType pollutanttype)
+		{
+			return 0;
+		}
+		public virtual PollutantType GetPollutantFromId (int id)
+		{
+			return PollutantType.CO;
+		}
 
 		public void Info ()
 		{
@@ -102,18 +121,33 @@ namespace Simatre.Recordum
 				return string.Format ("{0}?{1}", url_local, querystr);
 			}
 
-			return string.Format ("{0}/{1}/http_if/download.php?{2}", url_remote, SensorId, querystr);
+			return string.Format ("{0}/{1}/http_if/download.php?{2}", url_remote, Id, querystr);
 		}
 
 		public string GetQueryString ()
 		{
+
+			string pols = string.Empty;
+
+
+			for (int i = 0; i < PollutantPairs.Count; i ++) {
+				PollutantPair pair = PollutantPairs [i];
+				if (i > 0)
+					pols += ",";
+
+				pols += pair.Id.ToString ();
+
+			}
+
+			Console.WriteLine ("ready to get -{0}-", pols);
+
 			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&nohtml&dec=point&del=semi", 
 			                            Username, 
 			                            Password,
 			                            DateStart.ToString ("yyyy-MM-dd,HH:mm:ss"),
 			                            DateEnd.ToString ("yyyy-MM-dd,HH:mm:ss"),
 			                            Interval,
-			                            Pollutants);
+			                            pols);
 		}
 
 	}
