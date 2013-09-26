@@ -18,14 +18,16 @@ namespace Simatre.DataUploader
 			Console.WriteLine ("Presiona una tecla para continuar...");
 			Console.ReadLine ();
 			*/
-			Airpointer airpointer = new Airpointer ();
+			Airpointer airpointer = new GeronidesAirpointer ();
 			airpointer.ConnectionType = ConnectionType.Remote;
 
-			airpointer.SensorId = "28c02c8";
-			airpointer.SensorId = "fa47740";
+			//airpointer.Id = "28c02c8";
+			//airpointer.Id = "fa47740";
 
 			airpointer.Username = "admin";
 			airpointer.Password = "1AQuality";
+
+			
 
 
 			if (args.Length == 0) {
@@ -35,7 +37,7 @@ namespace Simatre.DataUploader
 				for (int i = 0; i < args.Length; i++) {
 					switch (args [i]) {
 					case "-sensorid":
-						airpointer.SensorId = args [++i];
+						airpointer.Id = args [++i];
 						break;
 
 					case "-username":
@@ -53,20 +55,24 @@ namespace Simatre.DataUploader
 						else 
 							airpointer.ConnectionType = ConnectionType.Local;
 						break;
+					
+						case "-verbose":
+							airpointer.VerboseMode = true;
+						break;
 					}
 				}
 
 			}
 
 			//Console.WriteLine ("Waiting for ..." + recordum.RootUrl);
-
+			airpointer.Init ();
 			PollutantCollection pollutants;
 
 			try {
 				pollutants = airpointer.Start ();
 			} catch (AirpointerException e) {
 				Console.WriteLine ("MyError {0}", e);
-			return;
+				return;
 			}
 
 			string [] queries = pollutants.GetQueryString ();

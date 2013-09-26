@@ -7,41 +7,28 @@ namespace Simatre.Recordum
 	public class PollutantCollection : List<Pollutant>
 	{
 		public string AirPointerId;
+		public Airpointer Airpointer;
 
-		public PollutantCollection (string airpointer_id)
+		public PollutantCollection (Airpointer airpointer)
 		{
-			AirPointerId = airpointer_id;
+			Airpointer = airpointer;
 		}
 
 		public int MagnitudesCount ()
 		{
 			return this [0].Magnitudes.Count;
 		}
-		/*
-		public Magnitude [] GetMagnitudes (int i, MeasureUnit unit)
-		{
-			Magnitude [] mags = new Magnitude [this.Count];
-
-			for(int x = 0; x < Count; x ++) {
-				mags [x] = this [x].GetMagnitude (i);
-			}
-
-			return mags;
-		}
-		*/
-
 
 		public string [] GetQueryString ()
 		{
 			string [] queries = new string [this [0].Magnitudes.Count];
-
 
 			for (int j = 0; j < this[0].Magnitudes.Count; j ++) {
 				string query = string.Empty;
 
 
 				for (int i = 0; i < this.Count; i ++) {	
-					if (i == 0) query = "DateTime=" + Utils.DateTimeToRecordumString (this [0].Magnitudes [j].Date);
+					if (i == 0) query = "Airpointer=" + Airpointer.Id + "&DateTime=" + Utils.DateTimeToRecordumString (this [0].Magnitudes [j].Date);
 					query += string.Format ("&{0}={1}", 
 					                              this[i].Type, 
 					                              this [i].Magnitudes [j].GetPPMValue ());
@@ -52,9 +39,9 @@ namespace Simatre.Recordum
 			return queries;
 		}
 
-		public static PollutantCollection ParseXML (string airpointerid, XmlDocument doc)
+		public static PollutantCollection ParseXML (Airpointer airpointer, XmlDocument doc)
 		{
-			PollutantCollection pollutants = new PollutantCollection (airpointerid);
+			PollutantCollection pollutants = new PollutantCollection (airpointer);
 
 			//XmlNodeList nodes  = doc.GetElementsByTagName ("ParameterDetails");
 
@@ -76,7 +63,7 @@ namespace Simatre.Recordum
 				foreach (XmlNode subnode in node.ChildNodes) {
 				//	Console.WriteLine ("\tSubnode {0}: {1}", subnode.Name, subnode.InnerText);
 
-					if (subnode.Name == "Id") {
+					if (subnode.Name.ToLower () == "id") {
 						//Console.WriteLine ("Id found");
 						string id_str = subnode.InnerText;
 
@@ -84,16 +71,16 @@ namespace Simatre.Recordum
 							pollutant_id = 0;
 					}
 
-					if (subnode.Name == "Unit") {
+					if (subnode.Name.ToLower () == "unit") {
 						string unit = subnode.InnerText.ToLower ();
-						Console.WriteLine (unit);
+
 						if (unit == "ppb") {
 							measure_unit = MeasureUnit.PPB;
 						}
 					}
 				}
 
-				Pollutant pollutant = new Pollutant (airpointerid, 
+				Pollutant pollutant = new Pollutant (airpointer, 
 				                                     (PollutantType) pollutant_id, 
 				                                     measure_unit);
 
@@ -111,7 +98,7 @@ namespace Simatre.Recordum
 				DateTime datetime;
 
 				if (Utils.DateTimeFromRecordumString	 (string.Format ("{0},{1}", d, t), out datetime)) {
-					Console.WriteLine ("SData ({0}):{1}", datetime, node.InnerText);
+					//Console.WriteLine ("SData ({0}):{1}", datetime, node.InnerText);
 					string [] values = node.InnerText.Split (";".ToCharArray ());
 
 					for (int j= 0; j < values.Length; j ++) {
@@ -126,9 +113,7 @@ namespace Simatre.Recordum
 
 						pollutants [j].Magnitudes.Add (mag);
 					}
-
 				}
-				//Console.WriteLine ("SDATA({0},{1}): {2}", );
 			}
 			
 				

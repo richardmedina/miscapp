@@ -13,7 +13,7 @@ namespace Simatre.Recordum
 		public static PollutantType PollutantTypeFromString (string str)
 		{
 
-			return PollutantType.Unknown;
+			return PollutantType.CO;
 		}
 
 		public static bool DateTimeFromRecordumString (string str, out DateTime datetime)
