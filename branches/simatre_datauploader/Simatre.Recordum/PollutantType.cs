@@ -11,6 +11,7 @@ namespace Simatre.Recordum
 		CO,
 		O3,
 		SO2,
+		Part = 9,
 		AmbientTemp = 31,
 		RoomTemp = 33,
 		BattStatus = 247,

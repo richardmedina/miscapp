@@ -120,6 +120,10 @@ namespace Simatre.Recordum
 					id = 31;
 				break;
 
+				case PollutantType.Part:
+					id = 9;
+				break;
+
 				case PollutantType.RoomTemp:
 					id = 33;
 				break;
