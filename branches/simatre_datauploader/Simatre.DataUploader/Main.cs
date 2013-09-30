@@ -18,7 +18,7 @@ namespace Simatre.DataUploader
 			Console.WriteLine ("Presiona una tecla para continuar...");
 			Console.ReadLine ();
 			*/
-			Airpointer airpointer = new GeronidesAirpointer ();
+			Airpointer airpointer = new SecundariaAirpointer ();
 			airpointer.ConnectionType = ConnectionType.Remote;
 
 			//airpointer.Id = "28c02c8";

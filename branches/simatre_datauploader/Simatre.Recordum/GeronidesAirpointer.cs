@@ -38,6 +38,10 @@ namespace Simatre.Recordum
 					id = 6; // ppb
 				break;
 
+				case PollutantType.Part:
+					id = 9; // µg/m³
+				break;
+
 				case PollutantType.AmbientTemp:
 					id = 31; // A°Celcius
 				break;
