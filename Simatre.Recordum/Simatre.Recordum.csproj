@@ -50,6 +50,8 @@
     <Compile Include="PollutantPair.cs" />
     <Compile Include="PollutantPairCollection.cs" />
     <Compile Include="SecundariaAirpointer.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="UnavailableAirpointerException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

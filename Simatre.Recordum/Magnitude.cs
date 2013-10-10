@@ -54,6 +54,11 @@ namespace Simatre.Recordum
 
 			return v;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Magnitude]");
+		}
 	}
 }
 
