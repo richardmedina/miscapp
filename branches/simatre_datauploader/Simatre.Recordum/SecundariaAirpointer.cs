@@ -7,8 +7,9 @@ namespace Simatre.Recordum
 		public SecundariaAirpointer () : base ("fa47740")
 		{
 			//Pollutants = "1,2,3,4,5,6,31,247,33,11745,11751,11763,11769,11775,11757,11811,11739,11733";
+			Name = "Secundaria";
 		}
-		/*
+
 		public override PollutantType GetPollutantFromId (int id)
 		{
 			PollutantType type = PollutantType.AirPressure;
@@ -18,39 +19,39 @@ namespace Simatre.Recordum
 					type = PollutantType.NO; 
 				break;
 
-			case 2:
-				type = PollutantType.NO2;
-				break;
+				case 2:
+					type = PollutantType.NO2;
+					break;
 
-			case 3:
-				type = PollutantType.NOX;
-				break;
+				case 3:
+					type = PollutantType.NOX;
+					break;
 
-			case 4:
-				type = PollutantType.CO;
-				break;
+				case 4:
+					type = PollutantType.CO;
+					break;
 
-			case 5:
-				type = PollutantType.O3;
-				break;
+				case 5:
+					type = PollutantType.O3;
+					break;
 
-			case 6:
-				type = PollutantType.SO2;
-				break;
+				case 6:
+					type = PollutantType.SO2;
+					break;
 
-			case 31:
-				type = PollutantType.AmbientTemp;
-				break;
+				case 31:
+					type = PollutantType.AmbientTemp;
+					break;
 
-			case 33:
-				type = PollutantType.RoomTemp;
-				break;
+				case 33:
+					type = PollutantType.RoomTemp;
+					break;
 
-			case 11745:
-					 type = PollutantType.AirPressure;
-				break;
+				case 11745:
+						 type = PollutantType.AirPressure;
+					break;
 
-			case 11751:
+				case 11751:
 				type = PollutantType.AirTemp;
 				break;
 
@@ -85,7 +86,7 @@ namespace Simatre.Recordum
 			}
 			return type;
 		}
-	*/
+	
 		public override int GetPollutantId (PollutantType pollutanttype)
 		{
 			//return base.GetPollutantId (pollutanttype);

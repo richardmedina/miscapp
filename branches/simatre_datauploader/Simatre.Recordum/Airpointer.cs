@@ -7,7 +7,7 @@ namespace Simatre.Recordum
 {
 	public class Airpointer
 	{
-
+		public string Name = "";
 		public string Username;
 		public string Password;
 
@@ -24,21 +24,33 @@ namespace Simatre.Recordum
 
 		public ConnectionType ConnectionType;
 
-		public string RootUrl = "http://portal.recordum.com/instrument/UI";
+		//public string RootUrl = "http://portal.recordum.com/instrument/UI";
 				//"http://10.0.0.140/start.php";
 
-		private readonly string url_local = "http://10.0.0.140/start.php";
-		private readonly string url_remote = "http://portal.recordum.com/instrument/UI";
+		private string Hostname = "10.0.0.140";
+		private string url_local = "http://{0}/start.php";
+		private string url_remote = "http://portal.recordum.com/instrument/UI";
 
 		public readonly string [] PollutantName = {"NO", "NO2", "NOX", "CO", "O3", "SO2"};
 
 		public bool VerboseMode = false;
 
-		public Airpointer (string airpointerid)
+		public Airpointer (string airpointerid) : this (airpointerid, "10.0.0.140")
+		{
+		}
+
+		public Airpointer (string airpointerid, string hostname)
 		{
 			Id = airpointerid;
 			ConnectionType = ConnectionType.Local;
 			PollutantPairs = new PollutantPairCollection ();
+		}
+
+		public string  GetName ()
+		{
+			if (Name == string.Empty)
+				return Id;
+			return string.Format ("{0}({1})", Name, Id);
 		}
 
 		public void Init ()
@@ -67,8 +79,12 @@ namespace Simatre.Recordum
 			string url = GetUrlRequest ();
 			string data = string.Empty;
 
+			if (VerboseMode)
+				Console.WriteLine ("URL: {0}", url);
 
 			WebRequest request = WebRequest.Create (url);
+
+			//if (VerboseMode) Console.WriteLine ("Url: " + url);
 
 			try {
 				var response = request.GetResponse ();
@@ -77,7 +93,7 @@ namespace Simatre.Recordum
 				}
 
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Airpointer {0} does not respond", Id));
+				throw new UnavailableAirpointerException (this);
 			}
 	
 			XmlDocument doc = new XmlDocument ();
@@ -85,7 +101,7 @@ namespace Simatre.Recordum
 			try {
 				doc.LoadXml (data);
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Airpointer {0} xml file is corrupt", Id));
+				throw new AirpointerException (string.Format ("Airpointer {0} xml file is corrupt", this));
 			}
 
 			
@@ -93,7 +109,7 @@ namespace Simatre.Recordum
 			try {
 				pollutants = PollutantCollection.ParseXML (this, doc);
 			} catch (Exception) {
-				throw new AirpointerException (string.Format ("Parsing error {0} in xml data file", Id));
+				throw new AirpointerException (string.Format ("{0}:Parsing error in xml data file", this));
 			}
 
 			return pollutants;
@@ -105,7 +121,7 @@ namespace Simatre.Recordum
 		}
 		public virtual PollutantType GetPollutantFromId (int id)
 		{
-			return PollutantType.CO;
+			throw new NotImplementedException ();
 		}
 
 		public void Info ()
@@ -118,9 +134,10 @@ namespace Simatre.Recordum
 			string querystr = GetQueryString ();
 
 			if (ConnectionType == ConnectionType.Local) {
-				return string.Format ("{0}?{1}", url_local, querystr);
+				string url = string.Format (url_local, Hostname);
+				return string.Format ("{0}?{1}", url, querystr);
 			}
-
+			//string urlr = string.Format (url_remote, Hostname);
 			return string.Format ("{0}/{1}/http_if/download.php?{2}", url_remote, Id, querystr);
 		}
 
@@ -139,7 +156,7 @@ namespace Simatre.Recordum
 
 			}
 
-			Console.WriteLine ("ready to get -{0}-", pols);
+			//Console.WriteLine ("ready to get -{0}-", pols);
 
 			return string.Format ("loginstring={0}&user_pw={1}&tstart={2}&tend={3}&{4}={5}&dec=POINT&null=NULL&nohtml&dec=point&del=semi", 
 			                            Username, 
@@ -148,6 +165,11 @@ namespace Simatre.Recordum
 			                            DateEnd.ToString ("yyyy-MM-dd,HH:mm:ss"),
 			                            Interval,
 			                            pols);
+		}
+
+		public override string ToString ()
+		{
+			return GetName ();
 		}
 
 	}

@@ -1,9 +1,11 @@
 using System;
 using System.IO;
 using System.Globalization;
+using System.Net;
+
 namespace Simatre.Recordum
 {
-	public class Utils
+	public static class Utils
 	{
 		public static string RecordumPenddingFilename = "recordum.pendding.txt";
 
@@ -12,7 +14,6 @@ namespace Simatre.Recordum
 
 		public static PollutantType PollutantTypeFromString (string str)
 		{
-
 			return PollutantType.CO;
 		}
 
@@ -33,6 +34,26 @@ namespace Simatre.Recordum
 			return false;
 		}
 
+		public static bool GetResponse (string url, out string response)
+		{
+			response = string.Empty;
+			string data = string.Empty;
+
+			try {
+				WebRequest req = WebRequest.Create (url);
+				WebResponse res = req.GetResponse ();
+
+				using (StreamReader reader = new StreamReader (res.GetResponseStream ()))
+				data = reader.ReadToEnd ();
+				response = data;
+			} catch (Exception e) {
+				response = e.Message;
+				return false;
+			}
+
+			return true;
+		}
+
 		public static string DateTimeToRecordumString (DateTime datetime)
 		{
 			return datetime.ToString (RecordumDateFormat);
@@ -44,11 +65,11 @@ namespace Simatre.Recordum
 			return RecordumPenddingFilename;
 		}
 
-		public static void SaveToPendding (AirpointerDataRow row)
-		{
+		public static void SaveToPendding (string [] row)
+		{/*
 			using (StreamWriter sw = new StreamWriter (GetFilename ())) {
-
-			}
+				sw.WriteLine (row);
+			}*/
 		}
 
 

@@ -21,14 +21,19 @@ namespace Simatre.Recordum
 
 		public string [] GetQueryString ()
 		{
-			string [] queries = new string [this [0].Magnitudes.Count];
+			int nvals = this.Count > 0 ? MagnitudesCount () : 0;
 
+			string [] queries = new string [nvals];
+
+			if (nvals > 0)
 			for (int j = 0; j < this[0].Magnitudes.Count; j ++) {
 				string query = string.Empty;
 
 
 				for (int i = 0; i < this.Count; i ++) {	
-					if (i == 0) query = "Airpointer=" + Airpointer.Id + "&DateTime=" + Utils.DateTimeToRecordumString (this [0].Magnitudes [j].Date);
+					if (i == 0) query = string.Format ("AirpointerSid={0}&DateTime={2}", Airpointer.Id, Airpointer.Name, 
+					                                   Utils.DateTimeToRecordumString (this [0].Magnitudes [j].Date));
+					//if (i == 0) query = "AirpointerId=" + Airpointer.Id + "&DateTime=" + Utils.DateTimeToRecordumString (this [0].Magnitudes [j].Date);
 					query += string.Format ("&{0}={1}", 
 					                              this[i].Type, 
 					                              this [i].Magnitudes [j].GetPPMValue ());
@@ -37,6 +42,15 @@ namespace Simatre.Recordum
 			}
 
 			return queries;
+		}
+
+		public string SendTo (string root_url)
+		{
+			foreach (string query in GetQueryString ()) {
+
+			}
+
+			return string.Empty;
 		}
 
 		public static PollutantCollection ParseXML (Airpointer airpointer, XmlDocument doc)
@@ -50,8 +64,6 @@ namespace Simatre.Recordum
 			foreach (XmlNode node in doc.GetElementsByTagName ("ParameterDetails")) {
 
 				//Console.WriteLine ("Posicion : {0}", node.Attributes ["Position"].Value);
-
-
 				//Pollutant p = new Pollutant (AirPointerId, 
 
 				int pollutant_id = 0;
@@ -81,7 +93,7 @@ namespace Simatre.Recordum
 				}
 
 				Pollutant pollutant = new Pollutant (airpointer, 
-				                                     (PollutantType) pollutant_id, 
+				                                     airpointer.GetPollutantFromId (pollutant_id), 
 				                                     measure_unit);
 
 				pollutants.Add (pollutant);
@@ -98,11 +110,9 @@ namespace Simatre.Recordum
 				DateTime datetime;
 
 				if (Utils.DateTimeFromRecordumString	 (string.Format ("{0},{1}", d, t), out datetime)) {
-					//Console.WriteLine ("SData ({0}):{1}", datetime, node.InnerText);
 					string [] values = node.InnerText.Split (";".ToCharArray ());
 
 					for (int j= 0; j < values.Length; j ++) {
-						//Console.WriteLine ("\tVal: {0}", values [j]);
 						float f;
 
 						if (!float.TryParse (values [j], out f) || f < 0f) {
