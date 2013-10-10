@@ -6,6 +6,92 @@ namespace Simatre.Recordum
 	{
 		public GeronidesAirpointer () : base ("28c02c8")
 		{
+			Name = "Geronides";
+		}
+
+		public override PollutantType GetPollutantFromId (int id)
+		{
+			//return base.GetPollutantId (pollutanttype);
+			PollutantType type = PollutantType.Unknown;
+
+			switch (id) {
+				case 1:
+					type =  PollutantType.NO; // ppb
+				break;
+
+				case 2:
+					type = PollutantType.NO2; // ppb
+				break;
+
+				case 3:
+					type = PollutantType.NOX; // ppb
+				break;
+
+				case 4:
+					type = PollutantType.CO; // ppm
+				break;
+
+				case 5:
+					type = PollutantType.O3; // ppb
+				break;
+
+				case 6:
+					type = PollutantType.SO2; // ppb
+				break;
+
+				case 9:
+					type = PollutantType.Part; // µg/m³
+				break;
+
+				case 31:
+					type = PollutantType.AmbientTemp; // A°Celcius
+				break;
+
+				case 33:
+					type = PollutantType.RoomTemp; // Celcius
+				break;
+
+				case 247:
+					type = PollutantType.BattStatus; // digit
+				break;
+
+				case 11835:
+					type = PollutantType.AirPressure; // hPa
+				break;
+
+				case 11841:
+					type = PollutantType.AirTemp; // Celcius
+				break;
+				case 11847:
+					type = PollutantType.RelativeHumidity; // hits/cm2h
+				break;
+
+				case 11853:
+					type = PollutantType.RainAccumulated; // mm
+				break;
+
+				case 11859:
+					type = PollutantType.RainDuration; // sec 
+				break;
+
+				case 11865:
+					type = PollutantType.RainIntensity; // hits/cm2h
+				break;
+
+				case 11901:
+					type = PollutantType.SupplyVoltage; // V
+				break;
+
+				case 11823:
+					type = PollutantType.WindSpeed; // m/s
+				break;
+
+				case 11829:
+					type = PollutantType.WindDirection; // °
+				break;
+		
+			}
+			return type;
 		}
 
 		public override int GetPollutantId (PollutantType pollutanttype)
@@ -86,7 +172,7 @@ namespace Simatre.Recordum
 				break;
 
 				case PollutantType.WindDirection:
-					id = 11739; // °
+					id = 11829; // °
 				break;
 		
 			}
