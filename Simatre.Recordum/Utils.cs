@@ -65,11 +65,15 @@ namespace Simatre.Recordum
 			return RecordumPenddingFilename;
 		}
 
-		public static void SaveToPendding (string [] row)
-		{/*
-			using (StreamWriter sw = new StreamWriter (GetFilename ())) {
-				sw.WriteLine (row);
-			}*/
+		public static void SaveToPendding (string [] rows)
+		{
+			Console.WriteLine ("Saving to local file {0} penddings", rows.Length);
+			
+
+			using (StreamWriter sw = new StreamWriter (GetFilename (), true)) {
+				foreach (string row in rows)
+					sw.WriteLine (row);
+			}
 		}
 
 
