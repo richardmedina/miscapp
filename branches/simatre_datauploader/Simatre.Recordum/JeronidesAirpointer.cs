@@ -4,7 +4,7 @@ namespace Simatre.Recordum
 {
 	public class GeronidesAirpointer : Airpointer
 	{
-		public GeronidesAirpointer () : base ("28c02c8")
+		public GeronidesAirpointer () : base ("28c02c8", "192.168.10.45")
 		{
 			Name = "Geronides";
 		}

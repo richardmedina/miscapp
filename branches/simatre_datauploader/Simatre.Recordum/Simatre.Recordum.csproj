@@ -46,12 +46,12 @@
     <Compile Include="Magnitude.cs" />
     <Compile Include="RecordumException.cs" />
     <Compile Include="AirpointerException.cs" />
-    <Compile Include="GeronidesAirpointer.cs" />
     <Compile Include="PollutantPair.cs" />
     <Compile Include="PollutantPairCollection.cs" />
     <Compile Include="SecundariaAirpointer.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="UnavailableAirpointerException.cs" />
+    <Compile Include="JeronidesAirpointer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

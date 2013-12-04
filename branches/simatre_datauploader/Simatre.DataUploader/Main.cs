@@ -26,7 +26,7 @@ namespace Simatre.DataUploader
 		{
 
 			if (args.Length == 0) {
-				Console.WriteLine ("*.exe -target secundaria|geronides -hostname localhostnameorip.com -username user -password pass -local-only -verbose");
+				Console.WriteLine ("*.exe -target secundaria|jeronides -hostname localhostnameorip.com -username user -password pass -local-only -verbose");
 				return;
 			}
 
@@ -77,8 +77,8 @@ namespace Simatre.DataUploader
 			
 			Airpointer airpointer = null;
 
-			if (target == "geronides")
-				airpointer = new GeronidesAirpointer ();
+			if (target == "jeronides")
+				airpointer = new JeronidesAirpointer ();
 			else if (target == "secundaria")
 				airpointer = new SecundariaAirpointer ();
 			
@@ -159,6 +159,11 @@ namespace Simatre.DataUploader
 					if (Utils.GetResponse (send_request, out response)) {
 						if (pollutants.Airpointer.VerboseMode)
 							Console.WriteLine (response);
+					} else {
+						pendding.Add (send_request);
+						if (pollutants.Airpointer.VerboseMode) {
+							Console.WriteLine ("Error enviando datos..");
+						}
 					}
 				}
 				Console.WriteLine ("Hecho");
@@ -167,6 +172,9 @@ namespace Simatre.DataUploader
 				Console.WriteLine ("ERROR. Realizando copia local para envio temporizado");
 				Utils.SaveToPendding (pendding.ToArray ());
 			}
+
+			if (pendding.Count > 0)
+				Utils.SaveToPendding (pendding.ToArray ());
 		}
 
 		public static void main (string[] args)
