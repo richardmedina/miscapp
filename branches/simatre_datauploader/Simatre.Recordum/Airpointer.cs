@@ -28,7 +28,7 @@ namespace Simatre.Recordum
 				//"http://10.0.0.140/start.php";
 
 		private string Hostname = "10.0.0.140";
-		private string url_local = "http://{0}/start.php";
+		private string url_local = "http://{0}/http_if/download.php";
 		private string url_remote = "http://portal.recordum.com/instrument/UI";
 
 		public readonly string [] PollutantName = {"NO", "NO2", "NOX", "CO", "O3", "SO2"};
@@ -44,6 +44,7 @@ namespace Simatre.Recordum
 			Id = airpointerid;
 			ConnectionType = ConnectionType.Local;
 			PollutantPairs = new PollutantPairCollection ();
+			Hostname = hostname;
 		}
 
 		public string  GetName ()
