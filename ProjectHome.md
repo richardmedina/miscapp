@@ -1,0 +1,1 @@
+Artemisa Video Editor is an open source video editing software which allows you to create videos in several formats.
